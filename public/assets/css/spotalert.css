@@ -1,0 +1,20 @@
+.footer-up {
+    height: 32px;
+}
+
+.footer-inova {
+    height: 32px;
+}
+
+.nav>li {
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+footer {
+    margin-top: 50px;
+}
+
+#main {
+    margin-top: 50px;
+}
