@@ -11,7 +11,12 @@
 |
 */
 
-Route::get('/', function()
+/*Route::get('/', function()
 {
 	return View::make('hello');
+});*/
+
+Route::get('/', function()
+{
+	return View::make('pages.home');
 });
