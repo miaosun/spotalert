@@ -3,8 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAlertsGuidelinesTable extends Migration {
-
+class CreateAlertsGuidelinesTable extends Migration 
+{
 	/**
 	 * Run the migrations.
 	 *

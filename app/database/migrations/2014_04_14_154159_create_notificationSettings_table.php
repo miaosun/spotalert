@@ -3,8 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateNotificationSettingsTable extends Migration {
-
+class CreateNotificationSettingsTable extends Migration 
+{
 	/**
 	 * Run the migrations.
 	 *
