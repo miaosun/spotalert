@@ -1,7 +1,7 @@
 @extends('layouts.default')
 
 @section('content')
-	<p> Teste de Git pull automático por parte do servidor v1.3</p>
+	<p> Teste de Git pull automático por parte do servidor v1.4</p>
 	@if(Auth::check())
 		<p>Hello, {{ Auth::user()->username }}.</p>
 	@else
