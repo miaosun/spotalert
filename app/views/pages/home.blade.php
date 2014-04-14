@@ -1,4 +1,10 @@
 @extends('layouts.default')
+
 @section('content')
-	i am the home page
+	@if(Auth::check())
+		<p>Hello, {{ Auth::user()->username }}.</p>
+	@else
+		<p>You are not signed in.</p>
+	@endif
+	
 @stop
