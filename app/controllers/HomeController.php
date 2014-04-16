@@ -17,7 +17,21 @@ class HomeController extends BaseController {
 
 	public function showWelcome()
 	{
-		return View::make('pages.home');
+		/*Publication::create(array(
+			'initial_date'         => date('Y-m-d H:i:s'),
+			'final_date'         => date('Y-m-d H:i:s'),
+			'is_public'				 => true,
+			'periodic_notification' => 1,
+			'risk' => 3,
+			'type' => 'alert'
+		));*/
+$contents = Publication::find(4)->contents();
+var_dump($contents);
+	
+	foreach ($contents as $content)
+		echo $content->title . ' ' . $content->content;
+
+		//return View::make('pages.home');
 	}
 
 }

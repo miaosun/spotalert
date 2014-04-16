@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
 			$table->string('address')->nullable();
 			$table->string('postalCode')->nullable();
 			$table->string('city')->nullable();
+			$table->boolean('activated')->default(false);
 			$table->enum('type', array('normal', 'admin', 'manager', 'publisher'));
 			$table->integer('age_id')->unsigned();
 			$table->integer('residence_country_id')->unsigned();
