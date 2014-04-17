@@ -18,9 +18,11 @@ class CreatePublicationsEventTypesTable extends Migration
 			$table->integer('eventType_id')->unsigned();
 			
 			$table->foreign('publication_id')
-				  ->references('id')->on('publications');
+				  ->references('id')->on('publications')
+				  ->onDelete('cascade');
 			$table->foreign('eventType_id')
-				  ->references('id')->on('eventTypes');
+				  ->references('id')->on('eventTypes')
+				  ->onDelete('cascade');
 		});
 	}
 

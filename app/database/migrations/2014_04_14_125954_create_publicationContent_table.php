@@ -21,9 +21,11 @@ class CreatePublicationContentTable extends Migration
 			$table->integer('publication_id')->unsigned();
 
 			$table->foreign('language_id')
-				  ->references('id')->on('languages');
+				  ->references('id')->on('languages')
+				  ->onDelete('restrict');
 			$table->foreign('publication_id')
-				  ->references('id')->on('publications');
+				  ->references('id')->on('publications')
+				  ->onDelete('cascade');
 		});
 	}
 

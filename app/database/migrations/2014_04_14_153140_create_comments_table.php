@@ -22,9 +22,11 @@ class CreateCommentsTable extends Migration
 			$table->integer('publication_id')->unsigned();
 
 			$table->foreign('user_id')
-				  ->references('id')->on('users');
+				  ->references('id')->on('users')
+				  ->onDelete('cascade');
 			$table->foreign('publication_id')
-				  ->references('id')->on('publications');
+				  ->references('id')->on('publications')
+				  ->onDelete('cascade');
 		});
 	}
 

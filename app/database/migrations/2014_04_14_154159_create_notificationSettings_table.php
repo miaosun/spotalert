@@ -19,9 +19,11 @@ class CreateNotificationSettingsTable extends Migration
 			$table->integer('country_id')->unsigned();
 			
 			$table->foreign('user_id')
-				  ->references('id')->on('users');
+				  ->references('id')->on('users')
+				  ->onDelete('cascade');
 			$table->foreign('country_id')
-				  ->references('id')->on('countries');
+				  ->references('id')->on('countries')
+				  ->onDelete('cascade');
 		});
 	}
 

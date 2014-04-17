@@ -35,13 +35,17 @@ class CreateUsersTable extends Migration
 			$table->integer('supervisor_id')->unsigned()->nullable();
 			
 			$table->foreign('age_id')
-				  ->references('id')->on('ages');
+				  ->references('id')->on('ages')
+				  ->onDelete('restrict');
 			$table->foreign('residence_country_id')
-				  ->references('id')->on('countries');
+				  ->references('id')->on('countries')
+				  ->onDelete('restrict');
 			$table->foreign('nacionality_country_id')
-				  ->references('id')->on('countries');
+				  ->references('id')->on('countries')
+				  ->onDelete('restrict');
 			$table->foreign('supervisor_id')
-				  ->references('id')->on('users');
+				  ->references('id')->on('users')
+				  ->onDelete('set null');
 		});
 	}
 

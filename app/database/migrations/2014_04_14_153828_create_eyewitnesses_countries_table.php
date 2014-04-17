@@ -18,9 +18,11 @@ class CreateEyewitnessesCountriesTable extends Migration
 			$table->integer('country_id')->unsigned();
 			
 			$table->foreign('eyewitness_id')
-				  ->references('id')->on('eyewitnesses');
+				  ->references('id')->on('eyewitnesses')
+				  ->onDelete('cascade');
 			$table->foreign('country_id')
-				  ->references('id')->on('countries');
+				  ->references('id')->on('countries')
+				  ->onDelete('cascade');
 		});
 	}
 

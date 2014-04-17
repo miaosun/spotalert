@@ -18,7 +18,7 @@ class CreatePublicationsTable extends Migration
 			$table->date('initial_date');
 			$table->date('final_date');
 			$table->boolean('is_public');
-			$table->integer('periodic_notification');
+			$table->integer('periodic_notification')->default(0);
 			$table->integer('risk');
 			$table->enum('type', array('alert', 'guideline'));
 		});

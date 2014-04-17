@@ -18,9 +18,11 @@ class CreateAlertsGuidelinesTable extends Migration
 			$table->integer('guideline_id')->unsigned();
 			
 			$table->foreign('alert_id')
-				  ->references('id')->on('publications');
+				  ->references('id')->on('publications')
+				  ->onDelete('cascade');
 			$table->foreign('guideline_id')
-				  ->references('id')->on('publications');
+				  ->references('id')->on('publications')
+				  ->onDelete('cascade');
 		});
 	}
 

@@ -18,9 +18,11 @@ class CreatePublicationsCountriesTable extends Migration
 			$table->integer('country_id')->unsigned();
 			
 			$table->foreign('publication_id')
-				  ->references('id')->on('publications');
+				  ->references('id')->on('publications')
+				  ->onDelete('cascade');
 			$table->foreign('country_id')
-				  ->references('id')->on('countries');
+				  ->references('id')->on('countries')
+				  ->onDelete('cascade');
 		});
 	}
 
