@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
 		$this->call('PublicationsSeeder');
 		$this->command->info('Publications seeds finished.');
 
-		//TODO: More seeds as it is necessary
+		//TODO: More seeds as it is necessary here
 	}
 }
 
