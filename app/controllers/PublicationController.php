@@ -2,7 +2,7 @@
 
 class PublicationController extends BaseController
 {
-	public function getPublications()
+	public static function getPublications()
 	{
 		return Publication::all();
 	}

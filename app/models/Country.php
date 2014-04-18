@@ -27,7 +27,7 @@ class Country extends Eloquent
 		return $this->hasMany('User', 'residence_country_id');
 	}
 
-	public function usersResidence()
+	public function usersNacionality()
 	{
 		return $this->hasMany('User', 'nacionality_country_id');
 	}
