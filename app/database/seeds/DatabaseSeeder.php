@@ -38,6 +38,34 @@ class PublicationsSeeder extends Seeder
 		));
 
 		// ######################################################################
+		// Countries
+		$portugal = Country::create(array(
+			'name'	=> 'Portugal',
+			'code'	=>	'PT'
+		));
+
+		$spain = Country::create(array(
+			'name'	=> 'Spain',
+			'code'	=>	'ES'
+		));
+
+		$uk = Country::create(array(
+			'name'	=> 'United Kingdom',
+			'code'	=>	'UK'
+		));
+
+		// ######################################################################
+		// Event Types
+
+		$typeClimatic = EventType::create(array(
+			'name' => 'Climatic'
+		));
+
+		$typeSocial = EventType::create(array(
+			'name' => 'Social'
+		));
+
+		// ######################################################################
 		// First publication
 		$publication1 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
@@ -84,9 +112,6 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langPT->id
 		));
 
-		// Linking publications
-		$publication1->guidelines()->attach($publication2->id);
-
 		// Third publication
 		$publication3 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
@@ -102,6 +127,21 @@ class PublicationsSeeder extends Seeder
 			'publication_id'=> $publication3->id,
 			'language_id'	=> $langEN->id
 		));
+
+		// Linking publications
+		$publication1->guidelines()->attach($publication2->id);
+		$publication1->eventTypes()->attach($typeClimatic->id);
+		$publication1->affectedCountries()->attach($portugal->id);
+		
+		$publication2->eventTypes()->attach($typeSocial->id);
+		$publication2->affectedCountries()->attach($spain->id);
+		$publication2->affectedCountries()->attach($uk->id);
+		
+		$publication3->eventTypes()->attach($typeClimatic->id);
+		$publication3->eventTypes()->attach($typeSocial->id);
+		$publication3->affectedCountries()->attach($portugal->id);
+		$publication3->affectedCountries()->attach($spain->id);
+		$publication3->affectedCountries()->attach($uk->id);
 	}
 
 	public function clearDatabase()
