@@ -1,0 +1,15 @@
+.separator {
+    width: 100%;
+    border-bottom: 1px solid #dfdfdf;
+    text-align: center;
+    height: 18px;
+    margin-bottom: 20px;
+}
+.separator span {
+    line-height: 15px;
+    padding: 0 10px;
+    background: white; /* Color of the element below */
+    display: inline-block;
+    margin-top: 10px;
+    color: #60636a;
+}

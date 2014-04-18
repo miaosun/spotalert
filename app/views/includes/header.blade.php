@@ -5,13 +5,20 @@
 			<li><a href="/eyewitness">Eye Witness</a></li>
 			<li><a href="/taqueto">Filter</a></li>
 			<li><a href="/poetemanso">Contacts</a></li>
-            @if(Auth::check())
-				<li><a href="{{ URL::route('account-sign-out') }}">Sign out</a></li>
-				<li><a href="{{ URL::route('account-change-password') }}">Change password</a></li>
+			@if(Auth::check())
+			<li><a href="{{ URL::route('account-sign-out') }}">Sign out</a></li>
+			<li><a href="{{ URL::route('account-change-password') }}">Change password</a></li>
 			@else
-				<li><a href="{{ URL::route('account-sign-in') }}">Sign in</a></li>
+			<script type="text/javascript" language="javascript" src="public/assets/login_popup.js"></script>
+
+
+			<li class="popup"><a href="{{ URL::route('account-sign-in') }}">Sign in</a></li>
+
+				<!--  
+				<li><a href="{{ URL::route('account-sign-in') }}">Sign in</a></li>			
 				<li><a href="{{ URL:: route('account-create') }}">Sign up</a></li>
-		@endif
+				//  -->
+			@endif
 		</ul>
 	</div>
 </div>
