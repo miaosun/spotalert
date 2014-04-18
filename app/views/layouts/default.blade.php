@@ -4,13 +4,13 @@
     <head>@include('includes.head')</head>
     
     <body>
-        <div class="container">
+        <div class="">
         	@if(Session::has('global'))
 				<p>{{ Session::get('global') }}</p>
 			@endif
-            <header class="row">@include('includes.header')</header>
-            <div id="main" class="row">@yield('content')</div>
-            <footer class="row">@include('includes.footer')</footer>
+            <header class="">@include('includes.header')</header>
+            <div id="main" class="">@yield('content')</div>
+            <footer class="">@include('includes.footer')</footer>
         </div>
     </body>
 
