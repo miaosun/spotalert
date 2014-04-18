@@ -17,6 +17,9 @@ class HomeController extends BaseController {
 
 	public function showWelcome()
 	{
+		$request = Request::create('/publications', 'GET', array());
+		$publications = Route::dispatch($request);
+		
 		return View::make('pages.home');
 	}
 
