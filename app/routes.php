@@ -11,14 +11,28 @@
 |
 */
 
-Route::get('/', array(
+Route::get('/a/', array(
 	'as' => 'home',
 	'uses' => 'HomeController@showWelcome'
 ));
 
 Route::get('/user/{username}', array(
-	'as' => 'profile-user',
-	'uses' => 'ProfileController@user'
+ 	'as' => 'profile-user',
+ 	'uses' => 'ProfileController@user'
+));
+
+/* Control Panel */
+
+//FIXME route for testing controlpanel without login
+Route::get('/user', array(
+	'as' => 'control-panel',
+	'uses' => 'UserPanelController@show'
+));
+
+// update profile form route
+Route::post('/user/updateprofile', array(
+	'as' => 'update-profile',
+	'uses' => 'UserPanelController@updateprofile'
 ));
 
 // authenticated group
