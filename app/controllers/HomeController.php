@@ -1,7 +1,7 @@
 <?php
 
-class HomeController extends BaseController {
-
+class HomeController extends BaseController 
+{
 	/*
 	|--------------------------------------------------------------------------
 	| Default Home Controller
@@ -24,5 +24,4 @@ class HomeController extends BaseController {
 		
 		return View::make('pages.home')->with('publications', $publications);
 	}
-
 }
