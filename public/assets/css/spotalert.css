@@ -13,8 +13,11 @@ footer {
     box-shadow:0 8px 8px -5px #d1d1d1;
     height:60px;
     padding-top:7px;
+    padding-bottom:30px;
   	color:gray;
   	font-size:18px;
+  	bottom:0px;
+  	position:fixed;
 }
 .footer-up {
     
@@ -131,13 +134,10 @@ footer {
                         inset  0 8px 8px -5px #d1d1d1;
      box-shadow:        inset  0 -8px 8px -5px #d1d1d1, 
                         inset  0 8px 8px -5px #d1d1d1;
-    padding-bottom:10px;
+    padding-bottom:400px;
     margin-top:-23px;
-    background-color:#f2f2f2; 
-}
+    background-color:#f2f2f2;
 
-#search{
-	
 }
 
 #search-input{
