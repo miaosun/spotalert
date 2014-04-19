@@ -16,6 +16,11 @@ Route::get('/', array(
 	'uses' => 'HomeController@showWelcome'
 ));
 
+Route::get('/publications', array(
+	'as'	=> 'publications',
+	'uses'	=> 'PublicationController@getPublications'
+));
+
 Route::get('/user/{username}', array(
 	'as' => 'profile-user',
 	'uses' => 'ProfileController@user'
