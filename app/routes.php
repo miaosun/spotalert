@@ -11,4 +11,87 @@
 |
 */
 
-Route::get('/', 'HomeController@showWelcome');
+Route::get('/', array(
+	'as' => 'home',
+	'uses' => 'HomeController@showWelcome'
+));
+
+Route::get('/publications', array(
+	'as'	=> 'publications',
+	'uses'	=> 'PublicationController@getPublications'
+));
+
+Route::get('/user/{username}', array(
+	'as' => 'profile-user',
+	'uses' => 'ProfileController@user'
+));
+
+// authenticated group
+Route::group(array('before' => 'auth'), function() {
+
+	// CSRF protection group
+	Route::group(array('before' => 'csrf'), function() {
+
+		// change password (POST)
+		Route::post('/account/change-password', array(
+			'as' => 'account-change-password-post',
+			'uses' => 'AccountController@postChangePassword'
+		));
+	});
+
+	// change password (GET)
+	Route::get('/account/change-password', array(
+		'as' => 'account-change-password',
+		'uses' => 'AccountController@getChangePassword'
+	));
+
+	// sign out (GET)
+	Route::get('/account/sign-out', array(
+		'as' => 'account-sign-out',
+		'uses' => 'AccountController@getSignOut'
+	));
+
+});
+
+// unauthenticated group
+Route::group(array('before' => 'guest'), function() {
+	
+	// CSRF protection group
+	Route::group(array('before' => 'csrf'), function() {
+
+		// create account (POST)
+		Route::post('/account/create', array(
+			'as' => 'account-create-post',
+			'uses' => 'AccountController@postCreate'
+
+		));
+
+		// Sign in (POST)
+		Route::post('/account/sign-in', array(
+			'as' => 'account-sign-in-post',
+			'uses' => 'AccountController@postSignIn'
+	));
+
+	});
+
+	// sign in (GET)
+	Route::get('/account/sign-in', array(
+		'as' => 'account-sign-in',
+		'uses' => 'AccountController@getSignIn'
+	));
+
+
+
+	// create account (GET)
+	Route::get('/account/create', array(
+		'as' => 'account-create',
+		'uses' => 'AccountController@getCreate'
+
+	));
+
+	Route::get('/account/activate/{code}', array(
+		'as' => 'account-activate',
+		'uses' => 'AccountController@getActivate'
+	));
+
+});
