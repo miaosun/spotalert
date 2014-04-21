@@ -6,7 +6,7 @@ class AccountController extends BaseController {
 	}
 
 	public function postSignIn() {
-		$validator = Validator::make(Input::all(), 
+		$validator = Validator::make(Input::all(),
 			array(
 				'email' => 'required|email',
 				'password' => 'required',
@@ -37,7 +37,7 @@ class AccountController extends BaseController {
 			else {
 				return Redirect::route('account-sign-in')
 						->with('global', 'Email/Password wrong, or account not activated.');
-			}			
+			}
 		}
 
 		return Redirect::route('account-sign-in')
@@ -55,7 +55,7 @@ class AccountController extends BaseController {
 	}
 
 	public function postCreate() {
-		$validator = Validator::make(Input::all(), 
+		$validator = Validator::make(Input::all(),
 			array(
 				'email'          => 'required|max:50|email|unique:users',
 				'username'       => 'required|max:20|min:3|unique:users',
@@ -65,10 +65,10 @@ class AccountController extends BaseController {
 		);
 
 		if($validator->fails()) {
-			return Redirect::route('account-create') 
+			return Redirect::route('account-create')
 					-> withErrors($validator)
 					-> withInput();
-		} 
+		}
 		else {
 			// create account
 			$email = Input::get('email');
@@ -107,7 +107,7 @@ class AccountController extends BaseController {
 
 			//update user to active state
 			$user->active = 1;
-			$user->code = ''; 
+			$user->code = '';
 
 			if($user->save()) {
 				return Redirect::route('home')
@@ -123,7 +123,7 @@ class AccountController extends BaseController {
 	}
 
 	public function postChangePassword() {
-		$validator = Validator::make(Input::all(), 
+		$validator = Validator::make(Input::all(),
 			array(
 				'old_password'   => 'required',
 				'password'       => 'required|min:6',
@@ -159,4 +159,71 @@ class AccountController extends BaseController {
 		return Redirect::route('account-change-password')
 				->with('global', 'Your password could not be changed.');
 	}
+
+    public function getForgotPassword() {
+        return View::make('account.forgot');
+    }
+
+    public function postForgotPassword() {
+        $validator = Validator::make(Input::all(),
+            array(
+                'email' => 'required|email'
+             )
+        );
+
+        if($validator->fails())
+        {
+            return Redirect::route('account-forgot-password')
+                    ->withErrors($validator)
+                    ->withInput();
+        }
+        else
+        {
+            // change password
+            $user = User::where('email', '=', Input::get('email'));
+
+            if($user->count()) {
+                $user = $user->first();
+                //Generate a new code and password
+                $code     = str_random(60);
+                $password = str_random(10);
+
+                $user->code = $code;
+                $user->password_temp = Hash::make($password);
+
+                if($user->save()) {
+                    Mail::send('emails.auth.forgot', array('link' => URL::route('account-recover', $code), 'username' => $user->username, 'password' => $password), function($message) use ($user) {
+                        $message->to($user->email, $user->username)->subject('Your new password');
+                    });
+
+                    return Redirect::route('home')
+                            ->with('global', 'We have sent you a new password by email.');
+                }
+            }
+        }
+            return Redirect::route('account-forgot-password')
+                ->with('global', 'Could not request new password.');
+
+    }
+
+    public function getRecover($code) {
+        $user = User::where('code', '=', $code)
+                ->where('password_temp', '!=', '');
+
+        if($user->count()) {
+            $user = $user->first();
+
+            $user->password = $user->password_temp;
+            $user->password_temp = '';
+            $user->code = '';
+
+            if($user->save()) {
+                return Redirect::route('home')
+                        ->with('global', 'Your account has been recovered and you can now sign in with your new password.');
+            }
+
+        }
+        return Redirect::route('home')
+                ->with('global', 'Could not recover your account.');
+    }
 }

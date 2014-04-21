@@ -1,5 +1,5 @@
 @extends('layouts.default')
 
 @section('content')
-	<p>{{ $user->username }} ({{ $user->email }})</p>
+	<p>{{ e($user->username) }} ({{ e($user->email) }})</p>
 @stop
