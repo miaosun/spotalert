@@ -78,3 +78,18 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+/*
+|--------------------------------------------------------------------------
+| 404 not found page
+|--------------------------------------------------------------------------
+|
+*/
+/*
+--> FIXME: Uncomment and correct it at the end of the project
+App::missing(function($exception)
+{
+    return '404 not found exception (filters.php)';
+    //return Response::view('errors.missing', array('url' => Request::url()), 404);
+});
+*/

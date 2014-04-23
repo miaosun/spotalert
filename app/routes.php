@@ -16,10 +16,27 @@ Route::get('/', array(
 	'uses' => 'HomeController@showWelcome'
 ));
 
-Route::get('/publications', array(
-	'as'	=> 'publications',
-	'uses'	=> 'PublicationController@getPublications'
-));
+Route::group(array('prefix' => 'publications'), function()
+{
+	// All publications
+	Route::get('/', array(
+		'as'	=> 'publications-all',
+		'uses'	=> 'PublicationController@getPublications'
+	));
+
+	// For searching publications
+	Route::get('/search/{search_query}', array(
+		'as'	=> 'publications-route',
+		'uses'	=> 'PublicationController@getSearchedPublications'
+	))
+	->where('search_query', '[A-Za-z0-9]+');
+
+	// For filtering
+	Route::get('/filter/{first}/{optional?}', array(
+		'as'	=> 'publications-filter',
+		'uses'	=> 'PublicationController@getFilteredPublications'
+	));
+});
 
 Route::get('/user/{username}', array(
 	'as' => 'profile-user',

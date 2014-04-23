@@ -7,4 +7,13 @@ class PublicationController extends BaseController
 		return Publication::all();
 	}
 
+	public function getSearchedPublications($search_text)
+	{
+		return $search_text;
+	}
+
+	public function getFilteredPublications($first, $opt = NULL)
+	{
+
+	}
 }
