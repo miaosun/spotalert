@@ -2,7 +2,7 @@
 class AccountController extends BaseController {
 
 	public function getSignIn() {
-		return View::make('account.signin');
+		return View::make('home')->with('load','true');
 	}
 
 	public function postSignIn() {
@@ -14,15 +14,13 @@ class AccountController extends BaseController {
 		);
 
 		if($validator->fails()) {
-			return Redirect::route('account-sign-in')
+			return Redirect::route('home')
 						->withErrors($validator)
 						->withInput();
 		}
 		else {
 			// Attempt user sign in
-
 			$remember = (Input::has('remember')) ? true : false;
-
 
 			$auth = Auth::attempt(array(
 				'email' => Input::get('email'),
@@ -35,12 +33,12 @@ class AccountController extends BaseController {
 				return Redirect::intended('/');
 			}
 			else {
-				return Redirect::route('account-sign-in')
+				return Redirect::route('home')
 						->with('global', 'Email/Password wrong, or account not activated.');
 			}
 		}
 
-		return Redirect::route('account-sign-in')
+		return Redirect::route('home')
 				->with('global', 'There was a problem signing you in.');
 	}
 

@@ -11,6 +11,11 @@
     text-transform: uppercase;
 }
 
+.dropdown-menu {
+    width:280px;
+    text-transform:none;
+}
+
 footer {
     margin-top: 50px;
 }
