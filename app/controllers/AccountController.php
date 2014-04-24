@@ -2,7 +2,7 @@
 class AccountController extends BaseController {
 
 	public function getSignIn() {
-		return View::make('home')->with('load','true');
+		return View::make('home');
 	}
 
 	public function postSignIn() {

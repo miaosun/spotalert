@@ -37,7 +37,7 @@
 
 		<button type="submit" class="btn btn btn-primary pull-right">Sign in</button>
         {{ Form::token() }}
-        <br><br>
+
         <hr width="60%">
 
         <div class="login_fb_gl">

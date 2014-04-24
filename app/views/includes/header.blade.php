@@ -17,6 +17,9 @@
                 </div>
             </li>
 			@endif
+            <li><form id="search" name="search" action="/search" method="get"></form>
+            <input id="search-input" placeholder=" 🔍 SEARCH"name="Search" type="text"></li>
+            <li><a href="/en">EN</a></li><li><a href="/pt">PT</a></li>
 		</ul>	
 	</div>
 </div>
