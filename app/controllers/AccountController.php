@@ -58,7 +58,8 @@ class AccountController extends BaseController {
 				'email'          => 'required|max:50|email|unique:users',
 				'username'       => 'required|max:20|min:3|unique:users',
 				'password'       => 'required|min:6',
-				'password_again' => 'required|same:password'
+				'password_again' => 'required|same:password',
+                'agerange'       => 'required'
 			)
 		);
 
@@ -72,6 +73,7 @@ class AccountController extends BaseController {
 			$email = Input::get('email');
 			$username = Input::get('username');
 			$password = Input::get('password');
+            $agerange = Input::get('agerange');
 
 			// Activation code
 			$code = str_random(60);
@@ -81,7 +83,8 @@ class AccountController extends BaseController {
 				'username' => $username,
 				'password' => Hash::make($password),
 				'code' => $code,
-				'active' => 0
+				'active' => 0,
+                'agerange' => $agerange
 			));
 
 			if($user) {
@@ -165,7 +168,7 @@ class AccountController extends BaseController {
     public function postForgotPassword() {
         $validator = Validator::make(Input::all(),
             array(
-                'email' => 'required|email'
+                'email_recover' => 'required|email'
              )
         );
 
@@ -178,7 +181,7 @@ class AccountController extends BaseController {
         else
         {
             // change password
-            $user = User::where('email', '=', Input::get('email'));
+            $user = User::where('email', '=', Input::get('email_recover'));
 
             if($user->count()) {
                 $user = $user->first();
