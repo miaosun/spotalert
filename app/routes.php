@@ -16,6 +16,17 @@ Route::get('/', array(
 	'uses' => 'HomeController@showWelcome'
 ));
 
+Route::get('aaa', function()
+{
+      return Input::get();
+      if(isset($term)){
+         return 'a';
+      }
+      else
+      	return 'b';
+
+});
+
 Route::group(array('prefix' => 'publications'), function()
 {
 	// All publications
@@ -32,10 +43,30 @@ Route::group(array('prefix' => 'publications'), function()
 	->where('search_query', '[A-Za-z0-9\s]+');
 
 	// For filtering
-	Route::get('/filter/{first}/{optional?}', array(
+	// Possible parameters to receive: risks, event_types, affected_countries
+	// In each one, separate by commas the elements
+	Route::get('/filter/', array(
 		'as'	=> 'publications-filter',
-		'uses'	=> 'PublicationController@getFilteredPublications'
+		function() 
+		{ 
+			$risks				= Input::get('risks');
+			$event_types 		= Input::get('event_types');
+			$affected_countries	= Input::get('affected_countries');
+      		
+      		if(!isset($risks) || $risks === '')
+      			$risks = NULL;
+      		if(!isset($event_types) || $event_types === '')
+      			$event_types = NULL;
+      		if(!isset($affected_countries) || $affected_countries === '')
+      			$affected_countries = NULL;
+
+      		return PublicationController::getFilteredPublications($risks, $event_types, $affected_countries);
+     	},
 	));
+
+	Route::get('/profile/{param1?}/{param2?}', function($param1=null,$param2=null) {
+    return "Params {$param1} {$param2}";
+});
 });
 
 Route::get('/user/{username}', array(
