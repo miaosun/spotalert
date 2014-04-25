@@ -16,10 +16,43 @@ Route::get('/', array(
 	'uses' => 'HomeController@showWelcome'
 ));
 
-Route::get('/publications', array(
-	'as'	=> 'publications',
-	'uses'	=> 'PublicationController@getPublications'
-));
+Route::group(array('prefix' => 'publications'), function()
+{
+	// All publications
+	Route::get('/', array(
+		'as'	=> 'publications-all',
+		'uses'	=> 'PublicationController@getPublications'
+	));
+
+	// For searching publications
+	Route::get('/search/{search_query}', array(
+		'as'	=> 'publications-route',
+		'uses'	=> 'PublicationController@getSearchedPublications'
+	))
+	->where('search_query', '[A-Za-z0-9\s]+');
+
+	// For filtering
+	// Possible parameters to receive: risks, event_types, affected_countries
+	// In each one, separate by commas the elements
+	Route::get('/filter/', array(
+		'as'	=> 'publications-filter',
+		function() 
+		{ 
+			$risks				= Input::get('risks');
+			$event_types 		= Input::get('event_types');
+			$affected_countries	= Input::get('affected_countries');
+      		
+      		if(!isset($risks) || $risks === '')
+      			$risks = NULL;
+      		if(!isset($event_types) || $event_types === '')
+      			$event_types = NULL;
+      		if(!isset($affected_countries) || $affected_countries === '')
+      			$affected_countries = NULL;
+
+      		return PublicationController::getFilteredPublications($risks, $event_types, $affected_countries);
+     	},
+	));
+});
 
 Route::get('/user/{username}', array(
 	'as' => 'profile-user',

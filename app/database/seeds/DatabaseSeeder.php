@@ -33,7 +33,7 @@ class PublicationsSeeder extends Seeder
 		));
 
 		$langPT = Language::create(array(
-			'name'	=> 'Portugês',
+			'name'	=> 'Português',
 			'code'	=> 'PT'
 		));
 
