@@ -7,11 +7,14 @@
 			<li><a href="/taqueto">Filter</a></li>
 			<li><a href="/poetemanso">Contacts</a></li>
 			@if(Auth::check())
-			<li><a href="{{ URL::route('account-sign-out') }}">Sign out</a></li>
+
+            <li><a href="{{ URL::route('account-sign-out') }}">Sign out</a></li>
+            <!-- Change Password
 			<li><a href="{{ URL::route('account-change-password') }}">Change password</a></li>
+			-->
 			@else
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sign in <b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Log in <b class="caret"></b></a>
                 <div class="dropdown-menu">
                     @include('account.signin')
                 </div>
