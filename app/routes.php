@@ -29,7 +29,7 @@ Route::group(array('prefix' => 'publications'), function()
 		'as'	=> 'publications-route',
 		'uses'	=> 'PublicationController@getSearchedPublications'
 	))
-	->where('search_query', '[A-Za-z0-9]+');
+	->where('search_query', '[A-Za-z0-9\s]+');
 
 	// For filtering
 	Route::get('/filter/{first}/{optional?}', array(

@@ -13,10 +13,7 @@ class PublicationController extends BaseController
 		// and with the website language
 		$publications = Publication::with(array(
 			'contents',
-			'contents.language' => function($query)
-			{
-				$query->where('code', '=', Config::get('database.website_language_code'));
-			},
+			'contents.language',
 			'affectedCountries',
 			'eventTypes')
 			)
@@ -40,8 +37,11 @@ class PublicationController extends BaseController
 
 		    foreach ($publication->contents as $content)
 		    {
-		    	if($content->language['code'] === Config::get('database.website_language_code'))
+		    	if($content->language->code === Config::get('database.website_language_code'))
+		    	{
 		    		$json_response[$key]['title'] = $content->title;
+		    		break;
+		    	}
 		    }
 		    
 		    $json_response[$key]['affected_countries'] = array();
