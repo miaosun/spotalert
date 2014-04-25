@@ -203,7 +203,7 @@ class AccountController extends BaseController {
             }
         }
             return Redirect::route('account-forgot-password')
-                ->with('global', 'Could not request new password.');
+                ->with('global', 'Email not registered, could not request recover!');
 
     }
 
