@@ -74,17 +74,29 @@ class AccountController extends BaseController {
 			$username = Input::get('username');
 			$password = Input::get('password');
             $agerange = Input::get('agerange');
+            $firstname = Input::get('firstname');
+            $lastname = Input::get('lastname');
+            $phonenumber = Input::get('phonenumber');
+            $address = Input::get('address');
+            $city = Input::get('city');
+            $postcode = Input::get('postcode');
 
 			// Activation code
 			$code = str_random(60);
 
 			$user = User::create(array(
-				'email' => $email,
-				'username' => $username,
-				'password' => Hash::make($password),
-				'code' => $code,
-				'active' => 0,
-                'agerange' => $agerange
+				'email'       => $email,
+				'username'    => $username,
+				'password'    => Hash::make($password),
+				'code'        => $code,
+				'active'      => 0,
+                'agerange'    => $agerange,
+                'firstname'   => $firstname,
+                'lastname'    => $lastname,
+                'phonenumber' => $phonenumber,
+                'address'     => $address,
+                'city'        => $city,
+                'postcode'    => $postcode
 			));
 
 			if($user) {

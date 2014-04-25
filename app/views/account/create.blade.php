@@ -56,7 +56,7 @@
                             {{ Form::label('first name',null,array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('first_name', null, array('placeholder'=>'ADD FIRST NAME')) }}
+                            {{ Form::text('firstname', null, array('placeholder'=>'ADD FIRST NAME')) }}
                         </div>
                     </div>
                     <div class="row">
@@ -64,7 +64,7 @@
                             {{ Form::label('last name',null,array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('last_name', null, array('placeholder'=>'ADD LAST NAME')) }}
+                            {{ Form::text('lastname', null, array('placeholder'=>'ADD LAST NAME')) }}
                         </div>
                     </div>
                     <div class="row">
@@ -95,7 +95,7 @@
                             {{ Form::label('phone number', null, array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('phone', null, array('placeholder'=>'ADD PHONE NUMBER')) }}
+                            {{ Form::text('phonenumber', null, array('placeholder'=>'ADD PHONE NUMBER')) }}
                         </div>
                     </div>
                     <div class="row">
