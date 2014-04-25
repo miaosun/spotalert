@@ -112,7 +112,7 @@ class PublicationController extends BaseController
 		    $json_response[$key]['risk']         = $publication->risk;
 		    $json_response[$key]['type']         = $publication->type;
 
-		    // Puting the titles in the response
+		    // Putting the titles in the response
 		    foreach ($publication->contents as $content)
 		    {
 		    	if($content->language->code === Config::get('database.website_language_code'))
@@ -122,14 +122,14 @@ class PublicationController extends BaseController
 		    	}
 		    }
 		    
-		    // Puting the affected countries in the response
+		    // Putting the affected countries in the response
 		    $json_response[$key]['affected_countries'] = array();
 		    foreach ($publication->affectedCountries as $key2 => $country) 
 		    {
 		    	$json_response[$key]['affected_countries'][$key2] = $country->name;
 		    }
 
-			// Puting the event types in the response
+			// Putting the event types in the response
 		    $json_response[$key]['event_types'] = array();
 		    foreach ($publication->eventTypes as $key2 => $eventType) 
 		    {

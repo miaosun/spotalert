@@ -16,17 +16,6 @@ Route::get('/', array(
 	'uses' => 'HomeController@showWelcome'
 ));
 
-Route::get('aaa', function()
-{
-      return Input::get();
-      if(isset($term)){
-         return 'a';
-      }
-      else
-      	return 'b';
-
-});
-
 Route::group(array('prefix' => 'publications'), function()
 {
 	// All publications
@@ -63,10 +52,6 @@ Route::group(array('prefix' => 'publications'), function()
       		return PublicationController::getFilteredPublications($risks, $event_types, $affected_countries);
      	},
 	));
-
-	Route::get('/profile/{param1?}/{param2?}', function($param1=null,$param2=null) {
-    return "Params {$param1} {$param2}";
-});
 });
 
 Route::get('/user/{username}', array(
