@@ -50,7 +50,6 @@ Route::group(array('before' => 'auth'), function() {
 		'as' => 'account-sign-out',
 		'uses' => 'AccountController@getSignOut'
 	));
-
 });
 
 // unauthenticated group
@@ -70,7 +69,19 @@ Route::group(array('before' => 'guest'), function() {
 		Route::post('/account/sign-in', array(
 			'as' => 'account-sign-in-post',
 			'uses' => 'AccountController@postSignIn'
-	));
+	   ));
+        
+       //Create Alert (POST)
+       Route::post('/publication/createalert', array(
+            'as' => 'publication-createalert',
+            'uses' => 'PublicationController@createAlert'
+       ));
+            
+        //Create Alert (POST)
+        Route::post('/publication/createguideline', array(
+            'as' => 'publication-createguideline',
+            'uses' => 'PublicationController@createGuideline'
+       ));
 
 	});
 
@@ -79,8 +90,6 @@ Route::group(array('before' => 'guest'), function() {
 		'as' => 'account-sign-in',
 		'uses' => 'AccountController@getSignIn'
 	));
-
-
 
 	// create account (GET)
 	Route::get('/account/create', array(
@@ -93,5 +102,16 @@ Route::group(array('before' => 'guest'), function() {
 		'as' => 'account-activate',
 		'uses' => 'AccountController@getActivate'
 	));
-
+    
+    // show create alert (GET)
+	Route::get('/publication/create-alert', array(
+		'as' => 'publication-create-alert',
+		'uses' => 'PublicationController@showCreateAlert'
+	));
+    
+    // show create alert (GET)
+	Route::get('/publication/create-guideline', array(
+		'as' => 'publication-create-alert',
+		'uses' => 'PublicationController@showCreateGuideline'
+	));
 });
