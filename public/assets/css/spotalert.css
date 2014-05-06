@@ -120,10 +120,9 @@ footer {
 }
 
 
-.nav li a{
+.nav li a:not(#signin .login_fb_gl){
     text-decoration:none;
     color:gray;
-
 }
 
 
@@ -151,9 +150,4 @@ footer {
     background-color:#f2f2f2;
     width:170px;
     height:30px;
-}
-
-.dropdown-menu {
-    width:280px;
-    text-transform:none;
 }

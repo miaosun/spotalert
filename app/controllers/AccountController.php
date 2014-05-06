@@ -8,8 +8,8 @@ class AccountController extends BaseController {
 	public function postSignIn() {
 		$validator = Validator::make(Input::all(),
 			array(
-				'email' => 'required|email',
-				'password' => 'required',
+				'email_signin' => 'required|email',
+				'password_signin' => 'required',
 			)
 		);
 
@@ -23,8 +23,8 @@ class AccountController extends BaseController {
 			$remember = (Input::has('remember')) ? true : false;
 
 			$auth = Auth::attempt(array(
-				'email' => Input::get('email'),
-				'password' => Input::get('password'),
+				'email' => Input::get('email_signin'),
+				'password' => Input::get('password_signin'),
 				'active' => 1
 			), $remember);
 
@@ -59,7 +59,15 @@ class AccountController extends BaseController {
 				'username'       => 'required|max:20|min:3|unique:users',
 				'password'       => 'required|min:6',
 				'password_again' => 'required|same:password',
-                'agerange'       => 'required'
+                'firstname'      => 'max:20',
+                'lastname'       => 'max:20',
+                'phonenumber'    => 'max:20',
+                'address'        => 'max:30',
+                'city'           => 'max:20',
+                'postcode'       => 'max:15',
+                'agerange'       => 'required|max:10',
+                'residence'      => 'required|max:20',
+                'nationality'    => 'required|max:20'
 			)
 		);
 
@@ -80,7 +88,8 @@ class AccountController extends BaseController {
             $address = Input::get('address');
             $city = Input::get('city');
             $postcode = Input::get('postcode');
-
+            $residence = Input::get('residence');
+            $nationality = Input::get('nationality');
 			// Activation code
 			$code = str_random(60);
 
@@ -96,7 +105,9 @@ class AccountController extends BaseController {
                 'phonenumber' => $phonenumber,
                 'address'     => $address,
                 'city'        => $city,
-                'postcode'    => $postcode
+                'postcode'    => $postcode,
+                'residence'   => $residence,
+                'nationality' => $nationality
 			));
 
 			if($user) {

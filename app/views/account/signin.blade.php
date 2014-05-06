@@ -1,11 +1,11 @@
-
+<div class="signin_dropdown">
 	<form action="{{ URL::route('account-sign-in-post') }}" method="post">
 
 		<div class="form-group">
 			<label for="inputUsernameEmail">EMAIL</label>
-			<input type="email" class="form-control" id="inputUsernameEmail" name="email" {{ (Input::old('email')) ? ' value="' . Input::old('email') . '"' : '' }}>
-            @if($errors->has('email'))
-            {{ $errors->first('email') }}
+			<input type="email" class="form-control" id="inputUsernameEmail" name="email_signin" {{ (Input::old('email_signin')) ? ' value="' . Input::old('email_signin') . '"' : '' }}>
+            @if($errors->has('email_signin'))
+            <p>{{ $errors->first('email_signin') }}</p>
             <script>
                 $(document).ready(function(){
                     $('.dropdown-toggle').dropdown('toggle');
@@ -17,9 +17,11 @@
 		<div class="form-group">
 			<a class="pull-right" href="{{ URL::route('account-forgot-password') }}"><span style="font-size:10px">Forgot password?</span></a>
 			<label for="inputPassword">PASSWORD</label>
-			<input type="password" class="form-control" id="inputPassword" name="password">
-            @if($errors->has('password'))
-            {{ $errors->first('password') }}
+			<input type="password" class="form-control" id="inputPassword" name="password_signin">
+            @if($errors->has('password_signin'))
+            <p>{{ $errors->first('password_signin') }}</p>
+            @endif
+            @if($errors->has('password_signin') && !$errors->has('email_signin'))
             <script>
                 $(document).ready(function(){
                     $('.dropdown-toggle').dropdown('toggle');
@@ -41,16 +43,8 @@
         <hr width="60%">
 
         <div class="login_fb_gl">
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <a href="#" class="btn btn-lg btn-primary btn-block">Login with Facebook</a>
-                </div>
-            </div><br>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <a href="#" class="btn btn-lg btn-danger btn-block">Login with Google</a>
-                </div>
-            </div>
+            <a href="#" class="btn btn-lg btn-primary btn-block">Login with Facebook</a><br>
+            <a href="#" class="btn btn-lg btn-danger btn-block">Login with Google</a>
         </div>
 
         <hr width="60%">
@@ -64,5 +58,5 @@
             </div>
         </div>
 
-
     </form>
+</div>

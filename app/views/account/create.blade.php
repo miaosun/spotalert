@@ -32,7 +32,7 @@
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('username', Input::old('username'), array('placeholder'=>'ADD USERNAME')) }}
                             @if($errors->has('username'))
-                            {{ $errors->first('username') }}
+                            <br><span>{{ $errors->first('username') }}</span>
                             @endif
                         </div>
                     </div>
@@ -43,11 +43,11 @@
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::password('password', array('placeholder'=>'ADD PASSWORD')) }}
                             @if($errors->has('password'))
-                            {{ $errors->first('password') }}
+                            <br><span>{{ $errors->first('password') }}</span>
                             @endif
                             {{ Form::password('password_again', array('placeholder'=>'RE-ENTER PASSWORD')) }}
                             @if($errors->has('password_again'))
-                            {{ $errors->first('password_again') }}
+                            <br><span>{{ $errors->first('password_again') }}</span>
                             @endif
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                             {{ Form::label('first name',null,array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('firstname', null, array('placeholder'=>'ADD FIRST NAME')) }}
+                            {{ Form::text('firstname', Input::old('firstname')  , array('placeholder'=>'ADD FIRST NAME')) }}
                         </div>
                     </div>
                     <div class="row">
@@ -64,7 +64,7 @@
                             {{ Form::label('last name',null,array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('lastname', null, array('placeholder'=>'ADD LAST NAME')) }}
+                            {{ Form::text('lastname', Input::old('lastname'), array('placeholder'=>'ADD LAST NAME')) }}
                         </div>
                     </div>
                     <div class="row">
@@ -73,9 +73,9 @@
                         </div>
                         <!-- FIX ME: dropdown list with pre-defined age range -->
                         <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('agerange', null, array('placeholder'=>'CHOOSE AGE RANGE')) }}
+                            {{ Form::select('agerange', array('CHOOSE AGE RANGE', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80')) }}
                             @if($errors->has('agerange'))
-                            {{ $errors->first('agerange') }}
+                            <br><span>{{ $errors->first('agerange') }}</span>
                             @endif
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('email', Input::old('email'), array('placeholder'=>'ADD EMAIL ADDRESS')) }}
                             @if($errors->has('email'))
-                            {{ $errors->first('email') }}
+                            <br><span>{{ $errors->first('email') }}</span>
                             @endif
                         </div>
                     </div>
@@ -105,25 +105,125 @@
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('address', null, array('placeholder'=>'ADD ADDRESS')) }}
                             {{ Form::text('city', null, array('placeholder'=>'ADD CITY')) }}
-                            {{ Form::text('postalcode', null, array('placeholder'=>'ADD POSTAL CODE')) }}
+                            {{ Form::text('postcode', null, array('placeholder'=>'ADD POSTAL CODE')) }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            {{ Form::label('residence', null, array('class' => 'label')) }}
+                            {{ Form::label('residence *', null, array('class' => 'label')) }}
                         </div>
                         <!-- FIX ME: change to dropdown list with pre-defined countries -->
                         <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('residence', null, array('placeholder'=>'CHOOSE COUNTRY')) }}
+                            {{ Form::select('residence', array('CHOOSE COUNTRY',
+                            "Albania",
+                            "Andorra",
+                            "Armenia",
+                            "Austria",
+                            "Azerbaijan",
+                            "Belarus",
+                            "Belgium",
+                            "Bosnia and Herzegovina",
+                            "Bulgaria",
+                            "Croatia",
+                            "Cyprus",
+                            "Czech Republic",
+                            "Denmark",
+                            "Estonia",
+                            "Finland",
+                            "France",
+                            "Georgia",
+                            "Germany",
+                            "Greece",
+                            "Hungary",
+                            "Iceland",
+                            "Ireland",
+                            "Italy",
+                            "Kosovo",
+                            "Latvia",
+                            "Liechtenstein",
+                            "Lithuania",
+                            "Luxembourg",
+                            "Macedonia",
+                            "Malta",
+                            "Moldova",
+                            "Monaco",
+                            "Montenegro",
+                            "The Netherlands",
+                            "Norway",
+                            "Poland",
+                            "Portugal",
+                            "Romania",
+                            "Russia",
+                            "San Marino",
+                            "Serbia",
+                            "Slovakia",
+                            "Slovenia",
+                            "Spain",
+                            "Sweden",
+                            "Switzerland",
+                            "Turkey",
+                            "Ukraine",
+                            "United Kingdom",
+                            "Vatican City")) }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
-                            {{ Form::label('nationality', null, array('class' => 'label')) }}
+                            {{ Form::label('nationality *', null, array('class' => 'label')) }}
                         </div>
                         <!-- FIX ME: change to dropdown list with pre-defined countries -->
                         <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('nationality', null, array('placeholder'=>'CHOOSE COUNTRY')) }}
+                            {{ Form::select('nationality', array('CHOOSE COUNTRY',
+                            "Albania",
+                            "Andorra",
+                            "Armenia",
+                            "Austria",
+                            "Azerbaijan",
+                            "Belarus",
+                            "Belgium",
+                            "Bosnia and Herzegovina",
+                            "Bulgaria",
+                            "Croatia",
+                            "Cyprus",
+                            "Czech Republic",
+                            "Denmark",
+                            "Estonia",
+                            "Finland",
+                            "France",
+                            "Georgia",
+                            "Germany",
+                            "Greece",
+                            "Hungary",
+                            "Iceland",
+                            "Ireland",
+                            "Italy",
+                            "Kosovo",
+                            "Latvia",
+                            "Liechtenstein",
+                            "Lithuania",
+                            "Luxembourg",
+                            "Macedonia",
+                            "Malta",
+                            "Moldova",
+                            "Monaco",
+                            "Montenegro",
+                            "The Netherlands",
+                            "Norway",
+                            "Poland",
+                            "Portugal",
+                            "Romania",
+                            "Russia",
+                            "San Marino",
+                            "Serbia",
+                            "Slovakia",
+                            "Slovenia",
+                            "Spain",
+                            "Sweden",
+                            "Switzerland",
+                            "Turkey",
+                            "Ukraine",
+                            "United Kingdom",
+                            "Vatican City")) }}
                         </div>
                     </div>
                     <div class="row">
