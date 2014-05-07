@@ -104,7 +104,7 @@
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('address', null, array('placeholder'=>'ADD ADDRESS')) }}
                             {{ Form::text('city', null, array('placeholder'=>'ADD CITY')) }}
-                            {{ Form::text('postalcode', null, array('placeholder'=>'ADD POSTAL CODE')) }}
+                            {{ Form::text('postalCode', null, array('placeholder'=>'ADD POSTAL CODE')) }}
                         </div>
                     </div>
                     <div class="row">

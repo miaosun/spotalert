@@ -121,4 +121,14 @@ return array(
 
 	),
 
+	/*
+	|--------------------------------------------------------------------------
+	| Default language
+	|--------------------------------------------------------------------------
+	|
+	| Here it is defined the default language of the webpage
+	|
+	*/
+	'website_language'      => 'English',
+	'website_language_code' => 'EN',
 );

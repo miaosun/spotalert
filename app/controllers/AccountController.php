@@ -65,7 +65,7 @@ class AccountController extends BaseController {
                 'phonenumber'    => 'max:20',
                 'address'        => 'max:30',
                 'city'           => 'max:20',
-                'postalcode'       => 'max:15',
+                'postalCode'       => 'max:15',
                 'agerange'       => 'required|max:10',
                 'residence'      => 'required|max:20',
                 'nationality'    => 'required|max:20'
@@ -88,7 +88,7 @@ class AccountController extends BaseController {
             $phonenumber = Input::get('phonenumber');
             $address = Input::get('address');
             $city = Input::get('city');
-            $postalcode = Input::get('postalcode');
+            $postalCode = Input::get('postalCode');
             $residence = Input::get('residence');
             $nationality = Input::get('nationality');
 			// Activation code
@@ -105,7 +105,7 @@ class AccountController extends BaseController {
                 'phonenumber' => $phonenumber,
                 'address'     => $address,
                 'city'        => $city,
-                'postalcode'    => $postalcode,
+                'postalCode'    => $postalCode,
                 'residence_country_id'   => $residence,
                 'nationality_country_id' => $nationality
 			));

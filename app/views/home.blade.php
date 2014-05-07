@@ -6,5 +6,4 @@
 	@else
 		<p>You are not signed in.</p>
 	@endif
-
 @stop

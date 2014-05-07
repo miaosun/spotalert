@@ -2,16 +2,15 @@
 <div class="navbar">
 	<div class="navbar-inner">
 		<ul class="nav">
-			<li><a href="{{ URL::route('home') }}">{{HTML::image('assets/images/logo_manyskill.png', null, array('height' => 32))}}</a></li>
+			<li><a href="{{ URL::route('home') }}"><img src="{{asset('assets/images/logo_manyskill.png')}}" height="42"></a></li>
 			<li><a href="/eyewitness">Eye Witness</a></li>
 			<li><a href="/taqueto">Filter</a></li>
 			<li><a href="/poetemanso">Contacts</a></li>
 			@if(Auth::check())
-
             <li><a href="{{ URL::route('account-sign-out') }}">Sign out</a></li>
-            <!-- Change Password
+
 			<li><a href="{{ URL::route('account-change-password') }}">Change password</a></li>
-			-->
+
 			@else
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Log in <b class="caret"></b></a>
