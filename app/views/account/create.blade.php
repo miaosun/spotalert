@@ -71,9 +71,8 @@
                         <div class="col-md-4">
                             {{ Form::label('age range *', null, array('class' => 'label')) }}
                         </div>
-                        <!-- FIX ME: dropdown list with pre-defined age range -->
                         <div class="col-md-7 col-md-offset-0">
-                            {{ Form::select('agerange', array('CHOOSE AGE RANGE', '11-20', '21-30', '31-40', '41-50', '51-60', '61-70', '71-80')) }}
+                            {{ Form::select('agerange', $age_options, Input::old('agerange')) }}
                             @if($errors->has('agerange'))
                             <br><span>{{ $errors->first('agerange') }}</span>
                             @endif
@@ -105,125 +104,29 @@
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('address', null, array('placeholder'=>'ADD ADDRESS')) }}
                             {{ Form::text('city', null, array('placeholder'=>'ADD CITY')) }}
-                            {{ Form::text('postcode', null, array('placeholder'=>'ADD POSTAL CODE')) }}
+                            {{ Form::text('postalcode', null, array('placeholder'=>'ADD POSTAL CODE')) }}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             {{ Form::label('residence *', null, array('class' => 'label')) }}
                         </div>
-                        <!-- FIX ME: change to dropdown list with pre-defined countries -->
                         <div class="col-md-7 col-md-offset-0">
-                            {{ Form::select('residence', array('CHOOSE COUNTRY',
-                            "Albania",
-                            "Andorra",
-                            "Armenia",
-                            "Austria",
-                            "Azerbaijan",
-                            "Belarus",
-                            "Belgium",
-                            "Bosnia and Herzegovina",
-                            "Bulgaria",
-                            "Croatia",
-                            "Cyprus",
-                            "Czech Republic",
-                            "Denmark",
-                            "Estonia",
-                            "Finland",
-                            "France",
-                            "Georgia",
-                            "Germany",
-                            "Greece",
-                            "Hungary",
-                            "Iceland",
-                            "Ireland",
-                            "Italy",
-                            "Kosovo",
-                            "Latvia",
-                            "Liechtenstein",
-                            "Lithuania",
-                            "Luxembourg",
-                            "Macedonia",
-                            "Malta",
-                            "Moldova",
-                            "Monaco",
-                            "Montenegro",
-                            "The Netherlands",
-                            "Norway",
-                            "Poland",
-                            "Portugal",
-                            "Romania",
-                            "Russia",
-                            "San Marino",
-                            "Serbia",
-                            "Slovakia",
-                            "Slovenia",
-                            "Spain",
-                            "Sweden",
-                            "Switzerland",
-                            "Turkey",
-                            "Ukraine",
-                            "United Kingdom",
-                            "Vatican City")) }}
+                            {{ Form::select('residence', $country_options , Input::old('residence')) }}
+                            @if($errors->has('residence'))
+                            <br><span>{{ $errors->first('residence') }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4">
                             {{ Form::label('nationality *', null, array('class' => 'label')) }}
                         </div>
-                        <!-- FIX ME: change to dropdown list with pre-defined countries -->
                         <div class="col-md-7 col-md-offset-0">
-                            {{ Form::select('nationality', array('CHOOSE COUNTRY',
-                            "Albania",
-                            "Andorra",
-                            "Armenia",
-                            "Austria",
-                            "Azerbaijan",
-                            "Belarus",
-                            "Belgium",
-                            "Bosnia and Herzegovina",
-                            "Bulgaria",
-                            "Croatia",
-                            "Cyprus",
-                            "Czech Republic",
-                            "Denmark",
-                            "Estonia",
-                            "Finland",
-                            "France",
-                            "Georgia",
-                            "Germany",
-                            "Greece",
-                            "Hungary",
-                            "Iceland",
-                            "Ireland",
-                            "Italy",
-                            "Kosovo",
-                            "Latvia",
-                            "Liechtenstein",
-                            "Lithuania",
-                            "Luxembourg",
-                            "Macedonia",
-                            "Malta",
-                            "Moldova",
-                            "Monaco",
-                            "Montenegro",
-                            "The Netherlands",
-                            "Norway",
-                            "Poland",
-                            "Portugal",
-                            "Romania",
-                            "Russia",
-                            "San Marino",
-                            "Serbia",
-                            "Slovakia",
-                            "Slovenia",
-                            "Spain",
-                            "Sweden",
-                            "Switzerland",
-                            "Turkey",
-                            "Ukraine",
-                            "United Kingdom",
-                            "Vatican City")) }}
+                            {{ Form::select('nationality', $country_options , Input::old('nationality')) }}
+                            @if($errors->has('nationality'))
+                            <br><span>{{ $errors->first('nationality') }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="row">

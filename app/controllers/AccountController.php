@@ -25,7 +25,7 @@ class AccountController extends BaseController {
 			$auth = Auth::attempt(array(
 				'email' => Input::get('email_signin'),
 				'password' => Input::get('password_signin'),
-				'active' => 1
+				'activated' => true
 			), $remember);
 
 			if($auth) {
@@ -48,8 +48,9 @@ class AccountController extends BaseController {
 	}
 
 	public function getCreate() {
-		return View::make('account.create');
-
+        $age_options = array('' => 'CHOOSE AGE RANGE') + DB::table('ages')->lists('range','id');
+        $country_options = array('' => 'CHOOSE COUNTRY') + DB::table('countries')->orderBy('short_name', 'asc')->lists('short_name','id');
+		return View::make('account.create')->with('country_options',$country_options)->with('age_options',$age_options);
 	}
 
 	public function postCreate() {
@@ -64,7 +65,7 @@ class AccountController extends BaseController {
                 'phonenumber'    => 'max:20',
                 'address'        => 'max:30',
                 'city'           => 'max:20',
-                'postcode'       => 'max:15',
+                'postalcode'       => 'max:15',
                 'agerange'       => 'required|max:10',
                 'residence'      => 'required|max:20',
                 'nationality'    => 'required|max:20'
@@ -87,7 +88,7 @@ class AccountController extends BaseController {
             $phonenumber = Input::get('phonenumber');
             $address = Input::get('address');
             $city = Input::get('city');
-            $postcode = Input::get('postcode');
+            $postalcode = Input::get('postalcode');
             $residence = Input::get('residence');
             $nationality = Input::get('nationality');
 			// Activation code
@@ -98,16 +99,15 @@ class AccountController extends BaseController {
 				'username'    => $username,
 				'password'    => Hash::make($password),
 				'code'        => $code,
-				'active'      => 0,
-                'agerange'    => $agerange,
+                'age_id'    => $agerange,
                 'firstname'   => $firstname,
                 'lastname'    => $lastname,
                 'phonenumber' => $phonenumber,
                 'address'     => $address,
                 'city'        => $city,
-                'postcode'    => $postcode,
-                'residence'   => $residence,
-                'nationality' => $nationality
+                'postalcode'    => $postalcode,
+                'residence_country_id'   => $residence,
+                'nationality_country_id' => $nationality
 			));
 
 			if($user) {
@@ -124,13 +124,13 @@ class AccountController extends BaseController {
 	}
 
 	public function getActivate($code) {
-		$user = User::where('code', '=', $code)->where('active', '=', 0);
+		$user = User::where('code', '=', $code)->where('activated', '=', false);
 
 		if($user->count()) {
 			$user = $user->first();
 
 			//update user to active state
-			$user->active = 1;
+			$user->activated = true;
 			$user->code = '';
 
 			if($user->save()) {
