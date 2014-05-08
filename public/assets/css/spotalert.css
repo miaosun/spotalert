@@ -246,7 +246,6 @@ footer {
 	-moz--topright: 25px;
 	border-radius: 25px;
 }
-<<<<<<< HEAD
 #controlpanel .editbutton {
     color: #BF2333;
     float: right;
@@ -312,29 +311,3 @@ footer {
     font-size:1.5em;
     float: right;
 }
-=======
-#controlpanel .fileupload {
-	position: relative;
-	overflow: hidden;
-	margin: 0px;
-	margin-top: 2%;
-	color: #BF2333;
-	font-size:  0.8em;
-}
-#controlpanel .fileupload span{
-
-	font-size:  1.5em;
-}
-#controlpanel .fileupload input.upload {
-	width:100%;
-	position: absolute;
-	top: 0;
-	right: 0;
-	margin: 0;
-	padding: 0;
-	font-size: 1.5em;
-	cursor: pointer;
-	opacity: 0;
-	filter: alpha(opacity=0);
-}
->>>>>>> 3edd65df8e495c37e6d2646164fd77232e479e99
