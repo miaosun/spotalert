@@ -4,10 +4,30 @@ class PublicationController extends BaseController
 {
 	/**
 	 * It gets all the publications in the database
+	 * TODO: Remove at the end
 	 */
 	public static function getPublications()
 	{
 		return Publication::all();
+	}
+
+	/**
+	 * It gets all the publications in the database
+	 */
+	public static function getAllPublications()
+	{
+		$publications = Publication::with(array(
+			'contents',
+			'contents.language',
+			'affectedCountries',
+			'eventTypes')
+			)
+			//FIXME: Change to know who's authenticated
+			->where('is_public', '=', true)
+			->orderBy('risk', 'desc')
+			->get();
+
+		return Response::json(self::makeSimpleAnswer($publications));
 	}
 
 	/**
