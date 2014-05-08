@@ -68,8 +68,8 @@ class PublicationsSeeder extends Seeder
 		// ######################################################################
 		// First publication
 		$publication1 = Publication::create(array(
-			'initial_date'	=> '2014-03-23',
-			'final_date'	=> '2014-06-30',
+			'initial_date'	=> NULL,
+			'final_date'	=> '2014-03-30',
 			'is_public'		=> true,
 			'risk'			=> 4,
 			'type'			=> 'alert'
@@ -92,7 +92,7 @@ class PublicationsSeeder extends Seeder
 		// Second publication
 		$publication2 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
-			'final_date'	=> '2014-06-30',
+			'final_date'	=> NULL,
 			'is_public'		=> true,
 			'risk'			=> 4,
 			'type'			=> 'guideline'
