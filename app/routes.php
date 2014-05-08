@@ -39,6 +39,10 @@ Route::post('/user/updateprofile', array(
 	'as' => 'update-profile',
 	'uses' => 'UserPanelController@updateprofile'
 ));
+Route::post('/user/updatepassword', array(
+	'as' => 'update-user-password',
+	'uses' => 'UserPanelController@updatepassword'
+));
 
 // authenticated group
 Route::group(array('before' => 'auth'), function() {

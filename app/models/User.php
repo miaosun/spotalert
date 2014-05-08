@@ -12,17 +12,17 @@ class User extends Eloquent
 
 	public function age()
 	{
-		return $this->belongsTo('Age');
+		return $this->belongsTo('Age','age_id');
 	}
 
 	public function residence()
 	{
-		return $this->belongsTo('Country', 'residence_country_id');
+		return $this->belongsTo('Country','residence_country_id');
 	}
 
 	public function nacionality()
 	{
-		return $this->belongsTo('Country', 'nacionality_country_id');
+		return $this->belongsTo('Country','nacionality_country_id');
 	}
 
 	public function notifications()

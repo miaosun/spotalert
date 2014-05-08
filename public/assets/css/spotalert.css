@@ -134,7 +134,7 @@ footer {
                         inset  0 8px 8px -5px #d1d1d1;
      box-shadow:        inset  0 -8px 8px -5px #d1d1d1, 
                         inset  0 8px 8px -5px #d1d1d1;
-    padding-bottom:400px;
+    padding-bottom:100px;
     margin-top:-23px;
     background-color:#f2f2f2;
 
@@ -158,7 +158,7 @@ footer {
 #controlpanel{
 	background-color: white;
 
-	border: 2px solid #BF2333; //#ED1C24
+	border: 2px solid #BF2333; /*#ED1C24*/
 	
 	-webkit-border-radius: 25px;
 	-moz-border-radius: 25px;
@@ -209,7 +209,7 @@ footer {
 	border-right: 0px;
 }
 #controlpanel h1{
-	background-color:#ED1C24;
+	background-color:#BF2333;
 	color: white;
 	margin: 0px 0px 2% 0px;
 	padding-left: 5%; 
@@ -218,18 +218,18 @@ footer {
 }
 #controlpanel h2{
 	width: 100%;
-	color:#ED1C24;
+	color:#BF2333;
 	text-decoration: underline; 
     font-size:  1.3em;
 }
 #controlpanel label{
-	color:#ED1C24;
+	color:#BF2333;
 	text-transform: uppercase; 
     font-size:  0.9em;
 }
 #controlpanel input {
 	border: 0px;
-	border-bottom: 1px dashed  #BF2333;
+	//border-bottom: 1px dashed  #BF2333;
 }
 #controlpanel input[type=password] {
 	border: 0px;
@@ -246,32 +246,68 @@ footer {
 	-moz--topright: 25px;
 	border-radius: 25px;
 }
-#controlpanel .fileupload {
-	position: relative;
-	overflow: hidden;
-	margin: 0px;
-	margin-top: 2%;
-	color: #BF2333;
-	font-size:  0.8em;
+#controlpanel .editbutton {
+    color: #BF2333;
+    float: right;
 }
-#controlpanel .fileupload span{
+#controlpanel .dotline{
+    border-bottom: 1px dashed  #BF2333;
+    display: inline-block;
+}
+#controlpanel dropdownlist
+{
+   width: 240px;
+   height: 34px;
+   overflow: hidden;
+   background: transparence;
+   border: 1px solid #ccc;
+    -webkit-appearance: none;
 
-	font-size:  1.5em;
+   }
+    width: 100%;
 }
-#controlpanel .fileupload input.upload {
-	width:100%;
-	position: absolute;
-	top: 0;
-	right: 0;
-	margin: 0;
-	padding: 0;
-	font-size: 1.5em;
-	cursor: pointer;
-	opacity: 0;
-	filter: alpha(opacity=0);
+.custom-upload 
+{
+    position: relative;
+    margin-top: 5px;
+}
 
-<<<<<<< HEAD
+.custom-upload input[type=file]
+{
+    outline:none;
+    position: relative;
+    text-align: right;    
+    -moz-opacity:0 ;
+    filter:alpha(opacity: 0);
+    opacity: 0;
+    z-index: 2;
+    width: 90%;
+    height: 100%;
+    cursor: pointer;
 }
-=======
+.custom-upload .fake-file
+{
+    position: absolute;
+    top: 0px;
+    left: 5%;
+    width: 80%;
+    height: 100%
+    padding: 0;
+    margin: 0;
+    z-index: 1;
+    line-height: 100%;
 }
->>>>>>> 30ce7aca9d4f358ffc74f86df2823b0517ffb927
+
+.custom-upload .fake-file input
+{
+    font-size:0.8em;
+    color: #BF2333;
+    height:100%;
+    width:90%;
+}
+.custom-upload .fake-file span
+{
+    color: #BF2333;
+    font-size:1.5em;
+    float: right;
+}
