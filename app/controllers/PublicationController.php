@@ -104,7 +104,6 @@ class PublicationController extends BaseController
 			//return DB::getQueryLog();
 			//return end($l);
 			return Response::json(self::makeSimpleAnswer($publications));
-
 		}
 	}
 
