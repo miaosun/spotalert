@@ -39,7 +39,7 @@ footer {
     height: 42px;
     margin-left:520px;
 }
-<<<<<<< HEAD
+
 
 .grid-menu{
 	margin-top:0px;
@@ -93,22 +93,6 @@ footer {
 }
 
 
-.col-md-1 a{
-	text-decoration:none;
-	color:gray;
-
-}
-.col-md-2 a{
-	text-decoration:none;
-	color:gray;
-}
-
-.nav li a:not(#signin .login_fb_gl){
-    text-decoration:none;
-    color:gray;
-}
-
-
 #main {
 
     -moz-box-shadow:    inset  0 -8px 8px -5px #d1d1d1, 
@@ -151,10 +135,10 @@ form #search{
 }
 
 
-/* \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+/* |||||||||||||              ALERTA NÍVEL5               ||||||||||||||||||||||||||*/
 
 
-.publication-alert.publ-risk4{
+.publication-alert.publ-risk5{
 	background-color: #ED1C24;
 	text-transform:uppercase;
 	margin-left:4%;
@@ -170,54 +154,135 @@ form #search{
 }
 
 
+.publication-alert.publ-risk5 > .publ-risk{
+	display:inline;
+	position:relative;
+	right:14%;
+	
+	
+	
+}
+.publication-alert.publ-risk5 > .publ-type{
+	color:white;
+	font-weight:900;
+	font-size:17px;
+	display: inline;
+	padding-bottom:2%;
+}
+
+.publication-alert.publ-risk5 > .publ-countr{
+	color:white;
+	font-weight:normal;
+	display: inline;
+	position:relative;
+	left:12%;
+	font-size:11px;
+
+}
+.publication-alert.publ-risk5 > .publ-title{
+	color:white;
+	font-weight:normal;
+	font-size:22px;
+}
+
+
+.publication-alert.publ-risk5 hr{ /*COR DAS LINHAS*/
+	width:90%;
+	border-color:white;
+}
+
+
+.publ-risk5 .arrow_white{ /*SETA BRANCA PARA NÍVEL 5*/
+	padding-bottom:5%;
+	
+}
+
+.publ-risk5 .arrow_gray{ /*OCULTAR SETA CINZENTA PARA OS RESTANTES NÍVEIS*/
+	padding-bottom:5%;
+	display:none;
+}
+
+.publ-risk5 .ray-low{ /*OCULTAR RISCO BAIXO*/
+	display:none;
+}
+
+.publ-risk5 .ray-medium{ /*OCULTAR RISCO MEDIO*/
+	display:none;
+}
+
+.publication-alert .cross-plus{ /*OCULTAR RISCO MEDIO*/
+	display:none;
+}
+
+
+
+/* |||||||||||||              ALERTA NÍVEL4               ||||||||||||||||||||||||||*/
+
+.publication-alert.publ-risk4{
+	background-color: white;
+	text-transform:uppercase;
+	margin-left:4%;
+	border: 0px solid white;
+	-webkit-border-radius:35px;
+	-moz-border-radius:35px;
+	border-radius:35px;
+	width:30%;
+	text-align:center;
+	margin-bottom:3%;
+	padding-top:1%;
+	
+}
+
+
 .publication-alert.publ-risk4 > .publ-risk{
 	display:inline;
 	position:relative;
-	right:15%;
+	right:14%;
 	
 	
 	
 }
 .publication-alert.publ-risk4 > .publ-type{
-	color:white;
-	font-weight:900;
-	font-size:16px;
+	color:#666666;
+	font-weight:normal;
+	font-size:17px;
 	display: inline;
-	padding-bottom:2%;	
-
-
-
+	padding-bottom:2%;
 }
 
 .publication-alert.publ-risk4 > .publ-countr{
-	color:white;
+	color:#666666;
 	font-weight:normal;
 	display: inline;
+	position:relative;
+	left:12%;
+	font-size:11px;
 
 }
 .publication-alert.publ-risk4 > .publ-title{
-	color:white;
+	color:#666666;
 	font-weight:normal;
 	font-size:22px;
-
-
 }
 
 
 .publication-alert.publ-risk4 hr{ /*COR DAS LINHAS*/
 	width:90%;
-	border-color:white;
-
+	border-color:#CCCCCC;
 }
 
 
 .publ-risk4 .arrow_white{ /*SETA BRANCA PARA NÍVEL 5*/
 	padding-bottom:5%;
+	display:none;
 	
 }
 
 .publ-risk4 .arrow_gray{ /*OCULTAR SETA CINZENTA PARA OS RESTANTES NÍVEIS*/
 	padding-bottom:5%;
+	
+}
+.publ-risk4 .ray-high{
 	display:none;
 }
 
@@ -225,45 +290,653 @@ form #search{
 	display:none;
 }
 
-.publ-risk4 .ray-medium{ /*OCULTAR RISCO MEDIO*/
+
+.publication-alert .cross-plus{ /*OCULTAR RISCO MEDIO*/
 	display:none;
 }
 
-/*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+/* |||||||||||||              ALERTA NÍVEL3               ||||||||||||||||||||||||||*/
+
+.publication-alert.publ-risk3{
+	background-color: white;
+	text-transform:uppercase;
+	margin-left:4%;
+	border: 0px solid white;
+	-webkit-border-radius:35px;
+	-moz-border-radius:35px;
+	border-radius:35px;
+	width:30%;
+	text-align:center;
+	margin-bottom:3%;
+	padding-top:1%;
+	
+}
+
+
+.publication-alert.publ-risk3 > .publ-risk{
+	display:inline;
+	position:relative;
+	right:14%;
+	
+	
+	
+}
+.publication-alert.publ-risk3 > .publ-type{
+	color:#666666;
+	font-weight:normal;
+	font-size:17px;
+	display: inline;
+	padding-bottom:2%;
+}
+
+.publication-alert.publ-risk3 > .publ-countr{
+	color:#666666;
+	font-weight:normal;
+	display: inline;
+	position:relative;
+	left:12%;
+	font-size:11px;
+
+}
+.publication-alert.publ-risk3 > .publ-title{
+	color:#666666;
+	font-weight:normal;
+	font-size:22px;
+}
+
+
+.publication-alert.publ-risk3 hr{ /*COR DAS LINHAS*/
+	width:90%;
+	border-color:#CCCCCC;
+}
+
+
+.publ-risk3 .arrow_white{ /*SETA BRANCA PARA NÍVEL 5*/
+	padding-bottom:5%;
+	display:none;
+	
+}
+
+.publ-risk3 .arrow_gray{ /*OCULTAR SETA CINZENTA PARA OS RESTANTES NÍVEIS*/
+	padding-bottom:5%;
+	
+}
+.publ-risk3 .ray-high{ /*OCULTAR RISCO ALTO*/
+	display:none;
+}
+
+.publ-risk3 .ray-low{ /*OCULTAR RISCO BAIXO*/
+	display:none;
+}
+
+
+.publication-alert .cross-plus{ /*OCULTAR RISCO MEDIO*/
+	display:none;
+}
+
+
+/* |||||||||||||              ALERTA NÍVEL2               ||||||||||||||||||||||||||*/
+
+.publication-alert.publ-risk2{
+	background-color: white;
+	text-transform:uppercase;
+	margin-left:4%;
+	border: 0px solid white;
+	-webkit-border-radius:35px;
+	-moz-border-radius:35px;
+	border-radius:35px;
+	width:30%;
+	text-align:center;
+	margin-bottom:3%;
+	padding-top:1%;
+	
+}
+
+
+.publication-alert.publ-risk2 > .publ-risk{
+	display:inline;
+	position:relative;
+	right:14%;
+	
+	
+	
+}
+.publication-alert.publ-risk2 > .publ-type{
+	color:#666666;
+	font-weight:normal;
+	font-size:17px;
+	display: inline;
+	padding-bottom:2%;
+}
+
+.publication-alert.publ-risk2 > .publ-countr{
+	color:#666666;
+	font-weight:normal;
+	display: inline;
+	position:relative;
+	left:12%;
+	font-size:11px;
+
+}
+.publication-alert.publ-risk2 > .publ-title{
+	color:#666666;
+	font-weight:normal;
+	font-size:22px;
+}
+
+
+.publication-alert.publ-risk2 hr{ /*COR DAS LINHAS*/
+	width:90%;
+	border-color:#CCCCCC;
+}
+
+
+.publ-risk2 .arrow_white{ /*SETA BRANCA PARA NÍVEL 5*/
+	padding-bottom:5%;
+	display:none;
+	
+}
+
+.publ-risk2 .arrow_gray{ /*OCULTAR SETA CINZENTA PARA OS RESTANTES NÍVEIS*/
+	padding-bottom:5%;
+	
+}
+.publ-risk2 .ray-high{
+	display:none;
+}
+
+.publ-risk2 .ray-medium{ /*OCULTAR RISCO MEDIO*/
+	display:none;
+}
+
+
+.publication-alert .cross-plus{ /*OCULTAR CRUZ DE GUIDELINE*/
+	display:none;
+}
+
+
+/* |||||||||||||              ALERTA NÍVEL1               ||||||||||||||||||||||||||*/
+
+.publication-alert.publ-risk1{
+	background-color: white;
+	text-transform:uppercase;
+	margin-left:4%;
+	border: 0px solid white;
+	-webkit-border-radius:35px;
+	-moz-border-radius:35px;
+	border-radius:35px;
+	width:30%;
+	text-align:center;
+	margin-bottom:3%;
+	padding-top:1%;
+	
+}
+
+
+.publication-alert.publ-risk1 > .publ-risk{
+	display:inline;
+	position:relative;
+	right:14%;
+	
+	
+	
+}
+.publication-alert.publ-risk1 > .publ-type{
+	color:#666666;
+	font-weight:normal;
+	font-size:17px;
+	display: inline;
+	padding-bottom:2%;
+}
+
+.publication-alert.publ-risk1 > .publ-countr{
+	color:#666666;
+	font-weight:normal;
+	display: inline;
+	position:relative;
+	left:12%;
+	font-size:11px;
+
+}
+.publication-alert.publ-risk1 > .publ-title{
+	color:#666666;
+	font-weight:normal;
+	font-size:22px;
+}
+
+
+.publication-alert.publ-risk1 hr{ /*COR DAS LINHAS*/
+	width:90%;
+	border-color:#CCCCCC;
+}
+
+
+.publ-risk1 .arrow_white{ /*SETA BRANCA PARA NÍVEL 5*/
+	padding-bottom:5%;
+	display:none;
+	
+}
+
+.publ-risk1 .arrow_gray{ /*OCULTAR SETA CINZENTA PARA OS RESTANTES NÍVEIS*/
+	padding-bottom:5%;
+	
+}
+.publ-risk1 .ray-high{
+	display:none;
+}
+
+.publ-risk1.ray-medium{ /*OCULTAR RISCO MEDIO*/
+	display:none;
+}
+
+
+.publication-alert .cross-plus{ /*OCULTAR CRUZ DE GUIDELINE*/
+	display:none;
+}
+
+/***************************\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*********************************/
+/* |||||||||||||||||||||||         GUIDELINE NÍVEL 5               |||||||||||||||||||||||||||| */  
+
+
+.publication-guideline.publ-risk5{
+	background-color: white;
+	text-transform:uppercase;
+	margin-left:4%;
+	border: 0px solid white;
+	-webkit-border-radius:35px;
+	-moz-border-radius:35px;
+	border-radius:35px;
+	width:30%;
+	text-align:center;
+	margin-bottom:3%;
+	padding-top:1%;
+	
+}
+
+
+.publication-guideline.publ-risk5 > .publ-risk{
+	display:inline;
+	position:relative;
+	right:28%;
+	
+	
+	
+}
+.publication-guideline.publ-risk5 > .publ-type{
+	color:#666666;
+	font-weight:normal;
+	font-size:17px;
+	display: inline;
+	padding-bottom:2%;
+}
+
+.publication-guideline.publ-risk5 > .publ-countr{
+	color:#666666;
+	font-weight:normal;
+	display: inline;
+	position:relative;
+	left:12%;
+	font-size:11px;
+
+}
+.publication-guideline.publ-risk5 > .publ-title{
+	color:#666666;
+	font-weight:normal;
+	font-size:22px;
+}
+
+
+.publication-guideline.publ-risk5 hr{ /*COR DAS LINHAS*/
+	width:90%;
+	border-color:#CCCCCC;
+}
+
+
+.publication-guideline .arrow_white{ /*SETA BRANCA PARA NÍVEL 5*/
+	padding-bottom:5%;
+	display:none;
+	
+}
+
+.publication-guideline .arrow_gray{ /*OCULTAR SETA CINZENTA PARA OS RESTANTES NÍVEIS*/
+	padding-bottom:5%;
+	
+}
+.publication-guideline .ray-high{ /*OCULTAR RISCO ALTO*/
+	display:none;
+}
+
+.publication-guideline .ray-medium{ /*OCULTAR RISCO MEDIO*/
+	display:none;
+}
+
+.publication-guideline .ray-low{ /*OCULTAR RISCO BAIXO*/
+	display:none;
+}
+
+/* |||||||||||||||||||||||         GUIDELINE NÍVEL 4               |||||||||||||||||||||||||||| */  
+
 
 .publication-guideline.publ-risk4{
 	background-color: white;
 	text-transform:uppercase;
 	margin-left:4%;
 	border: 0px solid white;
-	-webkit-border-radius:30px;
-	-moz-border-radius:30px;
-	border-radius:30px;
-	width:25%;
+	-webkit-border-radius:35px;
+	-moz-border-radius:35px;
+	border-radius:35px;
+	width:30%;
 	text-align:center;
-	margin-bottom:2%;
+	margin-bottom:3%;
+	padding-top:1%;
+	
 }
 
+
+.publication-guideline.publ-risk4 > .publ-risk{
+	display:inline;
+	position:relative;
+	right:28%;
+	
+	
+	
+}
 .publication-guideline.publ-risk4 > .publ-type{
-	color:gray;
-	font-weight:bold;
-	font-size:16px;
+	color:#666666;
+	font-weight:normal;
+	font-size:17px;
+	display: inline;
+	padding-bottom:2%;
 }
 
+.publication-guideline.publ-risk4 > .publ-countr{
+	color:#666666;
+	font-weight:normal;
+	display: inline;
+	position:relative;
+	left:12%;
+	font-size:11px;
+
+}
 .publication-guideline.publ-risk4 > .publ-title{
-	color:gray;
+	color:#666666;
 	font-weight:normal;
 	font-size:22px;
 }
 
-.publication-guideline.publ-risk4 > .publ-countr{
-	color:gray;
-	font-weight:normal;
-}
-.publication-guideline.publ-risk4 > .publ-risk{
 
-	background-image: url('/assets/images/plus.png');
-	background-repeat:no-repeat;
-	height:28px;
-	background-position:5% 5%;
+.publication-guideline.publ-risk4 hr{ /*COR DAS LINHAS*/
+	width:90%;
+	border-color:#CCCCCC;
+}
+
+
+.publication-guideline .arrow_white{ /*SETA BRANCA PARA NÍVEL 5*/
+	padding-bottom:5%;
+	display:none;
+	
+}
+
+.publication-guideline .arrow_gray{ /*OCULTAR SETA CINZENTA PARA OS RESTANTES NÍVEIS*/
+	padding-bottom:5%;
+	
+}
+.publication-guideline .ray-high{ /*OCULTAR RISCO ALTO*/
+	display:none;
+}
+
+.publication-guideline .ray-medium{ /*OCULTAR RISCO MEDIO*/
+	display:none;
+}
+
+.publication-guideline .ray-low{ /*OCULTAR RISCO BAIXO*/
+	display:none;
+}
+
+/* |||||||||||||||||||||||         GUIDELINE NÍVEL 3               |||||||||||||||||||||||||||| */  
+
+
+.publication-guideline.publ-risk3{
+	background-color: white;
+	text-transform:uppercase;
+	margin-left:4%;
+	border: 0px solid white;
+	-webkit-border-radius:35px;
+	-moz-border-radius:35px;
+	border-radius:35px;
+	width:30%;
+	text-align:center;
+	margin-bottom:3%;
+	padding-top:1%;
+	
+}
+
+
+.publication-guideline.publ-risk3 > .publ-risk{
+	display:inline;
+	position:relative;
+	right:28%;
+	
+	
+	
+}
+.publication-guideline.publ-risk3 > .publ-type{
+	color:#666666;
+	font-weight:normal;
+	font-size:17px;
+	display: inline;
+	padding-bottom:2%;
+}
+
+.publication-guideline.publ-risk3 > .publ-countr{
+	color:#666666;
+	font-weight:normal;
+	display: inline;
+	position:relative;
+	left:12%;
+	font-size:11px;
+
+}
+.publication-guideline.publ-risk3 > .publ-title{
+	color:#666666;
+	font-weight:normal;
+	font-size:22px;
+}
+
+
+.publication-guideline.publ-risk3 hr{ /*COR DAS LINHAS*/
+	width:90%;
+	border-color:#CCCCCC;
+}
+
+
+.publication-guideline .arrow_white{ /*SETA BRANCA PARA NÍVEL 5*/
+	padding-bottom:5%;
+	display:none;
+	
+}
+
+.publication-guideline .arrow_gray{ /*OCULTAR SETA CINZENTA PARA OS RESTANTES NÍVEIS*/
+	padding-bottom:5%;
+	
+}
+.publication-guideline .ray-high{ /*OCULTAR RISCO ALTO*/
+	display:none;
+}
+
+.publication-guideline .ray-medium{ /*OCULTAR RISCO MEDIO*/
+	display:none;
+}
+
+.publication-guideline .ray-low{ /*OCULTAR RISCO BAIXO*/
+	display:none;
+}
+
+
+/* |||||||||||||||||||||||         GUIDELINE NÍVEL 2               |||||||||||||||||||||||||||| */  
+
+
+.publication-guideline.publ-risk2{
+	background-color: white;
+	text-transform:uppercase;
+	margin-left:4%;
+	border: 0px solid white;
+	-webkit-border-radius:35px;
+	-moz-border-radius:35px;
+	border-radius:35px;
+	width:30%;
+	text-align:center;
+	margin-bottom:3%;
+	padding-top:1%;
+	
+}
+
+
+.publication-guideline.publ-risk2 > .publ-risk{
+	display:inline;
+	position:relative;
+	right:28%;
+	
+	
+	
+}
+.publication-guideline.publ-risk2 > .publ-type{
+	color:#666666;
+	font-weight:normal;
+	font-size:17px;
+	display: inline;
+	padding-bottom:2%;
+}
+
+.publication-guideline.publ-risk2 > .publ-countr{
+	color:#666666;
+	font-weight:normal;
+	display: inline;
+	position:relative;
+	left:12%;
+	font-size:11px;
+
+}
+.publication-guideline.publ-risk2 > .publ-title{
+	color:#666666;
+	font-weight:normal;
+	font-size:22px;
+}
+
+
+.publication-guideline.publ-risk2 hr{ /*COR DAS LINHAS*/
+	width:90%;
+	border-color:#CCCCCC;
+}
+
+
+.publication-guideline .arrow_white{ /*SETA BRANCA PARA NÍVEL 5*/
+	padding-bottom:5%;
+	display:none;
+	
+}
+
+.publication-guideline .arrow_gray{ /*OCULTAR SETA CINZENTA PARA OS RESTANTES NÍVEIS*/
+	padding-bottom:5%;
+	
+}
+.publication-guideline .ray-high{ /*OCULTAR RISCO ALTO*/
+	display:none;
+}
+
+.publication-guideline .ray-medium{ /*OCULTAR RISCO MEDIO*/
+	display:none;
+}
+
+.publication-guideline .ray-low{ /*OCULTAR RISCO BAIXO*/
+	display:none;
+}
+
+
+/* |||||||||||||||||||||||         GUIDELINE NÍVEL 1               |||||||||||||||||||||||||||| */  
+
+
+.publication-guideline.publ-risk1{
+	background-color: white;
+	text-transform:uppercase;
+	border: 0px solid white;
+	-webkit-border-radius:35px;
+	-moz-border-radius:35px;
+	border-radius:35px;
+	width:30%;
+	text-align:center;
+	margin-bottom:3%;
+	padding-top:1%;
+	
+}
+
+
+.publication-guideline.publ-risk1 > .publ-risk{
+	display:inline;
+	position:relative;
+	right:18%;
+	
+	
+	
+}
+.publication-guideline.publ-risk1 > .publ-type{
+	color:#666666;
+	font-weight:normal;
+	font-size:17px;
+	display: inline;
+	padding-bottom:2%;
+}
+
+.publication-guideline.publ-risk1 > .publ-countr{
+	color:#666666;
+	font-weight:normal;
+	display: inline;
+	position:relative;
+	left:12%;
+	font-size:11px;
+
+}
+.publication-guideline.publ-risk1 > .publ-title{
+	color:#666666;
+	font-weight:normal;
+	font-size:22px;
+}
+
+
+.publication-guideline.publ-risk1 hr{ /*COR DAS LINHAS*/
+	width:90%;
+	border-color:#CCCCCC;
+}
+
+
+.publication-guideline .arrow_white{ /*SETA BRANCA PARA NÍVEL 5*/
+	padding-bottom:5%;
+	display:none;
+	
+}
+
+.publication-guideline .arrow_gray{ /*OCULTAR SETA CINZENTA PARA OS RESTANTES NÍVEIS*/
+	padding-bottom:5%;
+	
+}
+.publication-guideline .ray-high{ /*OCULTAR RISCO ALTO*/
+	display:none;
+}
+
+.publication-guideline .ray-medium{ /*OCULTAR RISCO MEDIO*/
+	display:none;
+}
+
+.publication-guideline .ray-low{ /*OCULTAR RISCO BAIXO*/
+	display:none;
+}
+
+
+/* \\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
+
+br {
+
+	
+	margin:1px 0;
+	
 }

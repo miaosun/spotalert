@@ -3,12 +3,13 @@
 @section('content')
     @foreach ($publications as $publication)
     	
-		<div class="publication-{{{$publication->type}}} publ-risk{{{$publication->risk}}}" id="publ-{{ $publication->id }}" style="border-style:solid;border-width:1px;">
+		<div class="col-md-5 publication-{{{$publication->type}}} publ-risk{{{$publication->risk}}}" id="publ-{{ $publication->id }}" style="border-style:solid;border-width:1px;">
     			
     			<div class="publ-risk">
     			<img class="ray-high"src="{{asset('assets/images/ray_high.png')}}"></img>
     			<img class="ray-low"src="{{asset('assets/images/ray_low.png')}}"></img>
     			<img class="ray-medium"src="{{asset('assets/images/ray_medium.png')}}"></img>
+    			<img class="cross-plus"src="{{asset('assets/images/plus.png')}}"></img>
     			
     		</div>
     		
