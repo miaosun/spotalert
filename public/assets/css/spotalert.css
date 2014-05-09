@@ -46,7 +46,7 @@ footer {
 	padding-bottom:5px;
 	text-transform:uppercase;
 }
-.grid-menu a{
+.grid-menu a:not(.signin_dropdown .login_fb_gl){
 	text-decoration:none;
 	color:gray;
 }
