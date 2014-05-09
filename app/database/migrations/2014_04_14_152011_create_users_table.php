@@ -29,9 +29,9 @@ class CreateUsersTable extends Migration
             // Serve para ativar conta
             $table->string('code')->nullable();
             // Serve para saber a data da criacao da conta
-            $table->string('created_at')->nullable();
+            $table->timestamp('created_at')->nullable();
             // Da error quando tentar registar uma conta, error message: SQLSTATE[42703]: Undefined column: 7 ERROR: column "updated_at" of relation "users" does not exist
-            $table->string('updated_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
             //##################################
 			$table->string('phonenumber')->nullable();
 			$table->string('address')->nullable();
