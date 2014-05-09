@@ -39,57 +39,53 @@ class PublicationsSeeder extends Seeder
 
 		// ######################################################################
 		// European Countries
-        Country::create(array('name' => 'Albania', 'code' => 'AL'));
-        Country::create(array('name' => 'Andorra', 'code' => 'AD'));
-        Country::create(array('name' => 'Austria', 'code' => 'AT'));
-        Country::create(array('name' => 'Belarus', 'code' => 'BY'));
-        Country::create(array('name' => 'Belgium', 'code' => 'BE'));
-        Country::create(array('name' => 'Bosnia and Herzegovina', 'code' => 'BA'));
-        Country::create(array('name' => 'Bulgaria', 'code' => 'BG'));
-        Country::create(array('name' => 'Croatia', 'code' => 'HR'));
-        Country::create(array('name' => 'Cyprus', 'code' => 'CY'));
-        Country::create(array('name' => 'Czech Republic', 'code' => 'CZ'));
-        Country::create(array('name' => 'Denmark', 'code' => 'DK'));
-        Country::create(array('name' => 'Estonia', 'code' => 'EE'));
-        Country::create(array('name' => 'Faroe Islands', 'code' => 'FO'));
-        Country::create(array('name' => 'Finland', 'code' => 'FI'));
-        Country::create(array('name' => 'France', 'code' => 'FR'));
-        Country::create(array('name' => 'Germany', 'code' => 'DE'));
-        Country::create(array('name' => 'Gibraltar', 'code' => 'GI'));
-        Country::create(array('name' => 'Greece', 'code' => 'GR'));
-        Country::create(array('name' => 'Hungary', 'code' => 'HU'));
-        Country::create(array('name' => 'Iceland', 'code' => 'IS'));
-        Country::create(array('name' => 'Ireland', 'code' => 'IE'));
-        Country::create(array('name' => 'Italy', 'code' => 'IT'));
-        Country::create(array('name' => 'Latvia', 'code' => 'LV'));
-        Country::create(array('name' => 'Liechtenstein', 'code' => 'LI'));
-        Country::create(array('name' => 'Lithuania', 'code' => 'LT'));
-        Country::create(array('name' => 'Luxembourg', 'code' => 'LU'));
-        Country::create(array('name' => 'Macedonia', 'code' => 'MK'));
-        Country::create(array('name' => 'Malta', 'code' => 'MT'));
-        Country::create(array('name' => 'Moldova', 'code' => 'MD'));
-        Country::create(array('name' => 'Monaco', 'code' => 'MC'));
-        Country::create(array('name' => 'Netherlands', 'code' => 'NL'));
-        Country::create(array('name' => 'Norway', 'code' => 'NO'));
-        Country::create(array('name' => 'Poland', 'code' => 'PL'));
-        //Portugal
-        Country::create(array('name' => 'Romania', 'code' => 'RO'));
-        Country::create(array('name' => 'Russia', 'code' => 'RU'));
-        Country::create(array('name' => 'San Marino', 'code' => 'SM'));
-        Country::create(array('name' => 'Serbia', 'code' => 'RS'));
-        Country::create(array('name' => 'Slovakia', 'code' => 'SK'));
-        Country::create(array('name' => 'Slovenia', 'code' => 'SI'));
-        //Spain
-        Country::create(array('name' => 'Sweden', 'code' => 'SE'));
-        Country::create(array('name' => 'Switzerland', 'code' => 'CH'));
-        Country::create(array('name' => 'Ukraine', 'code' => 'UA'));
-        //UK
-        Country::create(array('name' => 'Vatican city', 'code' => 'VA'));
-        Country::create(array('name' => 'Yugoslavia', 'code' => 'RS'));
-        Country::create(array('name' => 'Isle of Man', 'code' => 'IM'));
-        Country::create(array('name' => 'Kosovo', 'code' => 'RS'));
-        Country::create(array('name' => 'Montenegro', 'code' => 'ME'));
-
+        Country::create(array('name' => 'Albania',					'code' => 'AL'));
+        Country::create(array('name' => 'Andorra',					'code' => 'AD'));
+        Country::create(array('name' => 'Austria',					'code' => 'AT'));
+        Country::create(array('name' => 'Belarus',					'code' => 'BY'));
+        Country::create(array('name' => 'Belgium',					'code' => 'BE'));
+        Country::create(array('name' => 'Bosnia and Herzegovina',	'code' => 'BA'));
+        Country::create(array('name' => 'Bulgaria',					'code' => 'BG'));
+        Country::create(array('name' => 'Croatia',					'code' => 'HR'));
+        Country::create(array('name' => 'Cyprus',					'code' => 'CY'));
+        Country::create(array('name' => 'Czech Republic',			'code' => 'CZ'));
+        Country::create(array('name' => 'Denmark',					'code' => 'DK'));
+        Country::create(array('name' => 'Estonia',					'code' => 'EE'));
+        Country::create(array('name' => 'Faroe Islands',			'code' => 'FO'));
+        Country::create(array('name' => 'Finland',					'code' => 'FI'));
+        Country::create(array('name' => 'France',					'code' => 'FR'));
+        Country::create(array('name' => 'Germany',					'code' => 'DE'));
+        Country::create(array('name' => 'Gibraltar',				'code' => 'GI'));
+        Country::create(array('name' => 'Greece',					'code' => 'GR'));
+        Country::create(array('name' => 'Hungary',					'code' => 'HU'));
+        Country::create(array('name' => 'Iceland',					'code' => 'IS'));
+        Country::create(array('name' => 'Ireland',					'code' => 'IE'));
+        Country::create(array('name' => 'Italy',					'code' => 'IT'));
+        Country::create(array('name' => 'Latvia',					'code' => 'LV'));
+        Country::create(array('name' => 'Liechtenstein',			'code' => 'LI'));
+        Country::create(array('name' => 'Lithuania',				'code' => 'LT'));
+        Country::create(array('name' => 'Luxembourg',				'code' => 'LU'));
+        Country::create(array('name' => 'Macedonia',				'code' => 'MK'));
+        Country::create(array('name' => 'Malta',					'code' => 'MT'));
+        Country::create(array('name' => 'Moldova',					'code' => 'MD'));
+        Country::create(array('name' => 'Monaco',					'code' => 'MC'));
+        Country::create(array('name' => 'Netherlands',				'code' => 'NL'));
+        Country::create(array('name' => 'Norway',					'code' => 'NO'));
+        Country::create(array('name' => 'Poland',					'code' => 'PL'));
+        Country::create(array('name' => 'Romania',					'code' => 'RO'));
+        Country::create(array('name' => 'Russia',					'code' => 'RU'));
+        Country::create(array('name' => 'San Marino',				'code' => 'SM'));
+        Country::create(array('name' => 'Serbia',					'code' => 'RS'));
+        Country::create(array('name' => 'Slovakia',					'code' => 'SK'));
+        Country::create(array('name' => 'Slovenia',					'code' => 'SI'));
+        Country::create(array('name' => 'Sweden',					'code' => 'SE'));
+        Country::create(array('name' => 'Switzerland',				'code' => 'CH'));
+        Country::create(array('name' => 'Ukraine',					'code' => 'UA'));
+        Country::create(array('name' => 'Vatican city',				'code' => 'VA'));
+        Country::create(array('name' => 'Yugoslavia',				'code' => 'RS'));
+        Country::create(array('name' => 'Isle of Man',				'code' => 'IM'));
+        Country::create(array('name' => 'Kosovo',					'code' => 'RS'));
+        Country::create(array('name' => 'Montenegro',				'code' => 'ME'));
 
 		$portugal = Country::create(array(
 			'name'	=> 'Portugal',
