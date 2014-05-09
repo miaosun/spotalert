@@ -33,7 +33,7 @@ class CreateUsersTable extends Migration
             // Da error quando tentar registar uma conta, error message: SQLSTATE[42703]: Undefined column: 7 ERROR: column "updated_at" of relation "users" does not exist
             $table->timestamp('updated_at')->nullable();
             //##################################
-			$table->string('phonenumber')->nullable();
+			$table->bigInteger('phonenumber')->nullable();
 			$table->string('address')->nullable();
 			$table->string('postalCode')->nullable();
 			$table->string('city')->nullable();
