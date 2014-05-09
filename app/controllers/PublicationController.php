@@ -121,7 +121,7 @@ class PublicationController extends BaseController
 			->orderBy('risk', 'desc')
 			->get();
 
-			//return DB::getQueryLog();
+			//$l = DB::getQueryLog();
 			//return end($l);
 			return Response::json(self::makeSimpleAnswer($publications));
 		}
