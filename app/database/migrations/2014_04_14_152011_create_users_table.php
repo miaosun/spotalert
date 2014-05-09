@@ -23,15 +23,25 @@ class CreateUsersTable extends Migration
 			$table->bigInteger('googleId')->nullable();
 			$table->string('organization')->nullable();
 			$table->string('password');
-			$table->integer('phonenumber')->nullable();
+            //##################################
+            // Serve para recuperar conta
+            $table->string('password_temp')->nullable();
+            // Serve para ativar conta
+            $table->string('code')->nullable();
+            // Serve para saber a data da criacao da conta
+            $table->string('created_at')->nullable();
+            // Da error quando tentar registar uma conta, error message: SQLSTATE[42703]: Undefined column: 7 ERROR: column "updated_at" of relation "users" does not exist
+            $table->string('updated_at')->nullable();
+            //##################################
+			$table->string('phonenumber')->nullable();
 			$table->string('address')->nullable();
 			$table->string('postalCode')->nullable();
 			$table->string('city')->nullable();
 			$table->boolean('activated')->default(false);
-			$table->enum('type', array('normal', 'admin', 'manager', 'publisher'));
+			$table->enum('type', array('normal', 'admin', 'manager', 'publisher'))->default('normal');
 			$table->integer('age_id')->unsigned();
 			$table->integer('residence_country_id')->unsigned();
-			$table->integer('nacionality_country_id')->unsigned();
+			$table->integer('nationality_country_id')->unsigned();
 			$table->integer('supervisor_id')->unsigned()->nullable();
 			
 			$table->foreign('age_id')
@@ -40,7 +50,7 @@ class CreateUsersTable extends Migration
 			$table->foreign('residence_country_id')
 				  ->references('id')->on('countries')
 				  ->onDelete('restrict');
-			$table->foreign('nacionality_country_id')
+			$table->foreign('nationality_country_id')
 				  ->references('id')->on('countries')
 				  ->onDelete('restrict');
 			$table->foreign('supervisor_id')
