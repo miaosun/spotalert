@@ -7,9 +7,10 @@
 			<li><a href="/taqueto">Filter</a></li>
 			<li><a href="/poetemanso">Contacts</a></li>
 			@if(Auth::check())
+          
             <li><a href="{{ URL::route('account-sign-out') }}">Sign out</a></li>
 
-			<li><a href="{{ URL::route('account-change-password') }}">Change password</a></li>
+			<!--<li><a href="{{ URL::route('account-change-password') }}">Change password</a></li>-->
 
 			@else
             <li class="dropdown">
