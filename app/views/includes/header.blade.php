@@ -26,7 +26,7 @@
         <!--<li><a href="{{ URL::route('account-change-password') }}">Change password</a></li>-->
 
         @else
-        <div class="col-md-1 dropdown">
+        <div class="col-md-1 col-sm-1 dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Log in <b class="caret"></b></a>
             <div class="dropdown-menu">
                 @include('account.signin')
