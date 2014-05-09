@@ -67,10 +67,11 @@ class AccountController extends BaseController {
                 'phonenumber'    => 'max:20',
                 'address'        => 'max:30',
                 'city'           => 'max:20',
-                'postalCode'       => 'max:15',
+                'postalCode'     => 'max:15',
                 'agerange'       => 'required|max:10',
                 'residence'      => 'required|max:20',
-                'nationality'    => 'required|max:20'
+                'nationality'    => 'required|max:20',
+                'accept'         => 'accepted'
 			)
 		);
 
