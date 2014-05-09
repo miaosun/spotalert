@@ -85,30 +85,12 @@ class PublicationsSeeder extends Seeder
         Country::create(array('name' => 'Kosovo',					'code' => 'RS'));
         Country::create(array('name' => 'Montenegro',				'code' => 'ME'));
 
-		$portugal = Country::create(array(
-			'name'	=> 'Portugal',
-			'code'	=>	'PT'
-		));
-
-		$spain = Country::create(array(
-			'name'	=> 'Spain',
-			'code'	=>	'ES'
-		));
-
-		$uk = Country::create(array(
-			'name'	=> 'United Kingdom',
-			'code'	=>	'UK'
-		));
-
-		$france = Country::create(array(
-			'name' => 'France',	
-			'code' => 'FR'
-		));
-
-		$russia = Country::create(array(
-			'name' => 'Russia',
-			'code' => 'RU'
-		));
+        // Countries necessary for publications down in this code
+		$portugal	= Country::create(array('name' => 'Portugal',		'code' => 'PT'));
+		$spain		= Country::create(array('name' => 'Spain',			'code' => 'ES'));
+		$uk			= Country::create(array('name' => 'United Kingdom', 'code' => 'UK'));
+		$france		= Country::create(array('name' => 'France',			'code' => 'FR'));
+		$russia		= Country::create(array('name' => 'Russia',			'code' => 'RU'));
 
         // ######################################################################
         // Ages
@@ -199,79 +181,68 @@ class PublicationsSeeder extends Seeder
 
 		// Fourth publication
 		$publication4 = Publication::create(array(
-			'initial_date' => '2014-03-23',
-			'final_date' => '2014-06-30',
-			'is_public'  => true,
-			'risk'   => 5,
-			'type'   => 'alert'
+			'initial_date'	=> '2014-03-23',
+			'final_date'	=> '2014-06-30',
+			'is_public'		=> true,
+			'risk'			=> 5,
+			'type'			=> 'alert'
 		));
 
 		$content4EN = PublicationContent::create(array(
-			'title'   => 'Solar Storm in Spain',
-			'content'  => 'There\'s going to be a high solar intensity during the next 2 weeks mainly in Asturias and Cadiz',
+			'title'			=> 'Solar Storm in Spain',
+			'content'		=> 'There\'s going to be a high solar intensity during the next 2 weeks mainly in Asturias and Cadiz',
 			'publication_id'=> $publication4->id,
-			'language_id' => $langEN->id
+			'language_id'	=> $langEN->id
 		));
-
-		$publication4->eventTypes()->attach($typeClimatic->id);
-		$publication4->affectedCountries()->attach($spain->id);
 
 		// Fifth publication
 		$publication5 = Publication::create(array(
-			'initial_date' => '2014-03-23',
-			'final_date' => '2014-06-30',
-			'is_public'  => true,
-			'risk'   => 4,
-			'type'   => 'alert'
+			'initial_date'	=> '2014-03-23',
+			'final_date'	=> '2014-06-30',
+			'is_public'		=> true,
+			'risk'			=> 4,
+			'type'			=> 'alert'
 		));
 
 		$content5EN = PublicationContent::create(array(
-			'title'   => 'Earthquake in Lyon, France.',
-			'content'  => 'A 3.5 scale earthquake has occurred in Lyon at 2:22 pm, replicas might occur during the following hours.',
+			'title'			=> 'Earthquake in Lyon, France.',
+			'content'		=> 'A 3.5 scale earthquake has occurred in Lyon at 2:22 pm, replicas might occur during the following hours.',
 			'publication_id'=> $publication5->id,
-			'language_id' => $langEN->id
+			'language_id'	=> $langEN->id
 		));
-
-		$publication5->eventTypes()->attach($typeClimatic->id);
-		$publication5->affectedCountries()->attach($france->id);
 
 		// Sixth publication
 		$publication6 = Publication::create(array(
-			'initial_date' => '2014-03-23',
-			'final_date' => '2014-06-30',
-			'is_public'  => true,
-			'risk'   => 2,
-			'type'   => 'alert'
+			'initial_date'	=> '2014-03-23',
+			'final_date'	=> '2014-06-30',
+			'is_public'		=> true,
+			'risk'			=> 2,
+			'type'			=> 'alert'
 		));
 
 		$content6EN = PublicationContent::create(array(
-			'title'   => 'Riots in Peckham, England.',
-			'content'  => 'The city of Peckham has been place of hostile civil riots against the police force. Avoid crossing this city.',
+			'title'			=> 'Riots in Peckham, England.',
+			'content'		=> 'The city of Peckham has been place of hostile civil riots against the police force. Avoid crossing this city.',
 			'publication_id'=> $publication6->id,
-			'language_id' => $langEN->id
+			'language_id'	=> $langEN->id
 		));
-
-		$publication6->eventTypes()->attach($typeSocial->id);
-		$publication6->affectedCountries()->attach($uk->id);
 
 		// Seventh publication
 		$publication7 = Publication::create(array(
-			'initial_date' => '2014-03-23',
-			'final_date' => '2014-06-30',
-			'is_public'  => true,
-			'risk'   => 2,
-			'type'   => 'guideline'
+			'initial_date'	=> '2014-03-23',
+			'final_date'	=> '2014-06-30',
+			'is_public' 	=> true,
+			'risk'			=> 2,
+			'type'			=> 'guideline'
 		));
 
 		$content7EN = PublicationContent::create(array(
-			'title'   => 'How to handle high temperatures',
-			'content'  => 'Use solar protection factor 50 if you\'re exposed to the sun and drink 2,5 liters of water per day. ',
+			'title'			=> 'How to handle high temperatures',
+			'content'		=> 'Use solar protection factor 50 if you\'re exposed to the sun and drink 2,5 liters of water per day. ',
 			'publication_id'=> $publication7->id,
-			'language_id' => $langEN->id
+			'language_id'	=> $langEN->id
 		));
 
-		$publication7->eventTypes()->attach($typeSocial->id);
-		$publication7->affectedCountries()->attach($russia->id);
 
 		// Linking publications
 		$publication1->guidelines()->attach($publication2->id);
@@ -287,6 +258,18 @@ class PublicationsSeeder extends Seeder
 		$publication3->affectedCountries()->attach($portugal->id);
 		$publication3->affectedCountries()->attach($spain->id);
 		$publication3->affectedCountries()->attach($uk->id);
+
+		$publication4->eventTypes()->attach($typeClimatic->id);
+		$publication4->affectedCountries()->attach($spain->id);
+
+		$publication5->eventTypes()->attach($typeClimatic->id);
+		$publication5->affectedCountries()->attach($france->id);
+
+		$publication6->eventTypes()->attach($typeSocial->id);
+		$publication6->affectedCountries()->attach($uk->id);
+
+		$publication7->eventTypes()->attach($typeSocial->id);
+		$publication7->affectedCountries()->attach($russia->id);
 	}
 
 	public function clearDatabase()
