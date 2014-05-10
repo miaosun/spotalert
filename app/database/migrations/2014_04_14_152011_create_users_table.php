@@ -23,18 +23,9 @@ class CreateUsersTable extends Migration
 			$table->bigInteger('googleId')->nullable();
 			$table->string('organization')->nullable();
 			$table->string('password');
-
-            //##################################
-            // Serve para recuperar conta
-            $table->string('password_temp')->nullable();
-            // Serve para ativar conta
-            $table->string('code')->nullable();
-            // Serve para saber a data da criacao da conta
-            $table->timestamp('created_at')->nullable();
-            // Da error quando tentar registar uma conta, error message: SQLSTATE[42703]: Undefined column: 7 ERROR: column "updated_at" of relation "users" does not exist
-            $table->timestamp('updated_at')->nullable();
-            //##################################
-
+			$table->string('password_temp')->nullable(); // For password recovery
+            $table->string('code')->nullable(); // For account activation
+            $table->string('created_at')->nullable();
 			$table->bigInteger('phonenumber')->nullable();
 			$table->string('address')->nullable();
 			$table->string('postalCode')->nullable();
