@@ -23,15 +23,18 @@ class CreateUsersTable extends Migration
 			$table->bigInteger('googleId')->nullable();
 			$table->string('organization')->nullable();
 			$table->string('password');
-			$table->integer('phonenumber')->nullable();
+			$table->string('password_temp')->nullable(); // For password recovery
+            $table->string('code')->nullable(); // For account activation
+            $table->string('created_at')->nullable();
+			$table->bigInteger('phonenumber')->nullable();
 			$table->string('address')->nullable();
 			$table->string('postalCode')->nullable();
 			$table->string('city')->nullable();
 			$table->boolean('activated')->default(false);
-			$table->enum('type', array('normal', 'admin', 'manager', 'publisher'));
+			$table->enum('type', array('normal', 'admin', 'manager', 'publisher'))->default('normal');
 			$table->integer('age_id')->unsigned();
 			$table->integer('residence_country_id')->unsigned();
-			$table->integer('nacionality_country_id')->unsigned();
+			$table->integer('nationality_country_id')->unsigned();
 			$table->integer('supervisor_id')->unsigned()->nullable();
 			
 			$table->foreign('age_id')
@@ -40,7 +43,7 @@ class CreateUsersTable extends Migration
 			$table->foreign('residence_country_id')
 				  ->references('id')->on('countries')
 				  ->onDelete('restrict');
-			$table->foreign('nacionality_country_id')
+			$table->foreign('nationality_country_id')
 				  ->references('id')->on('countries')
 				  ->onDelete('restrict');
 			$table->foreign('supervisor_id')

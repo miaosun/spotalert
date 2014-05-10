@@ -48,8 +48,10 @@ class AccountController extends BaseController {
 	}
 
 	public function getCreate() {
-        $age_options = array('' => 'CHOOSE AGE RANGE') + DB::table('ages')->lists('range','id');
-        $country_options = array('' => 'CHOOSE COUNTRY') + DB::table('countries')->orderBy('short_name', 'asc')->lists('short_name','id');
+        $country_options = array('' => 'CHOOSE COUNTRY') + Country::lists('name', 'id');
+        $age_options = array('' => 'CHOOSE AGE RANGE') + Age::lists('stepname','id');
+        //$age_options = array('' => 'CHOOSE AGE RANGE') + DB::table('ages')->lists('range','id');
+        //$country_options = array('' => 'CHOOSE COUNTRY') + DB::table('countries')->orderBy('short_name', 'asc')->lists('short_name','id');
 		return View::make('account.create')->with('country_options',$country_options)->with('age_options',$age_options);
 	}
 
@@ -65,10 +67,11 @@ class AccountController extends BaseController {
                 'phonenumber'    => 'max:20',
                 'address'        => 'max:30',
                 'city'           => 'max:20',
-                'postalCode'       => 'max:15',
+                'postalCode'     => 'max:15',
                 'agerange'       => 'required|max:10',
                 'residence'      => 'required|max:20',
-                'nationality'    => 'required|max:20'
+                'nationality'    => 'required|max:20',
+                'accept'         => 'accepted'
 			)
 		);
 
