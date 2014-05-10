@@ -20,7 +20,7 @@
                             YES {{ Form::radio('accept', 'yes') }}
                             NO {{ Form::radio('accept', 'no') }}
                             @if($errors->has('accept'))
-                            <br><span>YOU MUST ACCEPT THE TERMS</span>
+                            <br><span>{{ $errors->first('accept') }}</span>
                             @endif
                         </div>
                     </div>
