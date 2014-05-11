@@ -18,13 +18,6 @@ Route::get('/', array(
 
 Route::group(array('prefix' => 'publications'), function()
 {
-	// All publications
-	// TODO: Remove at the end because it just shows everything
-	Route::get('/', array(
-		'as'	=> 'publications-all',
-		'uses'	=> 'PublicationController@getPublications'
-	));
-
 	// For the RSS feed
 	Route::get('/rss', array(
 		'as'	=> 'publications-rss',
@@ -56,7 +49,9 @@ Route::group(array('prefix' => 'publications'), function()
       		if(!isset($affected_countries) || $affected_countries === '')
       			$affected_countries = NULL;
 
-      		return PublicationController::getFilteredPublications($risks, $event_types, $affected_countries);
+
+      		$publications = PublicationController::getFilteredPublications($risks, $event_types, $affected_countries);
+      		return View::make('includes.publications')->with('publications', $publications);
      	},
 	));
 });

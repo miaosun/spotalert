@@ -13,5 +13,6 @@
 {{ HTML::style('assets/css/spotalert.css'); }}
 {{ HTML::style('assets/css/login.css'); }}
 {{ HTML::style('assets/css/create.css'); }}
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+{{ HTML::script('assets/js/script.js') }}
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>

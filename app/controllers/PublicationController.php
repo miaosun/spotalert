@@ -4,15 +4,6 @@ class PublicationController extends BaseController
 {
 	/**
 	 * It gets all the publications in the database
-	 * TODO: Remove at the end
-	 */
-	public static function getPublications()
-	{
-		return Publication::all();
-	}
-
-	/**
-	 * It gets all the publications in the database
 	 */
 	public static function getAllPublications()
 	{
@@ -27,7 +18,7 @@ class PublicationController extends BaseController
 			->orderBy('risk', 'desc')
 			->get();
 
-		return Response::json(self::makeSimpleAnswer($publications));
+		return self::makeSimpleAnswer($publications);
 	}
 
 	/**
@@ -64,7 +55,7 @@ class PublicationController extends BaseController
 	{	
 		// If it's all null, we should do anything
 		if($risks == NULL && $event_types == NULL && $affected_countries == NULL)
-			return Response::json();
+			return array();
 		else
 		{
 			$risks 				= explode(',', $risks);
@@ -123,7 +114,7 @@ class PublicationController extends BaseController
 
 			//$l = DB::getQueryLog();
 			//return end($l);
-			return Response::json(self::makeSimpleAnswer($publications));
+			return self::makeSimpleAnswer($publications);
 		}
 	}
 
@@ -147,6 +138,7 @@ class PublicationController extends BaseController
 			$json_response = array();
 
 		    $json_response = array();
+		    $json_response['id'] = $publication->id;
 		    $json_response['initial_date'] = $publication->initial_date;
 		    $json_response['final_date']   = $publication->final_date;
 		    $json_response['risk']         = $publication->risk;
