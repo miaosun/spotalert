@@ -11,22 +11,32 @@ return array(
 	|
 	*/
 	"menu"	=> array(
-		"filter" => "Filter",
+		"filter"     => "Filter",
 		"eyewitness" => "Eye Witness",
-		"contact" => "Contact",
-		"signout" => "Sign out",
-		"login" => "Log in",
-		"search" => "SEARCH"
+		"contact"    => "Contact",
+		"signout"    => "Sign out",
+		"login"      => "Log in",
+		"search"     => "SEARCH"
 
 	),
 	"filter" => array(
 		"risk_extreme" => "EXTREME",
-		"risk_medium" => "MEDIUM",
-		"risk_low" => "LOW",
-		"type" => "TYPE OF EVENT",
-		"country" => "COUNTRY"
+		"risk_medium"  => "MEDIUM",
+		"risk_low"     => "LOW",
+		"type"         => "TYPE OF EVENT",
+		"country"      => "COUNTRY"
 	),
 	"footer" => array(
 		"sponsors" => "Sponsors"
+	),
+	"signin" => array(
+		"email" => "EMAIL",
+		"password" => "PASSWORD",
+		"remember_me" => "Remember me",
+		"signin" => "Sign in",
+		"login_facebook" => "Login with Facebook",
+		"login_google" => "Login with Google",
+		"account_question" => "Don't have an account yet?",
+		"register" => "REGISTER HERE"
 	)
 );

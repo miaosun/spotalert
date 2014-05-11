@@ -30,7 +30,7 @@
 
         @else
         <div class="col-md-1 col-sm-1 dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Lang::get('home.menu.login')}} <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Lang::get('home.menu.login')}} <span class="caret"></span></a>
             <div class="dropdown-menu">
                 @include('account.signin')
             </div>
