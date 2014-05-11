@@ -11,7 +11,7 @@
             echo "<script type='text/javascript'>alert('$message');</script>"; ?>
 			@endif
             <header class="">@include('includes.header')</header>
-            <div id="main" class="">@include('includes.publications')</div>
+            <div id="main" class="">@yield('content')</div>
             <footer class="">@include('includes.footer')</footer>
         </div>
     </body>

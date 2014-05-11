@@ -1,47 +1,26 @@
-<li><a href="#">{{Lang::get('home.filter.risk_extreme')}}</a></li>
-<li><a href="#">{{Lang::get('home.filter.risk_medium')}}</a></li>
-<li><a href="#">{{Lang::get('home.filter.risk_low')}}</a></li>
-<li>
+<div>{{Lang::get('home.filter.risk_extreme')}}</div>
+<div>{{Lang::get('home.filter.risk_medium')}}</div>
+<div>{{Lang::get('home.filter.risk_low')}}</div>
+<div>
     <a class="trigger right-caret">{{Lang::get('home.filter.type')}}</a>
-    <ul class="dropdown-menu sub-menu">
-        <li><a href="#">Level 2</a></li>
-        <li>
-            <a class="trigger right-caret">Level 2</a>
-            <ul class="dropdown-menu sub-menu">
-                <li><a href="#">Level 3</a></li>
-                <li><a href="#">Level 3</a></li>
-                <li>
-                    <a class="trigger right-caret">Level 3</a>
-                    <ul class="dropdown-menu sub-menu">
-                        <li><a href="#">Level 4</a></li>
-                        <li><a href="#">Level 4</a></li>
-                        <li><a href="#">Level 4</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li><a href="#">Level 2</a></li>
-    </ul>
-</li>
-<li>
+    <div class="dropdown-menu sub-menu">
+        <div>
+        @foreach (EventType::all() as $eventType)
+            <div>{{{$eventType->name}}}</div>
+        @endforeach
+        </div>
+        <div>OK</div>
+    </div>
+</div>
+<div>
     <a class="trigger right-caret">{{Lang::get('home.filter.country')}}</a>
-    <ul class="dropdown-menu sub-menu">
-        <li><a href="#">Level 2</a></li>
-        <li>
-            <a class="trigger right-caret">Level 2</a>
-            <ul class="dropdown-menu sub-menu">
-                <li><a href="#">Level 3</a></li>
-                <li><a href="#">Level 3</a></li>
-                <li>
-                    <a class="trigger right-caret">Level 3</a>
-                    <ul class="dropdown-menu sub-menu">
-                        <li><a href="#">Level 4</a></li>
-                        <li><a href="#">Level 4</a></li>
-                        <li><a href="#">Level 4</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </li>
-        <li><a href="#">Level 2</a></li>
-    </ul>
-</li>
+    <div class="dropdown-menu sub-menu">
+        <div>All countries</div>
+        <div style="height:80px;width:218px;" class="scrollable">
+        @foreach (Country::all() as $country)
+            <div>{{{$country->name}}}</div>
+        @endforeach
+        </div>
+        <div>OK</div>
+    </div>
+</div>

@@ -1,6 +1,7 @@
 $('document').ready(function() 
 {
-	$(".dropdown-menu > li > a.trigger").on("click",function(e)
+	// Function for possibility to have submenus dropdown
+	$("#filt .dropdown-menu > div > a.trigger").on("click",function(e)
 	{
 		var current     = $(this).next();
 		var grandparent = $(this).parent().parent();
@@ -12,5 +13,13 @@ $('document').ready(function()
 		grandparent.find(".sub-menu:visible").not(current).hide();
 		current.toggle();
 		e.stopPropagation();
-	})
+	});
+
+	// Just to activate the custom scrolling using the jScrollPane jQuery plugin
+	$('.scrollable').jScrollPane({ hideFocus : true, autoReinitialise : true, contentWidth : '218px' });
+
+	// If clicking anywhere in the dropdown menu, it doesn't close
+	$('.dropdown-menu').click(function(e) {
+        e.stopPropagation();
+    });
 });

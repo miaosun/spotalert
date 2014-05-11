@@ -2,7 +2,7 @@
 	font-family: 'Open Sans', sans-serif;
 }
 
-.row {
+header .row {
 	border-top: thick #BF2333; 
 	border-style: solid; 
 	border-bottom: none; 
@@ -44,32 +44,32 @@ footer {
 }
 
 
-.grid-menu {
+header .grid-menu {
 	text-transform:uppercase;
 }
 
-.grid-menu a {
+header .grid-menu a {
 	text-decoration:none;
 	color:gray;
 }
 
-.row > div {
+header .row > div {
 	font-size:18px;
 	text-align:center;
 	padding: 10px 0px 10px; 
 	height: 62px;
 }
 
-.row > div:not(:first-child):not(:last-child) {
+header .row > div:not(:first-child):not(:last-child) {
 	padding-top: 19px;
 	border-left: 1px solid #d1d1d1;
 }
 
-.row a#en {
+header .row a#en {
 	text-decoration:underline;
 }
 
-.row > div#language {
+header .row > div#language {
 	background-color:#f2f2f2;
 	font-size:14px;
 	padding-top: 21.5px;
@@ -90,7 +90,7 @@ footer {
     
 }
 
-#search-input{
+header #search-input{
 	text-decoration:none;
 	border:2px solid #f2f2f2;
 	border-top-right-radius:2em;
@@ -106,12 +106,12 @@ footer {
 
 }
 
-#search-glass{
+header #search-glass{
 	height:17px;
 	width:13px;
 	
 }
-form #search{
+header form #search{
 	margin:0px;
 	padding:0px;
 }
@@ -917,34 +917,32 @@ form #search{
 /* \\\\\\\\\\\\\\\\\\\\\\\\\\\\ */
 
 br {
-
-	
 	margin:1px 0;
-	
 }
 
 
 
-/**********************
-****** FILTERING ******
-***********************/
+/******************************************************
+********************** FILTERING **********************
+*******************************************************/
 
-.dropdown-menu>li {
-	position:relative;
-	cursor:pointer;
+#filt .dropdown-menu > div {
+	position: relative;
+	cursor: pointer;
 }
 
-.dropdown-menu .sub-menu {
+#filt .dropdown-menu .sub-menu {
     left: 100%;
     position: absolute;
     top: 0;
     display:none;
     margin-top: -1px;
-	border-top-left-radius:0;
-	border-bottom-left-radius:0;
-	border-left-color:#fff;
-	box-shadow:none;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	border-left-color: #fff;
+	box-shadow: none;
 }
+
 .right-caret:after,.left-caret:after {
 	content:"";
     border-bottom: 5px solid transparent;
@@ -953,7 +951,7 @@ br {
     height: 0;
     vertical-align: middle;
     width: 0;
-	margin-left:5px;
+	margin-left: 5px;
 }
 
 .right-caret:after{	
@@ -962,4 +960,228 @@ br {
 
 .left-caret:after{
 	border-right: 5px solid #ffaf46;
+}
+
+/* Scroll pane  ---------- */
+/* Adapted from http://jscrollpane.kelvinluck.com/index.html */
+/* v */
+.jspContainer {
+  overflow: hidden;
+  position: relative;
+}
+
+.jspPane {
+  position: absolute;
+}
+
+.jspVerticalBar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 13px;
+  height: 100%;
+}
+
+.jspHorizontalBar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 11px;
+}
+
+.jspVerticalBar *,
+.jspHorizontalBar * {
+  margin: 0;
+  padding: 0;
+}
+
+.jspCap {
+  display: none;
+}
+
+.jspHorizontalBar .jspCap {
+  float: left;
+}
+
+.jspTrack {
+  width: 1px;
+  background: rgb(200, 200, 200);
+  position: relative;
+}
+
+.jspHorizontalBar .jspTrack {
+  bottom: 5px;
+}
+
+.jspVerticalBar .jspTrack {
+  left: 5px;
+}
+
+.jspDrag {
+  background: #bbd;
+  position: relative;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  background-color: rgb(243, 243, 243);
+  box-shadow: 0px 0px 4px rgb(200, 200, 200);
+}
+
+.jspHorizontalBar .jspTrack,
+.jspHorizontalBar .jspDrag {
+  float: left;
+  height: 100%;
+}
+
+.jspHorizontalBar .jspDrag {
+  bottom: -5px;
+  height: 11px;
+}
+
+.jspVerticalBar .jspDrag {
+  left: -5px;
+  width: 11px;
+}
+
+.jspArrow {
+  background: #50506d;
+  text-indent: -20000px;
+  display: block;
+  cursor: pointer;
+}
+
+.jspArrow.jspDisabled {
+  cursor: default;
+  background: #80808d;
+}
+
+.jspVerticalBar .jspArrow {
+  height: 10px;
+}
+
+.jspHorizontalBar .jspArrow {
+  width: 10px;
+  float: left;
+  height: 100%;
+}
+
+.jspVerticalBar .jspArrow:focus {
+  outline: none;
+}
+
+.jspCorner {
+  background: #eeeef4;
+  float: left;
+  height: 100%;
+}
+
+/* Yuk! CSS Hack for IE6 3 pixel bug :( */
+* html .jspCorner {
+  margin: 0 -3px 0 0;
+}
+/* ^ */
+/* Adapted from http://jscrollpane.kelvinluck.com/index.html */
+
+
+
+/******************************************************
+******************* ACCOUNT CREATION ******************
+*******************************************************/
+
+#create{
+    background-color: white;
+
+    border: 2px solid #BF2333; //#ED1C24
+
+    -webkit-border-radius: 25px;
+    -moz-border-radius: 25px;
+    border-radius: 25px;
+
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+
+#create h1{
+    background-color:#BF2333;
+    color: white;
+    margin: 0px 0px 2% 0px;
+    padding-left: 5%;
+    line-height:200%;
+    font-size:  1.1em;
+}
+
+#create label{
+    color:#BF2333;
+    text-transform: uppercase;
+    font-size:  0.9em;
+}
+#create #mand_field{
+    font-size: 9px;
+}
+
+#create textarea {
+    text-indent:15px;
+    text-align:justify;
+    font-size:12px;
+    border: none;
+}
+
+#create p {
+    font-size: 13px;
+    color:#BF2333;
+}
+
+#create h5 {
+    color:#BF2333;
+}
+
+#create #moveright {
+    left: 15px;
+}
+
+#create input {
+    border: 0px;
+    border-bottom: 1px dashed  #BF2333;
+}
+
+#create input[type=submit] {
+    width: 80%;
+    border: 0px;
+    margin: 5% 5% 5% 0%;
+    background-color: #BF2333;
+    color: white;
+
+    -webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+}
+
+#create span {
+    font-size:12px;
+    color:red;
+}
+
+
+/******************************************************
+************************* LOGIN ***********************
+*******************************************************/
+#login .dropdown-menu {
+    background: #f2f2f2;
+    width:280px;
+    line-height: 15px;
+    text-transform:none;
+    padding-right:30px;
+    padding-left:30px;
+    padding-top:20px;
+}
+
+.form-group input {
+    background: #c8c8c8;
+}
+
+.signin_dropdown p {
+    font-size:12px;
+    color:red;
 }

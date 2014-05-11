@@ -9,11 +9,11 @@
             <a href="/eyewitness">{{Lang::get('home.menu.eyewitness')}}</a>
         </div>
 
-        <div class="col-md-1 col-sm-1 dropdown">
+        <div class="col-md-1 col-sm-1 dropdown" id="filt">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Lang::get('home.menu.filter')}} <span class="caret"></b></a>
-            <ul class="dropdown-menu">
+            <div class="dropdown-menu">
                 @include('publications.filter')
-            </ul>
+            </div>
         </div>
 
         <div class="col-md-1 col-sm-1">
@@ -29,7 +29,7 @@
         <!--<li><a href="{{ URL::route('account-change-password') }}">Change password</a></li>-->
 
         @else
-        <div class="col-md-1 col-sm-1 dropdown">
+        <div class="col-md-1 col-sm-1 dropdown" id="login">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Lang::get('home.menu.login')}} <span class="caret"></span></a>
             <div class="dropdown-menu">
                 @include('account.signin')

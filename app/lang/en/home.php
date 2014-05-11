@@ -30,13 +30,13 @@ return array(
 		"sponsors" => "Sponsors"
 	),
 	"signin" => array(
-		"email" => "EMAIL",
-		"password" => "PASSWORD",
-		"remember_me" => "Remember me",
-		"signin" => "Sign in",
-		"login_facebook" => "Login with Facebook",
-		"login_google" => "Login with Google",
+		"email"            => "EMAIL",
+		"password"         => "PASSWORD",
+		"remember_me"      => "Remember me",
+		"signin"           => "Sign in",
+		"login_facebook"   => "Login with Facebook",
+		"login_google"     => "Login with Google",
 		"account_question" => "Don't have an account yet?",
-		"register" => "REGISTER HERE"
+		"register"         => "REGISTER HERE"
 	)
 );
