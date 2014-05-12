@@ -1146,6 +1146,7 @@ br {
 #create input {
     border: 0px;
     border-bottom: 1px dashed  #BF2333;
+    margin-bottom: 1px;
 }
 
 #create input[type=submit] {
