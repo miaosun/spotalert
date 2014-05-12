@@ -14,6 +14,7 @@ class CreateNotificationSettingsTable extends Migration
 	{
 		Schema::create('notificationSettings', function(Blueprint $table)
 		{
+			$table->increments('id');
 			$table->integer('risk');
 			$table->integer('user_id')->unsigned();
 			$table->integer('country_id')->unsigned();

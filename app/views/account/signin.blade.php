@@ -2,7 +2,7 @@
 	<form action="{{ URL::route('account-sign-in-post') }}" method="post">
 
 		<div class="form-group">
-			<label for="inputUsernameEmail">EMAIL</label>
+			<label for="inputUsernameEmail">{{Lang::get('home.signin.email')}}</label>
 			<input type="email" class="form-control" id="inputUsernameEmail" name="email_signin" {{ (Input::old('email_signin')) ? ' value="' . Input::old('email_signin') . '"' : '' }}>
             @if($errors->has('email_signin'))
             <p>{{ $errors->first('email_signin') }}</p>
@@ -16,7 +16,7 @@
 
 		<div class="form-group">
 			<a class="pull-right" href="{{ URL::route('account-forgot-password') }}"><span style="font-size:10px">Forgot password?</span></a>
-			<label for="inputPassword">PASSWORD</label>
+			<label for="inputPassword">{{Lang::get('home.signin.password')}}</label>
 			<input type="password" class="form-control" id="inputPassword" name="password_signin">
             @if($errors->has('password_signin'))
             <p>{{ $errors->first('password_signin') }}</p>
@@ -33,18 +33,18 @@
 		<div class="checkbox pull-left">
 			<input type="checkbox" name="remember" id="remember">
 			<label for="remember">
-				Remember me
+                {{Lang::get('home.signin.remember_me')}}
 			</label>
 		</div>
 
-		<button type="submit" class="btn btn btn-primary pull-right">Sign in</button>
+		<button type="submit" class="btn btn btn-primary pull-right">{{Lang::get('home.signin.signin')}}</button>
         {{ Form::token() }}
 
         <hr width="60%">
 
         <div class="login_fb_gl">
-            <a href="#" class="btn btn-lg btn-primary btn-block">Login with Facebook</a><br>
-            <a href="#" class="btn btn-lg btn-danger btn-block">Login with Google</a>
+            <a href="#" class="btn btn-lg btn-primary btn-block">{{Lang::get('home.signin.login_facebook')}}</a><br>
+            <a href="#" class="btn btn-lg btn-danger btn-block">{{Lang::get('home.signin.login_google')}}</a>
         </div>
 
         <hr width="60%">
@@ -52,8 +52,8 @@
         <div class="register-block">
             <div class="row">
                 <div class="col-md-12 row-block" style="text-align: center;">
-                    Don't have an account yet?
-                    <a href="{{ URL:: route('account-create') }}" class="btn btn-block"><h4>REGISTER HERE</h4></a>
+                    {{Lang::get('home.signin.account_question')}}
+                    <a href="{{ URL:: route('account-create') }}" class="btn btn-block"><h4>{{Lang::get('home.signin.register')}}</h4></a>
                 </div>
             </div>
         </div>

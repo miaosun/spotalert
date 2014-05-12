@@ -18,10 +18,10 @@ Route::get('/', array(
 
 Route::group(array('prefix' => 'publications'), function()
 {
-	// All publications
-	Route::get('/', array(
-		'as'	=> 'publications-all',
-		'uses'	=> 'PublicationController@getPublications'
+	// For the RSS feed
+	Route::get('/rss', array(
+		'as'	=> 'publications-rss',
+		'uses'	=> 'PublicationController@getAllPublications'
 	));
 
 	// For searching publications
@@ -33,7 +33,7 @@ Route::group(array('prefix' => 'publications'), function()
 
 	// For filtering
 	// Possible parameters to receive: risks, event_types, affected_countries
-	// In each one, separate by commas the elements
+	// In each one, separate the elements by commas
 	Route::get('/filter/', array(
 		'as'	=> 'publications-filter',
 		function() 
@@ -49,7 +49,9 @@ Route::group(array('prefix' => 'publications'), function()
       		if(!isset($affected_countries) || $affected_countries === '')
       			$affected_countries = NULL;
 
-      		return PublicationController::getFilteredPublications($risks, $event_types, $affected_countries);
+
+      		$publications = PublicationController::getFilteredPublications($risks, $event_types, $affected_countries);
+      		return View::make('includes.publications')->with('publications', $publications);
      	},
 	));
 });
