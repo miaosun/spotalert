@@ -2,7 +2,7 @@
 	font-family: 'Open Sans', sans-serif;
 }
 
-header .row {
+header .row-header {
 	border-top: thick #BF2333; 
 	border-style: solid; 
 	border-bottom: none; 
@@ -48,28 +48,28 @@ header .grid-menu {
 	text-transform:uppercase;
 }
 
-header .grid-menu a {
+header .row-header > div > a {
 	text-decoration:none;
 	color:gray;
 }
 
-header .row > div {
+header .row-header > div {
 	font-size:18px;
 	text-align:center;
 	padding: 10px 0px 10px; 
 	height: 62px;
 }
 
-header .row > div:not(:first-child):not(:last-child) {
+header .row-header > div:not(:first-child):not(:last-child) {
 	padding-top: 19px;
 	border-left: 1px solid #d1d1d1;
 }
 
-header .row a#en {
+header .row-header a#en {
 	text-decoration:underline;
 }
 
-header .row > div#language {
+header .row-header > div#language {
 	background-color:#f2f2f2;
 	font-size:14px;
 	padding-top: 21.5px;
