@@ -1,5 +1,5 @@
 <div class="container-fluid grid-menu">
-    <div class="row">
+    <div class="row row-header">
 
         <div class="col-md-3 col-sm-3">
             <a href="{{ URL::route('home') }}"><img src="{{asset('assets/images/logo_manyskill.png')}}" height="42"></a>
