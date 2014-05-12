@@ -23,8 +23,11 @@
         @if(Auth::check())
         <div class="col-md-1 col-sm-1 signout">
             <!--<a href="{{ URL::route('profile-user') }}">{{ Auth::user()->username }}</a>-->
-            <a href="#">{{ Auth::user()->username }}</a>
-            <a href="{{ URL::route('account-sign-out') }}">{{Lang::get('home.menu.signout')}}</a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->username }}<b class="caret"></b></a>
+            <div class="dropdown-menu">
+                <li><a href="#">My Profile</a></li>
+                <li><a href="{{ URL::route('account-sign-out') }}">{{Lang::get('home.menu.signout')}}</a></li>
+            </div>
         </div>
         <!--<li><a href="{{ URL::route('account-change-password') }}">Change password</a></li>-->
 
