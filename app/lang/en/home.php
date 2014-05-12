@@ -16,8 +16,8 @@ return array(
 		"contact"    => "Contact",
 		"signout"    => "Sign out",
 		"login"      => "Log in",
-		"search"     => "SEARCH"
-
+		"search"     => "SEARCH",
+        "profile"    => "My Profile"
 	),
 	"filter" => array(
 		"risk_extreme" => "EXTREME",

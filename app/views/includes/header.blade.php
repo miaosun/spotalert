@@ -10,7 +10,8 @@
         </div>
 
         <div class="col-md-1 col-sm-1 dropdown" id="filt">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Lang::get('home.menu.filter')}} <span class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Lang::get('home.menu.filter')}} <span class="caret"></span></a>
+
             <div class="dropdown-menu">
                 @include('publications.filter')
             </div>
@@ -24,8 +25,9 @@
         <div class="col-md-1 col-sm-1 signout">
             <!--<a href="{{ URL::route('profile-user') }}">{{ Auth::user()->username }}</a>-->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->username }}<b class="caret"></b></a>
+
             <div class="dropdown-menu">
-                <li><a href="#">My Profile</a></li>
+                <li><a href="#">{{Lang::get('home.menu.profile')}}</a></li>
                 <li><a href="{{ URL::route('account-sign-out') }}">{{Lang::get('home.menu.signout')}}</a></li>
             </div>
         </div>
@@ -33,7 +35,9 @@
 
         @else
         <div class="col-md-1 col-sm-1 dropdown" id="login">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Lang::get('home.menu.login')}} <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Lang::get('home.menu.login')}} <span
+                    class="caret"></span></a>
+
             <div class="dropdown-menu">
                 @include('account.signin')
             </div>

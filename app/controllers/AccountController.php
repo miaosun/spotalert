@@ -110,7 +110,8 @@ class AccountController extends BaseController {
                 'city'        => $city,
                 'postalCode'    => $postalCode,
                 'residence_country_id'   => $residence,
-                'nationality_country_id' => $nationality
+                'nationality_country_id' => $nationality,
+                'created_at'  => date('Y-m-d')
 			));
 
 			if($user) {
