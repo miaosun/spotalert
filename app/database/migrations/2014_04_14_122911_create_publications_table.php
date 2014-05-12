@@ -15,8 +15,8 @@ class CreatePublicationsTable extends Migration
 		Schema::create('publications', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->date('initial_date');
-			$table->date('final_date');
+			$table->date('initial_date')->nullable();
+			$table->date('final_date')->nullable();
 			$table->boolean('is_public');
 			$table->integer('periodic_notification')->default(0);
 			$table->integer('risk');
