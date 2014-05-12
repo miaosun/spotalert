@@ -1,6 +1,6 @@
 $('document').ready(function() 
 {
-	// Function for possibility to have submenus dropdown
+	// Function for possibility to have submenus dropdown on filtering menu
 	$("#filt .dropdown-menu > div > a.trigger").on("click",function(e)
 	{
 		var current     = $(this).next();

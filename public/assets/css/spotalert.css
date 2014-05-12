@@ -962,7 +962,9 @@ br {
 	border-right: 5px solid #ffaf46;
 }
 
-/* Scroll pane  ---------- */
+/******************************************************
+********************** SCROLL PANE ********************
+*******************************************************/
 /* Adapted from http://jscrollpane.kelvinluck.com/index.html */
 /* v */
 .jspContainer {
