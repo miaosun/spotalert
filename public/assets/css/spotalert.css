@@ -36,7 +36,7 @@ header .row-header {
 .footer-risk{
     display:inline;
 }
-*/
+
 header .grid-menu {
 	text-transform:uppercase;
 }
@@ -109,6 +109,13 @@ header form #search{
 	padding:0px;
 }
 
+#edit-publ{
+	 float:right;
+}
+
+.close{
+	display:inline;
+}
 
 /* |||||||||||||              ALERTA NÍVEL5               ||||||||||||||||||||||||||*/
 
@@ -171,10 +178,11 @@ header form #search{
 	
 }
 
-.publ-risk5 .arrow_gray, .publ-risk5 .ray-low, .publ-risk5 .ray-medium{
-	display:none;
-}
-.publication-alert .cross-plus{ /*OCULTAR CRUZ DE GUIDELINE*/
+.publ-risk5 .arrow_gray, 
+.publ-risk5 .ray-low, 
+.publ-risk5 .ray-medium, 
+.publ-risk5 .edit-button, 
+.publication-alert .cross-plus{
 	display:none;
 }
 
@@ -743,19 +751,72 @@ header form #search{
 *******************************************************/
 #login .dropdown-menu {
     background: #f2f2f2;
-    width:280px;
+    width:260px;
     line-height: 15px;
     text-transform:none;
-    padding-right:30px;
-    padding-left:30px;
+    padding-right:20px;
+    padding-left:20px;
     padding-top:20px;
 }
 
+#login .dropdown-menu hr{
+
+	border-color:#666666;
+}
+
 .form-group input {
-    background: #c8c8c8;
+    background: #CCCCCC;
 }
 
 .signin_dropdown p {
     font-size:12px;
     color:red;
 }
+
+.form-group label{
+	color:#666666;
+	float:left;
+}
+.form-control{
+	
+	-webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+}
+
+
+.checkbox.pull-left label{
+	font-weight: 900;
+	color:#666666;
+	padding-bottom:35px;
+}
+
+.btn.btn.btn-primary.pull-right{
+	-webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+}
+
+.btn.btn-lg.btn-primary.btn-block{ /*log in as facebook*/
+
+	-webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+	
+}
+
+.btn.btn-lg.btn-danger.btn-block{ /*log in as google*/
+	-webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+}
+
+.register-block h4{
+
+	-webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+    border-color:#CCCCCC;
+    background-color:#CCCCCC;
+}
+
