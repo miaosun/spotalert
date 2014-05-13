@@ -1,7 +1,7 @@
 @foreach ($publications as $publication)
     	
-	<div class="col-md-5 publication-{{{$publication['type']}}} publ-risk{{{$publication['risk']}}}"
-		id="publ-{{ $publication['id'] }}" style="border-style:solid;border-width:1px;">
+	<div class="col-md-4 col-sm-10 publication-{{{$publication['type']}}} publ-risk{{{$publication['risk']}}}"
+		id="publ-{{ $publication['id'] }}">
 			
 		<div class="publ-risk">
 			<img class="ray-high"src="{{asset('assets/images/ray_high.png')}}"></img>
