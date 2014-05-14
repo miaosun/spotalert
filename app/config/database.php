@@ -55,7 +55,7 @@ return array(
 		'mysql' => array(
 			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'auth',
+			'database'  => 'database',
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',
@@ -121,4 +121,14 @@ return array(
 
 	),
 
+	/*
+	|--------------------------------------------------------------------------
+	| Default language
+	|--------------------------------------------------------------------------
+	|
+	| Here it is defined the default language of the webpage
+	|
+	*/
+	'website_language'      => 'English',
+	'website_language_code' => 'EN',
 );

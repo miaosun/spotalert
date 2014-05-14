@@ -16,10 +16,45 @@ Route::get('/', array(
 	'uses' => 'HomeController@showWelcome'
 ));
 
-Route::get('/publications', array(
-	'as'	=> 'publications',
-	'uses'	=> 'PublicationController@getPublications'
-));
+Route::group(array('prefix' => 'publications'), function()
+{
+	// For the RSS feed
+	Route::get('/rss', array(
+		'as'	=> 'publications-rss',
+		'uses'	=> 'PublicationController@getAllPublications'
+	));
+
+	// For searching publications
+	Route::get('/search/{search_query}', array(
+		'as'	=> 'publications-route',
+		'uses'	=> 'PublicationController@getSearchedPublications'
+	))
+	->where('search_query', '[A-Za-z0-9\s]+');
+
+	// For filtering
+	// Possible parameters to receive: risks, event_types, affected_countries
+	// In each one, separate the elements by commas
+	Route::get('/filter/', array(
+		'as'	=> 'publications-filter',
+		function() 
+		{ 
+			$risks				= Input::get('risks');
+			$event_types 		= Input::get('event_types');
+			$affected_countries	= Input::get('affected_countries');
+      		
+      		if(!isset($risks) || $risks === '')
+      			$risks = NULL;
+      		if(!isset($event_types) || $event_types === '')
+      			$event_types = NULL;
+      		if(!isset($affected_countries) || $affected_countries === '')
+      			$affected_countries = NULL;
+
+
+      		$publications = PublicationController::getFilteredPublications($risks, $event_types, $affected_countries);
+      		return View::make('includes.publications')->with('publications', $publications);
+     	},
+	));
+});
 
 Route::get('/user/{username}', array(
  	'as' => 'profile-user',
@@ -44,7 +79,9 @@ Route::post('/user/updatepassword', array(
 	'uses' => 'UserPanelController@updatepassword'
 ));
 
-// authenticated group
+/*
+ * AUTHENTICATED GROUP
+ */
 Route::group(array('before' => 'auth'), function() {
 
 	// CSRF protection group
@@ -71,7 +108,10 @@ Route::group(array('before' => 'auth'), function() {
 
 });
 
-// unauthenticated group
+
+/*
+ * UNAUTHENTICATED GROUP
+ */
 Route::group(array('before' => 'guest'), function() {
 	
 	// CSRF protection group
@@ -88,17 +128,32 @@ Route::group(array('before' => 'guest'), function() {
 		Route::post('/account/sign-in', array(
 			'as' => 'account-sign-in-post',
 			'uses' => 'AccountController@postSignIn'
-	));
+	    ));
 
+        // Forgot password (POST)
+        Route::post('/account/forgot-password', array(
+            'as' => 'account-forgot-password-post',
+            'uses' => 'AccountController@postForgotPassword'
+        ));
 	});
+
+    // Forgot password (GET)
+    Route::get('/account/forgot-password', array(
+        'as' => 'account-forgot-password',
+        'uses' => 'AccountController@getForgotPassword'
+    ));
+
+    Route::get('/account/recover/{code}', array(
+        'as' => 'account-recover',
+        'uses' => 'AccountController@getRecover'
+    ));
+
 
 	// sign in (GET)
 	Route::get('/account/sign-in', array(
 		'as' => 'account-sign-in',
 		'uses' => 'AccountController@getSignIn'
 	));
-
-
 
 	// create account (GET)
 	Route::get('/account/create', array(
@@ -111,5 +166,4 @@ Route::group(array('before' => 'guest'), function() {
 		'as' => 'account-activate',
 		'uses' => 'AccountController@getActivate'
 	));
-
 });
