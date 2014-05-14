@@ -68,9 +68,9 @@ class AccountController extends BaseController {
                 'address'        => 'max:30',
                 'city'           => 'max:20',
                 'postalCode'     => 'max:15',
-                'agerange'       => 'required|max:10',
-                'residence'      => 'required|max:20',
-                'nationality'    => 'required|max:20',
+                'agerange'       => 'Digits|required|min:1',
+                'residence'      => 'Digits|required|min:1',
+                'nationality'    => 'Digits|required|min:1',
                 'accept'         => 'accepted'
 			)
 		);
