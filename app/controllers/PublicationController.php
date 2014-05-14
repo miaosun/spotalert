@@ -82,9 +82,12 @@ class PublicationController extends BaseController
 	            	{
 	            		$query->orWhereHas('eventTypes', function($query) use($event_types)
 			            {
-			            	foreach ($event_types as $event)
-			            		if($event)
-			            			$query->where('name', '=', $event);
+			            	$query->where(function($query) use($event_types)
+			            	{
+				            	foreach ($event_types as $event)
+				            		if($event)
+				            			$query->where('name', '=', $event);
+				            });
 			            });
 			            break;
 	            	}
@@ -98,9 +101,12 @@ class PublicationController extends BaseController
 	            	{
 	            		$query->orWhereHas('affectedCountries', function($query) use($affected_countries)
 			            {
-			            	foreach ($affected_countries as $country)
-			            		if($country)
-			            			$query->where('name', '=', $country);
+			            	$query->where(function($query) use($affected_countries)
+			            	{
+				            	foreach ($affected_countries as $country)
+				            		if($country)
+				            			$query->orWhere('name', '=', $country);
+				            });
 			            });
 			            break;
 	            	}
