@@ -55,7 +55,6 @@ Route::group(array('prefix' => 'publications'), function()
      	},
 	));
 });
->>>>>>> master
 
 Route::get('/user/{username}', array(
  	'as' => 'profile-user',

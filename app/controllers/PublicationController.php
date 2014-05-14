@@ -17,7 +17,7 @@ class PublicationController extends BaseController
 			->where('is_public', '=', true)
 			->orderBy('risk', 'desc')
 			->get();
-
+        
 		return self::makeSimpleAnswer($publications);
 	}
     
@@ -25,8 +25,6 @@ class PublicationController extends BaseController
         
         $country_options = Country::lists('name', 'id');
         $event_type_options = EventType::lists('name', 'id');
-        //$guideline_options = Publication::where('type','=','guideline')->lists('title', 'id');
-        
         $guideline_options = DB::table('publications AS p')
   ->join('publicationContents AS pc','pc.publication_id','=','p.id')
   ->where('p.type','=','guideline')
@@ -64,7 +62,7 @@ class PublicationController extends BaseController
     
     public function showCreateGuideline() {
 		return View::make('publication.create-guideline');
-
+    }
 	/**
 	 * It gets all the publications in the database given some parameters for
 	 * filtering
@@ -156,7 +154,7 @@ class PublicationController extends BaseController
         $pub_content = [
             'title' => Input::get('alert-title'),
             'content' => Input::get('alert-description'),
-            'language_id' => 3,
+            'language_id' => 1,
             'publication_id' => null, //
         ];
         
@@ -232,7 +230,7 @@ class PublicationController extends BaseController
         $pub_content = [
             'title' => Input::get('alert-title'),
             'content' => Input::get('alert-description'),
-            'language_id' => 1,
+            'language_id' => Language::where('code', '=', 'EN')->first()->id,
             'publication_id' => $publication->id,
         ];
         
