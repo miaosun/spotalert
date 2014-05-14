@@ -11,30 +11,40 @@ header .row-header {
 }
 
 #footer {
-	-moz-box-shadow:0 8px 8px -5px #d1d1d1; 
-    -webkit-box-shadow:0 8px 8px -5px #d1d1d1;
-    box-shadow:0 8px 8px -5px #d1d1d1;
-    color:gray;
+	-moz-box-shadow:0px -3px 3px 4px #CCCCCC; 
+    -webkit-box-shadow:0px -3px 3px 4px #CCCCCC;
+    box-shadow:0px -3px 3px 4px #CCCCCC;
+   	position:fixed;
     bottom:0px;
-    font-size:18px;
-    position:fixed;
-    /*bottom:0px;*/
+    background-color:white;
+    width:100%;
+    padding-top:0.5%;
 }
 
 .footer-up {
     display:inline;
+    margin-left:2%;
+    margin-bottom:0.5%;;
+     
 }
 
 .footer-inova {
 	display:inline;
+	margin-left:3%;
+	margin-bottom:0.5%;
     
 }
 .footer-spot{
     display:inline;
+    margin-left:6%;
+    margin-right:4%;
+    margin-bottom:0.5%;
 }
 
 .footer-risk{
     display:inline;
+    margin-left:40%;
+    margin-bottom:0.5%;
 }
 
 header .grid-menu {
@@ -118,11 +128,72 @@ header form #search{
 }
 
 /* |||||||||||||              ALERTA NÍVEL5               ||||||||||||||||||||||||||*/
+.ray_high{
+
+	background:url('/assets/images/ray_high.png') 0 0;
+	height:27px;
+	width:65px;
+	float:left;
+}
+.ray_medium{
+
+	background:url('/assets/images/ray_medium.png') 0 0;	
+	height:27px;
+	width:56px;
+	float:left;
+	margin-top:2%;
+	margin-right:5%;
+}
+.ray_low{
+
+	background:url('/assets/images/ray_low.png') 0 0;
+	height:8px;
+	width:56px;
+	float:left;
+
+}
+/*******************************************************/
+.arrow_gray{
+	background-color:white;
+	color:#CCCCCC;
+	border:0;
+	font-size:1.2em;
+}
+
+.arrow_white{
+	background-color:#ED1C24;
+	color:white;
+	border:0;
+	font-size:1.2em;	
+}
+
+.btn_gray{
+	color:gray;
+	border:0;
+	font-size:1.2em;
+	background-color:white;
+
+}
+
+.btn_white{
+	background-color:#ED1C24; 
+	color:white;
+	border:0;
+	font-size:1.2em;
+	
+} 
+.button_edit{
+	float:right;
+	padding-right:1%;
+	display:inline-block;
+}
 
 
+/* |||||||||||||              ALERTA NÍVEL5               ||||||||||||||||||||||||||*/
 .publication-alert.publ-risk5{
 	background-color: #ED1C24;
 	text-transform:uppercase;
+
 	/*margin-left:0.2%;*/
 	border: 0px solid #ED1C24;
 	-webkit-border-radius:35px;
@@ -494,11 +565,12 @@ header form #search{
 	padding-bottom:5%;
 	
 }
-.publication-guideline .arrow_white, 
-.publication-guideline .ray-high, 
-.publication-guideline .ray-medium, 
-.publication-guideline .ray-low{ /*OCULTAR ESTES ELEMENTOS*/
-	display:none;
+.publication-guideline .plus{
+
+	background:url('/assets/images/plus.png') 0 0;
+	float:left;
+	height:28px;
+	width:28px;
 }
 
 /******************************************************
@@ -795,20 +867,23 @@ header form #search{
 	-webkit-border-radius: 25px;
     -moz--topright: 25px;
     border-radius: 25px;
+    padding:3px;
 }
 
-.btn.btn-lg.btn-primary.btn-block{ /*log in as facebook*/
+.btn.btn-primary.btn-block{ /*log in as facebook*/
 
 	-webkit-border-radius: 25px;
     -moz--topright: 25px;
     border-radius: 25px;
+    padding:1px;
 	
 }
 
-.btn.btn-lg.btn-danger.btn-block{ /*log in as google*/
+.btn.btn-danger.btn-block{ /*log in as google*/
 	-webkit-border-radius: 25px;
     -moz--topright: 25px;
     border-radius: 25px;
+    padding:1px;
 }
 
 .register-block h4{
@@ -818,5 +893,11 @@ header form #search{
     border-radius: 25px;
     border-color:#CCCCCC;
     background-color:#CCCCCC;
+    color:#666666;
+    font-weight:900;
+}
+
+.row-block{
+	color:#666666;
 }
 
