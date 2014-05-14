@@ -20,11 +20,13 @@ return array(
 
 	),
 	"filter" => array(
-		"risk_extreme" => "EXTREME",
-		"risk_medium"  => "MEDIUM",
-		"risk_low"     => "LOW",
-		"type"         => "TYPE OF EVENT",
-		"country"      => "COUNTRY"
+		"loading_msg"     => "Loading publications...",
+		"nothing_ret_msg" => "We didn't find anything with your search parameters!",
+		"risk_extreme"    => "EXTREME",
+		"risk_medium"     => "MEDIUM",
+		"risk_low"        => "LOW",
+		"type"            => "TYPE OF EVENT",
+		"country"         => "COUNTRY"
 	),
 	"footer" => array(
 		"sponsors" => "Sponsors"

@@ -10,13 +10,6 @@ $('document').ready(function()
 
     // Everything for filtering to work
     filtering();
-
-
-
-    //FIXME: Deixar opção de ALLCOUNTRIES (novo parametro GET?)
-/*
-    filter-ok -> mandar tudo
-    filter-risk -> mandar tudo com risco incluido*/
 });
 
 
@@ -80,10 +73,13 @@ function filtering()
 		// Let's retrieve the publications
 		$.get('publications/filter', 
 			  { 'risks': risks, 'event_types': eventTypes, 'affected_countries': countries},
-			  function() { $('#main').html('<div class="ajax-loading"></div>');})
+			  function() { $('#main').html('<div class="ajax-loading"></div>' + loading_message);})
 			.done(function( data ) 
 			{
-			    $('#main').html(data);
+				if(data.length == 0)
+					$('#main').html(nothing_returned_message);
+				else
+			    	$('#main').html(data);
 			})
 			.fail(function() 
 			{

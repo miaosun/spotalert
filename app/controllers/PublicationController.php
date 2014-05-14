@@ -55,7 +55,7 @@ class PublicationController extends BaseController
 	{	
 		// If it's all null, we should do anything
 		if($risks == NULL && $event_types == NULL && $affected_countries == NULL)
-			return array();
+			return self::getAllPublications();
 		else
 		{
 			$risks 				= explode(',', $risks);

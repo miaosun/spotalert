@@ -19,3 +19,8 @@
 {{ HTML::script('assets/js/jquery.mousewheel.js') }}
 <!-- the jScrollPane script -->
 {{ HTML::script('assets/js/jquery.jscrollpane.min.js') }}
+
+<script>
+var loading_message = "{{Lang::get('home.filter.loading_msg')}}";
+var nothing_returned_message = "{{Lang::get('home.filter.nothing_ret_msg')}}";
+</script>
