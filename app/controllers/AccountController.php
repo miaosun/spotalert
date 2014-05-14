@@ -48,10 +48,9 @@ class AccountController extends BaseController {
 	}
 
 	public function getCreate() {
-        $country_options = array('' => 'CHOOSE COUNTRY') + Country::lists('name', 'id');
-        $age_options = array('' => 'CHOOSE AGE RANGE') + Age::lists('stepname','id');
-        //$age_options = array('' => 'CHOOSE AGE RANGE') + DB::table('ages')->lists('range','id');
-        //$country_options = array('' => 'CHOOSE COUNTRY') + DB::table('countries')->orderBy('short_name', 'asc')->lists('short_name','id');
+        $country_options = array('' => Lang::get('register.placeholder.country')) + Country::lists('name', 'id');
+        $age_options = array('' => Lang::get('register.placeholder.age_range')) + Age::lists('stepname','id');
+
 		return View::make('account.create')->with('country_options',$country_options)->with('age_options',$age_options);
 	}
 
