@@ -16,47 +16,41 @@ Route::get('/', array(
 	'uses' => 'HomeController@showWelcome'
 ));
 
-Route::group(array('prefix' => 'publications'), function()
-{
-	// All publications
-	Route::get('/', array(
-		'as'	=> 'publications-all',
-		'uses'	=> 'PublicationController@getPublications'
-	));
-
-	// For searching publications
-	Route::get('/search/{search_query}', array(
-		'as'	=> 'publications-route',
-		'uses'	=> 'PublicationController@getSearchedPublications'
-	))
-	->where('search_query', '[A-Za-z0-9\s]+');
-
-	// For filtering
-	// Possible parameters to receive: risks, event_types, affected_countries
-	// In each one, separate by commas the elements
-	Route::get('/filter/', array(
-		'as'	=> 'publications-filter',
-		function() 
-		{ 
-			$risks				= Input::get('risks');
-			$event_types 		= Input::get('event_types');
-			$affected_countries	= Input::get('affected_countries');
-      		
-      		if(!isset($risks) || $risks === '')
-      			$risks = NULL;
-      		if(!isset($event_types) || $event_types === '')
-      			$event_types = NULL;
-      		if(!isset($affected_countries) || $affected_countries === '')
-      			$affected_countries = NULL;
-
-      		return PublicationController::getFilteredPublications($risks, $event_types, $affected_countries);
-     	},
-	));
-});
+Route::get('/publications', array(
+	'as'	=> 'publications',
+	'uses'	=> 'PublicationController@getPublications'
+));
 
 Route::get('/user/{username}', array(
-	'as' => 'profile-user',
-	'uses' => 'ProfileController@user'
+ 	'as' => 'profile-user',
+ 	'uses' => 'ProfileController@user'
+));
+
+//Create Alert (POST)
+       Route::post('/publication/createalert', array(
+            'as' => 'publication-createalert',
+            'uses' => 'PublicationController@createAlert'
+       ));
+            
+        //Create Alert (POST)
+        Route::post('/publication/createguideline', array(
+            'as' => 'publication-createguideline',
+            'uses' => 'PublicationController@createGuideline'
+       ));
+
+
+/* Control Panel */
+
+//FIXME route for testing controlpanel without login
+Route::get('/user', array(
+	'as' => 'control-panel',
+	'uses' => 'UserPanelController@show'
+));
+
+// update profile form route
+Route::post('/user/updateprofile', array(
+	'as' => 'update-profile',
+	'uses' => 'UserPanelController@updateprofile'
 ));
 
 // authenticated group
@@ -83,6 +77,7 @@ Route::group(array('before' => 'auth'), function() {
 		'as' => 'account-sign-out',
 		'uses' => 'AccountController@getSignOut'
 	));
+
 });
 
 // unauthenticated group
@@ -102,20 +97,9 @@ Route::group(array('before' => 'guest'), function() {
 		Route::post('/account/sign-in', array(
 			'as' => 'account-sign-in-post',
 			'uses' => 'AccountController@postSignIn'
-	   ));
+	));
         
-       //Create Alert (POST)
-       Route::post('/publication/createalert', array(
-            'as' => 'publication-createalert',
-            'uses' => 'PublicationController@createAlert'
-       ));
-            
-        //Create Alert (POST)
-        Route::post('/publication/createguideline', array(
-            'as' => 'publication-createguideline',
-            'uses' => 'PublicationController@createGuideline'
-       ));
-
+        
 	});
 
 	// sign in (GET)
@@ -123,6 +107,8 @@ Route::group(array('before' => 'guest'), function() {
 		'as' => 'account-sign-in',
 		'uses' => 'AccountController@getSignIn'
 	));
+
+
 
 	// create account (GET)
 	Route::get('/account/create', array(
@@ -147,4 +133,5 @@ Route::group(array('before' => 'guest'), function() {
 		'as' => 'publication-create-alert',
 		'uses' => 'PublicationController@showCreateGuideline'
 	));
+
 });

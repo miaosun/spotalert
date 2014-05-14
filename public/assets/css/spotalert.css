@@ -214,6 +214,10 @@ label {
     width: 80%;
 }
 
+#alert-left-half textarea {
+    width: 80%;
+}
+
 #alert-right-half input {
     width: 80%;
     margin-right: 10px;
