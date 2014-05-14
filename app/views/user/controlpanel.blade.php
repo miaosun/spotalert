@@ -87,7 +87,7 @@
 					</div>
 					<div class="col-md-7 col-md-offset-1">
 						<div class="dotline" id="nationality">
-                            {{ Form::text('nationality',$user->nacionality->name,array('disabled' => 'disabled','placeholder'=>'pick nationality')) }}
+                            {{ Form::text('nationality',$user->nationality->name,array('disabled' => 'disabled','placeholder'=>'pick nationality')) }}
                             <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
 					</div>

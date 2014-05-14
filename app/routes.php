@@ -61,22 +61,17 @@ Route::get('/user/{username}', array(
  	'uses' => 'ProfileController@user'
 ));
 
-/* Control Panel */
-
-//FIXME route for testing controlpanel without login
-Route::get('/user', array(
-	'as' => 'control-panel',
-	'uses' => 'UserPanelController@show'
+/*
+ * API Controle Panel
+ */
+Route::get('/user/api/ages', array(
+    'as' => 'api-ages',
+    'uses' => 'UserPanelController@getAges'
 ));
 
-// update profile form route
-Route::post('/user/updateprofile', array(
-	'as' => 'update-profile',
-	'uses' => 'UserPanelController@updateprofile'
-));
-Route::post('/user/updatepassword', array(
-	'as' => 'update-user-password',
-	'uses' => 'UserPanelController@updatepassword'
+Route::get('/user/api/countries', array(
+    'as' => 'api-countries',
+    'uses' => 'UserPanelController@getCountries'
 ));
 
 /*
@@ -105,6 +100,24 @@ Route::group(array('before' => 'auth'), function() {
 		'as' => 'account-sign-out',
 		'uses' => 'AccountController@getSignOut'
 	));
+
+    /* Control Panel */
+
+    Route::get('/user', array(
+        'as' => 'control-panel',
+        'uses' => 'UserPanelController@show'
+    ));
+
+// update profile form route
+    Route::post('/user/updateprofile', array(
+        'as' => 'update-profile',
+        'uses' => 'UserPanelController@updateprofile'
+    ));
+    Route::post('/user/updatepassword', array(
+        'as' => 'update-user-password',
+        'uses' => 'UserPanelController@updatepassword'
+    ));
+
 
 });
 

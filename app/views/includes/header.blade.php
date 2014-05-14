@@ -28,7 +28,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->username }}<b class="caret"></b></a>
 
             <div class="dropdown-menu">
-                <li><a href="#">{{Lang::get('home.menu.profile')}}</a></li>
+                <li><a href="{{ URL::route('control-panel')}}">{{Lang::get('home.menu.profile')}}</a></li>
                 <li><a href="{{ URL::route('account-sign-out') }}">{{Lang::get('home.menu.signout')}}</a></li>
             </div>
         </div>

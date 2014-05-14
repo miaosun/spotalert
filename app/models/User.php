@@ -49,6 +49,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->email;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
 	public function age()
 
 	{
@@ -60,9 +65,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 		return $this->belongsTo('Country','residence_country_id');
 	}
 
-	public function nacionality()
+	public function nationality()
 	{
-		return $this->belongsTo('Country','nacionality_country_id');
+		return $this->belongsTo('Country','nationality_country_id');
 	}
 
 	public function notifications()

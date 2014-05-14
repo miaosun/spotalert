@@ -27,20 +27,56 @@ function loadEditButtons() {
         function(){
             //$('#residence input').prop('disabled', false);
             //create a function to get from api all countrys and replacewith the inputtext to a select
-            $('#residence input').replaceWith("<select class='dropdownlist' name='residence'><option>Portugal</option><option>Espanha</option></select>");
-            $('#residence .editbutton').hide().unbind();
+            $.getJSON( "user/api/countries", function( data ) {
+                var country = "<select class='dropdownlist' name='residence'>";
+                var selected = $('#residence input').val();
+                $.each(data, function(k, v) {
+                    if(v==selected)
+                        country+="<option value='"+k+"'selected>" + v + "</option>";
+                    else
+                        country+="<option value='"+k+"'>" + v + "</option>";
+                });
+                country+="</select>";
+
+                $('#residence input').replaceWith(country);
+                $('#residence .editbutton').hide().unbind();
+            });
         }
     );
     $('#nationality .editbutton').click(
         function(){
-            $('#nationality input').prop('disabled', false);
-            $('#nationality .editbutton').hide().unbind();
+            $.getJSON( "user/api/countries", function( data ) {
+                var country = "<select class='dropdownlist' name='nationality'>";
+                var selected = $('#nationality input').val();
+                $.each(data, function(k, v) {
+                    if(v== selected)
+                        country+="<option value='"+k+"'selected>" + v + "</option>";
+                    else
+                        country+="<option value='"+k+"'>" + v + "</option>";
+                });
+                country+="</select>";
+
+                $('#nationality input').replaceWith(country);
+                $('#nationality .editbutton').hide().unbind();
+            });
         }
     );
     $('#agerange .editbutton').click(
         function(){
-            $('#agerange input').prop('disabled', false);
-            $('#agerange .editbutton').hide().unbind();
+            $.getJSON( "user/api/ages", function( data ) {
+                var age = "<select class='dropdownlist' name='agerange'>";
+                var selected = $('#agerange input').val();
+                $.each(data, function(k, v) {
+                    if(v== selected)
+                        age+="<option value='"+k+"'selected>" + v + "</option>";
+                    else
+                        age+="<option value='"+k+"'>" + v + "</option>";
+                });
+                age+="</select>";
+
+                $('#agerange input').replaceWith(age);
+                $('#agerange .editbutton').hide().unbind();
+            });
         }
     );
     $('#email .editbutton').click(
