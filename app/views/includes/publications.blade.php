@@ -4,6 +4,8 @@
 		id="publ-{{ $publication['id'] }}">
 		
 		<div class="publ_header">
+			
+			<div class="col-md-4 publ-risk">
 			@if ($publication['type'] == 'alert')
 
 
@@ -19,28 +21,26 @@
 					<div class="ray_high"></div>
 				@endif
 
+					@else
+						<div class="plus"></div>
 
-			@else
-				<div class="plus"></div>
-
-			@endif
-
-			<div class="publ-type">
+					@endif
+			</div>
+			<div class="col-md-4 publ-type">
 				@foreach ($publication['event_types'] as $eventType)
 					{{{$eventType}}}
 				@endforeach
 			</div>
 			
-			<div class="publ-countr">
+			<div class="col-md-4 publ-countr">
 				@foreach ($publication['affected_countries'] as $country)
 					{{{$country}}}<br>
 				@endforeach
 			</div>
 		</div>
 
+			<br>
 			<hr>
-
-
 		<div class="publ_body">
 			
 				<div class="publ-title">{{{$publication['title']}}}</div>
@@ -53,11 +53,11 @@
 			<div class="row">
 				<div class="button_edit">
 					@if ($publication['risk'] >=5 && $publication['type'] == 'alert')
-						<button class="glyphicon glyphicon-edit btn_white"></button>
 						<button type="button" class="glyphicon glyphicon-remove btn_white"></button>
+						<button class="glyphicon glyphicon-edit btn_white"></button>
 					@else
-						<button class="glyphicon glyphicon-edit btn_gray"></button>
 						<button type="button" class="glyphicon glyphicon-remove btn_gray"></button>
+						<button class="glyphicon glyphicon-edit btn_gray"></button>
 					@endif
 
 				</div>
