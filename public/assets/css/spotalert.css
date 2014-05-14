@@ -707,6 +707,8 @@ header form #search{
     text-align:justify;
     font-size:12px;
     border: none;
+    white-space: normal;
+    word-break: break-all;
 }
 
 #create p {
