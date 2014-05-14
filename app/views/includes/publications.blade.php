@@ -1,7 +1,7 @@
 @foreach ($publications as $publication)
     	
-	<div class="col-md-5 publication-{{{$publication['type']}}} publ-risk{{{$publication['risk']}}}"
-		id="publ-{{ $publication['id'] }}" style="border-style:solid;border-width:1px;">
+	<div class="col-md-4 col-sm-10 publication-{{{$publication['type']}}} publ-risk{{{$publication['risk']}}}"
+		id="publ-{{ $publication['id'] }}">
 			
 		<div class="publ-risk">
 			<img class="ray-high"src="{{asset('assets/images/ray_high.png')}}"></img>
@@ -22,18 +22,31 @@
 			@endforeach
 		</div>
 		
-		<hr>
+			<hr>
 		
 		<div class="publ-title">{{{$publication['title']}}}</div>
 		
-		<hr>
+			<hr>
 		
+
+
+		
+		<form id="edit-publ">
+			<input class"edit-button" type="image" src="{{asset('assets/images/edit-white.png')}}">
+			<input class"edit-button2" type="image" src="{{asset('assets/images/edit-gray.png')}}">
+		</form>
+		
+		<button type="button" class="close" aria-hidden="true">&times;</button>
+		
+		<br>
 		<form id="arrow-expand">
 			<input class="arrow_white" type="image" src="{{asset('assets/images/arrow_white.png')}}">
 		</form>
+
 		<form id="arrow-expand2">
 			<input class="arrow_gray" type="image" src="{{asset('assets/images/arrow_gray.png')}}">	
 		</form>
+		
 	</div>
 
 @endforeach
