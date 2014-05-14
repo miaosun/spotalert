@@ -61,6 +61,9 @@
                         </div>
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('firstname', Input::old('firstname') , array('placeholder'=>Lang::get('register.placeholder.first_name') )) }}
+                            @if($errors->has('firstname'))
+                            <br><span>{{ $errors->first('firstname') }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="row">
@@ -69,6 +72,9 @@
                         </div>
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('lastname', Input::old('lastname'), array('placeholder'=>Lang::get('register.placeholder.last_name') )) }}
+                            @if($errors->has('lastname'))
+                            <br><span>{{ $errors->first('lastname') }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="row">
@@ -99,6 +105,9 @@
                         </div>
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('phonenumber', null, array('placeholder'=>Lang::get('register.placeholder.phone_number') )) }}
+                            @if($errors->has('phonenumber'))
+                            <br><span>{{ $errors->first('phonenumber') }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="row">
@@ -107,8 +116,17 @@
                         </div>
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('address', null, array('placeholder'=>Lang::get('register.placeholder.address'))) }}
+                            @if($errors->has('address'))
+                            <br><span>{{ $errors->first('address') }}</span>
+                            @endif
                             {{ Form::text('city', null, array('placeholder'=>Lang::get('register.placeholder.city') )) }}
+                            @if($errors->has('city'))
+                            <br><span>{{ $errors->first('city') }}</span>
+                            @endif
                             {{ Form::text('postalCode', null, array('placeholder'=>Lang::get('register.placeholder.postalcode') )) }}
+                            @if($errors->has('postalCode'))
+                            <br><span>{{ $errors->first('postalCode') }}</span>
+                            @endif
                         </div>
                     </div>
                     <div class="row">

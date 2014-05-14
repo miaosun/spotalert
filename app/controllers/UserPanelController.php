@@ -9,12 +9,12 @@ class UserPanelController extends BaseController {
 	}
 
     public function getAges() {
-        $age_options = array('0'=> 'CHOOSE AGE RANGE') + Age::lists('stepname','id');
+        $age_options = array('0'=> Lang::get('register.placeholder.country')) + Age::lists('stepname','id');
         return Response::json($age_options);
     }
 
     public function getCountries() {
-        $country_options = array('' => 'CHOOSE COUNTRY') + Country::lists('name', 'id');
+        $country_options = array('0' => Lang::get('register.placeholder.age_range')) + Country::lists('name', 'id');
         return Response::json($country_options);
     }
 	
@@ -77,12 +77,12 @@ class UserPanelController extends BaseController {
             }
 			//TODO rest of inputs
 			if($profile->save() && $uploadSuccess)
-                return Redirect::route('control-panel')->with('global','Teste: update with success!');
+                return Redirect::route('control-panel')->with('global','Teste: update with success!')->withErrors($valid);
 			else
-                return Redirect::route('control-panel')->with('global',"Teste: update without sucess! Can't save model!");
+                return Redirect::route('control-panel')->with('global',"Teste: update without sucess! Can't save model!")->withErrors($valid);
 		}
 		else
-            return Redirect::route('control-panel')->with('global',"Teste: update failed! Input not validated!");
+            return Redirect::route('control-panel')->with('global',"Teste: update failed! Input not validated!")->withErrors($valid);
 	}
     
 	private function validate() 
