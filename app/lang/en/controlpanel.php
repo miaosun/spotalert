@@ -37,5 +37,19 @@ return array(
 		"date" => "MEMBER SINCE",
 		"organization" => "ORGANIZATION",
 		"okbutton" => "OK"
-	)
+	),
+
+    "privileges"            => array(
+        "title"          => "USER CONTROL PANEL - PRIVILEGES",
+        "add_publishers" => "ADD PUBLISHERS",
+        "managers"       => "MANAGERS",
+        "department"     => "DEPARTMENT",
+        "name"           => "NAME",
+        "location"       => "LOCATION",
+        "member_since"   => "MEMBER SINCE",
+        "add"            => "ADD",
+        "email"          => "EMAIL",
+        "permissions"    => "PERMISSIONS",
+        "remove"         => "REMOVE"
+    )
 );
