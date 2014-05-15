@@ -10,9 +10,7 @@
         </div>
 
         <div class="col-md-1 col-sm-1 dropdown" id="filt">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Lang::get('home.menu.filter')}} <span
-                    class="caret"></span></a>
-
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Lang::get('home.menu.filter')}} <span class="caret"></span></a>
             <div class="dropdown-menu">
                 @include('publications.filter')
             </div>
