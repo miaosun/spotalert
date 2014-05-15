@@ -45,7 +45,7 @@
         <div class="col-md-3 col-sm-3">
             <form id="search" name="search" action="/search" method="get">
                 <input id="search-input" placeholder="{{Lang::get('home.menu.search')}}" name="Search" type="text">
-                <input id="search-glass" type="image" src="{{asset('assets/images/glass.png')}}">
+                <button id="search-glass" class="glyphicon glyphicon-search" />
             </form>
         </div>
 
