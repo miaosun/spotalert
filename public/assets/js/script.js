@@ -10,6 +10,12 @@ $('document').ready(function()
 
     // Everything for filtering to work
     filtering();
+
+    // Everything for searching to work
+    searching();
+
+    // Everything for deleting a publication
+    deletePublication();
 });
 
 
@@ -34,6 +40,8 @@ function filtering()
 	$('#filt .filter-opt').on('click', function()
 	{
 		$(this).toggleClass('selected');
+		// Clean search bar
+		$('#search input#search-input').val('');
 	});
 
 	// Selecting all countries the rest must be unselected
@@ -101,4 +109,73 @@ function addText(selector)
 	});
 
 	return temp;
+}
+
+
+function deletePublication()
+{
+	$('.button_edit .glyphicon-remove').on('click', function()
+	{
+		var publ_id = $(this).parent().attr('id');
+		$('#myModal .modal-publ-id').remove();
+		$('#myModal').append('<div class="modal-publ-id" id="' + publ_id + '"></div>');
+		$('#myModal').modal();
+	});
+
+	$('#myModal .btn-success').on('click', function()
+	{
+		$('#myModal').modal('hide');
+		var id_publ = $('#myModal .modal-publ-id').attr('id');
+
+		// Let's delete the publications
+		$.post('publications/delete/' + id_publ)
+			.done(function( data ) 
+			{
+				if(data == 'ok')
+				{
+					$('#main > #publ-' + id_publ).remove();
+					alert("Publication successfully removed!");
+				}
+				else
+					alert("Some error occurred, please try again later");
+			})
+			.fail(function() 
+			{
+				//FIXME: Redirect to an error page
+			    alert( "Sorry, an error occurred, please reload the page :(" );
+			});
+	});
+}
+
+function searching()
+{
+	// Selecting "OK" must send the ajax request and update content
+	$('form#search').on('submit', function(e)
+	{
+		var search_content = $('#search input#search-input').val();
+		e.preventDefault();
+
+		if(search_content.length > 0)
+		{
+			//Clean filtering options
+			$('#filt .filter-all').removeClass('selected');
+			$('#filt .filter-opt').removeClass('selected');
+
+			// Let's retrieve the publications
+			$.get('publications/search/' + search_content,
+				  function() { $('#main').html('<div class="ajax-loading"></div>' + loading_message);})
+				.done(function( data ) 
+				{
+					if(data.length == 0)
+						$('#main').html(nothing_returned_message);
+					else
+				    	$('#main').html(data);
+				})
+				.fail(function() 
+				{
+					//FIXME: Redirect to an error page
+				    alert( "Sorry, an error occurred, please reload the page :(" );
+				});
+		}
+	});
 }

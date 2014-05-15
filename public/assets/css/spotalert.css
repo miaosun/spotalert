@@ -108,14 +108,17 @@ header #search-input{
     height:100%;
 }
 
-header #search-glass{
-    height:17px;
-    width:13px;
 
-}
 header form #search{
     margin:0px;
     padding:0px;
+}
+
+button#search-glass {
+	background-color: transparent;
+	color: gray;
+	border: 0;
+	padding-left: 0px;
 }
 
 #edit-publ{
@@ -127,14 +130,14 @@ header form #search{
 }
 
 .ray_high{
-	background:url('/assets/images/ray_high.png') 0 0;
+	background:url('../images/ray_high.png') 0 0;
 	height:27px;
 	width:65px;
 	float:left;
 }
 .ray_medium{
 
-	background:url('/assets/images/ray_medium.png') 0 0;	
+	background:url('../images/ray_medium.png') 0 0;	
 	height:27px;
 	width:56px;
 	float:left;
@@ -143,7 +146,7 @@ header form #search{
 }
 .ray_low{
 
-	background:url('/assets/images/ray_low.png') 0 0;
+	background:url('../images/ray_low.png') 0 0;
 	height:8px;
 	width:56px;
 	float:left;
@@ -414,14 +417,14 @@ header form #search{
 
 
 .publication-guideline > hr{ /*COR DAS LINHAS*/
-    width:90%;
+    width:80%;
     border-color:#CCCCCC;
 }
 
 
 .publication-guideline .plus{
 
-	background:url('/assets/images/plus.png') 0 0;
+	background:url('../images/plus.png') 0 0;
 	float:left;
 	height:28px;
 	width:28px;
@@ -432,7 +435,6 @@ header form #search{
 /******************************************************
 ********************** FILTERING **********************
 *******************************************************/
-
 #filt .dropdown-menu > div {
     position: relative;
     cursor: pointer;
@@ -693,7 +695,7 @@ div.ajax-loading {
 ************************* LOGIN ***********************
 *******************************************************/
 #login .dropdown-menu {
-    background: #f2f2f2;
+    background: white;
     width:260px;
     line-height: 15px;
     text-transform:none;
@@ -725,6 +727,8 @@ div.ajax-loading {
     -webkit-border-radius: 25px;
     -moz--topright: 25px;
     border-radius: 25px;
+    height:3%;
+    padding:1%;
 }
 
 
@@ -761,8 +765,8 @@ div.ajax-loading {
     -webkit-border-radius: 25px;
     -moz--topright: 25px;
     border-radius: 25px;
-    border-color:#CCCCCC;
-    background-color:#CCCCCC;
+    border-color:#f2f2f2;
+    background-color:#f2f2f2;
     color:#666666;
     font-weight:900;
 }
