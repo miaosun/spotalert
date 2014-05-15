@@ -108,14 +108,17 @@ header #search-input{
     height:100%;
 }
 
-header #search-glass{
-    height:17px;
-    width:13px;
 
-}
 header form #search{
     margin:0px;
     padding:0px;
+}
+
+button#search-glass {
+	background-color: transparent;
+	color: gray;
+	border: 0;
+	padding-left: 0px;
 }
 
 #edit-publ{

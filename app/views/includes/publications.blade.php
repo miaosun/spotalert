@@ -76,6 +76,7 @@
 
 @endforeach
 
+@if(count($publications) > 0)
 <!-- Modal dialog for deleting publication -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -94,3 +95,4 @@
     </div>
   </div>
 </div>
+@endif

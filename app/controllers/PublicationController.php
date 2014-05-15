@@ -54,7 +54,8 @@ class PublicationController extends BaseController
 			->orderBy('risk', 'desc')
 			->get();
 
-		return Response::json(self::makeSimpleAnswer($publications));
+		$publications = self::makeSimpleAnswer($publications);
+		return View::make('includes.publications')->with('publications', $publications);
 	}
 
 	/**
