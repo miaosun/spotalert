@@ -18,6 +18,13 @@ Route::get('/', array(
 
 Route::group(array('prefix' => 'publications'), function()
 {
+	// For removing publication
+	Route::post('delete/{publ_id}', array(
+		'as'   => 'publication-delete',
+		'uses' => 'PublicationController@deletePublication'
+	))
+	->where('publ_id', '[0-9]+');
+
 	// For the RSS feed
 	Route::get('/rss', array(
 		'as'	=> 'publications-rss',

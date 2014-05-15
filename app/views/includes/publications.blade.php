@@ -51,7 +51,7 @@
 
 		<div class="col-md-12 publ_footer">
 			<div class="row">
-				<div class="button_edit">
+				<div class="button_edit" id="{{ $publication['id'] }}">
 					@if ($publication['risk'] >=5 && $publication['type'] == 'alert')
 						<button type="button" class="glyphicon glyphicon-remove btn_white"></button>
 						<button class="glyphicon glyphicon-edit btn_white"></button>
@@ -75,3 +75,22 @@
 	</div>
 
 @endforeach
+
+<!-- Modal dialog for deleting publication -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">{{Lang::get('home.del-publ.delete')}}</h4>
+      </div>
+      <div class="modal-body">
+        {{Lang::get('home.del-publ.confirm-msg')}}
+      </div>
+      <div class="modal-footer">
+      	<button type="button" class="btn btn-success">{{Lang::get('home.del-publ.yes')}}</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">{{Lang::get('home.del-publ.no')}}</button>
+      </div>
+    </div>
+  </div>
+</div>

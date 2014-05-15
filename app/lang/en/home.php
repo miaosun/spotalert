@@ -40,5 +40,11 @@ return array(
 		"login_google"     => "Login with Google+",
 		"account_question" => "Don't have an account yet?",
 		"register"         => "REGISTER HERE"
+	),
+	"del-publ" => array(
+		"delete"      => "Delete publication",
+		"confirm-msg" => "Are you sure you want to delete this publication?",
+		"yes"         => "Yes",
+		"no"          => "No"
 	)
 );

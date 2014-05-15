@@ -127,14 +127,14 @@ header form #search{
 }
 
 .ray_high{
-	background:url('/assets/images/ray_high.png') 0 0;
+	background:url('../images/ray_high.png') 0 0;
 	height:27px;
 	width:65px;
 	float:left;
 }
 .ray_medium{
 
-	background:url('/assets/images/ray_medium.png') 0 0;	
+	background:url('../images/ray_medium.png') 0 0;	
 	height:27px;
 	width:56px;
 	float:left;
@@ -143,7 +143,7 @@ header form #search{
 }
 .ray_low{
 
-	background:url('/assets/images/ray_low.png') 0 0;
+	background:url('../images/ray_low.png') 0 0;
 	height:8px;
 	width:56px;
 	float:left;
@@ -421,7 +421,7 @@ header form #search{
 
 .publication-guideline .plus{
 
-	background:url('/assets/images/plus.png') 0 0;
+	background:url('../images/plus.png') 0 0;
 	float:left;
 	height:28px;
 	width:28px;

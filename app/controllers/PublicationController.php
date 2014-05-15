@@ -22,6 +22,16 @@ class PublicationController extends BaseController
 	}
 
 	/**
+	 * It removes a publication with a certain id from the database
+	 */
+	public function deletePublication($publ_id)
+	{
+		//FIXME: See if authenticated
+		Publication::find($publ_id)->delete();
+		return 'ok';
+	}
+
+	/**
 	 * It gets all the publications in the database given a certain 
 	 * search text "query"
 	 */

@@ -10,6 +10,9 @@ $('document').ready(function()
 
     // Everything for filtering to work
     filtering();
+
+    // Everything for deleting a publication
+    deletePublication();
 });
 
 
@@ -101,4 +104,40 @@ function addText(selector)
 	});
 
 	return temp;
+}
+
+
+function deletePublication()
+{
+	$('.button_edit .glyphicon-remove').on('click', function()
+	{
+		var publ_id = $(this).parent().attr('id');
+		$('#myModal .modal-publ-id').remove();
+		$('#myModal').append('<div class="modal-publ-id" id="' + publ_id + '"></div>');
+		$('#myModal').modal();
+	});
+
+	$('#myModal .btn-success').on('click', function()
+	{
+		$('#myModal').modal('hide');
+		var id_publ = $('#myModal .modal-publ-id').attr('id');
+
+		// Let's delete the publications
+		$.post('publications/delete/' + id_publ)
+			.done(function( data ) 
+			{
+				if(data == 'ok')
+				{
+					$('#main > #publ-' + id_publ).remove();
+					alert("Publication successfully removed!");
+				}
+				else
+					alert("Some error occurred, please try again later");
+			})
+			.fail(function() 
+			{
+				//FIXME: Redirect to an error page
+			    alert( "Sorry, an error occurred, please reload the page :(" );
+			});
+	});
 }
