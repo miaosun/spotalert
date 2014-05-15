@@ -414,7 +414,7 @@ header form #search{
 
 
 .publication-guideline > hr{ /*COR DAS LINHAS*/
-    width:90%;
+    width:80%;
     border-color:#CCCCCC;
 }
 
@@ -432,7 +432,6 @@ header form #search{
 /******************************************************
 ********************** FILTERING **********************
 *******************************************************/
-
 #filt .dropdown-menu > div {
     position: relative;
     cursor: pointer;
@@ -693,7 +692,7 @@ div.ajax-loading {
 ************************* LOGIN ***********************
 *******************************************************/
 #login .dropdown-menu {
-    background: #f2f2f2;
+    background: white;
     width:260px;
     line-height: 15px;
     text-transform:none;
@@ -725,6 +724,8 @@ div.ajax-loading {
     -webkit-border-radius: 25px;
     -moz--topright: 25px;
     border-radius: 25px;
+    height:3%;
+    padding:1%;
 }
 
 
@@ -761,8 +762,8 @@ div.ajax-loading {
     -webkit-border-radius: 25px;
     -moz--topright: 25px;
     border-radius: 25px;
-    border-color:#CCCCCC;
-    background-color:#CCCCCC;
+    border-color:#f2f2f2;
+    background-color:#f2f2f2;
     color:#666666;
     font-weight:900;
 }
