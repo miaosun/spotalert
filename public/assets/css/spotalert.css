@@ -450,6 +450,10 @@ header form #search{
     box-shadow: none;
 }
 
+#filt .filter-opt.selected {
+	color: #FF931E;
+}
+
 .right-caret:after,.left-caret:after {
     content:"";
     border-bottom: 5px solid transparent;
@@ -467,6 +471,12 @@ header form #search{
 
 .left-caret:after{
     border-right: 5px solid #ffaf46;
+}
+
+div.ajax-loading {
+	background-image:url('../images/ajax-loader.gif');
+	width: 16px;
+	height: 16px;
 }
 
 /******************************************************
