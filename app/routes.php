@@ -34,7 +34,11 @@ Route::group(array('prefix' => 'publications'), function()
 	// For searching publications
 	Route::get('/search/{search_query}', array(
 		'as'	=> 'publications-route',
-		'uses'	=> 'PublicationController@getSearchedPublications'
+		function($search_query)
+		{
+			$publications = PublicationController::getSearchedPublications($search_query);
+      		return View::make('includes.publications')->with('publications', $publications);
+		}
 	))
 	->where('search_query', '[A-Za-z0-9\s]+');
 

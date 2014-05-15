@@ -35,7 +35,7 @@ class PublicationController extends BaseController
 	 * It gets all the publications in the database given a certain 
 	 * search text "query"
 	 */
-	public function getSearchedPublications($search_text)
+	public static function getSearchedPublications($search_text)
 	{
 		// Search for publications with $search_text within title
 		// and with the website language
@@ -54,8 +54,7 @@ class PublicationController extends BaseController
 			->orderBy('risk', 'desc')
 			->get();
 
-		$publications = self::makeSimpleAnswer($publications);
-		return View::make('includes.publications')->with('publications', $publications);
+		return self::makeSimpleAnswer($publications);
 	}
 
 	/**
