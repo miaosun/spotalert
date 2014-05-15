@@ -96,18 +96,25 @@ class PublicationsSeeder extends Seeder
         // Ages
         Age::create(array('stepname' => '10-'));
         Age::create(array('stepname' => '11-20'));
-        Age::create(array('stepname' => '21-30'));
-        Age::create(array('stepname' => '31-40'));
+        $age20 = Age::create(array('stepname' => '21-30'));
+        $age30 = Age::create(array('stepname' => '31-40'));
         Age::create(array('stepname' => '41-50'));
         Age::create(array('stepname' => '51-60'));
         Age::create(array('stepname' => '61-70'));
         Age::create(array('stepname' => '71-80'));
         Age::create(array('stepname' => '81-90'));
-        Age::create(array('stepname' => '91+'));
+        $age90 = Age::create(array('stepname' => '91+'));
 
 		// ######################################################################
-		// Event Types
 
+        // Users
+        User::create(array('username' => 'admin1',       'firstname' => 'Admin',    'lastname' => 'Silva', 'email' => 'admin@spotalert.com',  'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 915283154, 'address' => 'Address 1', 'postalCode' => '4200-000', 'city' => 'Porto', 'activated' => 'true',  'type' => 'admin',       'age_id' =>$age20->id, 'residence_country_id' => $portugal->id, 'nationality_country_id' => $portugal->id ));
+        User::create(array('username' => 'manager1',    'firstname' => 'Manager',   'lastname' => 'Silva', 'email' => 'manager@spotalert.com', 'password' => Hash::make('222222'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 912345678, 'address' => 'Address 2', 'postalCode' => '4900-000', 'city' => 'Lisboa', 'activated' => 'true', 'type' => 'manager',    'age_id' =>$age30->id, 'residence_country_id' => $portugal->id, 'nationality_country_id' =>  $portugal->id ));
+        User::create(array('username' => 'publisher1',  'firstname' => 'Publisher', 'lastname' => 'Silva', 'email' => 'publisher@spotalert.com', 'password' => Hash::make('333333'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 918765432, 'address' => 'Address 3', 'postalCode' => '4100-000', 'city' => 'Aveiro', 'activated' => 'true', 'type' => 'publisher',  'age_id' =>$age20->id, 'residence_country_id' => $spain->id, 'nationality_country_id' => $spain->id ));
+        User::create(array('username' => 'normal1',     'firstname' => 'Normal',    'lastname' => 'Silva', 'email' => 'normal@spotalert.com', 'password' => Hash::make('444444'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 915821654, 'address' => 'Address 4', 'postalCode' => '4500-000', 'city' => 'Coimbra',  'activated' => 'true','type' => 'normal',    'age_id' =>$age30->id, 'residence_country_id' => $france->id, 'nationality_country_id' => $spain->id ));
+        // ######################################################################
+
+		// Event Types
 		$typeClimatic = EventType::create(array(
 			'name' => 'Climatic'
 		));
@@ -290,3 +297,4 @@ class PublicationsSeeder extends Seeder
 		DB::table('notificationSettings')->delete();
 	}
 }
+

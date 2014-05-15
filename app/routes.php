@@ -66,12 +66,12 @@ Route::group(array('prefix' => 'publications'), function()
      	},
 	));
 });
-
+/*
 Route::get('/user/{username}', array(
  	'as' => 'profile-user',
  	'uses' => 'ProfileController@user'
 ));
-
+*/
 /*
  * API Controle Panel
  */
@@ -117,6 +117,12 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('/user', array(
         'as' => 'control-panel',
         'uses' => 'UserPanelController@show'
+    ));
+
+    /* User privileges */
+    Route::get('/user/privileges', array(
+       'as' => 'user-privileges',
+       'uses' => 'UserPanelController@getPrivileges'
     ));
 
 // update profile form route

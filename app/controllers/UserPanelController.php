@@ -8,6 +8,12 @@ class UserPanelController extends BaseController {
 		return View::make('user.controlpanel',array('user'=>$profile));
 	}
 
+    public function getPrivileges() {
+        $usernames_array = User::lists('username', 'id');
+        $profile = User::find(Auth::user()->getId());
+        return View::make('user.privileges')->with('user', $profile)->with('names_array', $usernames_array);
+    }
+
     public function getAges() {
         $age_options = array('0'=> Lang::get('register.placeholder.country')) + Age::lists('stepname','id');
         return Response::json($age_options);
