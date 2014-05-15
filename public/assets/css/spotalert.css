@@ -11,30 +11,42 @@ header .row-header {
 }
 
 #footer {
-    -moz-box-shadow:0 8px 8px -5px #d1d1d1;
-    -webkit-box-shadow:0 8px 8px -5px #d1d1d1;
-    box-shadow:0 8px 8px -5px #d1d1d1;
-    color:gray;
+
+	-moz-box-shadow:0px -3px 3px 3px #d1d1d1; 
+    -webkit-box-shadow:0px -3px 3px 3px #d1d1d1;
+    box-shadow:0px -3px 3px 3px #d1d1d1;
+   	position:fixed;
     bottom:0px;
-    font-size:18px;
-    position:fixed;
-    /*bottom:0px;*/
+    background-color:white;
+    width:100%;
+    padding-top:0.5%;
 }
 
 .footer-up {
     display:inline;
+    margin-left:2%;
+    margin-bottom:0.5%;;
+     
 }
 
 .footer-inova {
-    display:inline;
 
+	display:inline;
+	margin-left:3%;
+	margin-bottom:0.5%;
+    
 }
 .footer-spot{
     display:inline;
+    margin-left:6%;
+    margin-right:4%;
+    margin-bottom:0.5%;
 }
 
 .footer-risk{
     display:inline;
+    margin-left:40%;
+    margin-bottom:0.5%;
 }
 
 header .grid-menu {
@@ -72,15 +84,14 @@ header .row-header > div#language {
 #main {
 
     -moz-box-shadow:    inset  0 -8px 8px -5px #d1d1d1,
-    inset  0 8px 8px -5px #d1d1d1;
+    					inset  0 8px 8px -5px #d1d1d1;
     -webkit-box-shadow: inset  0 -8px 8px -5px #d1d1d1,
-    inset  0 8px 8px -5px #d1d1d1;
+    					inset  0 8px 8px -5px #d1d1d1;
     box-shadow:        inset  0 -8px 8px -5px #d1d1d1,
-    inset  0 8px 8px -5px #d1d1d1;
+    					inset  0 8px 8px -5px #d1d1d1;
     padding-bottom:100%;
     background-color:#f2f2f2;
     padding-top:2%;
-
 }
 
 header #search-input{
@@ -95,8 +106,6 @@ header #search-input{
     border:0px;
     padding:0px;
     height:100%;
-
-
 }
 
 header #search-glass{
@@ -117,53 +126,118 @@ header form #search{
     display:inline;
 }
 
-/* |||||||||||||              ALERTA NÃVEL5               ||||||||||||||||||||||||||*/
+.ray_high{
+	background:url('/assets/images/ray_high.png') 0 0;
+	height:27px;
+	width:65px;
+	float:left;
+}
+.ray_medium{
 
+	background:url('/assets/images/ray_medium.png') 0 0;	
+	height:27px;
+	width:56px;
+	float:left;
+	margin-top:2%;
+	margin-right:5%;
+}
+.ray_low{
 
+	background:url('/assets/images/ray_low.png') 0 0;
+	height:8px;
+	width:56px;
+	float:left;
+	margin-top:10%;
+	margin-right:2%;
+
+}
+/*******************************************************/
+.arrow_gray{
+	background-color:white;
+	color:#CCCCCC;
+	border:0;
+	font-size:1.2em;
+}
+
+.arrow_white{
+	background-color:#ED1C24;
+	color:white;
+	border:0;
+	font-size:1.2em;	
+}
+
+.btn_gray{
+	color:gray;
+	border:0;
+	font-size:1.2em;
+	background-color:white;
+
+}
+
+.btn_white{
+	background-color:#ED1C24; 
+	color:white;
+	border:0;
+	font-size:1.2em;
+	
+} 
+.button_edit{
+	float:right;
+	padding-right:1%;
+	display:inline-block;
+}
+
+/***************************************************************************************/
+/* |||||||||||||   ALERTS AND  GUIDELINES   GENERAL SETTINGS  ||||||||||||||||||||||||||*/
+/****************************************************************************************/
+
+.publication-alert, .publication-guideline{
+	-webkit-border-radius:35px;
+	-moz-border-radius:35px;
+	border-radius:35px;
+	text-transform:uppercase;
+	outline-offset:15px;
+	text-align:center;
+	margin-bottom:3%;
+	padding-top:1%;
+	margin-left:5%;
+}
+
+.publication-alert.publ-risk1, 
+.publication-alert.publ-risk2,
+.publication-alert.publ-risk3, 
+.publication-alert.publ-risk4{
+    background-color:white;
+}
+/***************************************************************************************/
+/* |||||||||||||||||||||||||||   ALERT LEVEL 5  |||||||||||||||||||||||||||||||||||||||*/
+/****************************************************************************************/
 .publication-alert.publ-risk5{
-    background-color: #ED1C24;
-    text-transform:uppercase;
-    /*margin-left:0.2%;*/
-    border: 0px solid #ED1C24;
-    -webkit-border-radius:35px;
-    -moz-border-radius:35px;
-    border-radius:35px;
-    text-align:center;
-    margin-bottom:1%;
-    padding-top:1%;
 
+	background-color: #ED1C24;
 }
 
-
-.publication-alert.publ-risk5 > .publ-risk{
-    display:inline;
-    position:relative;
-    right:14%;
-
-
-
-}
-.publication-alert.publ-risk5 > .publ-type{
+.publication-alert.publ-risk5 .publ-type{
     color:white;
     font-weight:900;
     font-size:17px;
-    display: inline;
-    padding-bottom:2%;
+    display:inline;
+    
 }
 
-.publication-alert.publ-risk5 > .publ-countr{
+.publication-alert.publ-risk5 .publ-countr{
     color:white;
     font-weight:normal;
-    display: inline;
-    position:relative;
-    left:12%;
+    float:right;
     font-size:11px;
+    
 
 }
-.publication-alert.publ-risk5 > .publ-title{
+.publication-alert.publ-risk5 .publ-title{
     color:white;
     font-weight:normal;
     font-size:22px;
+
 }
 
 
@@ -173,59 +247,26 @@ header form #search{
 }
 
 
-.publ-risk5 .arrow_white{ /*SETA BRANCA PARA NÃVEL 5*/
-    padding-bottom:5%;
-
-}
-
-.publ-risk5 .arrow_gray,
-.publ-risk5 .ray-low,
-.publ-risk5 .ray-medium,
-.publ-risk5 .edit-button,
-.publication-alert .cross-plus{
-    display:none;
-}
-
-/* |||||||||||||              ALERTA NÃVEL4               ||||||||||||||||||||||||||*/
-
-.publication-alert.publ-risk4{
-    background-color: white;
-    text-transform:uppercase;
-    /*margin-left:0.2%;*/
-    border: 0px solid white;
-    -webkit-border-radius:35px;
-    -moz-border-radius:35px;
-    border-radius:35px;
-    text-align:center;
-    margin-bottom:3%;
-    padding-top:1%;
-
-}
+/* |||||||||||||              ALERT LEVEL 4               ||||||||||||||||||||||||||*/
 
 
-.publication-alert.publ-risk4 > .publ-risk{
-    display:inline;
-    position:relative;
-    right:14%;
-}
-.publication-alert.publ-risk4 > .publ-type{
+.publication-alert.publ-risk4 .publ-type{
     color:#666666;
     font-weight:normal;
     font-size:17px;
     display: inline;
-    padding-bottom:2%;
+ 
 }
 
-.publication-alert.publ-risk4 > .publ-countr{
+.publication-alert.publ-risk4 .publ-countr{
     color:#666666;
     font-weight:normal;
     display: inline;
-    position:relative;
-    left:12%;
-    font-size:11px;
+  	float: right;
+  	font-size:11px;
 
 }
-.publication-alert.publ-risk4 > .publ-title{
+.publication-alert.publ-risk4 .publ-title{
     color:#666666;
     font-weight:normal;
     font-size:22px;
@@ -238,58 +279,26 @@ header form #search{
 }
 
 
-.publ-risk4 .arrow_white, .publ-risk4 .ray-high, .publ-risk4 .ray-low{
-    display:none;
-}
 
-.publ-risk4 .arrow_gray{
-    padding-bottom:5%;
-}
+/* |||||||||||||             ALERT LEVEL 3                   ||||||||||||||||||||||||||*/
 
 
-/* |||||||||||||              ALERTA NÃVEL3               ||||||||||||||||||||||||||*/
-
-.publication-alert.publ-risk3{
-    background-color: white;
-    text-transform:uppercase;
-    /*margin-left:0.2%;*/
-    border: 0px solid white;
-    -webkit-border-radius:35px;
-    -moz-border-radius:35px;
-    border-radius:35px;
-    text-align:center;
-    margin-bottom:3%;
-    padding-top:1%;
-
-}
-
-
-.publication-alert.publ-risk3 > .publ-risk{
-    display:inline;
-    position:relative;
-    right:14%;
-
-
-
-}
-.publication-alert.publ-risk3 > .publ-type{
+.publication-alert.publ-risk3 .publ-type{
     color:#666666;
     font-weight:normal;
     font-size:17px;
     display: inline;
-    padding-bottom:2%;
 }
 
-.publication-alert.publ-risk3 > .publ-countr{
+.publication-alert.publ-risk3 .publ-countr{
     color:#666666;
     font-weight:normal;
     display: inline;
-    position:relative;
-    left:12%;
+    float:right;
     font-size:11px;
 
 }
-.publication-alert.publ-risk3 > .publ-title{
+.publication-alert.publ-risk3 .publ-title{
     color:#666666;
     font-weight:normal;
     font-size:22px;
@@ -302,59 +311,26 @@ header form #search{
 }
 
 
-.publ-risk4 .arrow_white, .publ-risk4 .ray-high, .publ-risk4 .ray-low{
-    display:none;
-}
 
-.publ-risk3 .arrow_gray{ /*OCULTAR SETA CINZENTA PARA OS RESTANTES NÃVEIS*/
-    padding-bottom:5%;
-
-}
+/* |||||||||||||              ALERT LEVEL 2         ||||||||||||||||||||||||||*/
 
 
-/* |||||||||||||              ALERTA NÃVEL2               ||||||||||||||||||||||||||*/
-
-.publication-alert.publ-risk2{
-    background-color: white;
-    text-transform:uppercase;
-    /*margin-left:0.2%;*/
-    border: 0px solid white;
-    -webkit-border-radius:35px;
-    -moz-border-radius:35px;
-    border-radius:35px;
-    text-align:center;
-    margin-bottom:3%;
-    padding-top:1%;
-
-}
-
-
-.publication-alert.publ-risk2 > .publ-risk{
-    display:inline;
-    position:relative;
-    right:14%;
-
-
-
-}
-.publication-alert.publ-risk2 > .publ-type{
+.publication-alert.publ-risk2 .publ-type{
     color:#666666;
     font-weight:normal;
     font-size:17px;
     display: inline;
-    padding-bottom:2%;
 }
 
-.publication-alert.publ-risk2 > .publ-countr{
+.publication-alert.publ-risk2 .publ-countr{
     color:#666666;
     font-weight:normal;
     display: inline;
-    position:relative;
-    left:12%;
+    float: right;
     font-size:11px;
 
 }
-.publication-alert.publ-risk2 > .publ-title{
+.publication-alert.publ-risk2 .publ-title{
     color:#666666;
     font-weight:normal;
     font-size:22px;
@@ -366,58 +342,26 @@ header form #search{
     border-color:#CCCCCC;
 }
 
-.publ-risk2 .arrow_gray{ /*OCULTAR SETA CINZENTA PARA OS RESTANTES NÃVEIS*/
-    padding-bottom:5%;
-
-}
-.publ-risk2 .ray-high, .publ-risk2 .ray-medium, .publ-risk2 .arrow_white{
-    display:none;
-}
 
 
-/* |||||||||||||              ALERTA NÃVEL1               ||||||||||||||||||||||||||*/
-
-.publication-alert.publ-risk1{
-    background-color: white;
-    text-transform:uppercase;
-    /*margin-left:0.2%;*/
-    border: 0px solid white;
-    -webkit-border-radius:35px;
-    -moz-border-radius:35px;
-    border-radius:35px;
-    text-align:center;
-    margin-bottom:3%;
-    padding-top:1%;
-
-}
+/* |||||||||||||            ALERT LEVEL 1                 ||||||||||||||||||||||||||*/
 
 
-.publication-alert.publ-risk1 > .publ-risk{
-    display:inline;
-    position:relative;
-    right:14%;
-
-
-
-}
-.publication-alert.publ-risk1 > .publ-type{
+.publication-alert.publ-risk1 .publ-type{
     color:#666666;
     font-weight:normal;
     font-size:17px;
     display: inline;
-    padding-bottom:2%;
 }
 
-.publication-alert.publ-risk1 > .publ-countr{
+.publication-alert.publ-risk1 .publ-countr{
     color:#666666;
     font-weight:normal;
     display: inline;
-    position:relative;
-    left:12%;
-    font-size:11px;
+   	float:right; 
 
 }
-.publication-alert.publ-risk1 > .publ-title{
+.publication-alert.publ-risk1 .publ-title{
     color:#666666;
     font-weight:normal;
     font-size:22px;
@@ -429,56 +373,40 @@ header form #search{
     border-color:#CCCCCC;
 }
 
-.publ-risk1 .arrow_gray{ /*OCULTAR SETA CINZENTA PARA OS RESTANTES NÃVEIS*/
-    padding-bottom:5%;
-}
-.publ-risk1 .ray-high,
-.publ-risk1 .ray-medium,
-.publ-risk1 .arrow_white{
-    display:none;
-}
 
 /***************************\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*********************************/
 /* |||||||||||||||||||||||         GUIDELINES         |||||||||||||||||||||||||||| */
-
+/***************************\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*********************************/
 
 .publication-guideline{
-    background-color: white;
-    text-transform:uppercase;
-    /*margin-left:0.2%;*/;
-    border: 0px solid white;
-    -webkit-border-radius:35px;
-    -moz-border-radius:35px;
-    border-radius:35px;
-    text-align:center;
+	background-color:white;
     margin-bottom:1%;
     padding-top:1%;
 }
 
-.publication-guideline > .publ-risk{
+.publication-guideline .publ-risk{
     display:inline;
     position:relative;
     right:18%;
 }
 
-.publication-guideline > .publ-type{
+.publication-guideline .publ-type{
     color:#666666;
     font-weight:normal;
     font-size:17px;
     display: inline;
-    padding-bottom:2%;
+   
 }
 
-.publication-guideline > .publ-countr{
+.publication-guideline .publ-countr{
     color:#666666;
     font-weight:normal;
     display: inline;
-    position:relative;
-    left:12%;
+    float:right;
     font-size:11px;
 }
 
-.publication-guideline > .publ-title{
+.publication-guideline .publ-title{
     color:#666666;
     font-weight:normal;
     font-size:22px;
@@ -490,15 +418,15 @@ header form #search{
     border-color:#CCCCCC;
 }
 
-.publication-guideline .arrow_gray{ /*MOSTRAR SETA CINZENTA*/
-    padding-bottom:5%;
 
-}
-.publication-guideline .arrow_white,
-.publication-guideline .ray-high,
-.publication-guideline .ray-medium,
-.publication-guideline .ray-low{ /*OCULTAR ESTES ELEMENTOS*/
-    display:none;
+.publication-guideline .plus{
+
+	background:url('/assets/images/plus.png') 0 0;
+	float:left;
+	height:28px;
+	width:28px;
+	margin-top:8%;
+	margin-left:80%;
 }
 
 /******************************************************
@@ -522,6 +450,10 @@ header form #search{
     box-shadow: none;
 }
 
+#filt .filter-opt.selected {
+	color: #FF931E;
+}
+
 .right-caret:after,.left-caret:after {
     content:"";
     border-bottom: 5px solid transparent;
@@ -539,6 +471,12 @@ header form #search{
 
 .left-caret:after{
     border-right: 5px solid #ffaf46;
+}
+
+div.ajax-loading {
+	background-image:url('../images/ajax-loader.gif');
+	width: 16px;
+	height: 16px;
 }
 
 /******************************************************
@@ -800,20 +738,22 @@ header form #search{
     -webkit-border-radius: 25px;
     -moz--topright: 25px;
     border-radius: 25px;
+    padding:3px;
 }
 
-.btn.btn-lg.btn-primary.btn-block{ /*log in as facebook*/
+.btn.btn-primary.btn-block{ /*log in as facebook*/
 
     -webkit-border-radius: 25px;
     -moz--topright: 25px;
     border-radius: 25px;
-
+    padding:1px;
 }
 
-.btn.btn-lg.btn-danger.btn-block{ /*log in as google*/
+.btn.btn-danger.btn-block{ /*log in as google*/
     -webkit-border-radius: 25px;
-    -moz--topright: 25px;
+    -moz--top-right: 25px;
     border-radius: 25px;
+    padding:1px;
 }
 
 .register-block h4{
@@ -823,6 +763,12 @@ header form #search{
     border-radius: 25px;
     border-color:#CCCCCC;
     background-color:#CCCCCC;
+    color:#666666;
+    font-weight:900;
+}
+
+.row-block{
+	color:#666666;
 }
 
 
