@@ -910,6 +910,7 @@ div.ajax-loading {
     text-decoration: underline;
     font-size:  1.3em;
 }
+
 #controlpanel label{
     color:#BF2333;
     text-transform: uppercase;
@@ -919,6 +920,7 @@ div.ajax-loading {
     border: 0px;
     /*border-bottom: 1px dashed  #BF2333;*/
 }
+
 #controlpanel input[type=password] {
     border: 0px;
     background-color: #CCCCCC;
@@ -938,6 +940,7 @@ div.ajax-loading {
     color: #BF2333;
     float: right;
 }
+
 #controlpanel .dotline{
     border-bottom: 1px dashed  #BF2333;
     display: inline-block;
@@ -994,4 +997,31 @@ div.ajax-loading {
     color: #BF2333;
     font-size:1.5em;
     float: right;
+}
+
+
+/* User privileges */
+#privileges input {
+    border: 0px;
+    margin-bottom: 1px;
+    border-bottom: 1px dashed #BF2333;
+
+}
+
+#privileges h3 {
+    width: 100%;
+    color:#BF2333;
+    font-weight:bold;
+    font-size:  1.3em;
+    margin: 0px 30px;
+}
+
+#privileges .edit_button {
+    color: #BF2333;
+    float:0;
+}
+
+#privileges .glyphicon {
+    margin:0;
+
 }

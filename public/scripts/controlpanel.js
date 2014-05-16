@@ -1,6 +1,7 @@
 $('document').ready(function() {
     loadEditButtons();
     loadFileUpload();
+    loadAutocompleteUsername();
     //alert('carregado');
 });
 /* append buttons to edit forms */
@@ -125,5 +126,18 @@ function loadEditButtons() {
 function loadFileUpload(){
     $('.custom-upload input[type=file]').change(function(){
         $('.custom-upload input[type=text]').val($(this).val());
+    });
+}
+
+
+function loadAutocompleteUsername() {
+
+    var availableTags = [
+        "ActionScript",
+        "AppleScript",
+        "Asp"
+    ];
+    $( "#username" ).autocomplete({
+        source: availableT
     });
 }

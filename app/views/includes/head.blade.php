@@ -12,6 +12,11 @@
 {{ HTML::style('assets/css/spotalert.css'); }}
 
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<!-- for autocomplete -->
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/smoothness/jquery-ui.css" />
+<!-- -->
 {{ HTML::script('assets/js/script.js') }}
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <!-- the mousewheel plugin - optional to provide mousewheel support -->
