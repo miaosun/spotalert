@@ -51,5 +51,8 @@ return array(
         "email"          => "EMAIL",
         "permissions"    => "PERMISSIONS",
         "remove"         => "REMOVE"
-    )
+    ),
+	"publications" => array(
+		"title" => "USER CONTROL PANEL - PUBLICATIONS"
+	)
 );

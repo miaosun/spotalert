@@ -125,6 +125,12 @@ Route::group(array('before' => 'auth'), function() {
        'uses' => 'UserPanelController@getPrivileges'
     ));
 
+    // Publications listing
+    Route::get('/user/publications', array(
+       'as' => 'user-publications',
+       'uses' => 'UserPanelController@getPublications'
+    ));
+
 // update profile form route
     Route::post('/user/updateprofile', array(
         'as' => 'update-profile',

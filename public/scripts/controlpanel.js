@@ -138,6 +138,6 @@ function loadAutocompleteUsername() {
         "Asp"
     ];
     $( "#username" ).autocomplete({
-        source: availableT
+        //source: availableT
     });
 }
