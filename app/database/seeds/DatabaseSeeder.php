@@ -124,7 +124,7 @@ class PublicationsSeeder extends Seeder
 		));
 
 		// ######################################################################
-		// First publication
+		// ***************
 		$publication1 = Publication::create(array(
 			'initial_date'	=> NULL,
 			'final_date'	=> '2014-03-30',
@@ -147,7 +147,10 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langPT->id
 		));
 
-		// Second publication
+		$publication1->eventTypes()->attach($typeClimatic->id);
+		$publication1->affectedCountries()->attach($portugal->id);
+
+		// ***************
 		$publication2 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
 			'final_date'	=> NULL,
@@ -170,7 +173,11 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langPT->id
 		));
 
-		// Third publication
+		$publication2->affectedCountries()->attach($spain->id);
+		$publication2->affectedCountries()->attach($bosnia->id);
+		$publication2->eventTypes()->attach($typeSocial->id);
+
+		// ***************
 		$publication3 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
 			'final_date'	=> '2014-07-30',
@@ -186,7 +193,13 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langEN->id
 		));
 
-		// Fourth publication
+		$publication3->eventTypes()->attach($typeClimatic->id);
+		$publication3->eventTypes()->attach($typeSocial->id);
+		$publication3->affectedCountries()->attach($portugal->id);
+		$publication3->affectedCountries()->attach($spain->id);
+		$publication3->affectedCountries()->attach($bosnia->id);
+
+		// ***************
 		$publication4 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
 			'final_date'	=> '2014-06-30',
@@ -202,7 +215,10 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langEN->id
 		));
 
-		// Fifth publication
+		$publication4->eventTypes()->attach($typeClimatic->id);
+		$publication4->affectedCountries()->attach($spain->id);
+
+		// ***************
 		$publication5 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
 			'final_date'	=> '2014-06-30',
@@ -218,7 +234,10 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langEN->id
 		));
 
-		// Sixth publication
+		$publication5->eventTypes()->attach($typeClimatic->id);
+		$publication5->affectedCountries()->attach($france->id);
+
+		// ***************
 		$publication6 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
 			'final_date'	=> '2014-06-30',
@@ -234,7 +253,10 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langEN->id
 		));
 
-		// Seventh publication
+		$publication6->eventTypes()->attach($typeSocial->id);
+		$publication6->affectedCountries()->attach($bosnia->id);
+
+		// ***************
 		$publication7 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
 			'final_date'	=> '2014-06-30',
@@ -250,33 +272,11 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langEN->id
 		));
 
+		$publication7->eventTypes()->attach($typeSocial->id);
+		$publication7->affectedCountries()->attach($russia->id);
 
 		// Linking publications
 		$publication1->guidelines()->attach($publication2->id);
-		$publication1->eventTypes()->attach($typeClimatic->id);
-		$publication1->affectedCountries()->attach($portugal->id);
-		
-		$publication2->eventTypes()->attach($typeSocial->id);
-		$publication2->affectedCountries()->attach($spain->id);
-		$publication2->affectedCountries()->attach($bosnia->id);
-		
-		$publication3->eventTypes()->attach($typeClimatic->id);
-		$publication3->eventTypes()->attach($typeSocial->id);
-		$publication3->affectedCountries()->attach($portugal->id);
-		$publication3->affectedCountries()->attach($spain->id);
-		$publication3->affectedCountries()->attach($bosnia->id);
-
-		$publication4->eventTypes()->attach($typeClimatic->id);
-		$publication4->affectedCountries()->attach($spain->id);
-
-		$publication5->eventTypes()->attach($typeClimatic->id);
-		$publication5->affectedCountries()->attach($france->id);
-
-		$publication6->eventTypes()->attach($typeSocial->id);
-		$publication6->affectedCountries()->attach($bosnia->id);
-
-		$publication7->eventTypes()->attach($typeSocial->id);
-		$publication7->affectedCountries()->attach($russia->id);
 	}
 
 	public function clearDatabase()
@@ -286,11 +286,11 @@ class PublicationsSeeder extends Seeder
 		DB::table('publicationContents')->delete();
 		DB::table('eventTypes')->delete();
 		DB::table('publications_eventTypes')->delete();
+		DB::table('users')->delete();
 		DB::table('countries')->delete();
 		DB::table('publications_countries')->delete();
 		DB::table('alerts_guidelines')->delete();
 		DB::table('ages')->delete();
-		DB::table('users')->delete();
 		DB::table('comments')->delete();
 		DB::table('eyewitnesses')->delete();
 		DB::table('eyewitnesses_countries')->delete();
