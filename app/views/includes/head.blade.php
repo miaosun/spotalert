@@ -17,12 +17,14 @@
 <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.9.0/themes/smoothness/jquery-ui.css" />
 <!-- -->
-{{ HTML::script('assets/js/script.js') }}
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <!-- the mousewheel plugin - optional to provide mousewheel support -->
 {{ HTML::script('assets/js/jquery.mousewheel.js') }}
 <!-- the jScrollPane script -->
 {{ HTML::script('assets/js/jquery.jscrollpane.min.js') }}
+{{ HTML::script('assets/js/jquery.dataTables.js') }}
+{{ HTML::script('scripts/controlpanel.js') }}
+{{ HTML::script('assets/js/script.js') }}
 
 <script>
 var loading_message = "{{Lang::get('home.filter.loading_msg')}}";
