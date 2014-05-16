@@ -124,7 +124,7 @@ class PublicationsSeeder extends Seeder
 		));
 
 		// ######################################################################
-		// First publication
+		// ***************
 		$publication1 = Publication::create(array(
 			'initial_date'	=> NULL,
 			'final_date'	=> '2014-03-30',
@@ -147,7 +147,10 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langPT->id
 		));
 
-		// Second publication
+		$publication1->eventTypes()->attach($typeClimatic->id);
+		$publication1->affectedCountries()->attach($portugal->id);
+
+		// ***************
 		$publication2 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
 			'final_date'	=> NULL,
@@ -170,7 +173,11 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langPT->id
 		));
 
-		// Third publication
+		$publication2->affectedCountries()->attach($spain->id);
+		$publication2->affectedCountries()->attach($bosnia->id);
+		$publication2->eventTypes()->attach($typeSocial->id);
+
+		// ***************
 		$publication3 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
 			'final_date'	=> '2014-07-30',
@@ -186,7 +193,13 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langEN->id
 		));
 
-		// Fourth publication
+		$publication3->eventTypes()->attach($typeClimatic->id);
+		$publication3->eventTypes()->attach($typeSocial->id);
+		$publication3->affectedCountries()->attach($portugal->id);
+		$publication3->affectedCountries()->attach($spain->id);
+		$publication3->affectedCountries()->attach($bosnia->id);
+
+		// ***************
 		$publication4 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
 			'final_date'	=> '2014-06-30',
@@ -202,7 +215,10 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langEN->id
 		));
 
-		// Fifth publication
+		$publication4->eventTypes()->attach($typeClimatic->id);
+		$publication4->affectedCountries()->attach($spain->id);
+
+		// ***************
 		$publication5 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
 			'final_date'	=> '2014-06-30',
@@ -218,7 +234,10 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langEN->id
 		));
 
-		// Sixth publication
+		$publication5->eventTypes()->attach($typeClimatic->id);
+		$publication5->affectedCountries()->attach($france->id);
+
+		// ***************
 		$publication6 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
 			'final_date'	=> '2014-06-30',
@@ -234,7 +253,10 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langEN->id
 		));
 
-		// Seventh publication
+		$publication6->eventTypes()->attach($typeSocial->id);
+		$publication6->affectedCountries()->attach($bosnia->id);
+
+		// ***************
 		$publication7 = Publication::create(array(
 			'initial_date'	=> '2014-03-23',
 			'final_date'	=> '2014-06-30',
@@ -250,33 +272,419 @@ class PublicationsSeeder extends Seeder
 			'language_id'	=> $langEN->id
 		));
 
-
-		// Linking publications
-		$publication1->guidelines()->attach($publication2->id);
-		$publication1->eventTypes()->attach($typeClimatic->id);
-		$publication1->affectedCountries()->attach($portugal->id);
-		
-		$publication2->eventTypes()->attach($typeSocial->id);
-		$publication2->affectedCountries()->attach($spain->id);
-		$publication2->affectedCountries()->attach($bosnia->id);
-		
-		$publication3->eventTypes()->attach($typeClimatic->id);
-		$publication3->eventTypes()->attach($typeSocial->id);
-		$publication3->affectedCountries()->attach($portugal->id);
-		$publication3->affectedCountries()->attach($spain->id);
-		$publication3->affectedCountries()->attach($bosnia->id);
-
-		$publication4->eventTypes()->attach($typeClimatic->id);
-		$publication4->affectedCountries()->attach($spain->id);
-
-		$publication5->eventTypes()->attach($typeClimatic->id);
-		$publication5->affectedCountries()->attach($france->id);
-
-		$publication6->eventTypes()->attach($typeSocial->id);
-		$publication6->affectedCountries()->attach($bosnia->id);
-
 		$publication7->eventTypes()->attach($typeSocial->id);
 		$publication7->affectedCountries()->attach($russia->id);
+
+		// ***************
+		$publication8 = Publication::create(array(
+			'initial_date'	=> '2014-03-02',
+			'final_date'	=> '2014-06-01',
+			'is_public'		=> true,
+			'risk'			=> 5,
+			'type'			=> 'alert'
+		));
+
+		$content8EN = PublicationContent::create(array(
+			'title'			=> 'Hurricane in Portugal',
+			'content'		=> 'Be careful about this Hurricane, stay at home!',
+			'publication_id'=> $publication8->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication8->eventTypes()->attach($typeClimatic->id);
+		$publication8->affectedCountries()->attach($portugal->id);
+		$publication8->affectedCountries()->attach($bosnia->id);
+		
+		// ***************
+		$publication9 = Publication::create(array(
+			'initial_date'	=> '2014-03-04',
+			'final_date'	=> '2014-06-05',
+			'is_public'		=> true,
+			'risk'			=> 1,
+			'type'			=> 'guideline'
+		));
+
+		$content9EN = PublicationContent::create(array(
+			'title'			=> 'Strong wind in Portugal',
+			'content'		=> 'Be careful about this strong wind, stay at home!',
+			'publication_id'=> $publication9->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication9->eventTypes()->attach($typeClimatic->id);
+		$publication9->affectedCountries()->attach($spain->id);
+		$publication9->affectedCountries()->attach($france->id);
+		
+		// ***************
+		$publication10 = Publication::create(array(
+			'initial_date'	=> '2014-03-08',
+			'final_date'	=> '2014-05-12',
+			'is_public'		=> true,
+			'risk'			=> 2,
+			'type'			=> 'guideline'
+		));
+
+		$content10EN = PublicationContent::create(array(
+			'title'			=> 'Heavy rain in Portugal',
+			'content'		=> 'Be careful about this heavy rain, stay at home!',
+			'publication_id'=> $publication10->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication10->eventTypes()->attach($typeClimatic->id);
+		$publication10->affectedCountries()->attach($spain->id);
+		$publication10->affectedCountries()->attach($france->id);
+		
+		// ***************
+		$publication11 = Publication::create(array(
+			'initial_date'	=> '2014-03-12',
+			'final_date'	=> '2014-05-30',
+			'is_public'		=> true,
+			'risk'			=> 3,
+			'type'			=> 'alert'
+		));
+
+		$content11EN = PublicationContent::create(array(
+			'title'			=> 'storm in Portugal',
+			'content'		=> 'Be careful about this storm, stay at home!',
+			'publication_id'=> $publication11->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication11->eventTypes()->attach($typeClimatic->id);
+		$publication11->affectedCountries()->attach($spain->id);
+		$publication11->affectedCountries()->attach($russia->id);
+		
+		// ***************
+		$publication12 = Publication::create(array(
+			'initial_date'	=> '2014-03-18',
+			'final_date'	=> '2014-03-22',
+			'is_public'		=> true,
+			'risk'			=> 4,
+			'type'			=> 'alert'
+		));
+
+		$content12EN = PublicationContent::create(array(
+			'title'			=> 'Rain storm in Portugal',
+			'content'		=> 'Be careful about this rain storm, stay at home!',
+			'publication_id'=> $publication12->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication12->eventTypes()->attach($typeClimatic->id);
+		$publication12->affectedCountries()->attach($france->id);
+		$publication12->affectedCountries()->attach($russia->id);
+		$publication12->affectedCountries()->attach($spain->id);
+		
+		// ***************
+		$publication13 = Publication::create(array(
+			'initial_date'	=> '2014-04-15',
+			'final_date'	=> '2014-04-22',
+			'is_public'		=> true,
+			'risk'			=> 5,
+			'type'			=> 'alert'
+		));
+
+		$content13EN = PublicationContent::create(array(
+			'title'			=> 'H1N1 in Portugal',
+			'content'		=> 'Be careful with H1N1, stay at home and wear mask!',
+			'publication_id'=> $publication13->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication13->eventTypes()->attach($typeSocial->id);
+		$publication13->affectedCountries()->attach($france->id);
+		$publication13->affectedCountries()->attach($russia->id);
+		$publication13->affectedCountries()->attach($bosnia->id);
+		
+		// ***************
+		$publication14 = Publication::create(array(
+			'initial_date'	=> '2014-01-18',
+			'final_date'	=> '2014-01-25',
+			'is_public'		=> true,
+			'risk'			=> 4,
+			'type'			=> 'alert'
+		));
+
+		$content14EN = PublicationContent::create(array(
+			'title'			=> 'Storm snow in Portugal',
+			'content'		=> 'Be careful with this strom snow, stay at home!',
+			'publication_id'=> $publication14->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication14->eventTypes()->attach($typeClimatic->id);
+		$publication14->affectedCountries()->attach($france->id);
+		$publication14->affectedCountries()->attach($russia->id);
+
+		// ***************
+		$publication15 = Publication::create(array(
+			'initial_date'	=> '2014-02-18',
+			'final_date'	=> '2014-03-17',
+			'is_public'		=> true,
+			'risk'			=> 2,
+			'type'			=> 'guideline'
+		));
+
+		$content15EN = PublicationContent::create(array(
+			'title'			=> 'Rain in Portugal',
+			'content'		=> 'Be careful with rain, take umbrella with you!',
+			'publication_id'=> $publication15->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication15->eventTypes()->attach($typeClimatic->id);
+		$publication15->affectedCountries()->attach($france->id);
+		$publication15->affectedCountries()->attach($spain->id);
+		
+		// ***************
+		$publication16 = Publication::create(array(
+			'initial_date'	=> '2014-02-18',
+			'final_date'	=> '2014-02-17',
+			'is_public'		=> true,
+			'risk'			=> 4,
+			'type'			=> 'alert'
+		));
+
+		$content16EN = PublicationContent::create(array(
+			'title'			=> 'Ice rain in Portugal',
+			'content'		=> 'Be careful with ice rain, stay at home!',
+			'publication_id'=> $publication16->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication16->eventTypes()->attach($typeClimatic->id);
+		$publication16->affectedCountries()->attach($bosnia->id);
+		$publication16->affectedCountries()->attach($spain->id);
+
+		// ***************
+		$publication17 = Publication::create(array(
+			'initial_date'	=> '2014-03-29',
+			'final_date'	=> '2014-03-17',
+			'is_public'		=> true,
+			'risk'			=> 4,
+			'type'			=> 'alert'
+		));
+
+		$content17EN = PublicationContent::create(array(
+			'title'			=> 'Hurricane in Portugal',
+			'content'		=> 'Be careful with hurricane, stay at home!',
+			'publication_id'=> $publication17->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication17->eventTypes()->attach($typeClimatic->id);
+		$publication17->affectedCountries()->attach($bosnia->id);
+		$publication17->affectedCountries()->attach($spain->id);
+		$publication17->affectedCountries()->attach($russia->id);
+
+		// ***************
+		$publication18 = Publication::create(array(
+			'initial_date'	=> '2014-03-30',
+			'final_date'	=> '2014-04-15',
+			'is_public'		=> true,
+			'risk'			=> 4,
+			'type'			=> 'alert'
+		));
+
+		$content18EN = PublicationContent::create(array(
+			'title'			=> 'Bird flue in Portugal',
+			'content'		=> 'Be careful with bird flu, stay at home and wear mask!',
+			'publication_id'=> $publication18->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication18->eventTypes()->attach($typeSocial->id);
+		$publication18->affectedCountries()->attach($bosnia->id);
+		$publication18->affectedCountries()->attach($spain->id);
+		$publication18->affectedCountries()->attach($russia->id);
+
+		// ***************
+		$publication19 = Publication::create(array(
+			'initial_date'	=> '2014-05-18',
+			'final_date'	=> '2014-05-19',
+			'is_public'		=> true,
+			'risk'			=> 5,
+			'type'			=> 'alert'
+		));
+
+		$content19EN = PublicationContent::create(array(
+			'title'			=> 'Earthquake in Portugal',
+			'content'		=> 'Be careful with Earthquake, find safe place!',
+			'publication_id'=> $publication19->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication19->eventTypes()->attach($typeClimatic->id);
+		$publication19->affectedCountries()->attach($bosnia->id);
+		$publication19->affectedCountries()->attach($spain->id);
+
+		// ***************
+		$publication20 = Publication::create(array(
+			'initial_date'	=> '2014-01-8',
+			'final_date'	=> '2014-01-20',
+			'is_public'		=> true,
+			'risk'			=> 5,
+			'type'			=> 'alert'
+		));
+
+		$content20EN = PublicationContent::create(array(
+			'title'			=> 'Blizzards in Portugal',
+			'content'		=> 'Be careful with blizzards, stay at home!',
+			'publication_id'=> $publication20->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication20->eventTypes()->attach($typeClimatic->id);
+		$publication20->affectedCountries()->attach($russia->id);
+		$publication20->affectedCountries()->attach($spain->id);
+
+		// ***************
+		$publication21 = Publication::create(array(
+			'initial_date'	=> '2014-05-08',
+			'final_date'	=> '2014-05-20',
+			'is_public'		=> true,
+			'risk'			=> 2,
+			'type'			=> 'guideline'
+		));
+
+		$content21EN = PublicationContent::create(array(
+			'title'			=> 'Tornados in Portugal',
+			'content'		=> 'Be careful with tornados, stay at home and wear mask!',
+			'publication_id'=> $publication21->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication21->eventTypes()->attach($typeClimatic->id);
+		$publication21->affectedCountries()->attach($russia->id);
+		$publication21->affectedCountries()->attach($spain->id);
+		$publication21->affectedCountries()->attach($france->id);
+
+		// ***************
+		$publication22 = Publication::create(array(
+			'initial_date'	=> '2014-05-10',
+			'final_date'	=> '2014-05-24',
+			'is_public'		=> true,
+			'risk'			=> 5,
+			'type'			=> 'alert'
+		));
+
+		$content22EN = PublicationContent::create(array(
+			'title'			=> 'Epidemics in Portugal',
+			'content'		=> 'Be careful with epidemics, stay at home, wear mask and see doctor if you are sick!',
+			'publication_id'=> $publication22->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication22->eventTypes()->attach($typeSocial->id);
+		$publication22->affectedCountries()->attach($russia->id);
+		$publication22->affectedCountries()->attach($france->id);
+
+		// ***************
+		$publication23 = Publication::create(array(
+			'initial_date'	=> '2014-05-15',
+			'final_date'	=> '2014-05-24',
+			'is_public'		=> true,
+			'risk'			=> 1,
+			'type'			=> 'guideline'
+		));
+
+		$content23EN = PublicationContent::create(array(
+			'title'			=> 'Flower dust in Portugal',
+			'content'		=> 'Be careful with flower dust, wear mask!',
+			'publication_id'=> $publication23->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication23->eventTypes()->attach($typeClimatic->id);
+		$publication23->affectedCountries()->attach($spain->id);
+		$publication23->affectedCountries()->attach($france->id);
+		
+		// ***************
+		$publication24 = Publication::create(array(
+			'initial_date'	=> '2014-05-15',
+			'final_date'	=> '2014-05-24',
+			'is_public'		=> true,
+			'risk'			=> 1,
+			'type'			=> 'guideline'
+		));
+
+		$content24EN = PublicationContent::create(array(
+			'title'			=> 'Storm in Portugal',
+			'content'		=> 'Be careful with storm, find a safe place!',
+			'publication_id'=> $publication24->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication24->eventTypes()->attach($typeClimatic->id);
+		$publication24->affectedCountries()->attach($spain->id);
+		$publication24->affectedCountries()->attach($france->id);
+		
+		// ***************
+		$publication25 = Publication::create(array(
+			'initial_date'	=> '2014-07-20',
+			'final_date'	=> '2014-06-24',
+			'is_public'		=> true,
+			'risk'			=> 1,
+			'type'			=> 'guideline'
+		));
+
+		$content25EN = PublicationContent::create(array(
+			'title'			=> 'Hot weather in Portugal',
+			'content'		=> 'Be careful with hot weather!',
+			'publication_id'=> $publication25->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication25->eventTypes()->attach($typeClimatic->id);
+		$publication25->affectedCountries()->attach($spain->id);
+		$publication25->affectedCountries()->attach($france->id);
+		$publication25->affectedCountries()->attach($bosnia->id);
+		
+		// ***************
+		$publication26 = Publication::create(array(
+			'initial_date'	=> '2014-06-25',
+			'final_date'	=> '2014-07-24',
+			'is_public'		=> true,
+			'risk'			=> 4,
+			'type'			=> 'guideline'
+		));
+
+		$content26EN = PublicationContent::create(array(
+			'title'			=> 'Draught in Portugal',
+			'content'		=> 'Be careful with draught, stay at safe place!',
+			'publication_id'=> $publication26->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication26->eventTypes()->attach($typeClimatic->id);
+		$publication26->affectedCountries()->attach($spain->id);
+		$publication26->affectedCountries()->attach($russia->id);
+
+		// ***************
+		$publication27 = Publication::create(array(
+			'initial_date'	=> '2014-08-25',
+			'final_date'	=> '2014-11-24',
+			'is_public'		=> true,
+			'risk'			=> 3,
+			'type'			=> 'guideline'
+		));
+
+		$content27EN = PublicationContent::create(array(
+			'title'			=> 'Cold weather in Portugal',
+			'content'		=> 'Be careful with cold weather, wear thick clothes!',
+			'publication_id'=> $publication27->id,
+			'language_id'	=> $langEN->id
+		));
+
+		$publication27->eventTypes()->attach($typeClimatic->id);
+		$publication27->affectedCountries()->attach($spain->id);
+		$publication27->affectedCountries()->attach($france->id);
+		$publication27->affectedCountries()->attach($russia->id);
+		$publication27->affectedCountries()->attach($bosnia->id);
+		
+		// Linking publications
+		$publication1->guidelines()->attach($publication2->id);
 	}
 
 	public function clearDatabase()
@@ -286,11 +694,11 @@ class PublicationsSeeder extends Seeder
 		DB::table('publicationContents')->delete();
 		DB::table('eventTypes')->delete();
 		DB::table('publications_eventTypes')->delete();
+		DB::table('users')->delete();
 		DB::table('countries')->delete();
 		DB::table('publications_countries')->delete();
 		DB::table('alerts_guidelines')->delete();
 		DB::table('ages')->delete();
-		DB::table('users')->delete();
 		DB::table('comments')->delete();
 		DB::table('eyewitnesses')->delete();
 		DB::table('eyewitnesses_countries')->delete();

@@ -8,6 +8,14 @@ $('document').ready(function()
         e.stopPropagation();
     });
 
+	// Listing of publications
+    $('#publ-list').dataTable( {
+        "paging":   false,
+         "order": [[ 5, "desc" ]],
+        "info":     false,
+        "searching": false
+    } );
+
     // Everything for filtering to work
     filtering();
 

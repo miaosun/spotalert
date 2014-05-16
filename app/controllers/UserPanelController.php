@@ -90,6 +90,13 @@ class UserPanelController extends BaseController {
 		else
             return Redirect::route('control-panel')->with('global',"Teste: update failed! Input not validated!")->withErrors($valid);
 	}
+
+    public function getPublications() 
+    {
+        // FIXME: Correct user_id on publication
+        $publications = PublicationController::getAllPublications();
+        return View::make('user.publications')->with('publications', $publications);
+    }
     
 	private function validate() 
 	{

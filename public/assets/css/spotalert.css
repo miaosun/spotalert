@@ -89,9 +89,10 @@ header .row-header > div#language {
     					inset  0 8px 8px -5px #d1d1d1;
     box-shadow:        inset  0 -8px 8px -5px #d1d1d1,
     					inset  0 8px 8px -5px #d1d1d1;
-    padding-bottom:100%;
+    padding-bottom: 60px; /* A little bit more than footer's height */
     background-color:#f2f2f2;
-    padding-top:2%;
+    position: absolute;
+    width: 100%;
 }
 
 header #search-input{
@@ -108,6 +109,9 @@ header #search-input{
     height:100%;
 }
 
+.row-publ {
+    margin: 20px 15px 0px 15px;
+}
 
 header form #search{
     margin:0px;
@@ -203,7 +207,6 @@ button#search-glass {
 	text-align:center;
 	margin-bottom:3%;
 	padding-top:1%;
-	margin-left:5%;
 }
 
 .publication-alert.publ-risk1, 
@@ -390,7 +393,6 @@ button#search-glass {
 .publication-guideline .publ-risk{
     display:inline;
     position:relative;
-    right:18%;
 }
 
 .publication-guideline .publ-type{
@@ -428,16 +430,62 @@ button#search-glass {
 	float:left;
 	height:28px;
 	width:28px;
-	margin-top:8%;
-	margin-left:80%;
+	margin-top:2%;
+	margin-right:10%;
 }
 
 /******************************************************
 ********************** FILTERING **********************
 *******************************************************/
+#filt .dropdown-menu{
+	background-color:#F7F7F7;
+	color:#666666;
+	text-align:center;
+
+}
+
+#filt .dropdown-menu hr{
+	border-color:#CCCCCC;
+	width:80%;
+	margin-top:15px;
+	margin-bottom:15px; 
+}
+
+#filt .dropdown-menu .filter-risk:first-child{
+	background:url('../images/ray_red.png') no-repeat;
+	margin-top: 15px;
+	margin-left:20px;
+	padding-left:16px;  
+	
+}
+
+#filt .dropdown-menu .filter-risk:nth-child(3){
+	background:url('../images/ray_medium.png') no-repeat;	
+	background-size: 35px 18px;
+	margin-left:20px;
+	padding-left:10px;  
+}
+
+#filt .dropdown-menu .filter-risk:nth-child(5){
+	background:url('../images/ray_low.png') no-repeat;
+	background-size: 34px 5px;
+	margin-left:20px;
+	padding-right:20px;  
+}
+#filt .dropdown-menu div:last-child{
+	margin-bottom:8px;
+}
+
 #filt .dropdown-menu > div {
     position: relative;
     cursor: pointer;
+}
+
+
+#filt .dropdown-menu a {
+    color:#666666;
+    text-decoration:none;
+    margin-bottom:15px;
 }
 
 #filt .dropdown-menu .sub-menu {
@@ -450,13 +498,32 @@ button#search-glass {
     border-bottom-left-radius: 0;
     border-left-color: #fff;
     box-shadow: none;
+    text-align:left;
+
+}
+#filt .filter-opt.filter-eventType{
+	margin-left:15px;
 }
 
 #filt .filter-opt.selected {
 	color: #FF931E;
 }
 
-.right-caret:after,.left-caret:after {
+#filt .dropdown-menu .sub-menu hr{
+	margin-bottom:5px;
+	margin-top:5px;
+}
+
+.filter-ok{
+	color:#CCCCCC;
+	text-align:center;
+}
+/*
+#filt .right-caret:after{
+	border-left: 5px solid #CCCCCC; /// COR DAS SETAS DO TYPE OF EVENT ////
+}*/
+#filt .right-caret:after, 
+#filt .left-caret:after {
     content:"";
     border-bottom: 5px solid transparent;
     border-top: 5px solid transparent;
@@ -695,7 +762,7 @@ div.ajax-loading {
 ************************* LOGIN ***********************
 *******************************************************/
 #login .dropdown-menu {
-    background: white;
+    background: #F7F7F7;
     width:260px;
     line-height: 15px;
     text-transform:none;

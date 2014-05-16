@@ -1,6 +1,10 @@
-@foreach ($publications as $publication)
-    	
-	<div class="col-md-3 col-sm-10 publication-{{{$publication['type']}}} publ-risk{{{$publication['risk']}}}"
+@foreach ($publications as $key => $publication)
+
+@if (($key % 3) == 0)
+	<div class="row row-publ">
+@endif
+<div class="col-md-4">
+	<div class="col-md-12 col-sm-12 publication-{{{$publication['type']}}} publ-risk{{{$publication['risk']}}}"
 		id="publ-{{ $publication['id'] }}">
 		
 		<div class="publ_header">
@@ -73,6 +77,11 @@
 		</div>
 
 	</div>
+</div>
+
+@if (($key % 3) == 2)
+	</div>
+@endif
 
 @endforeach
 
