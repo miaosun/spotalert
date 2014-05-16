@@ -9,9 +9,18 @@ class UserPanelController extends BaseController {
 	}
 
     public function getPrivileges() {
-        $usernames_array = User::lists('username', 'id');
         $profile = User::find(Auth::user()->getId());
-        return View::make('user.privileges')->with('user', $profile)->with('names_array', $usernames_array);
+        return View::make('user.privileges',array('user' => $profile));
+    }
+
+    public function getUsernames() {
+        $usernames_array = User::lists('username');
+        return Response::json($usernames_array);
+    }
+
+    public function getEmails() {
+        $emails_array = User::lists('email');
+        return Response::json($emails_array);
     }
 
     public function getAges() {

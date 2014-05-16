@@ -35,8 +35,7 @@
                         <h3>{{ Lang::get('controlpanel.privileges.managers').'/' }}</h3>
                     </div>
                     <div class="col-md-4">
-                        {{ Form::text('email', null,
-                        array('placeholder'=>Lang::get('controlpanel.privileges.email'))) }}
+                        {{ Form::text('email', null, array('id'=>'email','placeholder'=>Lang::get('controlpanel.privileges.email'))) }}
                         <span class="glyphicon glyphicon-search"></span>
                     </div>
                     <div class="col-md-4">
@@ -56,7 +55,6 @@
         {{ Form::close() }}
     </div>
 </div>
-
 
 {{ HTML::script('scripts/controlpanel.js') }}
 @stop

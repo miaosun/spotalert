@@ -132,12 +132,21 @@ function loadFileUpload(){
 
 function loadAutocompleteUsername() {
 
-    var availableTags = [
+    /*var availableTags = [
         "ActionScript",
         "AppleScript",
         "Asp"
-    ];
-    $( "#username" ).autocomplete({
-        source: availableT
+    ];*/
+
+    $.getJSON( "api/usernames", function( data ) {
+        $( "#username" ).autocomplete({
+            source: data
+        });
+    });
+
+    $.getJSON( "api/emails", function( data ) {
+        $( "#email" ).autocomplete({
+            source: data
+        });
     });
 }

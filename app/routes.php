@@ -85,6 +85,16 @@ Route::get('/user/api/countries', array(
     'uses' => 'UserPanelController@getCountries'
 ));
 
+Route::get('/user/api/usernames', array(
+   'as' => 'api-usernames',
+    'uses' => 'UserPanelController@getUsernames'
+));
+
+Route::get('/user/api/emails', array(
+    'as' => 'api-emails',
+    'uses' => 'UserPanelController@getEmails'
+));
+
 /*
  * AUTHENTICATED GROUP
  */
