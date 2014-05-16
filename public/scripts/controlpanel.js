@@ -132,12 +132,6 @@ function loadFileUpload(){
 
 function loadAutocompleteUsername() {
 
-    /*var availableTags = [
-        "ActionScript",
-        "AppleScript",
-        "Asp"
-    ];*/
-
     $.getJSON( "api/usernames", function( data ) {
         $( "#username" ).autocomplete({
             source: data

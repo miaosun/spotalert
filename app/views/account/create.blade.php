@@ -30,7 +30,6 @@
                 <div class="col-md-7 col-md-offset-0">
                     <div class="row">
                         <div class="col-md-4">
-
                             {{ Form::label(Lang::get('register.field.username') . '*',null,array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0">

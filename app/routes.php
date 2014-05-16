@@ -135,6 +135,11 @@ Route::group(array('before' => 'auth'), function() {
        'uses' => 'UserPanelController@getPrivileges'
     ));
 
+    Route::get('/user/privileges/{nome}', array(
+        'as' => 'user-privileges',
+        'uses' => 'UserPanelController@getPrivilegesWithUser'
+    ));
+
 // update profile form route
     Route::post('/user/updateprofile', array(
         'as' => 'update-profile',

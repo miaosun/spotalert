@@ -89,7 +89,7 @@ header .row-header > div#language {
     					inset  0 8px 8px -5px #d1d1d1;
     box-shadow:        inset  0 -8px 8px -5px #d1d1d1,
     					inset  0 8px 8px -5px #d1d1d1;
-    padding-bottom:100%;
+    padding-bottom: 51px; /* Footer's height */
     background-color:#f2f2f2;
     padding-top:2%;
 }

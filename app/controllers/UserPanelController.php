@@ -5,14 +5,24 @@ class UserPanelController extends BaseController {
 	public function show() {
 		// get user profile data to fill. TODO: fix to Auth:user 
 		$profile = User::find(Auth::user()->getId());
-		return View::make('user.controlpanel',array('user'=>$profile));
+        return View::make('user.controlpanel',array('user'=>$profile));
 	}
 
     public function getPrivileges() {
         $profile = User::find(Auth::user()->getId());
-        return View::make('user.privileges',array('user' => $profile));
+        $users_all = User::all();
+        return View::make('user.privileges',array('user' => $profile, 'users_all'=>$users_all));
     }
 
+    public function getPrivilegesWithUser() {
+    $profile = User::find(Auth::user()->getId());
+    $publications = PublicationController::getAllPublications();
+    $selectedUser = User::where('username', '=', 'Input::("username")');
+    return View::make('user.privileges',array('user' => $profile, 'selectedUser' => $selectedUser, 'publications'=>$publications));
+}
+
+
+    /*  APIs  */
     public function getUsernames() {
         $usernames_array = User::lists('username');
         return Response::json($usernames_array);
