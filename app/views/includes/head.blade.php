@@ -25,6 +25,7 @@
 {{ HTML::script('assets/js/jquery.dataTables.js') }}
 {{ HTML::script('scripts/controlpanel.js') }}
 {{ HTML::script('assets/js/script.js') }}
+
 <script>
 var loading_message = "{{Lang::get('home.filter.loading_msg')}}";
 var nothing_returned_message = "{{Lang::get('home.filter.nothing_ret_msg')}}";
