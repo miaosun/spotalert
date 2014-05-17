@@ -18,7 +18,7 @@
                     <tr>
                         <th>PUBLICATION</th>
                         <th>PUBLISHER</th>
-                        <th>LOCATION</th>
+                        <th>AFFECTED COUNTRIES</th>
                         <th>INITIAL DATE</th>
                         <th>FINAL DATE</th>
                         <th>RISK</th>
@@ -42,7 +42,7 @@
                     <tr>
                         <td>{{{$publication['title']}}}</td>
                         <td>tjiagom</td>
-                        <td>Edinburgh</td>
+                        <td>{{{implode(",",$publication['affected_countries'])}}}</td>
                         <td>{{{$publication['initial_date']}}}</td>
                         <td>{{{$publication['final_date']}}}</td>
                         <td>{{{$publication['risk']}}}</td>
@@ -55,6 +55,5 @@
     </div>
 </div>
 
-{{ HTML::style('http://cdn.datatables.net/1.10.0/css/jquery.dataTables.css'); }}
 @stop
 

@@ -141,8 +141,9 @@ function deletePublication()
 			{
 				if(data == 'ok')
 				{
-					$('#main > #publ-' + id_publ).remove();
+					$('#main .row-publ #publ-' + id_publ).remove();
 					alert("Publication successfully removed!");
+					location.reload();
 				}
 				else
 					alert("Some error occurred, please try again later");
