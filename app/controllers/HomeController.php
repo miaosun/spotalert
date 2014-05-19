@@ -27,7 +27,8 @@ class HomeController extends BaseController
 			)
 		);
 
-		if($validator->fails()) {
+		if($validator->fails()) 
+		{
 			return Redirect::route('contact')
 					-> withErrors($validator)
 					-> withInput();

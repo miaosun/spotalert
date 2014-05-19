@@ -48,11 +48,11 @@ return array(
 		"no"          => "No"
 	),
 	"contact" => array(
-		"title" => "Contact Us",
-		"sent"  => "Thanks for contacting us. We will answer you as soon as possible!",
-		"name-label"  => "Name",
-		"name-placeholder" => "YOUR NAME",
-		"email-label"      => "Email",
+		"title"             => "Contact Us",
+		"sent"              => "Thanks for contacting us. We will answer you as soon as possible!",
+		"name-label"        => "Name",
+		"name-placeholder"  => "YOUR NAME",
+		"email-label"       => "Email",
 		"email-placeholder" => "YOUR EMAIL",
 		"msg-label"         => "Message",
 		"msg-placeholder"   => "WRITE YOUR MESSAGE HERE",
