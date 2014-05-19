@@ -16,6 +16,16 @@ Route::get('/', array(
 	'uses' => 'HomeController@showWelcome'
 ));
 
+Route::get('/contact', array(
+	'as' => 'contact',
+	'uses' => 'HomeController@showContact'
+));
+
+Route::post('/contact', array(
+	'as' => 'send-contact',
+	'uses' => 'HomeController@sendContact'
+));
+
 Route::group(array('prefix' => 'publications'), function()
 {
 	// For removing publication

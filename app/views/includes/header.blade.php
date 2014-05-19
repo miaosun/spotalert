@@ -16,7 +16,7 @@
         </div>
 
         <div class="col-md-1 col-sm-1">
-            <a href="/contacts">{{Lang::get('home.menu.contact')}}</a>
+            <a href="/contact">{{Lang::get('home.menu.contact')}}</a>
         </div>
 
         @if(Auth::check())

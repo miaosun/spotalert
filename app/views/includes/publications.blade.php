@@ -1,7 +1,9 @@
+@if(isset($publications))
+
 @foreach ($publications as $key => $publication)
 
 @if (($key % 3) == 0)
-	<div class="row row-publ">
+<div class="row row-publ">
 @endif
 <div class="col-md-4">
 	<div class="col-md-12 col-sm-12 publication-{{{$publication['type']}}} publ-risk{{{$publication['risk']}}}"
@@ -54,6 +56,7 @@
 			<hr>
 
 		<div class="col-md-12 publ_footer">
+			@if(Auth::check() && Auth::user()->type != 'normal')
 			<div class="row">
 				<div class="button_edit" id="{{ $publication['id'] }}">
 					@if ($publication['risk'] >=5 && $publication['type'] == 'alert')
@@ -66,6 +69,7 @@
 
 				</div>
 			</div>
+			@endif
 
 			<div class="row">
 				@if ($publication['risk'] >=5 && $publication['type'] == 'alert')
@@ -85,7 +89,7 @@
 
 @endforeach
 
-@if(count($publications) > 0)
+@if(Auth::check() && Auth::user()->type != 'normal')
 <!-- Modal dialog for deleting publication -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -104,4 +108,5 @@
     </div>
   </div>
 </div>
+@endif
 @endif
