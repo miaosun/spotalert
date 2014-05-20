@@ -9,11 +9,11 @@ class Comment extends Eloquent
 
 	public function author()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('User', 'user_id');
 	}
 
 	public function publication()
 	{
-		return $this->belongsTo('Publication');
+		return $this->belongsTo('Publication', 'publication_id');
 	}
 }

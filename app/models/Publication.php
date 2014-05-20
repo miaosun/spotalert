@@ -2,7 +2,7 @@
 
 class Publication extends Eloquent 
 {
-	protected $fillable   = array('initial_date', 'final_date', 'is_public', 'periodic_notification', 'risk', 'type');
+	protected $fillable   = array('initial_date', 'final_date', 'is_public', 'periodic_notification', 'risk', 'type', 'user_id');
 	protected $guarded    = array('id');
 	protected $table      = 'publications';
 	public    $timestamps = false;
@@ -35,5 +35,15 @@ class Publication extends Eloquent
 	public function alerts()
 	{
 		return $this->belongsToMany('Publication', 'alerts_guidelines', 'guideline_id', 'alert_id');
+	}
+
+	public function author()
+	{
+		return $this->belongsTo('User', 'user_id');
+	}
+
+	public function usersNotified()
+	{
+		return $this->belongsToMany('User', 'users_publications', 'publication_id', 'user_id');
 	}
 }

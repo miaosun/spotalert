@@ -108,7 +108,7 @@ class PublicationsSeeder extends Seeder
 		// ######################################################################
 
         // Users
-        User::create(array('username' => 'admin1',       'firstname' => 'Admin',    'lastname' => 'Silva', 'email' => 'admin@spotalert.com',  'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 915283154, 'address' => 'Address 1', 'postalCode' => '4200-000', 'city' => 'Porto', 'activated' => 'true',  'type' => 'admin',       'age_id' =>$age20->id, 'residence_country_id' => $portugal->id, 'nationality_country_id' => $portugal->id ));
+        $admin = User::create(array('username' => 'admin1',       'firstname' => 'Admin',    'lastname' => 'Silva', 'email' => 'admin@spotalert.com',  'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 915283154, 'address' => 'Address 1', 'postalCode' => '4200-000', 'city' => 'Porto', 'activated' => 'true',  'type' => 'admin',       'age_id' =>$age20->id, 'residence_country_id' => $portugal->id, 'nationality_country_id' => $portugal->id ));
         User::create(array('username' => 'manager1',    'firstname' => 'Manager',   'lastname' => 'Silva', 'email' => 'manager@spotalert.com', 'password' => Hash::make('222222'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 912345678, 'address' => 'Address 2', 'postalCode' => '4900-000', 'city' => 'Lisboa', 'activated' => 'true', 'type' => 'manager',    'age_id' =>$age30->id, 'residence_country_id' => $portugal->id, 'nationality_country_id' =>  $portugal->id ));
         User::create(array('username' => 'publisher1',  'firstname' => 'Publisher', 'lastname' => 'Silva', 'email' => 'publisher@spotalert.com', 'password' => Hash::make('333333'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 918765432, 'address' => 'Address 3', 'postalCode' => '4100-000', 'city' => 'Aveiro', 'activated' => 'true', 'type' => 'publisher',  'age_id' =>$age20->id, 'residence_country_id' => $spain->id, 'nationality_country_id' => $spain->id ));
         User::create(array('username' => 'normal1',     'firstname' => 'Normal',    'lastname' => 'Silva', 'email' => 'normal@spotalert.com', 'password' => Hash::make('444444'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 915821654, 'address' => 'Address 4', 'postalCode' => '4500-000', 'city' => 'Coimbra',  'activated' => 'true','type' => 'normal',    'age_id' =>$age30->id, 'residence_country_id' => $france->id, 'nationality_country_id' => $spain->id ));
@@ -130,7 +130,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-03-30',
 			'is_public'		=> true,
 			'risk'			=> 4,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content1EN = PublicationContent::create(array(
@@ -156,7 +157,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> NULL,
 			'is_public'		=> true,
 			'risk'			=> 4,
-			'type'			=> 'guideline'
+			'type'			=> 'guideline',
+			'user_id'       => $admin->id
 		));
 
 		$content2EN = PublicationContent::create(array(
@@ -183,7 +185,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-07-30',
 			'is_public'		=> true,
 			'risk'			=> 1,
-			'type'			=> 'guideline'
+			'type'			=> 'guideline',
+			'user_id'       => $admin->id
 		));
 
 		$content3EN = PublicationContent::create(array(
@@ -205,7 +208,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-06-30',
 			'is_public'		=> true,
 			'risk'			=> 5,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content4EN = PublicationContent::create(array(
@@ -224,7 +228,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-06-30',
 			'is_public'		=> true,
 			'risk'			=> 4,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content5EN = PublicationContent::create(array(
@@ -243,7 +248,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-06-30',
 			'is_public'		=> true,
 			'risk'			=> 2,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content6EN = PublicationContent::create(array(
@@ -262,7 +268,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-06-30',
 			'is_public' 	=> true,
 			'risk'			=> 2,
-			'type'			=> 'guideline'
+			'type'			=> 'guideline',
+			'user_id'       => $admin->id
 		));
 
 		$content7EN = PublicationContent::create(array(
@@ -281,7 +288,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-06-01',
 			'is_public'		=> true,
 			'risk'			=> 5,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content8EN = PublicationContent::create(array(
@@ -301,7 +309,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-06-05',
 			'is_public'		=> true,
 			'risk'			=> 1,
-			'type'			=> 'guideline'
+			'type'			=> 'guideline',
+			'user_id'       => $admin->id
 		));
 
 		$content9EN = PublicationContent::create(array(
@@ -321,7 +330,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-05-12',
 			'is_public'		=> true,
 			'risk'			=> 2,
-			'type'			=> 'guideline'
+			'type'			=> 'guideline',
+			'user_id'       => $admin->id
 		));
 
 		$content10EN = PublicationContent::create(array(
@@ -341,7 +351,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-05-30',
 			'is_public'		=> true,
 			'risk'			=> 3,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content11EN = PublicationContent::create(array(
@@ -361,7 +372,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-03-22',
 			'is_public'		=> true,
 			'risk'			=> 4,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content12EN = PublicationContent::create(array(
@@ -382,7 +394,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-04-22',
 			'is_public'		=> true,
 			'risk'			=> 5,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content13EN = PublicationContent::create(array(
@@ -403,7 +416,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-01-25',
 			'is_public'		=> true,
 			'risk'			=> 4,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content14EN = PublicationContent::create(array(
@@ -423,7 +437,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-03-17',
 			'is_public'		=> true,
 			'risk'			=> 2,
-			'type'			=> 'guideline'
+			'type'			=> 'guideline',
+			'user_id'       => $admin->id
 		));
 
 		$content15EN = PublicationContent::create(array(
@@ -443,7 +458,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-02-17',
 			'is_public'		=> true,
 			'risk'			=> 4,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content16EN = PublicationContent::create(array(
@@ -463,7 +479,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-03-17',
 			'is_public'		=> true,
 			'risk'			=> 4,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content17EN = PublicationContent::create(array(
@@ -484,7 +501,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-04-15',
 			'is_public'		=> true,
 			'risk'			=> 4,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content18EN = PublicationContent::create(array(
@@ -505,7 +523,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-05-19',
 			'is_public'		=> true,
 			'risk'			=> 5,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content19EN = PublicationContent::create(array(
@@ -525,7 +544,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-01-20',
 			'is_public'		=> true,
 			'risk'			=> 5,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content20EN = PublicationContent::create(array(
@@ -545,7 +565,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-05-20',
 			'is_public'		=> true,
 			'risk'			=> 2,
-			'type'			=> 'guideline'
+			'type'			=> 'guideline',
+			'user_id'       => $admin->id
 		));
 
 		$content21EN = PublicationContent::create(array(
@@ -566,7 +587,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-05-24',
 			'is_public'		=> true,
 			'risk'			=> 5,
-			'type'			=> 'alert'
+			'type'			=> 'alert',
+			'user_id'       => $admin->id
 		));
 
 		$content22EN = PublicationContent::create(array(
@@ -586,7 +608,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-05-24',
 			'is_public'		=> true,
 			'risk'			=> 1,
-			'type'			=> 'guideline'
+			'type'			=> 'guideline',
+			'user_id'       => $admin->id
 		));
 
 		$content23EN = PublicationContent::create(array(
@@ -606,7 +629,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-05-24',
 			'is_public'		=> true,
 			'risk'			=> 1,
-			'type'			=> 'guideline'
+			'type'			=> 'guideline',
+			'user_id'       => $admin->id
 		));
 
 		$content24EN = PublicationContent::create(array(
@@ -626,7 +650,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-06-24',
 			'is_public'		=> true,
 			'risk'			=> 1,
-			'type'			=> 'guideline'
+			'type'			=> 'guideline',
+			'user_id'       => $admin->id
 		));
 
 		$content25EN = PublicationContent::create(array(
@@ -647,7 +672,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-07-24',
 			'is_public'		=> true,
 			'risk'			=> 4,
-			'type'			=> 'guideline'
+			'type'			=> 'guideline',
+			'user_id'       => $admin->id
 		));
 
 		$content26EN = PublicationContent::create(array(
@@ -667,7 +693,8 @@ class PublicationsSeeder extends Seeder
 			'final_date'	=> '2014-11-24',
 			'is_public'		=> true,
 			'risk'			=> 3,
-			'type'			=> 'guideline'
+			'type'			=> 'guideline',
+			'user_id'       => $admin->id
 		));
 
 		$content27EN = PublicationContent::create(array(

@@ -9,11 +9,11 @@ class PublicationContent extends Eloquent
 
 	public function language()
 	{
-		return $this->belongsTo('Language');
+		return $this->belongsTo('Language', 'language_id');
 	}
 
 	public function publication()
 	{
-		return $this->belongsTo('Publication');
+		return $this->belongsTo('Publication', 'publication_id');
 	}
 }
