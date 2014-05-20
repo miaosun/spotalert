@@ -2,23 +2,56 @@
 
 @section('content')
 
-
 <div class="content">
+    {{ Form::open(['url'=>'/publication/createalert']) }}
     <div id="alert-tabs">
         <div id="languages_tabs">
             <ul class="nav nav-tabs">
                 <li class="active">
-                    <a href="#alert_english" data-toggle="tab">English</a>
+                    <a id="alert_english_tab" href="#alert_english" data-toggle="tab">English</a>
                 </li>
                 <li>
-                    <a href="#addlanguage" data-toggle="tab">+ Add Language</a>
+                    <a id="addlanguage_tab" href="#addlanguage" data-toggle="tab">+ Add Language</a>
                 </li>
             </ul>
+        <div class="modal fade add-language-modal" tabindex="-1" role="dialog" aria-labelledby="AddLanguage" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Add Language</h4>
+                    </div>
+                    <div class="modal-body">
+                        <select id="languages-select"></select>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="choose_language_button">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade rm-language-modal" tabindex="-1" role="dialog" aria-labelledby="RemoveLanguage" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Remove Language</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure you want to remove this language? All the information will be lost.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="rm_language_button">Confirm</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
 
         <div class="tab-content" >
             <div class="tab-pane fade in active" id="alert_english">
-                {{ Form::open(['url'=>'/publication/createalert']) }}
                     <h2 id="alert-header">Create alert</h2>
                     <div class="col-md-6">
                         <div class="form-group">
@@ -84,15 +117,14 @@
                     </div>
                     @endforeach
                     @endif
-                    {{  Form::submit('Submit', array('class' => 'alert-submit'));
-                        Form::close()}}
-            </div>
-            <div class="tab-pane" id="addlanguage">
-
             </div>
         </div>
     </div>
+    <input type="hidden" name="alert-languages" display="none">
+    {{  Form::submit('Submit', array('class' => 'alert-submit'));
+                        Form::close()}}
 </div>
+{{ HTML::script('assets/js/createalert.js') }}
 {{ HTML::script('assets/js/chosen.jquery.min.js'); }}
 <script type="text/javascript">
     var config = {
@@ -101,7 +133,31 @@
     for (var selector in config) {
       $(selector).chosen(config[selector]);
     }
-  </script>
+    
+    //languages
+    
+    <?php
+        $js_languages = json_encode($language_options);
+        echo "var language_options = ". $js_languages . ";\n";
+    ?>
+    delete language_options['1'];
+    function updatelangselect(){
+        
+        var sel = document.getElementById('languages-select');
+        $.each(language_options, function(i, val) {
+            var opt = document.createElement('option');
+            opt.innerHTML = val;
+            opt.value = i;
+            sel.appendChild(opt);
+        });
+        if ($('#languages-select').is(':empty')){
+                $("#addlanguage_tab").css("display", "none");
+            }
+        else $("#addlanguage_tab").css("display", "");
+    }
+    
+    updatelangselect();
+        
 </script>
 
 @stop

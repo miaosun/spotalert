@@ -19,3 +19,4 @@
 {{ HTML::script('assets/js/jquery.mousewheel.js') }}
 <!-- the jScrollPane script -->
 {{ HTML::script('assets/js/jquery.jscrollpane.min.js') }}
+<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
