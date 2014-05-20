@@ -1089,9 +1089,11 @@ div.ajax-loading {
     text-indent:15px;
     text-align:justify;
     font-size:12px;
-    border: none;
     white-space: normal;
     word-break: break-all;
+    border-color:2px #a9a9a9;
+    margin-left:8px;
+    margin-top:5px; 
 }
 
 #contact p {
@@ -1111,18 +1113,19 @@ div.ajax-loading {
     border: 0px;
     border-bottom: 1px dashed  #BF2333;
     margin-bottom: 1px;
+    
 }
 
 #contact input[type=submit] {
-    width: 80%;
+    width: 70%;
     border: 0px;
     margin: 5% 5% 5% 0%;
     background-color: #BF2333;
     color: white;
-
-    -webkit-border-radius: 25px;
+	-webkit-border-radius: 25px;
     -moz--topright: 25px;
     border-radius: 25px;
+    margin-left:11px;
 }
 
 #contact span {
