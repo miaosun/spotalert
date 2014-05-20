@@ -2,7 +2,7 @@
 
 class Eyewitness extends Eloquent 
 {
-	protected $fillable   = array('title', 'description', 'created_at', 'user_id');
+	protected $fillable   = array('title', 'description', 'created_at', 'user_id', 'language_id');
 	protected $guarded    = array('id');
 	protected $table      = 'eyewitnesses';
 	public    $timestamps = false;
@@ -14,6 +14,11 @@ class Eyewitness extends Eloquent
 
 	public function publication()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('User', 'user_id');
+	}
+
+	public function language()
+	{
+		return $this->belongsTo('Language', 'language_id');
 	}
 }

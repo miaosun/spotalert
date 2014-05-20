@@ -8,6 +8,17 @@ $('document').ready(function()
         e.stopPropagation();
     });
 
+    FB.Event.subscribe('edge.create', function(targetUrl) {
+        ga('send', {
+          'hitType': 'social',
+          'socialNetwork': 'facebook',
+          'socialAction': 'share',
+          'socialTarget': 'http://spotalert.fe.up.pt',
+          'page': '/publication/'+id
+            });
+        alert('enviou hit sobre o share no facebook para o id:'+id);
+    });
+
 	// Listing of publications
     $('#publ-list').dataTable( {
         "paging":   false,
@@ -141,8 +152,9 @@ function deletePublication()
 			{
 				if(data == 'ok')
 				{
-					$('#main > #publ-' + id_publ).remove();
+					$('#main .row-publ #publ-' + id_publ).remove();
 					alert("Publication successfully removed!");
+					location.reload();
 				}
 				else
 					alert("Some error occurred, please try again later");
@@ -186,4 +198,39 @@ function searching()
 				});
 		}
 	});
+}
+
+/**
+* Share links code
+**/
+// Send hit to google analytics for a facebook share
+function shareFacebook(id){
+    ga('send', {
+  'hitType': 'social',
+  'socialNetwork': 'facebook',
+  'socialAction': 'share',
+  'socialTarget': 'http://spotalert.fe.up.pt',
+  'page': '/publication/'+id
+    });
+    alert('enviou hit sobre o share no facebook para o id:'+id);
+}
+// Send hit to google analytics for a Twitter tweet
+function shareTwitter(id){
+    ga('send', {
+  'hitType': 'social',
+  'socialNetwork': 'twitter',
+  'socialAction': 'tweet',
+  'socialTarget': 'http://spotalert.fe.up.pt/publication/'+id
+    });
+    alert('enviou hit sobre o share no twitter para o id:'+id);
+}
+// Send hit to google analytics for a google share 
+function shareGoogle(id){
+    var a = ga('send','social','google','shareplus','http://spotalert.fe.up.pt','/publication/'+id);
+     alert('enviou hit sobre o share no google para o id:'+id);
+}
+// Send hit to google analytics for a linkdIn share
+function shareGoogle(id){
+    var a = ga('send','social','google','shareplus','http://spotalert.fe.up.pt','/publication/'+id);
+     alert('enviou hit sobre o share no google para o id:'+id);
 }

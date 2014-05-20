@@ -3,8 +3,8 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEyewitnessesTable extends Migration 
-{
+class CreateUsersPublicationsTable extends Migration {
+
 	/**
 	 * Run the migrations.
 	 *
@@ -12,20 +12,17 @@ class CreateEyewitnessesTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('eyewitnesses', function(Blueprint $table)
+		Schema::create('users_publications', function(Blueprint $table)
 		{
 			$table->increments('id');
-			$table->string('title');
-			$table->string('description', 2000);
-			$table->date('created_at');
 			$table->integer('user_id')->unsigned();
-			$table->integer('language_id')->unsigned();
-
+			$table->integer('publication_id')->unsigned();
+			
 			$table->foreign('user_id')
 				  ->references('id')->on('users')
 				  ->onDelete('cascade');
-			$table->foreign('language_id')
-				  ->references('id')->on('languages')
+			$table->foreign('publication_id')
+				  ->references('id')->on('publications')
 				  ->onDelete('cascade');
 		});
 	}
@@ -37,7 +34,7 @@ class CreateEyewitnessesTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('eyewitnesses');
+		Schema::drop('users_publications');
 	}
 
 }

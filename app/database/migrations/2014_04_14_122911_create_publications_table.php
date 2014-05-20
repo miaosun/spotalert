@@ -17,6 +17,7 @@ class CreatePublicationsTable extends Migration
 			$table->increments('id');
 			$table->date('initial_date')->nullable();
 			$table->date('final_date')->nullable();
+			$table->date('last_update')->nullable();
 			$table->boolean('is_public');
 			$table->integer('periodic_notification')->default(0);
 			$table->integer('risk');
