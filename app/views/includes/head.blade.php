@@ -19,3 +19,6 @@
 {{ HTML::script('assets/js/jquery.mousewheel.js') }}
 <!-- the jScrollPane script -->
 {{ HTML::script('assets/js/jquery.jscrollpane.min.js') }}
+
+<!-- Google analytics -->
+@include('includes.googleanalytics')
