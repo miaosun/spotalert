@@ -27,6 +27,51 @@ class PublicationController extends BaseController
 
 		return self::makeSimpleAnswer($publications);
 	}
+    /**
+	 * Get certain publication expandile data from databse and return 
+	 */
+	public static function getPublicationExpandableContentByID($publ_id)
+	{
+        //TODO filtrar comentarios e publicações por lingua
+		/*
+        $publications = Publication::with(array('alerts','guidelines','comments','contents'))
+        ->with(array('contents' => function($query) { $query->language()->where('code','=','EN');}))
+        ->where('id','=', $publ_id)
+        ->get();
+        */
+        $publications = Publication::find($publ_id);
+        $answer = array('id' => $publications->id,
+                        'title' => $publications->contents()->first()->title,
+                        'content' => $publications->contents()->first()->content,
+                        'pubLinked' =>array(),
+                        'comments' => array()
+                       );
+        if(!$publications->alerts->isEmpty())
+        {
+            foreach($publications->alerts as $alert)
+                $answer['pubLinked'][] = array('id'=> $alert->id,
+                                           'title' => $alert->contents()->first()->title 
+                                          );
+        }
+        if(!$publications->guidelines->isEmpty())
+        {
+            foreach($publications->alerts as $alert)
+                $answer['pubLinked'][] = array('id'=> $alert->id,
+                                           'title' => $alert->contents()->first()->title 
+                                          );
+        }
+         if(!$publications->comments->isEmpty())
+        {
+            //TODO preferivel filtar directamente na BD mas esta a dar erro ver mais tarde
+            foreach($publications->comments as $comment)
+            {
+               if($comment->approved)
+                    $answer['comments'][] = array('content' => $comment->content, 'date' =>$comment->created_at);
+            }
+        }
+		return Response::json($answer);
+        //return Response::json($publications);
+	}
 
 	/**
 	 * Used to get the publications to appear in the user control panel

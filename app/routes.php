@@ -70,6 +70,12 @@ Route::group(array('prefix' => 'publications'), function()
         'as'   => 'next-page',
         'uses' => 'PublicationController@getNextPage'
     ));
+    // Load publication content
+    Route::get('/content/{publ_id}', array(
+		'as'	=> 'publications-content',
+		'uses'	=> 'PublicationController@getPublicationExpandableContentByID'
+	))
+    ->where('publ_id', '[0-9]+');
 });
 /*
 Route::get('/user/{username}', array(

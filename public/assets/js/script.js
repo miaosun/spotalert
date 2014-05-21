@@ -7,18 +7,13 @@ $('document').ready(function()
 	$('.dropdown-menu').click(function(e) {
         e.stopPropagation();
     });
-
-    /*FB.Event.subscribe('edge.create', function(targetUrl) {
-        ga('send', {
-          'hitType': 'social',
-          'socialNetwork': 'facebook',
-          'socialAction': 'share',
-          'socialTarget': 'http://spotalert.fe.up.pt',
-          'page': '/publication/'+id
-            });
-        alert('enviou hit sobre o share no facebook para o id:'+id);
-    });*/
-
+	// Listing of publications
+    $('#publ-list').dataTable( {
+        "paging":   false,
+         "order": [[ 5, "desc" ]],
+        "info":     false,
+        "searching": false
+    } );
     // Everything for filtering to work
     filtering();
 
@@ -33,6 +28,9 @@ $('document').ready(function()
     {
     	nextSelector: 'a.jscroll-next:last'
     });
+    
+    // setting up expand buttons for publication
+    setupBtnPublication();
 });
 
 
@@ -208,6 +206,68 @@ function searching()
 				});
 		}
 	});
+}
+
+/**
+* Get publication content by ajax
+**/
+function getPublicationContent(id)
+{
+    jQuery.getJSON("publications/content/"+id,function(data){
+        // fill data
+        $('#publ-'+id+' .publ-content p').html(data.content);
+        if(data.pubLinked.length == 0)
+            $('#publ-'+id+' .publ-linked').remove();
+        else
+        {
+            var links = "";
+            for(var i = 0; i < data.pubLinked.length ; i++){
+                links = links + "<p><a href='publication/"+id+"'>"+data.pubLinked[i].title+"</a>";
+            }
+            $('#publ-'+id+' .publ-content .publ-linked-toggle').html(links);
+        }
+        $('#publ-'+id+' .publ-colapse').show();
+        // change btn
+        var btn = $('#publ-'+id+' .publ-expand');
+        btn.unbind();
+        btn.toggleClass("glyphicon-chevron-down");
+        btn.toggleClass("glyphicon-chevron-up");
+        btn.click(function(){
+            togglePubBtn(id);
+        });
+    });
+}
+function togglePubBtn(id)
+{
+    var btn = $('#publ-'+id+' .publ-expand');
+    btn.toggleClass("glyphicon-chevron-down");
+    btn.toggleClass("glyphicon-chevron-up");
+    $('#publ-'+id+' .publ-colapse').toggle();
+    
+}
+function toggleLinkedBtn(id)
+{
+    var btn = $('#publ-'+id+' .publ-linked-toggle-btn');
+    btn.toggleClass("glyphicon-chevron-right");
+    btn.toggleClass("glyphicon-chevron-down");
+    $('#publ-'+id+' .publ-linked-toggle').toggle();
+    
+}
+function setupBtnPublication(){
+    $('.publ-expand').each(function(){
+                        var id = $(this).attr('publicationid');
+                        $(this).click(function(){
+                                    getPublicationContent(id);
+                                    //alert("cliquei id:"+id);
+                                    });
+                        });
+    $('.publ-linked-toggle-btn').each(function(){
+                        var id = $(this).attr('publicationid');
+                        $(this).click(function(){
+                                    toggleLinkedBtn(id);
+                                    //alert("cliquei id:"+id);
+                                    });
+                        });
 }
 
 /**

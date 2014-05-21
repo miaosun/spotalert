@@ -286,6 +286,7 @@ button#search-glass {
 .publication-alert.publ-risk5{
 
 	background-color: #ED1C24;
+    color:white;
 }
 
 .publication-alert.publ-risk5 .publ-type{
@@ -453,6 +454,7 @@ button#search-glass {
 	background-color:white;
     margin-bottom:1%;
     padding-top:5%;
+
 }
 
 .publication-guideline .publ-risk{
@@ -498,6 +500,34 @@ button#search-glass {
 	margin-top:2%;
 	margin-right:10%;
 }
+
+/**  
+* Publication Colapse section 
+**/
+.publ-colapse{
+    display: none;
+}
+.publ-content{
+    text-align: left;
+    padding-left: 5%;
+    font-size: 10px;
+}
+.publ-content h1{
+    color: inherit;
+    font-weight:normal;
+    font-size:15px;
+}
+.publ-content .publ-linked-toggle{
+    display: none;
+}
+.publ-content a{
+    color: inherit;
+    text-decoration: none;
+}
+.publ-content a:hover{
+    color: #FF931E;    
+}
+
 
 /******************************************************
 ********************** FILTERING **********************
