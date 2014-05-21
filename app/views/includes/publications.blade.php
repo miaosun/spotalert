@@ -79,7 +79,7 @@
 	</div>
 </div>
 
-@if (($key % 3) == 2)
+@if (($key % 3) == 2 || $key == count($publications) - 1)
 	</div>
 @endif
 

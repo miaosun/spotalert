@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 col-md-offset-8">
-                    {{ Form::submit(Lang::get('controlpanel.profile.okbutton')) }}
+                    {{ Form::submit(Lang::get('controlpanel.privileges.add')) }}
                 </div>
             </div>
 

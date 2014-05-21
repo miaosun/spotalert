@@ -25,6 +25,9 @@
 
             <div class="dropdown-menu">
                 <li><a href="{{ URL::route('control-panel')}}">{{Lang::get('home.menu.profile')}}</a></li>
+                @if(Auth::user()->type == 'admin')
+                <li><a href="https://www.google.com/analytics/web/" target="_blank">Google Analytics</a></li>
+                @endif
                 <li><a href="{{ URL::route('account-sign-out') }}">{{Lang::get('home.menu.signout')}}</a></li>
             </div>
         </div>

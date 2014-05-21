@@ -96,7 +96,7 @@ class PublicationController extends BaseController
 			            	{
 				            	foreach ($event_types as $event)
 				            		if($event)
-				            			$query->where('name', '=', $event);
+				            			$query->orWhere('name', '=', $event);
 				            });
 			            });
 			            break;
