@@ -40,7 +40,14 @@ Route::group(array('prefix' => 'publications'), function()
 		'as'	=> 'publications-rss',
 		'uses'	=> 'PublicationController@getAllPublications'
 	));
-
+    
+    // Load publication content
+    Route::get('/content/{publ_id}', array(
+		'as'	=> 'publications-content',
+		'uses'	=> 'PublicationController@getPublicationExpandableContentByID'
+	))
+    ->where('publ_id', '[0-9]+');
+    
 	// For searching publications
 	Route::get('/search/{search_query}', array(
 		'as'	=> 'publications-route',
