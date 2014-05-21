@@ -46,5 +46,16 @@ return array(
 		"confirm-msg" => "Are you sure you want to delete this publication?",
 		"yes"         => "Yes",
 		"no"          => "No"
-	)
+	),
+	"contact" => array(
+		"title"             => "Contact Us",
+		"sent"              => "Thanks for contacting us. We will answer you as soon as possible!",
+		"name-label"        => "Name",
+		"name-placeholder"  => "YOUR NAME",
+		"email-label"       => "Email",
+		"email-placeholder" => "YOUR EMAIL",
+		"msg-label"         => "Message",
+		"msg-placeholder"   => "WRITE YOUR MESSAGE HERE",
+		"send"              => "SEND"
+	),
 );

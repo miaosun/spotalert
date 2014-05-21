@@ -16,12 +16,23 @@ Route::get('/', array(
 	'uses' => 'HomeController@showWelcome'
 ));
 
+Route::get('/contact', array(
+	'as' => 'contact',
+	'uses' => 'HomeController@showContact'
+));
+
+Route::post('/contact', array(
+	'as' => 'send-contact',
+	'uses' => 'HomeController@sendContact'
+));
+
 Route::group(array('prefix' => 'publications'), function()
 {
 	// For removing publication
 	Route::post('delete/{publ_id}', array(
-		'as'   => 'publication-delete',
-		'uses' => 'PublicationController@deletePublication'
+		'before' => 'auth.not_normal',
+		'as'     => 'publication-delete',
+		'uses'   => 'PublicationController@deletePublication'
 	))
 	->where('publ_id', '[0-9]+');
 

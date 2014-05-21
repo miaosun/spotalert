@@ -30,3 +30,6 @@
 var loading_message = "{{Lang::get('home.filter.loading_msg')}}";
 var nothing_returned_message = "{{Lang::get('home.filter.nothing_ret_msg')}}";
 </script>
+
+<!-- Google analytics -->
+@include('includes.googleanalytics')

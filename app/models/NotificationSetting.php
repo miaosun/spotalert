@@ -9,11 +9,11 @@ class NotificationSetting extends Eloquent
 
 	public function country()
 	{
-		return $this->belongsTo('Country');
+		return $this->belongsTo('Country', 'country_id');
 	}
 
 	public function user()
 	{
-		return $this->belongsTo('User');
+		return $this->belongsTo('User', 'user_id');
 	}
 }
