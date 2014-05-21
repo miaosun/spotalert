@@ -16,8 +16,25 @@ Route::get('/', array(
 	'uses' => 'HomeController@showWelcome'
 ));
 
+Route::get('/contact', array(
+	'as' => 'contact',
+	'uses' => 'HomeController@showContact'
+));
+
+Route::post('/contact', array(
+	'as' => 'send-contact',
+	'uses' => 'HomeController@sendContact'
+));
+
 Route::group(array('prefix' => 'publications'), function()
 {
+	// For removing publication
+	Route::post('delete/{publ_id}', array(
+		'as'   => 'publication-delete',
+		'uses' => 'PublicationController@deletePublication'
+	))
+	->where('publ_id', '[0-9]+');
+
 	// For the RSS feed
 	Route::get('/rss', array(
 		'as'	=> 'publications-rss',
@@ -27,7 +44,11 @@ Route::group(array('prefix' => 'publications'), function()
 	// For searching publications
 	Route::get('/search/{search_query}', array(
 		'as'	=> 'publications-route',
-		'uses'	=> 'PublicationController@getSearchedPublications'
+		function($search_query)
+		{
+			$publications = PublicationController::getSearchedPublications($search_query);
+      		return View::make('includes.publications')->with('publications', $publications);
+		}
 	))
 	->where('search_query', '[A-Za-z0-9\s]+');
 
@@ -55,37 +76,36 @@ Route::group(array('prefix' => 'publications'), function()
      	},
 	));
 });
-
+/*
 Route::get('/user/{username}', array(
  	'as' => 'profile-user',
  	'uses' => 'ProfileController@user'
 ));
+*/
 
 //Create Alert (POST)
-       Route::post('/publication/createalert', array(
-            'as' => 'publication-createalert',
-            'uses' => 'PublicationController@createAlert'
-       ));
+Route::post('/publication/createalert', array(
+    'as' => 'publication-createalert',
+    'uses' => 'PublicationController@createAlert'
+));
             
-        //Create Alert (POST)
-        Route::post('/publication/createguideline', array(
-            'as' => 'publication-createguideline',
-            'uses' => 'PublicationController@createGuideline'
-       ));
-
-
-/* Control Panel */
-
-//FIXME route for testing controlpanel without login
-Route::get('/user', array(
-	'as' => 'control-panel',
-	'uses' => 'UserPanelController@show'
+//Create Alert (POST)
+Route::post('/publication/createguideline', array(
+    'as' => 'publication-createguideline',
+    'uses' => 'PublicationController@createGuideline'
 ));
 
-// update profile form route
-Route::post('/user/updateprofile', array(
-	'as' => 'update-profile',
-	'uses' => 'UserPanelController@updateprofile'
+/*
+ * API Controle Panel
+ */
+Route::get('/user/api/ages', array(
+    'as' => 'api-ages',
+    'uses' => 'UserPanelController@getAges'
+));
+
+Route::get('/user/api/countries', array(
+    'as' => 'api-countries',
+    'uses' => 'UserPanelController@getCountries'
 ));
 
 /*
@@ -114,6 +134,36 @@ Route::group(array('before' => 'auth'), function() {
 		'as' => 'account-sign-out',
 		'uses' => 'AccountController@getSignOut'
 	));
+
+    /* Control Panel */
+
+    Route::get('/user', array(
+        'as' => 'control-panel',
+        'uses' => 'UserPanelController@show'
+    ));
+
+    /* User privileges */
+    Route::get('/user/privileges', array(
+       'as' => 'user-privileges',
+       'uses' => 'UserPanelController@getPrivileges'
+    ));
+
+    // Publications listing
+    Route::get('/user/publications', array(
+       'as' => 'user-publications',
+       'uses' => 'UserPanelController@getPublications'
+    ));
+
+// update profile form route
+    Route::post('/user/updateprofile', array(
+        'as' => 'update-profile',
+        'uses' => 'UserPanelController@updateprofile'
+    ));
+    Route::post('/user/updatepassword', array(
+        'as' => 'update-user-password',
+        'uses' => 'UserPanelController@updatepassword'
+    ));
+
 
 });
 

@@ -11,23 +11,23 @@
 
         <div class="col-md-1 col-sm-1 dropdown" id="filt">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{Lang::get('home.menu.filter')}} <span class="caret"></span></a>
-
             <div class="dropdown-menu">
-                @include('publications.filter')
-            </div>
+                @include('publications.filter')</div>
         </div>
 
         <div class="col-md-1 col-sm-1">
-            <a href="/contacts">{{Lang::get('home.menu.contact')}}</a>
+            <a href="/contact">{{Lang::get('home.menu.contact')}}</a>
         </div>
 
         @if(Auth::check())
         <div class="col-md-1 col-sm-1 signout">
-            <!--<a href="{{ URL::route('profile-user') }}">{{ Auth::user()->username }}</a>-->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->username }}<b class="caret"></b></a>
 
             <div class="dropdown-menu">
-                <li><a href="#">{{Lang::get('home.menu.profile')}}</a></li>
+                <li><a href="{{ URL::route('control-panel')}}">{{Lang::get('home.menu.profile')}}</a></li>
+                @if(Auth::user()->type == 'admin')
+                <li><a href="https://www.google.com/analytics/web/" target="_blank">Google Analytics</a></li>
+                @endif
                 <li><a href="{{ URL::route('account-sign-out') }}">{{Lang::get('home.menu.signout')}}</a></li>
             </div>
         </div>
@@ -47,7 +47,7 @@
         <div class="col-md-3 col-sm-3">
             <form id="search" name="search" action="/search" method="get">
                 <input id="search-input" placeholder="{{Lang::get('home.menu.search')}}" name="Search" type="text">
-                <input id="search-glass" type="image" src="{{asset('assets/images/glass.png')}}">
+                <button id="search-glass" class="glyphicon glyphicon-search" />
             </form>
         </div>
 

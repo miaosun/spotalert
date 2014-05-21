@@ -49,20 +49,25 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return $this->email;
     }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
 	public function age()
 
 	{
-		return $this->belongsTo('Age');
+		return $this->belongsTo('Age','age_id');
 	}
 
 	public function residence()
 	{
-		return $this->belongsTo('Country', 'residence_country_id');
+		return $this->belongsTo('Country','residence_country_id');
 	}
 
-	public function nacionality()
+	public function nationality()
 	{
-		return $this->belongsTo('Country', 'nacionality_country_id');
+		return $this->belongsTo('Country','nationality_country_id');
 	}
 
 	public function notifications()
@@ -83,5 +88,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	public function supervised()
 	{
 		return $this->hasMany('User', 'supervisor_id');
+	}
+
+	public function publicationNotifications()
+	{
+		return $this->belongsToMany('Publication', 'users_publications', 'user_id', 'publication_id');
 	}
 }

@@ -34,10 +34,20 @@ class PublicationController extends BaseController
     }
     
 	/**
+	 * It removes a publication with a certain id from the database
+	 */
+	public function deletePublication($publ_id)
+	{
+		//FIXME: See if authenticated
+		Publication::find($publ_id)->delete();
+		return 'ok';
+	}
+
+	/**
 	 * It gets all the publications in the database given a certain 
 	 * search text "query"
 	 */
-	public function getSearchedPublications($search_text)
+	public static function getSearchedPublications($search_text)
 	{
 		// Search for publications with $search_text within title
 		// and with the website language
@@ -56,7 +66,7 @@ class PublicationController extends BaseController
 			->orderBy('risk', 'desc')
 			->get();
 
-		return Response::json(self::makeSimpleAnswer($publications));
+		return self::makeSimpleAnswer($publications);
 	}
     
     public function showCreateGuideline() {
@@ -77,7 +87,7 @@ class PublicationController extends BaseController
 	{	
 		// If it's all null, we should do anything
 		if($risks == NULL && $event_types == NULL && $affected_countries == NULL)
-			return array();
+			return self::getAllPublications();
 		else
 		{
 			$risks 				= explode(',', $risks);
@@ -104,9 +114,12 @@ class PublicationController extends BaseController
 	            	{
 	            		$query->orWhereHas('eventTypes', function($query) use($event_types)
 			            {
-			            	foreach ($event_types as $event)
-			            		if($event)
-			            			$query->where('name', '=', $event);
+			            	$query->where(function($query) use($event_types)
+			            	{
+				            	foreach ($event_types as $event)
+				            		if($event)
+				            			$query->orWhere('name', '=', $event);
+				            });
 			            });
 			            break;
 	            	}
@@ -120,9 +133,12 @@ class PublicationController extends BaseController
 	            	{
 	            		$query->orWhereHas('affectedCountries', function($query) use($affected_countries)
 			            {
-			            	foreach ($affected_countries as $country)
-			            		if($country)
-			            			$query->where('name', '=', $country);
+			            	$query->where(function($query) use($affected_countries)
+			            	{
+				            	foreach ($affected_countries as $country)
+				            		if($country)
+				            			$query->orWhere('name', '=', $country);
+				            });
 			            });
 			            break;
 	            	}

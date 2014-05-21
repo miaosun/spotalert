@@ -11,4 +11,9 @@ class Language extends Eloquent
 	{
 		return $this->hasMany('PublicationContent');
 	}
+
+	public function eyewitnesses()
+	{
+		return $this->hasMany('Eyewitness');
+	}
 }
