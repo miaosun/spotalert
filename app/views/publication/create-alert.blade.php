@@ -140,7 +140,14 @@
         $js_languages = json_encode($language_options);
         echo "var language_options = ". $js_languages . ";\n";
     ?>
-    delete language_options['1'];
+    $.each(language_options, function(index, value){
+
+        if(value == "English")
+        {
+            delete language_options[index];
+        }     
+
+    });
     function updatelangselect(){
         
         var sel = document.getElementById('languages-select');
