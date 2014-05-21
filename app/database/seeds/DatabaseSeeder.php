@@ -286,7 +286,7 @@ class PublicationsSeeder extends Seeder
 		$publication8 = Publication::create(array(
 			'initial_date'	=> '2014-03-02',
 			'final_date'	=> '2014-06-01',
-			'is_public'		=> true,
+			'is_public'		=> false,
 			'risk'			=> 5,
 			'type'			=> 'alert',
 			'user_id'       => $admin->id

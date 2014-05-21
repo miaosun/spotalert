@@ -45,15 +45,35 @@
 			</div>
 		</div>
 
-			<br>
-			<hr>
+		<br>
+		<hr>
 		<div class="publ_body">
-			
-				<div class="publ-title">{{{$publication['title']}}}</div>
-			
+			<div class="publ-title">{{{$publication['title']}}}</div>
 		</div>
 
-			<hr>
+		<hr>
+		<!-- facebook -->
+        <a href="https://www.facebook.com/sharer/sharer.php?u={http://spotalert.fe.up.pt/publication/{{{$publication['id']}}}"
+   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');shareFacebook({{{$publication['id']}}});return false;"
+   target="_blank" title="Share on Facebook">
+            <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Facebook"/></a>
+        </a>
+        <!-- google+ -->
+        <a href="https://plus.google.com/share?url={http://spotalert.fe.up.pt/publication/{{{$publication['id']}}}" onclick="javascript:window.open(this.href,
+  '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');shareGoogle({{{$publication['id']}}});return false;" target="_blank" title="Share on Google+">
+            <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Google+"/>
+        </a>
+        <!-- twitter -->
+        <a href="https://twitter.com/share?url=http://spotalert.fe.up.pt/publication/{{{$publication['id']}}}&hashtags=SPOTALERT&text={{{$publication['title']}}}"
+   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');shareTwitter({{{$publication['id']}}});return false;"
+   target="_blank" title="Share on Twitter">
+            <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on Twitter"/>
+        </a>
+        <!-- linkedIn -->
+        <a href="http://www.linkedin.com/shareArticle?mini=true&url=http://spotalert.fe.up.pt/publication/{{{$publication['id']}}}&title={{{$publication['title']}}}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');shareLinkdIn({{{$publication['id']}}});return false;"
+   target="_blank" title="Share on LinkdIn">
+            <img src="https://www.gstatic.com/images/icons/gplus-16.png" alt="Share on LinkdIn"/>
+        </a>
 
 		<div class="col-md-12 publ_footer">
 			@if(Auth::check() && Auth::user()->type != 'normal')
@@ -79,7 +99,6 @@
 				@endif
 			</div>
 		</div>
-
 	</div>
 </div>
 
