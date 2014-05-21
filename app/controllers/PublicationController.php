@@ -7,16 +7,17 @@ class PublicationController extends BaseController
 	 */
 	public static function getAllPublications()
 	{
-		$publications = Publication::with(array(
+		$stmt = Publication::with(array(
 			'contents',
 			'contents.language',
 			'affectedCountries',
 			'eventTypes')
-			)
-			//FIXME: Change to know who's authenticated
-			->where('is_public', '=', true)
-			->orderBy('risk', 'desc')
-			->get();
+			);
+
+		if(!Auth::check() || Auth::user()->type == 'normal')
+			$stmt->where('is_public', '=', true);
+
+		$publications = $stmt->orderBy('risk', 'desc')->get();
 
 		return self::makeSimpleAnswer($publications);
 	}
@@ -26,7 +27,6 @@ class PublicationController extends BaseController
 	 */
 	public function deletePublication($publ_id)
 	{
-		//FIXME: See if authenticated
 		Publication::find($publ_id)->delete();
 		return 'ok';
 	}
@@ -39,7 +39,7 @@ class PublicationController extends BaseController
 	{
 		// Search for publications with $search_text within title
 		// and with the website language
-		$publications = Publication::with(array(
+		$stmt = Publication::with(array(
 			'contents',
 			'contents.language',
 			'affectedCountries',
@@ -48,11 +48,12 @@ class PublicationController extends BaseController
 			->whereHas('contents', function($query) use($search_text)
 			{
 				$query->where('title', 'ILIKE', "%$search_text%");
-			})
-			//FIXME: Change to know who's authenticated
-			->where('is_public', '=', true)
-			->orderBy('risk', 'desc')
-			->get();
+			});
+
+		if(!Auth::check() || Auth::user()->type == 'normal')
+			$stmt->where('is_public', '=', true);
+
+		$publications = $stmt->orderBy('risk', 'desc')->get();
 
 		return self::makeSimpleAnswer($publications);
 	}
@@ -63,7 +64,7 @@ class PublicationController extends BaseController
 	 */
 	public static function getFilteredPublications($risks, $event_types, $affected_countries)
 	{	
-		// If it's all null, we should do anything
+		// If it's all null, we should get all the publications as usual
 		if($risks == NULL && $event_types == NULL && $affected_countries == NULL)
 			return self::getAllPublications();
 		else
@@ -72,7 +73,7 @@ class PublicationController extends BaseController
 			$event_types 		= explode(',', $event_types);
 			$affected_countries = explode(',', $affected_countries);
 
-			$publications = Publication::with(array(
+			$stmt = Publication::with(array(
 			'contents',
 			'contents.language',
 			'affectedCountries',
@@ -122,11 +123,12 @@ class PublicationController extends BaseController
 	            	}
 	            	else
 	            		unset($event_types[$key]);
-            })
-			//FIXME: Change to know who's authenticated
-			->where('is_public', '=', true)
-			->orderBy('risk', 'desc')
-			->get();
+            });
+
+			if(!Auth::check() || Auth::user()->type == 'normal')
+				$stmt->where('is_public', '=', true);
+
+			$publications = $stmt->orderBy('risk', 'desc')->get();
 
 			//$l = DB::getQueryLog();
 			//return end($l);

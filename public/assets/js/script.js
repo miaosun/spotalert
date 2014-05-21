@@ -8,7 +8,7 @@ $('document').ready(function()
         e.stopPropagation();
     });
 
-    FB.Event.subscribe('edge.create', function(targetUrl) {
+    /*FB.Event.subscribe('edge.create', function(targetUrl) {
         ga('send', {
           'hitType': 'social',
           'socialNetwork': 'facebook',
@@ -17,7 +17,7 @@ $('document').ready(function()
           'page': '/publication/'+id
             });
         alert('enviou hit sobre o share no facebook para o id:'+id);
-    });
+    });*/
 
 	// Listing of publications
     $('#publ-list').dataTable( {

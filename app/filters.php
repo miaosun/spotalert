@@ -44,6 +44,13 @@ Route::filter('auth.basic', function()
 	return Auth::basic();
 });
 
+// This filter serves to identify just publishers/managers/admins in routes
+Route::filter('auth.not_normal', function()
+{
+    if (!Auth::check() || (Auth::check() && Auth::user()->type == 'normal'))
+    	App::abort(404);
+});
+
 /*
 |--------------------------------------------------------------------------
 | Guest Filter
@@ -85,11 +92,10 @@ Route::filter('csrf', function()
 |--------------------------------------------------------------------------
 |
 */
-/*
---> FIXME: Uncomment and correct it at the end of the project
+
+//--> FIXME: Uncomment and correct it at the end of the project
 App::missing(function($exception)
 {
     return '404 not found exception (filters.php)';
     //return Response::view('errors.missing', array('url' => Request::url()), 404);
 });
-*/
