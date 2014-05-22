@@ -8,10 +8,10 @@
         <div class="row" id="privileges">
             <ul>
                 <!-- FIXME change this for publication before to hide left curve active to selected -->
-                <li> {{ Lang::get('controlpanel.menu.profile') }}</li>
-                <li> {{ Lang::get('controlpanel.menu.notification') }}</li>
-                <li> {{ Lang::get('controlpanel.menu.publications') }}</li>
-                <li id="before"> {{ Lang::get('controlpanel.menu.comments') }}</li>
+                <li><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
+                <li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
+                <li><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
+                <li id="before"><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
                 <li id="active"> {{ Lang::get('controlpanel.menu.privileges') }}</li>
             </ul>
             <h1>{{ Lang::get('controlpanel.privileges.title') }}</h1>
@@ -22,10 +22,11 @@
                     </div>
                     <div class="col-md-4">
                         {{ Form::text('username',null, array('id'=>'username', 'placeholder'=>Lang::get('controlpanel.privileges.name'))) }}
-                        <span class="glyphicon glyphicon-search"></span>
+                        <a href="{{ URL::route('selectedUser-privileges') }}" class="glyphicon glyphicon-search" id="username"></a>
                     </div>
-                    <div class="col-md-4">
-                        {{ Form::text('department', null, array('placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
+                    <div class="col-md-4" id='department'>
+                        {{ Form::text('department', $user->username, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
+                   <!--     <input type="text" name="department" id="department" value="" placeholder= "{{Lang::get('controlpanel.privileges.department')}}" disabled> -->
                         <span class="glyphicon glyphicon-edit edit_button"></span>
                     </div>
                 </div>
@@ -39,7 +40,7 @@
                     </div>
                     <div class="col-md-4">
                         {{ Form::text('permissions', null, array('placeholder'=>Lang::get('controlpanel.privileges.permissions'))) }}
-                        <span class="glyphicon glyphicon-search"></span>
+                        <span class="caret"></span>
                     </div>
                 </div>
                 <div class="col-md-2 col-md-offset-8">

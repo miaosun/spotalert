@@ -1031,7 +1031,7 @@ div.ajax-loading {
 
 }
 
-#privileges h3 {
+#controlpanel h3 {
     width: 100%;
     color:#BF2333;
     font-weight:bold;
@@ -1049,6 +1049,10 @@ div.ajax-loading {
 
 }
 
+#controlpanel a {
+    text-decoration: none;
+    color: inherit;
+}
 
 /******************************************************
 ************************ CONTACT **********************
@@ -1137,4 +1141,17 @@ div.ajax-loading {
 #contact span {
     font-size:12px;
     color:red;
+}
+
+
+#notifications input[type=submit] {
+    width: 80%;
+    border: 0px;
+    margin: 0% 5% 5% 0%;
+    background-color: #BF2333;
+    color: white;
+
+    -webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
 }

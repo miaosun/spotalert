@@ -16,11 +16,22 @@ class UserPanelController extends BaseController {
 
     public function getPrivilegesWithUser() {
     $profile = User::find(Auth::user()->getId());
-    $publications = PublicationController::getAllPublications();
-    $selectedUser = User::where('username', '=', 'Input::("username")');
-    return View::make('user.privileges',array('user' => $profile, 'selectedUser' => $selectedUser, 'publications'=>$publications));
+    $users_all = User::all();
+    $selectedUser = User::where('username', '=', Input::get("username"));
+    return View::make('user.privileges' ,array('user' => $profile, 'selectedUser' => $selectedUser, 'users_all'=>$users_all));
 }
 
+    // Notifications Page
+    public function getNotifications()  {
+        $country_options = array('' => Lang::get('controlpanel.notifications.country_option')) + Country::lists('name', 'id');
+        return View::make('user.notifications')->with('country_options', $country_options);
+    }
+
+    // Comments Page
+    public function getComments()  {
+
+        return View::make('user.comments');
+    }
 
     /*  APIs  */
     public function getUsernames() {

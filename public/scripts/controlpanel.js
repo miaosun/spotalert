@@ -122,6 +122,16 @@ function loadEditButtons() {
             $('#organization .editbutton').hide().unbind();
         }
     );
+
+    // Privilages Page
+    $('#department .edit_button').click(
+        function() {
+            $('#department input').prop('disabled', false);
+            $('#department .edit_button').hide().unbind();
+        }
+    );
+
+
 }
 function loadFileUpload(){
     $('.custom-upload input[type=file]').change(function(){

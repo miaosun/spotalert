@@ -146,9 +146,21 @@ Route::group(array('before' => 'auth'), function() {
        'uses' => 'UserPanelController@getPrivileges'
     ));
 
-    Route::get('/user/privileges/{nome}', array(
-        'as' => 'user-privileges',
+    Route::get('/user/privileges', array(
+        'as' => 'selectedUser-privileges',
         'uses' => 'UserPanelController@getPrivilegesWithUser'
+    ));
+
+    //Notifications
+    Route::get('/user/notifications', array(
+        'as' => 'user-notifications',
+        'uses' => 'UserPanelController@getNotifications'
+    ));
+
+    //Comments
+    Route::get('/user/comments', array(
+        'as' => 'user-comments',
+        'uses' => 'UserPanelController@getComments'
     ));
 
     // Publications listing

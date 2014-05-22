@@ -54,5 +54,22 @@ return array(
     ),
 	"publications" => array(
 		"title" => "USER CONTROL PANEL - PUBLICATIONS"
-	)
+	),
+
+    "notifications"              => array(
+        "title"             => "USER CONTROL PANEL - NOTIFICATIONS",
+        "select"            => "SELECT",
+        "country_option"    => "REGION/COUNTRY",
+        "minimum_risk"      => "MINIMUM RISK",
+        "add"               => "ADD"
+    ),
+
+    "comments"                  => array(
+        "title"             => "USER CONTROL PANEL - MANAGE COMMENTS",
+        "publication"       => "PUBLICATION",
+        "comment"           => "COMMENT",
+        "name"              => "NAME",
+        "date"              => "DATE",
+        "risk"              => "RISK"
+    )
 );

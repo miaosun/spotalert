@@ -5,11 +5,11 @@
     <div id="controlpanel" class="col-md-8 col-md-offset-2">
         <div class="row" id="privileges">
             <ul>
-                <li> {{ Lang::get('controlpanel.menu.profile') }}</li>
-                <li id="before"> {{ Lang::get('controlpanel.menu.notification') }}</li>
+                <li><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
+                <li id="before"><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
                 <li id="active"> {{ Lang::get('controlpanel.menu.publications') }}</li>
-                <li> {{ Lang::get('controlpanel.menu.comments') }}</li>
-                <li> {{ Lang::get('controlpanel.menu.privileges') }}</li>
+                <li><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
+                <li><a href="{{ URL::route('user-privileges') }}">{{ Lang::get('controlpanel.menu.privileges') }}</a></li>
             </ul>
             <h1>{{ Lang::get('controlpanel.publications.title') }}</h1>
             
