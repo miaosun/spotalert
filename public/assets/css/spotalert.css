@@ -520,12 +520,41 @@ button#search-glass {
 .publ-content .publ-linked-toggle{
     display: none;
 }
+.publ-content .publ-comments-toggle{
+    display: none;
+    max-height: 160px;
+    overflow-y: scroll;
+    
+}
+.publ-content .publ-comments-toggle p.comments-info{
+    font-size: 8px;
+}
+
 .publ-content a{
     color: inherit;
     text-decoration: none;
 }
 .publ-content a:hover{
     color: #FF931E;    
+}
+/* social */
+.publ-content .sprite-social{
+    background-image: url('../images/share.png');
+    height:27px;
+	width:27px;
+    display:inline-block;
+}
+.publ-content .social-facebook{
+	background-position:0px 0px;
+}
+.publ-content .social-google{
+	background-position:-26px 0px;
+}
+.publ-content .social-twitter{
+	background-position:-52px 0px;
+}
+.publ-content .social-linkdin{
+	background-position:-82px 0px;
 }
 
 
