@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <div id="controlpanel" class="col-md-10 col-md-offset-1">
-        <div class="row" id="privileges">
+        <div class="row" id="publications-up">
             <ul>
                 <li> {{ Lang::get('controlpanel.menu.profile') }}</li>
                 <li id="before"> {{ Lang::get('controlpanel.menu.notification') }}</li>
@@ -59,6 +59,17 @@
 </div>
 
 {{ HTML::script('assets/js/jquery.dataTables.js') }}
+<script>
+$('document').ready(function() 
+{
+    $('#publ-list').dataTable( {
+        "paging":   false,
+        "order": [[ 4, "desc" ]],
+        "info":     false,
+        "searching": false
+    });
+});
+</script>
 
 @stop
 

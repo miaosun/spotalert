@@ -576,7 +576,7 @@ label {
 	margin-left:20px;
 	padding-right:20px;  
 }
-#filt .dropdown-menu div:last-child{
+#filt .dropdown-menu > div:last-child{
 	margin-bottom:8px;
 }
 
@@ -598,15 +598,16 @@ label {
     top: 0;
     display:none;
     margin-top: -1px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left-color: #fff;
-    box-shadow: none;
-    text-align:left;
+    text-align: left;
 
 }
-#filt .filter-opt.filter-eventType{
+
+#filt .filter-opt {
 	margin-left:15px;
+}
+
+#filt .filter-country, #filt .filter-all {
+    text-transform: none;
 }
 
 #filt .filter-opt.selected {
@@ -622,28 +623,11 @@ label {
 	color:#CCCCCC;
 	text-align:center;
 }
-/*
-#filt .right-caret:after{
-	border-left: 5px solid #CCCCCC; /// COR DAS SETAS DO TYPE OF EVENT ////
-}*/
-#filt .right-caret:after, 
-#filt .left-caret:after {
-    content:"";
-    border-bottom: 5px solid transparent;
-    border-top: 5px solid transparent;
-    display: inline-block;
-    height: 0;
-    vertical-align: middle;
-    width: 0;
-    margin-left: 5px;
-}
 
-.right-caret:after{
-    border-left: 5px solid #ffaf46;
-}
-
-.left-caret:after{
-    border-right: 5px solid #ffaf46;
+#filt .dropdown-menu > div > a.trigger > span {
+    color: #CCCCCC;
+    float: right;
+    right: 10%;
 }
 
 div.ajax-loading {
@@ -1239,7 +1223,7 @@ div.ajax-loading {
 *************** USER PANEL - PUBLICATIONS *************
 *******************************************************/
 
-#privileges .table-wrapper {
+#publications-up .table-wrapper {
     padding: 15px;
 }
 
