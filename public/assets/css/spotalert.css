@@ -576,7 +576,7 @@ label {
 	margin-left:20px;
 	padding-right:20px;  
 }
-#filt .dropdown-menu div:last-child{
+#filt .dropdown-menu > div:last-child{
 	margin-bottom:8px;
 }
 
@@ -598,15 +598,16 @@ label {
     top: 0;
     display:none;
     margin-top: -1px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left-color: #fff;
-    box-shadow: none;
-    text-align:left;
+    text-align: left;
 
 }
-#filt .filter-opt.filter-eventType{
+
+#filt .filter-opt {
 	margin-left:15px;
+}
+
+#filt .filter-country, #filt .filter-all {
+    text-transform: none;
 }
 
 #filt .filter-opt.selected {
@@ -622,28 +623,11 @@ label {
 	color:#CCCCCC;
 	text-align:center;
 }
-/*
-#filt .right-caret:after{
-	border-left: 5px solid #CCCCCC; /// COR DAS SETAS DO TYPE OF EVENT ////
-}*/
-#filt .right-caret:after, 
-#filt .left-caret:after {
-    content:"";
-    border-bottom: 5px solid transparent;
-    border-top: 5px solid transparent;
-    display: inline-block;
-    height: 0;
-    vertical-align: middle;
-    width: 0;
-    margin-left: 5px;
-}
 
-.right-caret:after{
-    border-left: 5px solid #ffaf46;
-}
-
-.left-caret:after{
-    border-right: 5px solid #ffaf46;
+#filt .dropdown-menu > div > a.trigger > span {
+    color: #CCCCCC;
+    float: right;
+    right: 10%;
 }
 
 div.ajax-loading {
@@ -1254,3 +1238,60 @@ div.ajax-loading {
 /******************************************************
 *************** USER PANEL - PUBLICATIONS *************
 *******************************************************/
+
+#publications-up .table-wrapper {
+    padding: 15px;
+}
+
+.table-wrapper td:not(:last-child), .table-wrapper thead th:not(:last-child) {
+    border-right: 1px dashed #BF2333;
+}
+
+.table-wrapper td{
+    padding: 11px 5px;
+}
+
+.table-wrapper thead th {
+    text-align: center;
+    font-size: 16px;
+    color: #BF2333;
+}
+
+.table-wrapper thead th.sorting_desc span {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 13px solid;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-bottom: 4px solid transparent;
+    color: #BF2333 !important;
+}
+
+.table-wrapper thead th.sorting_asc span {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 0;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-bottom: 13px solid;
+    color: #BF2333 !important;
+}
+
+.table-wrapper thead th.sorting span {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    border-bottom: 4px solid;
+    color: #BF2333 !important;
+}
