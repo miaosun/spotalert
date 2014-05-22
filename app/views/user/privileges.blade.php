@@ -7,7 +7,6 @@
     <div id="controlpanel" class="col-md-8 col-md-offset-2">
         <div class="row" id="privileges">
             <ul>
-                <!-- FIXME change this for publication before to hide left curve active to selected -->
                 <li><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
                 <li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
                 <li><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
@@ -15,6 +14,7 @@
                 <li id="active"> {{ Lang::get('controlpanel.menu.privileges') }}</li>
             </ul>
             <h1>{{ Lang::get('controlpanel.privileges.title') }}</h1>
+
             <div class="row">
                 <div class="col-md-12 col-md-offset-0">
                     <div class="col-md-3">
@@ -26,7 +26,7 @@
                     </div>
                     <div class="col-md-4" id='department'>
                         {{ Form::text('department', $user->username, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
-                   <!--     <input type="text" name="department" id="department" value="" placeholder= "{{Lang::get('controlpanel.privileges.department')}}" disabled> -->
+                        <!--     <input type="text" name="department" id="department" value="" placeholder= "{{Lang::get('controlpanel.privileges.department')}}" disabled> -->
                         <span class="glyphicon glyphicon-edit edit_button"></span>
                     </div>
                 </div>
@@ -48,47 +48,43 @@
                 </div>
             </div>
 
-                <table id="privileges-list" class="display" cellspacing="0" width="100%">
-                    <thead>
+            <table id="privileges-list" class="display" cellspacing="0" width="100%">
+                <thead>
                     <tr>
                         <th>{{ Lang::get('controlpanel.privileges.department') }}</th>
                         <th>{{ Lang::get('controlpanel.privileges.name') }}</th>
                         <th>{{ Lang::get('controlpanel.privileges.location') }}</th>
                         <th>{{ Lang::get('controlpanel.privileges.member_since') }}</th>
-                        <th></th>
                     </tr>
-                    </thead>
+                </thead>
 
-                    <tfoot>
+                <tfoot>
                     <tr>
                         <th></th>
                         <th></th>
                         <th></th>
                         <th></th>
-                        <th></th>
                     </tr>
-                    </tfoot>
+                </tfoot>
 
-                    <tbody>
-                    <!-- FIXME: Add author feature, language up here, title link, location, col-m-12, corrected CSS...-->
-                    @foreach ($users_all as $user_all)
-                    <tr>
-                        <td>{{$user_all['organization']}}</td>
-                        <td>{{$user_all['firstname']}} {{$user_all['lastname']}}</td>
-                        <td>{{$user_all['city']}}</td>
-                        <td>{{$user_all['created_at']}}</td>
-                        <td></td>
-                    </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                <tbody>
+                <!-- FIXME: Add author feature, language up here, title link, location, col-m-12, corrected CSS...-->
+                @foreach ($users_with_permissions as $user_with_permission)
+                <tr>
+                    <td>{{$user_with_permission['organization']}}</td>
+                    <td>{{$user_with_permission['firstname']}} {{$user_with_permission['lastname']}}</td>
+                    <td>{{$user_with_permission['city']}}</td>
+                    <td>{{$user_with_permission['created_at']}}</td>
+                </tr>
+                @endforeach
+                </tbody>
+            </table>
 
-            </div>
         </div>
-        {{ Form::close() }}
     </div>
+    {{ Form::close() }}
 </div>
 
-{{ HTML::script('scripts/controlpanel.js') }}
-{{ HTML::style('http://cdn.datatables.net/1.10.0/css/jquery.dataTables.css'); }}
+{{ HTML::script('assets/js/jquery.dataTables.js') }}
+
 @stop

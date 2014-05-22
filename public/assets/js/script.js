@@ -28,6 +28,15 @@ $('document').ready(function()
         "searching": false
     } );
 
+    // Listing of users in Privileges Page
+    $('#privileges-list').dataTable( {
+        "paging":   false,
+        "order": [[ 3, "desc" ]],
+        "info":     false,
+        "searching": false
+    } );
+
+
     // Everything for filtering to work
     filtering();
 

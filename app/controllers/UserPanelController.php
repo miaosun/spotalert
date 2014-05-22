@@ -10,15 +10,15 @@ class UserPanelController extends BaseController {
 
     public function getPrivileges() {
         $profile = User::find(Auth::user()->getId());
-        $users_all = User::all();
-        return View::make('user.privileges',array('user' => $profile, 'users_all'=>$users_all));
+        $users_with_permissions = User::where('type','<>', 'normal')->get();
+        return View::make('user.privileges',array('user' => $profile, 'users_with_permissions'=>$users_with_permissions));
     }
 
     public function getPrivilegesWithUser() {
-    $profile = User::find(Auth::user()->getId());
-    $users_all = User::all();
-    $selectedUser = User::where('username', '=', Input::get("username"));
-    return View::make('user.privileges' ,array('user' => $profile, 'selectedUser' => $selectedUser, 'users_all'=>$users_all));
+        $profile = User::find(Auth::user()->getId());
+        $users_with_permissions = User::where('type','!=', 'normal')->get();
+        $selectedUser = User::where('username', '=', Input::get("username"));
+        return View::make('user.privileges' ,array('user' => $profile, 'selectedUser' => $selectedUser, 'users_with_permissions'=>$users_with_permissions));
 }
 
     // Notifications Page
