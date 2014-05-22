@@ -39,8 +39,8 @@ class UserPanelController extends BaseController {
     // Notifications Page
     public function getNotifications()  {
         $country_options = array('' => Lang::get('controlpanel.notifications.country_option')) + Country::lists('name', 'id');
-
-        return View::make('user.notifications')->with('country_options', $country_options);
+        $publication_options = array('' => Lang::get('controlpanel.notifications.publication')) + Publication::lists('type', 'id');
+        return View::make('user.notifications')->with('country_options', $country_options)->with('publication_options', $publication_options);
     }
 
     // Comments Page

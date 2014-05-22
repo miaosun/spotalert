@@ -74,9 +74,9 @@
                 <div class="col-md-12 col-md-offset-0">
                     <div class="col-md-2"></div>
                     <div class="col-md-3 col-md-offset-0 resid-drop">
-                        {{ Form::select('region', $country_options , Input::old('region')) }}
-                        @if($errors->has('region'))
-                        <br><span>{{ $errors->first('region') }}</span>
+                        {{ Form::select('publication', $publication_options , Input::old('publication')) }}
+                        @if($errors->has('publication'))
+                        <br><span>{{ $errors->first('publication') }}</span>
                         @endif
                     </div>
                     <div class="col-md-3 col-md-offset-0"></div>

@@ -62,7 +62,7 @@ return array(
         "country_option"    => "REGION/COUNTRY",
         "minimum_risk"      => "MINIMUM RISK",
         "add"               => "ADD",
-        "notification"      => "NOTIFICATION"
+        "publication"      => "PUBLICATION"
     ),
 
     "comments"                  => array(
