@@ -198,8 +198,9 @@ function searching()
 function getPublicationContent(id)
 {
     jQuery.getJSON("publications/content/"+id,function(data){
-        // fill data
+        // fill description
         $('#publ-'+id+' .publ-content p').html(data.content);
+        // fill linked publications
         if(data.pubLinked.length == 0)
             $('#publ-'+id+' .publ-linked').remove();
         else
@@ -210,8 +211,29 @@ function getPublicationContent(id)
             }
             $('#publ-'+id+' .publ-content .publ-linked-toggle').html(links);
         }
+        // fill comments 
+        if(data.comments.length == 0)
+            $('#publ-'+id+' .publ-comments').remove();
+        else
+        {
+            //TODO insert number of comments
+            var links = "";
+            for(var i = 0; i < data.comments.length ; i++){
+                if(i != 0)
+                    links = links +"<hr>"
+                links = links +
+                    "<div class='comments'>\
+                    <p class='comments-content'>"+data.comments[i].content+"</p>\
+                    <p class='comments-info'>"+data.comments[i].user+" - "+data.comments[i].date.date+"</p>\
+                    </div>";
+            }
+            //alert(links);
+            $('#publ-'+id+' .publ-content .publ-comments-toggle').html(links);
+        }
+        // expand publication without animation
         $('#publ-'+id+' .publ-colapse').show();
-        // change btn
+        
+        // change btn to toggle only
         var btn = $('#publ-'+id+' .publ-expand');
         btn.unbind();
         btn.toggleClass("glyphicon-chevron-down");
@@ -229,6 +251,7 @@ function togglePubBtn(id)
     $('#publ-'+id+' .publ-colapse').toggle();
     
 }
+// toogle linked div and arrow
 function toggleLinkedBtn(id)
 {
     var btn = $('#publ-'+id+' .publ-linked-toggle-btn');
@@ -237,6 +260,16 @@ function toggleLinkedBtn(id)
     $('#publ-'+id+' .publ-linked-toggle').toggle();
     
 }
+// toogle comments div and arrow
+function toggleCommentsBtn(id)
+{
+    var btn = $('#publ-'+id+' .publ-comments-toggle-btn');
+    btn.toggleClass("glyphicon-chevron-right");
+    btn.toggleClass("glyphicon-chevron-down");
+    $('#publ-'+id+' .publ-comments-toggle').toggle();
+    
+}
+// setup btn to expand and load updated data missing
 function setupBtnPublication(){
     $('.publ-expand').each(function(){
                         var id = $(this).attr('publicationid');
@@ -249,6 +282,13 @@ function setupBtnPublication(){
                         var id = $(this).attr('publicationid');
                         $(this).click(function(){
                                     toggleLinkedBtn(id);
+                                    //alert("cliquei id:"+id);
+                                    });
+                        });
+    $('.publ-comments-toggle-btn').each(function(){
+                        var id = $(this).attr('publicationid');
+                        $(this).click(function(){
+                                    toggleCommentsBtn(id);
                                     //alert("cliquei id:"+id);
                                     });
                         });

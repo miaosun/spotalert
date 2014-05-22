@@ -33,6 +33,7 @@ class PublicationController extends BaseController
         ->get();
         */
         $publications = Publication::find($publ_id);
+        
         $answer = array('id' => $publications->id,
                         'title' => $publications->contents()->first()->title,
                         'content' => $publications->contents()->first()->content,
@@ -59,8 +60,9 @@ class PublicationController extends BaseController
             foreach($publications->comments as $comment)
             {
                if($comment->approved)
-                    $answer['comments'][] = array('content' => $comment->content, 'date' =>$comment->created_at);
+                    $answer['comments'][] = array('user' => $comment->author()->first()->username,'content' => $comment->content, 'date' =>$comment->created_at);
             }
+            //TODO add Lang words for the comments be in selected language (e.g. "by", "on", "of" - $answer['language']) 
         }
 		return Response::json($answer);
         //return Response::json($publications);

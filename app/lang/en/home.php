@@ -57,5 +57,5 @@ return array(
 		"msg-label"         => "Message",
 		"msg-placeholder"   => "WRITE YOUR MESSAGE HERE",
 		"send"              => "SEND"
-	),
+	)
 );
