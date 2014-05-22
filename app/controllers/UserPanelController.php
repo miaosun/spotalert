@@ -123,8 +123,7 @@ class UserPanelController extends BaseController {
 
     public function getPublications() 
     {
-        // FIXME: Correct user_id on publication
-        $publications = PublicationController::getAllPublications();
+        $publications = PublicationController::getPublicationsForUserPanel();
         return View::make('user.publications')->with('publications', $publications);
     }
     

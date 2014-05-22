@@ -36,6 +36,12 @@ $('document').ready(function()
 
     // Everything for deleting a publication
     deletePublication();
+
+    // Infinite scrolling
+    $('.scroll').jscroll(
+    {
+    	nextSelector: 'a.jscroll-next:last'
+    });
 });
 
 
@@ -99,7 +105,7 @@ function filtering()
 			countries = addText('#filt .filter-country.selected');
 
 		// Let's retrieve the publications
-		$.get('publications/filter', 
+		$.get('/publications/filter', 
 			  { 'risks': risks, 'event_types': eventTypes, 'affected_countries': countries},
 			  function() { $('#main').html('<div class="ajax-loading"></div>' + loading_message);})
 			.done(function( data ) 
@@ -108,6 +114,12 @@ function filtering()
 					$('#main').html(nothing_returned_message);
 				else
 			    	$('#main').html(data);
+			    
+			    // Infinite scrolling
+			    $('.scroll').jscroll(
+			    {
+			    	nextSelector: 'a.jscroll-next:last'
+			    });
 			})
 			.fail(function() 
 			{
@@ -148,7 +160,7 @@ function deletePublication()
 		var id_publ = $('#myModal .modal-publ-id').attr('id');
 
 		// Let's delete the publications
-		$.post('publications/delete/' + id_publ)
+		$.post('/publications/delete/' + id_publ)
 			.done(function( data ) 
 			{
 				if(data == 'ok')
@@ -183,7 +195,7 @@ function searching()
 			$('#filt .filter-opt').removeClass('selected');
 
 			// Let's retrieve the publications
-			$.get('publications/search/' + search_content,
+			$.get('/publications/search/' + search_content,
 				  function() { $('#main').html('<div class="ajax-loading"></div>' + loading_message);})
 				.done(function( data ) 
 				{
@@ -191,6 +203,11 @@ function searching()
 						$('#main').html(nothing_returned_message);
 					else
 				    	$('#main').html(data);
+				    // Infinite scrolling
+				    $('.scroll').jscroll(
+				    {
+				    	nextSelector: 'a.jscroll-next:last'
+				    });
 				})
 				.fail(function() 
 				{

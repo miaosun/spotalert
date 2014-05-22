@@ -12,77 +12,78 @@
 */
 
 Route::get('/', array(
-	'as' => 'home',
-	'uses' => 'HomeController@showWelcome'
+    'as' => 'home',
+    'uses' => 'HomeController@showWelcome'
 ));
 
 Route::get('/contact', array(
-	'as' => 'contact',
-	'uses' => 'HomeController@showContact'
+    'as' => 'contact',
+    'uses' => 'HomeController@showContact'
 ));
 
 Route::post('/contact', array(
-	'as' => 'send-contact',
-	'uses' => 'HomeController@sendContact'
+    'as' => 'send-contact',
+    'uses' => 'HomeController@sendContact'
 ));
 
 Route::group(array('prefix' => 'publications'), function()
 {
-	// For removing publication
-	Route::post('delete/{publ_id}', array(
-		'before' => 'auth.not_normal',
-		'as'     => 'publication-delete',
-		'uses'   => 'PublicationController@deletePublication'
-	))
-	->where('publ_id', '[0-9]+');
+    // For removing publication, it just removes
+    Route::post('/delete/{publ_id}', array(
+        'before' => 'auth.not_normal',
+        'as'     => 'publication-delete',
+        'uses'   => 'PublicationController@deletePublication'
+    ))
+    ->where('publ_id', '[0-9]+');
 
-	// For the RSS feed
-	Route::get('/rss', array(
-		'as'	=> 'publications-rss',
-		'uses'	=> 'PublicationController@getAllPublications'
-	));
+    // For the RSS feed, it returns a JSON object
+    Route::get('/rss', array(
+        'as'    => 'publications-rss',
+        'uses'  => 'PublicationController@getAllPublications'
+    ));
 
-	// For searching publications
-	Route::get('/search/{search_query}', array(
-		'as'	=> 'publications-route',
-		function($search_query)
-		{
-			$publications = PublicationController::getSearchedPublications($search_query);
-      		return View::make('includes.publications')->with('publications', $publications);
-		}
-	))
-	->where('search_query', '[A-Za-z0-9\s]+');
+    // For searching publications, it returns the the view
+    //  specific for the publications
+    Route::get('/search/{search_query}/{next_page?}', array(
+        'as'   => 'publications-route',
+        'uses' => 'PublicationController@getSearchedPublications'
+    ))
+    ->where('search_query', '[A-Za-z0-9\s]+');
 
-	// For filtering
-	// Possible parameters to receive: risks, event_types, affected_countries
-	// In each one, separate the elements by commas
-	Route::get('/filter/', array(
-		'as'	=> 'publications-filter',
-		function() 
-		{ 
-			$risks				= Input::get('risks');
-			$event_types 		= Input::get('event_types');
-			$affected_countries	= Input::get('affected_countries');
-      		
-      		if(!isset($risks) || $risks === '')
-      			$risks = NULL;
-      		if(!isset($event_types) || $event_types === '')
-      			$event_types = NULL;
-      		if(!isset($affected_countries) || $affected_countries === '')
-      			$affected_countries = NULL;
+    // For filtering
+    // Possible parameters to receive: risks, event_types, affected_countries
+    // In each one, separate the elements by commas
+    // It returns the view specific specific for the publications
+    Route::get('/filter/', array(
+        'as'   => 'publications-filter',
+        'uses' => 'PublicationController@getFilteredPublications'
+    ));
 
-
-      		$publications = PublicationController::getFilteredPublications($risks, $event_types, $affected_countries);
-      		return View::make('includes.publications')->with('publications', $publications);
-     	},
-	));
+    // Returning the next page
+    Route::get('/next_page/{next_page}', array(
+        'as'   => 'next-page',
+        'uses' => 'PublicationController@getNextPage'
+    ));
 });
 /*
 Route::get('/user/{username}', array(
- 	'as' => 'profile-user',
- 	'uses' => 'ProfileController@user'
+    'as' => 'profile-user',
+    'uses' => 'ProfileController@user'
 ));
 */
+
+//Create Alert (POST)
+Route::post('/publication/createalert', array(
+    'as' => 'publication-createalert',
+    'uses' => 'PublicationController@createAlert'
+));
+            
+//Create Alert (POST)
+Route::post('/publication/createguideline', array(
+    'as' => 'publication-createguideline',
+    'uses' => 'PublicationController@createGuideline'
+));
+
 /*
  * API Controle Panel
  */
@@ -111,27 +112,27 @@ Route::get('/user/api/emails', array(
  */
 Route::group(array('before' => 'auth'), function() {
 
-	// CSRF protection group
-	Route::group(array('before' => 'csrf'), function() {
+    // CSRF protection group
+    Route::group(array('before' => 'csrf'), function() {
 
-		// change password (POST)
-		Route::post('/account/change-password', array(
-			'as' => 'account-change-password-post',
-			'uses' => 'AccountController@postChangePassword'
-		));
-	});
+        // change password (POST)
+        Route::post('/account/change-password', array(
+            'as' => 'account-change-password-post',
+            'uses' => 'AccountController@postChangePassword'
+        ));
+    });
 
-	// change password (GET)
-	Route::get('/account/change-password', array(
-		'as' => 'account-change-password',
-		'uses' => 'AccountController@getChangePassword'
-	));
+    // change password (GET)
+    Route::get('/account/change-password', array(
+        'as' => 'account-change-password',
+        'uses' => 'AccountController@getChangePassword'
+    ));
 
-	// sign out (GET)
-	Route::get('/account/sign-out', array(
-		'as' => 'account-sign-out',
-		'uses' => 'AccountController@getSignOut'
-	));
+    // sign out (GET)
+    Route::get('/account/sign-out', array(
+        'as' => 'account-sign-out',
+        'uses' => 'AccountController@getSignOut'
+    ));
 
     /* Control Panel */
 
@@ -165,6 +166,7 @@ Route::group(array('before' => 'auth'), function() {
 
     // Publications listing
     Route::get('/user/publications', array(
+       'before' => 'auth.not_normal',
        'as' => 'user-publications',
        'uses' => 'UserPanelController@getPublications'
     ));
@@ -187,29 +189,29 @@ Route::group(array('before' => 'auth'), function() {
  * UNAUTHENTICATED GROUP
  */
 Route::group(array('before' => 'guest'), function() {
-	
-	// CSRF protection group
-	Route::group(array('before' => 'csrf'), function() {
+    
+    // CSRF protection group
+    Route::group(array('before' => 'csrf'), function() {
 
-		// create account (POST)
-		Route::post('/account/create', array(
-			'as' => 'account-create-post',
-			'uses' => 'AccountController@postCreate'
+        // create account (POST)
+        Route::post('/account/create', array(
+            'as' => 'account-create-post',
+            'uses' => 'AccountController@postCreate'
 
-		));
+        ));
 
-		// Sign in (POST)
-		Route::post('/account/sign-in', array(
-			'as' => 'account-sign-in-post',
-			'uses' => 'AccountController@postSignIn'
-	    ));
+        // Sign in (POST)
+        Route::post('/account/sign-in', array(
+            'as' => 'account-sign-in-post',
+            'uses' => 'AccountController@postSignIn'
+        ));
 
         // Forgot password (POST)
         Route::post('/account/forgot-password', array(
             'as' => 'account-forgot-password-post',
             'uses' => 'AccountController@postForgotPassword'
         ));
-	});
+    });
 
     // Forgot password (GET)
     Route::get('/account/forgot-password', array(
@@ -223,21 +225,34 @@ Route::group(array('before' => 'guest'), function() {
     ));
 
 
-	// sign in (GET)
-	Route::get('/account/sign-in', array(
-		'as' => 'account-sign-in',
-		'uses' => 'AccountController@getSignIn'
-	));
+    // sign in (GET)
+    Route::get('/account/sign-in', array(
+        'as' => 'account-sign-in',
+        'uses' => 'AccountController@getSignIn'
+    ));
 
-	// create account (GET)
-	Route::get('/account/create', array(
-		'as' => 'account-create',
-		'uses' => 'AccountController@getCreate'
+    // create account (GET)
+    Route::get('/account/create', array(
+        'as' => 'account-create',
+        'uses' => 'AccountController@getCreate'
 
-	));
+    ));
 
-	Route::get('/account/activate/{code}', array(
-		'as' => 'account-activate',
-		'uses' => 'AccountController@getActivate'
-	));
+    Route::get('/account/activate/{code}', array(
+        'as' => 'account-activate',
+        'uses' => 'AccountController@getActivate'
+    ));
+    
+    // show create alert (GET)
+    Route::get('/publication/create-alert', array(
+        'as' => 'publication-create-alert',
+        'uses' => 'PublicationController@showCreateAlert'
+    ));
+    
+    // show create alert (GET)
+    Route::get('/publication/create-guideline', array(
+        'as' => 'publication-create-alert',
+        'uses' => 'PublicationController@showCreateGuideline'
+    ));
+
 });
