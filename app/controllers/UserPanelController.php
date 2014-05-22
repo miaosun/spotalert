@@ -3,7 +3,6 @@ class UserPanelController extends BaseController {
 	
 	/* show the usercontrol panel */
 	public function show() {
-		// get user profile data to fill. TODO: fix to Auth:user 
 		$profile = User::find(Auth::user()->getId());
         return View::make('user.controlpanel',array('user'=>$profile));
 	}
@@ -11,19 +10,36 @@ class UserPanelController extends BaseController {
     public function getPrivileges() {
         $profile = User::find(Auth::user()->getId());
         $users_with_permissions = User::where('type','<>', 'normal')->get();
-        return View::make('user.privileges',array('user' => $profile, 'users_with_permissions'=>$users_with_permissions));
+        $selected = false;
+        return View::make('user.privileges' ,array('selected'=>$selected, 'user' => $profile,  'users_with_permissions'=>$users_with_permissions));
     }
 
     public function getPrivilegesWithUser() {
         $profile = User::find(Auth::user()->getId());
-        $users_with_permissions = User::where('type','!=', 'normal')->get();
-        $selectedUser = User::where('username', '=', Input::get("username"));
-        return View::make('user.privileges' ,array('user' => $profile, 'selectedUser' => $selectedUser, 'users_with_permissions'=>$users_with_permissions));
-}
+        $users_with_permissions = User::where('type','<>', 'normal')->get();
+        if(Input::has('username'))
+        {
+            $selected = true;
+            $selectedUser = User::where('username', '=', 'manager1')->firstOrFail();
+            return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_with_permissions'=>$users_with_permissions));
+        }
+        else
+        {
+            $selected = false;
+            return View::make('user.privileges' ,array('selected'=>$selected, 'user' => $profile,  'users_with_permissions'=>$users_with_permissions));
+        }
+    }
+
+    public function updatePrivileges() {
+
+
+        return View::make('user.privileges');
+    }
 
     // Notifications Page
     public function getNotifications()  {
         $country_options = array('' => Lang::get('controlpanel.notifications.country_option')) + Country::lists('name', 'id');
+
         return View::make('user.notifications')->with('country_options', $country_options);
     }
 

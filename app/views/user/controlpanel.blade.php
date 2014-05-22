@@ -15,7 +15,7 @@
 				<li><a href="{{ URL::route('user-privileges') }}">{{ Lang::get('controlpanel.menu.privileges') }}</a></li>
 			</ul>
 			<h1>{{ Lang::get('controlpanel.profile.title') }}</h1>
-			{{ Form::open(array('route' => 'update-profile', 'file' => 'true')) }}    					
+			{{ Form::open(array('route' => 'update-profile', 'file' => 'true')) }}
 			<div class="col-md-4 col-md-offset-1">
 				<div class="row">
                     

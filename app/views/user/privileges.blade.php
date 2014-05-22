@@ -19,30 +19,40 @@
                 <div class="col-md-12 col-md-offset-0">
                     <div class="col-md-3">
                         <h3>{{ Lang::get('controlpanel.privileges.add_publishers').'/' }}</h3>
-                    </div>
-                    <div class="col-md-4">
-                        {{ Form::text('username',null, array('id'=>'username', 'placeholder'=>Lang::get('controlpanel.privileges.name'))) }}
-                        <a href="{{ URL::route('selectedUser-privileges') }}" class="glyphicon glyphicon-search" id="username"></a>
-                    </div>
-                    <div class="col-md-4" id='department'>
-                        {{ Form::text('department', $user->username, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
-                        <!--     <input type="text" name="department" id="department" value="" placeholder= "{{Lang::get('controlpanel.privileges.department')}}" disabled> -->
-                        <span class="glyphicon glyphicon-edit edit_button"></span>
-                    </div>
-                </div>
-                <div class="col-md-12 col-md-offset-0">
-                    <div class="col-md-3">
                         <h3>{{ Lang::get('controlpanel.privileges.managers').'/' }}</h3>
                     </div>
+                    {{ Form::open(array('route' => 'selectedUser-privileges')) }}
                     <div class="col-md-4">
+                        @if($selected)
+                        {{ Form::text('username',$selectedUser->username, array('id'=>'username', 'placeholder'=>Lang::get('controlpanel.privileges.name'))) }}
+                        @else
+                        {{ Form::text('username',null, array('id'=>'username', 'placeholder'=>Lang::get('controlpanel.privileges.name'))) }}
+                        @endif
+                        <button type="submit" class="glyphicon glyphicon-search" id="username"></button>
+                        @if($selected)
+                        {{ Form::text('email', $selectedUser->email, array('id'=>'email','placeholder'=>Lang::get('controlpanel.privileges.email'))) }}
+                        @else
                         {{ Form::text('email', null, array('id'=>'email','placeholder'=>Lang::get('controlpanel.privileges.email'))) }}
-                        <span class="glyphicon glyphicon-search"></span>
+                        @endif
+                        <button type="submit" class="glyphicon glyphicon-search" id="username"></button>
                     </div>
-                    <div class="col-md-4">
-                        {{ Form::text('permissions', null, array('placeholder'=>Lang::get('controlpanel.privileges.permissions'))) }}
+                    {{ Form::close() }}
+                    {{ Form::open(array('route' => 'update-privileges')) }}
+                    <div class="col-md-4" id='department'>
+                        @if($selected)
+                        {{ Form::text('department', $selectedUser->organization, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
+                        <span class="glyphicon glyphicon-edit edit_button"></span>
+                        {{ Form::select('permissions', array('placeholder' => Lang::get('controlpanel.privileges.permissions'), 'n' => 'Normal', 'p' => 'Publisher', 'm' => 'Manager'), 'placeholder') }}
+                        @else
+                        {{ Form::text('department', null, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
+                        <span class="glyphicon glyphicon-edit"></span>
+                        {{ Form::text('permissions', null, array('disabled'=>'disabled','placeholder'=>Lang::get('controlpanel.privileges.permissions'))) }}
                         <span class="caret"></span>
+                        @endif
                     </div>
+                    {{ Form::close() }}
                 </div>
+
                 <div class="col-md-2 col-md-offset-8">
                     {{ Form::submit(Lang::get('controlpanel.privileges.add')) }}
                 </div>
@@ -68,7 +78,6 @@
                 </tfoot>
 
                 <tbody>
-                <!-- FIXME: Add author feature, language up here, title link, location, col-m-12, corrected CSS...-->
                 @foreach ($users_with_permissions as $user_with_permission)
                 <tr>
                     <td>{{$user_with_permission['organization']}}</td>

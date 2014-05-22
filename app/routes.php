@@ -147,9 +147,14 @@ Route::group(array('before' => 'auth'), function() {
        'uses' => 'UserPanelController@getPrivileges'
     ));
 
-    Route::get('/user/privileges', array(
+    Route::get('/user/privileges/get', array(
         'as' => 'selectedUser-privileges',
         'uses' => 'UserPanelController@getPrivilegesWithUser'
+    ));
+
+    Route::get('/user/privileges', array(
+        'as' => 'update-privileges',
+        'uses' => 'UserPanelController@updatePrivileges'
     ));
 
     //Notifications
