@@ -22,7 +22,7 @@ $('document').ready(function()
 	// Listing of publications
     $('#publ-list').dataTable( {
         "paging":   false,
-         "order": [[ 5, "desc" ]],
+        "order": [[ 4, "desc" ]],
         "info":     false,
         "searching": false
     } );

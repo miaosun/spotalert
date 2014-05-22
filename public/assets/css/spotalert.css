@@ -1238,3 +1238,60 @@ div.ajax-loading {
 /******************************************************
 *************** USER PANEL - PUBLICATIONS *************
 *******************************************************/
+
+#privileges .table-wrapper {
+    padding: 15px;
+}
+
+.table-wrapper td:not(:last-child), .table-wrapper thead th:not(:last-child) {
+    border-right: 1px dashed #BF2333;
+}
+
+.table-wrapper td{
+    padding: 11px 5px;
+}
+
+.table-wrapper thead th {
+    text-align: center;
+    font-size: 16px;
+    color: #BF2333;
+}
+
+.table-wrapper thead th.sorting_desc span {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 13px solid;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-bottom: 4px solid transparent;
+    color: #BF2333 !important;
+}
+
+.table-wrapper thead th.sorting_asc span {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 0;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-bottom: 13px solid;
+    color: #BF2333 !important;
+}
+
+.table-wrapper thead th.sorting span {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    border-bottom: 4px solid;
+    color: #BF2333 !important;
+}
