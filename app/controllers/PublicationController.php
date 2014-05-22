@@ -16,8 +16,7 @@ class PublicationController extends BaseController
 			'contents',
 			'contents.language',
 			'affectedCountries',
-			'eventTypes')
-			);
+			'eventTypes'));
 
 		if(!Auth::check() || Auth::user()->type == 'normal')
 			$stmt->where('is_public', '=', true);
@@ -26,7 +25,19 @@ class PublicationController extends BaseController
 
 		return self::makeSimpleAnswer($publications);
 	}
-
+    
+    public function showCreateAlert()
+    {
+        
+        $country_options = Country::lists('name', 'id');
+        $event_type_options = EventType::lists('name', 'id');
+        $guideline_options = DB::table('publications AS p')->join('publicationContents AS pc','pc.publication_id','=','p.id')->where('p.type','=','guideline')->lists('title','publication_id');
+        $language_options = Language::lists('name', 'id');
+        
+		return View::make('publication.create-alert')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options);
+        
+    }
+    
 	/**
 	 * It gets some publications in the database 
 	 * (just the initial ones, so it's possible to scroll)
@@ -137,7 +148,17 @@ class PublicationController extends BaseController
       	else
       		return View::make('includes.publications')->with('publications', $publications);
 	}
+    
+    public function showCreateGuideline() {
+        
+        $country_options = Country::lists('name', 'id');
+        $event_type_options = EventType::lists('name', 'id');
+        $alert_options = DB::table('publications AS p')->join('publicationContents AS pc','pc.publication_id','=','p.id')->where('p.type','=','alert')->lists('title','publication_id');
+        $language_options = Language::lists('name', 'id');
 
+        return View::make('publication.create-guideline')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('alert_options',$alert_options)->with('language_options',$language_options);;
+    }
+    
 	/**
 	 * It gets all the publications in the database given some parameters for
 	 * filtering
@@ -249,7 +270,202 @@ class PublicationController extends BaseController
 	      		return View::make('includes.publications')->with('publications', $publications);
 		}
 	}
+    
+    public function createAlert() {
+        
+        //create the publication
+        $pub = [
+            'initial_date' => Input::get('alert-durationfrom'),
+            'final_date' => Input::get('alert-durationto'),
+            'is_public' => Input::get('alert-visibility'),
+            'periodic_notification' => 7,
+            'risk' => Input::get('alert-risk'),
+            'type' => "alert"
+        ];
+        
+        $alert_guidelines = Input::get('alert-guidelines');
+        $alert_countries = Input::get('alert-countries');
+        $alert_types = Input::get('alert-types');
+        
+        $publication = new Publication($pub);
+        
 
+        $languages = json_decode(Input::get('alert-languages'), true);
+        $languages_toarray = [];
+        
+        //publication content in english
+        $pub_content1 = [
+                'title' => Input::get('alert-title'),
+                'content' => Input::get('alert-description'),
+                'language_id' => 1, //language id
+                'publication_id' => null, //defined at insertion in db*
+        ];
+
+        $publication_content1 = new PublicationContent($pub_content1);
+        
+        foreach($languages as $key => $lang) {
+            //create the publication content
+            $pub_content = [
+                'title' => Input::get("alert-title".$lang),
+                'content' => Input::get("alert-description".$lang),
+                'language_id' => $lang, //language id
+                'publication_id' => null, //defined at insertion in db*
+            ];
+
+            $publication_content = new PublicationContent($pub_content);
+            
+            //array_push($languages_toarray, $publication_content);
+            
+            $languages_toarray[$key] = $publication_content;
+        }
+        
+        //rules for validator
+        $rules_publication = [
+            'initial_date' => 'required',
+            'final_date' => 'required',
+            'is_public' => 'required',
+            'risk' => 'required|numeric',
+            'type' => 'required'
+        ];
+        
+        $rules_content = [
+            'title' => 'required',
+            'content' => 'required'
+        ];
+        
+        $valid_publication = Validator::make($pub, $rules_publication);
+        //cycle through multiple languages
+        $valid_content = Validator::make($pub_content1, $rules_content);
+        if ($valid_publication->passes())
+        { 
+            if($valid_content->passes()){
+                $publication->save();
+                //cycle through multiple languages
+                $publication_content1->publication_id = $publication->id;
+                $publication_content1->save();
+                foreach($languages_toarray as $lang){
+                    $lang->publication_id = $publication->id;// here*
+                    $lang->save();
+                }
+                //create the constraints in the database
+                foreach ($alert_guidelines as $guideline_id) {
+                     $publication->guidelines()->attach($guideline_id);
+                }
+                foreach ($alert_types as $types_id) {
+                     $publication->eventTypes()->attach($types_id);
+                }
+                foreach ($alert_countries as $country_id) {
+                     $publication->affectedCountries()->attach($country_id);
+                }
+                
+
+                return Redirect::to('/')->with('success', 'Alert was created!');
+            }
+            else
+                return Redirect::back()->withErrors($valid_content)->withInput();
+        }
+        else
+            return Redirect::back()->withErrors($valid_publication)->withInput();      
+    }
+    
+    public function createGuideline() {
+        
+        //create the publication
+        $pub = [
+            'initial_date' => Input::get('guideline-durationfrom'),
+            'final_date' => Input::get('guideline-durationto'),
+            'is_public' => Input::get('guideline-visibility'),
+            'periodic_notification' => 7,
+            'risk' => Input::get('guideline-risk'),
+            'type' => "guideline"
+        ];
+
+        $guideline_alerts = Input::get('guideline-alerts');
+        $guideline_countries = Input::get('guideline-countries');
+        $guideline_types = Input::get('guideline-types');
+
+        $publication = new Publication($pub);
+
+
+        $languages = json_decode(Input::get('alert-languages'), true);
+        $languages_toarray = [];
+
+        //publication content in english
+        $pub_content1 = [
+            'title' => Input::get('guideline-title'),
+            'content' => Input::get('guideline-description'),
+            'language_id' => 1, //language id
+            'publication_id' => null, //defined at insertion in db*
+        ];
+
+        $publication_content1 = new PublicationContent($pub_content1);
+
+        foreach($languages as $key => $lang) {
+            //create the publication content
+            $pub_content = [
+                'title' => Input::get("alert-title".$lang),
+                'content' => Input::get("alert-description".$lang),
+                'language_id' => $lang, //language id
+                'publication_id' => null, //defined at insertion in db*
+            ];
+
+            $publication_content = new PublicationContent($pub_content);
+
+            //array_push($languages_toarray, $publication_content);
+
+            $languages_toarray[$key] = $publication_content;
+        }
+
+        //rules for validator
+        $rules_publication = [
+            'initial_date' => 'required',
+            'final_date' => 'required',
+            'is_public' => 'required',
+            'risk' => 'required|numeric',
+            'type' => 'required'
+        ];
+
+        $rules_content = [
+            'title' => 'required',
+            'content' => 'required'
+        ];
+
+        $valid_publication = Validator::make($pub, $rules_publication);
+        //cycle through multiple languages
+        $valid_content = Validator::make($pub_content1, $rules_content);
+        if ($valid_publication->passes())
+        { 
+            if($valid_content->passes()){
+                $publication->save();
+                //cycle through multiple languages
+                $publication_content1->publication_id = $publication->id;
+                $publication_content1->save();
+                foreach($languages_toarray as $lang){
+                    $lang->publication_id = $publication->id;// here*
+                    $lang->save();
+                }
+                //create the constraints in the database
+                foreach ($guideline_alerts as $alert) {
+                    Publication::find($alert)->guidelines()->attach($publication->id);
+                    
+                }
+                foreach ($guideline_types as $types_id) {
+                    $publication->eventTypes()->attach($types_id);
+                }
+                foreach ($guideline_countries as $country_id) {
+                    $publication->affectedCountries()->attach($country_id);
+                }
+
+
+                return Redirect::to('/')->with('success', 'Alert was created!');
+            }
+            else
+                return Redirect::back()->withErrors($valid_content)->withInput();
+        }
+        else
+            return Redirect::back()->withErrors($valid_publication)->withInput();            
+    }
+        
 	/**
 	 * Queries for publications that go to the homepage are modified here to
 	 * go with a good structure.
