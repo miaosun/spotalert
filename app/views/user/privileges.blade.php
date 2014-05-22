@@ -57,43 +57,55 @@
                     {{ Form::submit(Lang::get('controlpanel.privileges.add')) }}
                 </div>
             </div>
+            <div class="table-wrapper">
+                <table id="privileges-list" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>{{ Lang::get('controlpanel.privileges.department') }}<span></span></th>
+                            <th>{{ Lang::get('controlpanel.privileges.name') }}<span></span></th>
+                            <th>{{ Lang::get('controlpanel.privileges.location') }}<span></span></th>
+                            <th>{{ Lang::get('controlpanel.privileges.member_since') }}<span></span></th>
+                        </tr>
+                    </thead>
 
-            <table id="privileges-list" class="display" cellspacing="0" width="100%">
-                <thead>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+
+                    <tbody>
+                    @foreach ($users_with_permissions as $user_with_permission)
                     <tr>
-                        <th>{{ Lang::get('controlpanel.privileges.department') }}</th>
-                        <th>{{ Lang::get('controlpanel.privileges.name') }}</th>
-                        <th>{{ Lang::get('controlpanel.privileges.location') }}</th>
-                        <th>{{ Lang::get('controlpanel.privileges.member_since') }}</th>
+                        <td>{{$user_with_permission['organization']}}</td>
+                        <td>{{$user_with_permission['firstname']}} {{$user_with_permission['lastname']}}</td>
+                        <td>{{$user_with_permission['city']}}</td>
+                        <td>{{$user_with_permission['created_at']}}</td>
                     </tr>
-                </thead>
-
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </tfoot>
-
-                <tbody>
-                @foreach ($users_with_permissions as $user_with_permission)
-                <tr>
-                    <td>{{$user_with_permission['organization']}}</td>
-                    <td>{{$user_with_permission['firstname']}} {{$user_with_permission['lastname']}}</td>
-                    <td>{{$user_with_permission['city']}}</td>
-                    <td>{{$user_with_permission['created_at']}}</td>
-                </tr>
-                @endforeach
-                </tbody>
-            </table>
-
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
     {{ Form::close() }}
 </div>
 
 {{ HTML::script('assets/js/jquery.dataTables.js') }}
+
+<script>
+    $('document').ready(function()
+    {
+        $('#privileges-list').dataTable( {
+            "paging":   false,
+            "order": [[ 3, "desc" ]],
+            "info":     false,
+            "searching": false
+        });
+    });
+</script>
 
 @stop

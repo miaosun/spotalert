@@ -152,7 +152,7 @@ Route::group(array('before' => 'auth'), function() {
         'uses' => 'UserPanelController@getPrivilegesWithUser'
     ));
 
-    Route::get('/user/privileges', array(
+    Route::get('/user/privileges/update', array(
         'as' => 'update-privileges',
         'uses' => 'UserPanelController@updatePrivileges'
     ));

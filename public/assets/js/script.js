@@ -20,23 +20,6 @@ $('document').ready(function()
         alert('enviou hit sobre o share no facebook para o id:'+id);
     });*/
 
-
-	// Listing of publications
-    $('#publ-list').dataTable( {
-        "paging":   false,
-        "order": [[ 5, "desc" ]],
-        "info":     false,
-        "searching": false
-    } );
-
-    // Listing of users in Privileges Page
-    $('#privileges-list').dataTable( {
-        "paging":   false,
-        "order": [[ 3, "desc" ]],
-        "info":     false,
-        "searching": false
-    } );
-
     // Everything for filtering to work
     filtering();
 

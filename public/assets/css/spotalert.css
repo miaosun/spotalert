@@ -1236,11 +1236,15 @@ div.ajax-loading {
 }
 
 /******************************************************
-*************** USER PANEL - PUBLICATIONS *************
+******* USER PANEL - PUBLICATIONS + PRIVILEGES ********
 *******************************************************/
 
-#publications-up .table-wrapper {
+#publications-up, #privileges .table-wrapper {
     padding: 15px;
+}
+
+#privileges td {
+    padding-left: 50px;
 }
 
 .table-wrapper td:not(:last-child), .table-wrapper thead th:not(:last-child) {
