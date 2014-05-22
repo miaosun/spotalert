@@ -25,6 +25,35 @@ class PublicationController extends BaseController
 
 		return self::makeSimpleAnswer($publications);
 	}
+
+	/**
+	 * Used to get the publications to appear in the user control panel
+	 */
+	public static function getPublicationsForUserPanel()
+	{
+		$stmt = Publication::with(array(
+			'contents',
+			'contents.language',
+			'affectedCountries',
+			'eventTypes',
+			'author'))
+			->orWhere(function($query)
+			{
+				$query->orWhere('user_id', '=', Auth::user()->id);
+				
+				if(Auth::user()->type == 'manager' || Auth::user()->type == 'admin')
+					foreach(Auth::user()->supervised as $user)
+						$query->orWhere('user_id', '=', $user->id);
+			});
+
+		if(!Auth::check() || Auth::user()->type == 'normal')
+			$stmt->where('is_public', '=', true);
+
+		$publications = $stmt->orderBy('risk', 'desc')->get();
+
+		return self::makeSimpleAnswer($publications);
+
+	}
     
     public function showCreateAlert()
     {
@@ -491,6 +520,8 @@ class PublicationController extends BaseController
 		    $json_response['final_date']   = $publication->final_date;
 		    $json_response['risk']         = $publication->risk;
 		    $json_response['type']         = $publication->type;
+		    if(Auth::check() && Auth::user()->type != 'normal')
+		    	$json_response['author']       = $publication->author->username;
 
 		    // Putting the titles in the response
 		    foreach ($publication->contents as $content)

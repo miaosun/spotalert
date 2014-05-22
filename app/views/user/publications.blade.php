@@ -17,7 +17,7 @@
                 <thead>
                     <tr>
                         <th>PUBLICATION</th>
-                        <th>PUBLISHER</th>
+                        <th>AUTHOR</th>
                         <th>AFFECTED COUNTRIES</th>
                         <th>INITIAL DATE</th>
                         <th>FINAL DATE</th>
@@ -41,7 +41,7 @@
             @foreach ($publications as $publication)
                     <tr>
                         <td>{{{$publication['title']}}}</td>
-                        <td>tjiagom</td>
+                        <td>{{{$publication['author']}}}</td>
                         <td>{{{implode(",",$publication['affected_countries'])}}}</td>
                         <td>{{{$publication['initial_date']}}}</td>
                         <td>{{{$publication['final_date']}}}</td>
@@ -54,6 +54,8 @@
 
     </div>
 </div>
+
+{{ HTML::script('assets/js/jquery.dataTables.js') }}
 
 @stop
 
