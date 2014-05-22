@@ -28,53 +28,41 @@ Route::post('/contact', array(
 
 Route::group(array('prefix' => 'publications'), function()
 {
-	// For removing publication
-	Route::post('delete/{publ_id}', array(
+	// For removing publication, it just removes
+	Route::post('/delete/{publ_id}', array(
 		'before' => 'auth.not_normal',
 		'as'     => 'publication-delete',
 		'uses'   => 'PublicationController@deletePublication'
 	))
 	->where('publ_id', '[0-9]+');
 
-	// For the RSS feed
+	// For the RSS feed, it returns a JSON object
 	Route::get('/rss', array(
 		'as'	=> 'publications-rss',
 		'uses'	=> 'PublicationController@getAllPublications'
 	));
 
-	// For searching publications
-	Route::get('/search/{search_query}', array(
-		'as'	=> 'publications-route',
-		function($search_query)
-		{
-			$publications = PublicationController::getSearchedPublications($search_query);
-      		return View::make('includes.publications')->with('publications', $publications);
-		}
+	// For searching publications, it returns the the view
+	//  specific for the publications
+	Route::get('/search/{search_query}/{next_page?}', array(
+		'as'   => 'publications-route',
+		'uses' => 'PublicationController@getSearchedPublications'
 	))
 	->where('search_query', '[A-Za-z0-9\s]+');
 
 	// For filtering
 	// Possible parameters to receive: risks, event_types, affected_countries
 	// In each one, separate the elements by commas
+	// It returns the view specific specific for the publications
 	Route::get('/filter/', array(
-		'as'	=> 'publications-filter',
-		function() 
-		{ 
-			$risks				= Input::get('risks');
-			$event_types 		= Input::get('event_types');
-			$affected_countries	= Input::get('affected_countries');
-      		
-      		if(!isset($risks) || $risks === '')
-      			$risks = NULL;
-      		if(!isset($event_types) || $event_types === '')
-      			$event_types = NULL;
-      		if(!isset($affected_countries) || $affected_countries === '')
-      			$affected_countries = NULL;
+		'as'   => 'publications-filter',
+		'uses' => 'PublicationController@getFilteredPublications'
+	));
 
-
-      		$publications = PublicationController::getFilteredPublications($risks, $event_types, $affected_countries);
-      		return View::make('includes.publications')->with('publications', $publications);
-     	},
+	// Returning the next page
+	Route::get('/next_page/{next_page}', array(
+		'as'   => 'next-page',
+		'uses' => 'PublicationController@getNextPage'
 	));
 });
 /*

@@ -2,6 +2,11 @@
 
 class PublicationController extends BaseController
 {
+	/** Number of publications to initially show in the homepage */
+	private static $initial_publications = 9;
+	/** Number of publications to get in each scroll */
+	private static $scroll_step = 3;
+
 	/**
 	 * It gets all the publications in the database
 	 */
@@ -23,6 +28,62 @@ class PublicationController extends BaseController
 	}
 
 	/**
+	 * It gets some publications in the database 
+	 * (just the initial ones, so it's possible to scroll)
+	 */
+	public static function getInitialPublications()
+	{
+		$stmt = Publication::with(array(
+			'contents',
+			'contents.language',
+			'affectedCountries',
+			'eventTypes')
+			);
+
+		if(!Auth::check() || Auth::user()->type == 'normal')
+			$stmt->where('is_public', '=', true);
+
+		$publications = $stmt->orderBy('risk', 'desc')->get();
+
+		$publications_ini = self::makeSimpleAnswer($publications);
+		$publications = array_slice($publications_ini, 0, self::$initial_publications);
+
+		if(count($publications_ini) > count($publications)) //More publications to see
+      		return View::make('home')->with('publications', $publications)
+      								->with('next_page', 2)
+      								->with('type', 'normal');
+      	else
+      		return View::make('home')->with('publications', $publications);
+	}
+
+	public function getNextPage($next_page)
+	{
+		$stmt = Publication::with(array(
+			'contents',
+			'contents.language',
+			'affectedCountries',
+			'eventTypes')
+			);
+
+		if(!Auth::check() || Auth::user()->type == 'normal')
+			$stmt->where('is_public', '=', true);
+
+		$publications = $stmt->orderBy('risk', 'desc')->get();
+
+		$publications_ini = self::makeSimpleAnswer($publications);
+		$offset           = self::$initial_publications + ($next_page-1)*self::$scroll_step;
+		$publications     = array_slice($publications_ini, $offset, self::$scroll_step);
+
+		if(count($publications_ini) >= $offset + self::$scroll_step) //More publications to see
+      		return View::make('includes.publications')
+      						->with('publications', $publications)
+      						->with('next_page', $next_page+1)
+      						->with('type', 'normal');
+      	else
+      		return View::make('includes.publications')->with('publications', $publications);
+	}
+
+	/**
 	 * It removes a publication with a certain id from the database
 	 */
 	public function deletePublication($publ_id)
@@ -35,7 +96,7 @@ class PublicationController extends BaseController
 	 * It gets all the publications in the database given a certain 
 	 * search text "query"
 	 */
-	public static function getSearchedPublications($search_text)
+	public function getSearchedPublications($search_text, $next_page = 1)
 	{
 		// Search for publications with $search_text within title
 		// and with the website language
@@ -55,23 +116,56 @@ class PublicationController extends BaseController
 
 		$publications = $stmt->orderBy('risk', 'desc')->get();
 
-		return self::makeSimpleAnswer($publications);
+
+		$publications_ini = self::makeSimpleAnswer($publications);
+		$offset           = self::$initial_publications + ($next_page-1)*self::$scroll_step;
+		
+		if($next_page > 1)
+			$publications = array_slice($publications_ini, $offset, self::$scroll_step);
+		else
+			$publications = array_slice($publications_ini, 0, self::$initial_publications);
+
+		if(($next_page > 1 && count($publications_ini) >= $offset + self::$scroll_step) || //More publications to see
+			($next_page == 1 && count($publications_ini) > count($publications)))
+		{
+      		return View::make('includes.publications')
+      						->with('publications', $publications)
+      						->with('next_page', $next_page+1)
+      						->with('type', 'search')
+      						->with('search_text', $search_text);
+      	}
+      	else
+      		return View::make('includes.publications')->with('publications', $publications);
 	}
 
 	/**
 	 * It gets all the publications in the database given some parameters for
 	 * filtering
 	 */
-	public static function getFilteredPublications($risks, $event_types, $affected_countries)
+	public function getFilteredPublications()
 	{	
+		$risks				= Input::get('risks');
+		$event_types 		= Input::get('event_types');
+		$affected_countries	= Input::get('affected_countries');
+		$next_page          = Input::get('next_page');
+  		
+  		if(!isset($risks) || $risks === '')
+  			$risks = NULL;
+  		if(!isset($event_types) || $event_types === '')
+  			$event_types = NULL;
+  		if(!isset($affected_countries) || $affected_countries === '')
+  			$affected_countries = NULL;
+  		if(!isset($next_page) || $next_page === '')
+  			$next_page = 1;
+
 		// If it's all null, we should get all the publications as usual
 		if($risks == NULL && $event_types == NULL && $affected_countries == NULL)
-			return self::getAllPublications();
+			return self::getInitialPublications();
 		else
 		{
-			$risks 				= explode(',', $risks);
-			$event_types 		= explode(',', $event_types);
-			$affected_countries = explode(',', $affected_countries);
+			$risks2 			 = explode(',', $risks);
+			$event_types2 		 = explode(',', $event_types);
+			$affected_countries2 = explode(',', $affected_countries);
 
 			$stmt = Publication::with(array(
 			'contents',
@@ -79,23 +173,23 @@ class PublicationController extends BaseController
 			'affectedCountries',
 			'eventTypes')
 			)
-			->where(function($query) use($risks, $event_types, $affected_countries)
+			->where(function($query) use($risks2, $event_types2, $affected_countries2)
             {
             	//Risk information
-            	foreach ($risks as $risk)
+            	foreach ($risks2 as $risk)
             		if(ctype_digit($risk)) // Just integer risks are accepted
             			$query->orWhere('risk', '=', $risk);
 
             	// Event types information
             	// Just do orWhereHas() if there is corrected elements
-	            foreach ($event_types as $key => $event)
+	            foreach ($event_types2 as $key => $event)
 	            	if($event)
 	            	{
-	            		$query->orWhereHas('eventTypes', function($query) use($event_types)
+	            		$query->orWhereHas('eventTypes', function($query) use($event_types2)
 			            {
-			            	$query->where(function($query) use($event_types)
+			            	$query->where(function($query) use($event_types2)
 			            	{
-				            	foreach ($event_types as $event)
+				            	foreach ($event_types2 as $event)
 				            		if($event)
 				            			$query->orWhere('name', '=', $event);
 				            });
@@ -103,18 +197,18 @@ class PublicationController extends BaseController
 			            break;
 	            	}
 	            	else
-	            		unset($event_types[$key]);
+	            		unset($event_types2[$key]);
 
 	            // Affected countries information
 	            // Just do orWhereHas() if there is corrected elements
-	            foreach ($affected_countries as $key => $country)
+	            foreach ($affected_countries2 as $key => $country)
 	            	if($country)
 	            	{
-	            		$query->orWhereHas('affectedCountries', function($query) use($affected_countries)
+	            		$query->orWhereHas('affectedCountries', function($query) use($affected_countries2)
 			            {
-			            	$query->where(function($query) use($affected_countries)
+			            	$query->where(function($query) use($affected_countries2)
 			            	{
-				            	foreach ($affected_countries as $country)
+				            	foreach ($affected_countries2 as $country)
 				            		if($country)
 				            			$query->orWhere('name', '=', $country);
 				            });
@@ -122,7 +216,7 @@ class PublicationController extends BaseController
 			            break;
 	            	}
 	            	else
-	            		unset($event_types[$key]);
+	            		unset($affected_countries2[$key]);
             });
 
 			if(!Auth::check() || Auth::user()->type == 'normal')
@@ -132,7 +226,27 @@ class PublicationController extends BaseController
 
 			//$l = DB::getQueryLog();
 			//return end($l);
-			return self::makeSimpleAnswer($publications);
+			$publications_ini = self::makeSimpleAnswer($publications);
+			$offset           = self::$initial_publications + ($next_page-1)*self::$scroll_step;
+			
+			if($next_page > 1)
+				$publications = array_slice($publications_ini, $offset, self::$scroll_step);
+			else
+				$publications = array_slice($publications_ini, 0, self::$initial_publications);
+
+			if(($next_page > 1 && count($publications_ini) >= $offset + self::$scroll_step) || //More publications to see
+				($next_page == 1 && count($publications_ini) > count($publications)))
+			{
+	      		return View::make('includes.publications')
+	      						->with('publications', $publications)
+	      						->with('next_page', $next_page+1)
+	      						->with('type', 'filter')
+	      						->with('risks', $risks)
+	      						->with('affected_countries', $affected_countries)
+	      						->with('event_types', $event_types);
+	      	}
+	      	else
+	      		return View::make('includes.publications')->with('publications', $publications);
 		}
 	}
 
