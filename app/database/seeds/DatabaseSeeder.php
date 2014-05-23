@@ -163,6 +163,7 @@ class PublicationsSeeder extends Seeder
 			'is_public'		=> true,
 			'risk'			=> 4,
 			'type'			=> 'guideline',
+			'last_update'   => '2014-05-23',
 			'user_id'       => $admin->id
 		));
 
@@ -214,6 +215,7 @@ class PublicationsSeeder extends Seeder
 			'is_public'		=> true,
 			'risk'			=> 5,
 			'type'			=> 'alert',
+			'last_update'   => '2014-05-23',
 			'user_id'       => $admin->id
 		));
 

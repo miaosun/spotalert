@@ -6,6 +6,8 @@ class PublicationController extends BaseController
 	private static $initial_publications = 9;
 	/** Number of publications to get in each scroll */
 	private static $scroll_step = 3;
+	/** Number of days to consider that a publication is updated */
+	private static $update_interval = 5;
 
 	/**
 	 * It gets all the publications in the database
@@ -547,20 +549,33 @@ class PublicationController extends BaseController
 		    	$json_response['event_types'][$key2] = $eventType->name;
 		    }
 
+		    // See if it is a hidden publication
+		    if(!$publication->is_public)
+		    	$json_response['hidden'] = 1;
+
+
+		    //See if there is an update to do
+		    $today       = new DateTime;
+		    $last_update = DateTime::createFromFormat('Y-m-d', $publication->last_update);
+		    if($last_update)
+		    	if($last_update->add(new DateInterval('P'.self::$update_interval.'D')) >= $today)
+		    		$json_response['updated'] = 1;
+
 		    //Decide if goes to the first or to the second array
 		    $ini_date = DateTime::createFromFormat('Y-m-d', $publication->initial_date);
 		    $fin_date = DateTime::createFromFormat('Y-m-d', $publication->final_date);
-		    $today    = new DateTime;
 		    
 		    if($ini_date)
 		    	if($ini_date > $today)
 		    	{
+		    		$json_response['inactive'] = 1;
 		    		array_push($second_array, $json_response);
 		    		continue;
 		    	}
 		    if($fin_date)
 		    	if($fin_date < $today)
 		    	{
+		    		$json_response['inactive'] = '1';
 		    		array_push($second_array, $json_response);
 		    		continue;
 		    	}

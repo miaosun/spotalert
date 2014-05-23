@@ -174,7 +174,7 @@ button#search-glass {
 }
 
 .arrow_white{
-	background-color:#ED1C24;
+	background-color: transparent;
 	color:white;
 	border:0;
 	font-size:1.2em;	
@@ -189,7 +189,7 @@ button#search-glass {
 }
 
 .btn_white{
-	background-color:#ED1C24; 
+	background-color: transparent; 
 	color:white;
 	border:0;
 	font-size:1.2em;
@@ -205,7 +205,7 @@ button#search-glass {
 /* |||||||||||||   ALERTS AND  GUIDELINES   GENERAL SETTINGS  ||||||||||||||||||||||||||*/
 /****************************************************************************************/
 
-.publication-alert, .publication-guideline{
+.publication-alert, .publication-guideline {
 	-webkit-border-radius:35px;
 	-moz-border-radius:35px;
 	border-radius:35px;
@@ -213,21 +213,80 @@ button#search-glass {
 	outline-offset:15px;
 	text-align:center;
 	margin-bottom:3%;
-	padding-top:1%;
+	padding-top:5%;
 }
 
 .publication-alert.publ-risk1, 
 .publication-alert.publ-risk2,
 .publication-alert.publ-risk3, 
-.publication-alert.publ-risk4{
-    background-color:white;
+.publication-alert.publ-risk4 {
+    background-color: white;
 }
+
+.publication-alert.publ-risk1.inactive, 
+.publication-alert.publ-risk2.inactive,
+.publication-alert.publ-risk3.inactive, 
+.publication-alert.publ-risk4.inactive,
+.publication-guideline.inactive {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.publ-info {
+    width: 22.5%;
+    height: 20px;
+    margin-left: 5%;
+    margin-top: -20px;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomright: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-size: 10px;
+    padding-top: 5px;
+    font-weight: bold;
+}
+
+.publ-info.upd-white {
+    background-color: white;
+    color: #BF2333;
+}
+
+.publ-info.upd-red {
+    background-color: #BF2333;
+    color: white;
+}
+
+.publ-info.publ-inactive {
+    color: #666666;
+}
+
+.inactive .publ_header,
+.inactive hr,
+.inactive .publ_body,
+.inactive .publ_footer,
+.inactive a
+ {
+    opacity:0.3;
+    filter:alpha(opacity=30); /* For IE8 and earlier */
+}
+
+.publication-alert.publ-risk5.inactive {
+    background-color: rgba(237, 28, 36, 0.3);
+}
+
+.publ-info.publ-hidden {
+    background-color: black;
+    color: white;
+}
+
 /***************************************************************************************/
 /* |||||||||||||||||||||||||||   ALERT LEVEL 5  |||||||||||||||||||||||||||||||||||||||*/
 /****************************************************************************************/
 .publication-alert.publ-risk5{
 
 	background-color: #ED1C24;
+    #ED1C24
 }
 
 .publication-alert.publ-risk5 .publ-type{
@@ -367,7 +426,6 @@ button#search-glass {
     display: inline;
 }
 
-<<<<<<< HEAD
 .content {
     width: 90%;
     margin: auto;
@@ -491,7 +549,7 @@ label {
 .publication-guideline{
 	background-color:white;
     margin-bottom:1%;
-    padding-top:1%;
+    padding-top:5%;
 }
 
 .publication-guideline .publ-risk{
@@ -523,7 +581,7 @@ label {
 
 
 .publication-guideline > hr{ /*COR DAS LINHAS*/
-    width:80%;
+    width:90%;
     border-color:#CCCCCC;
 }
 

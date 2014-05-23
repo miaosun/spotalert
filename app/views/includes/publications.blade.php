@@ -10,7 +10,7 @@
 	<div class="row row-publ">
 	@endif
 		<div class="col-md-4">
-			<div class="col-md-12 col-sm-12 publication-{{{$publication['type']}}} publ-risk{{{$publication['risk']}}}"
+			<div class="{{(isset($publication['inactive'])) ? 'inactive' : ''}} col-md-12 col-sm-12 publication-{{{$publication['type']}}} publ-risk{{{$publication['risk']}}}"
 				id="publ-{{ $publication['id'] }}">
 				
 				<div class="publ_header">
@@ -56,6 +56,16 @@
 				</div>
 
 				<hr>
+				@if(isset($publication['hidden']))
+					<div class="publ-info publ-hidden">!! HIDDEN !!</div>
+				@elseif(isset($publication['inactive']))
+					<div class="publ-info publ-inactive">INACTIVE</div>
+				@elseif(isset($publication['updated']) && $publication['risk'] >=5 && $publication['type'] == 'alert')
+					<div class="publ-info upd-white">UPDATED</div>
+				@elseif(isset($publication['updated']))
+					<div class="publ-info upd-red">UPDATED</div>
+				@endif
+
 				<!-- facebook -->
 		        <a href="https://www.facebook.com/sharer/sharer.php?u={http://spotalert.fe.up.pt/publication/{{{$publication['id']}}}"
 		   onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');shareFacebook({{{$publication['id']}}});return false;"
