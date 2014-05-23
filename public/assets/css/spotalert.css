@@ -453,6 +453,7 @@ button#search-glass {
     text-align: left;
     padding-left: 5%;
     font-size: 10px;
+    text-transform: none;
 }
 .publ-content h1{
     color: inherit;
