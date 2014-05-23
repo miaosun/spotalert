@@ -286,7 +286,6 @@ button#search-glass {
 .publication-alert.publ-risk5{
 
 	background-color: #ED1C24;
-    #ED1C24
 }
 
 .publication-alert.publ-risk5 .publ-type{
@@ -861,7 +860,6 @@ div.ajax-loading {
     text-indent:15px;
     text-align:justify;
     font-size:12px;
-    border: none;
     white-space: normal;
     word-break: break-all;
 
@@ -1189,24 +1187,21 @@ div.ajax-loading {
 
 
 /******************************************************
-************************ CONTACT **********************
+********************* GENERAL PANEL *******************
 *******************************************************/
 
-#contact{
+.general_panel{
     background-color: white;
-
     border: 2px solid #BF2333;
-
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
     border-radius: 25px;
-
     margin-top: 3%;
     margin-bottom: 3%;
 }
 
 
-#contact h1{
+.general_panel h1{
     background-color:#BF2333;
     color: white;
     margin: 0px 0px 2% 0px;
@@ -1215,66 +1210,83 @@ div.ajax-loading {
     font-size:  1.1em;
 }
 
-#contact label{
+.general_panel label{
     color:#BF2333;
     text-transform: uppercase;
     font-size:  0.9em;
 }
-#contact #mand_field{
+.general_panel #mand_field{
     font-size: 9px;
 }
 
-#contact textarea {
+.general_panel textarea {
     text-indent:15px;
     text-align:justify;
     font-size:12px;
     white-space: normal;
     word-break: break-all;
     border-color:2px #a9a9a9;
-    margin-left:8px;
     margin-top:5px; 
+    max-width: 100%;
 }
 
-#contact p {
+.general_panel p {
     font-size: 13px;
     color:#BF2333;
 }
 
-#contact h5 {
+.general_panel h5 {
     color:#BF2333;
+    font-weight: 700;
+    margin-bottom: 0px;
 }
 
-#contact #moveright {
+.general_panel h5 span {
+    color: #666666;
+
+}
+
+.general_panel #moveright {
     left: 15px;
 }
 
-#contact input {
+.general_panel input {
     border: 0px;
     border-bottom: 1px dashed  #BF2333;
     margin-bottom: 1px;
     
 }
 
-#contact input[type=submit] {
+.general_panel input[type=submit] {
     width: 70%;
     border: 0px;
     margin: 5% 5% 5% 0%;
     background-color: #BF2333;
     color: white;
-	-webkit-border-radius: 25px;
+    -webkit-border-radius: 25px;
     -moz--topright: 25px;
     border-radius: 25px;
     margin-left:11px;
 }
 
-#contact span {
+.general_panel span {
     font-size:12px;
     color:red;
 }
 
-#contact span {
+.general_panel span {
     font-size:12px;
     color:red;
+}
+
+/*****-- Contact detail */
+#contact.general_panel textarea {
+    margin-left:8px;
+}
+
+/*****-- Eyewitnesses details */
+#eyewitness.general_panel textarea#title {
+    max-height: 50px;
 }
 
 /******************************************************

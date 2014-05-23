@@ -57,13 +57,13 @@
 
 				<hr>
 				@if(isset($publication['hidden']))
-					<div class="publ-info publ-hidden">!! HIDDEN !!</div>
+					<div class="publ-info publ-hidden">{{Lang::get('home.publications.hidden')}}</div>
 				@elseif(isset($publication['inactive']))
-					<div class="publ-info publ-inactive">INACTIVE</div>
+					<div class="publ-info publ-inactive">{{Lang::get('home.publications.inactive')}}</div>
 				@elseif(isset($publication['updated']) && $publication['risk'] >=5 && $publication['type'] == 'alert')
-					<div class="publ-info upd-white">UPDATED</div>
+					<div class="publ-info upd-white">{{Lang::get('home.publications.updated')}}</div>
 				@elseif(isset($publication['updated']))
-					<div class="publ-info upd-red">UPDATED</div>
+					<div class="publ-info upd-red">{{Lang::get('home.publications.updated')}}</div>
 				@endif
 
 				<!-- facebook -->

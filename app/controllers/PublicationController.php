@@ -575,7 +575,7 @@ class PublicationController extends BaseController
 		    if($fin_date)
 		    	if($fin_date < $today)
 		    	{
-		    		$json_response['inactive'] = '1';
+		    		$json_response['inactive'] = 1;
 		    		array_push($second_array, $json_response);
 		    		continue;
 		    	}

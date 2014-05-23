@@ -4,10 +4,10 @@ return array(
 
     /*
     |--------------------------------------------------------------------------
-    | Homepage Language Strings
+    | Register Language Strings
     |--------------------------------------------------------------------------
     |
-    | The following language lines contain all strings used in homepage view
+    | The following language lines contain all strings used in register view
     |
     */
 
