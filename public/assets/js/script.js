@@ -7,7 +7,6 @@ $('document').ready(function()
 	$('.dropdown-menu').click(function(e) {
         e.stopPropagation();
     });
-    
     // Everything for filtering to work
     filtering();
 
@@ -98,12 +97,12 @@ function filtering()
 					$('#main').html(nothing_returned_message);
 				else
 			    	$('#main').html(data);
-			    
 			    // Infinite scrolling
 			    $('.scroll').jscroll(
 			    {
 			    	nextSelector: 'a.jscroll-next:last'
 			    });
+                // reload click on btns
                 setupBtnPublication();
 			})
 			.fail(function() 
@@ -188,11 +187,13 @@ function searching()
 						$('#main').html(nothing_returned_message);
 					else
 				    	$('#main').html(data);
+
 				    // Infinite scrolling
 				    $('.scroll').jscroll(
 				    {
 				    	nextSelector: 'a.jscroll-next:last'
 				    });
+
                     setupBtnPublication();
 				})
 				.fail(function() 

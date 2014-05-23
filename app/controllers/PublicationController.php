@@ -75,7 +75,6 @@ class PublicationController extends BaseController
 		return Response::json($answer);
         //return Response::json($publications);
 	}
-
 	/**
 	 * Used to get the publications to appear in the user control panel
 	 */
