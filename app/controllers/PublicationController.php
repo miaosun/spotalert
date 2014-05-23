@@ -32,39 +32,40 @@ class PublicationController extends BaseController
 	 */
 	public static function getPublicationExpandableContentByID($publ_id)
 	{
-        //TODO filtrar comentarios e publicações por lingua
-		/*
-        $publications = Publication::with(array('alerts','guidelines','comments','contents'))
-        ->with(array('contents' => function($query) { $query->language()->where('code','=','EN');}))
-        ->where('id','=', $publ_id)
-        ->get();
-        */
-        $publications = Publication::find($publ_id);
+        // load publication
+        $publication = Publication::find($publ_id);
         
-        $answer = array('id' => $publications->id,
-                        'title' => $publications->contents()->first()->title,
-                        'content' => $publications->contents()->first()->content,
-                        'pubLinked' =>array(),
-                        'comments' => array()
-                       );
-        if(!$publications->alerts->isEmpty())
+        $langCode = Config::get('database.website_language_code');
+        // check for language on
+        $language = Language::where("code","=",$langCode)->first();
+        
+        // load publication content in the language selected
+        $content = $language->publicationContents()->where('publication_id','=',$publ_id)->first();
+        
+        $answer = array('id' => $publication->id,
+                                'title' => $content->title,
+                                'content' => $content->content,
+                                'pubLinked' =>array(),
+                                'comments' => array()
+                               );
+        if(!$publication->alerts->isEmpty())
         {
-            foreach($publications->alerts as $alert)
-                $answer['pubLinked'][] = array('id'=> $alert->id,
-                                           'title' => $alert->contents()->first()->title 
+            foreach($publication->alerts as $alert)
+                    $answer['pubLinked'][] = array('id'=> $alert->id,
+                                           'title' =>$language->publicationContents()->where('publication_id','=',$alert->id)->first()->title
                                           );
         }
-        if(!$publications->guidelines->isEmpty())
+        
+        if(!$publication->guidelines->isEmpty())
         {
-            foreach($publications->alerts as $alert)
-                $answer['pubLinked'][] = array('id'=> $alert->id,
-                                           'title' => $alert->contents()->first()->title 
+                foreach($publication->guidelines as $guidelines)
+                        $answer['pubLinked'][] = array('id'=> $guidelines->id,
+                                           'title' => $language->publicationContents()->where('publication_id','=',$guidelines->id)->first()->title
                                           );
         }
-         if(!$publications->comments->isEmpty())
+         if(!$publication->comments->isEmpty())
         {
-            //TODO preferivel filtar directamente na BD mas esta a dar erro ver mais tarde
-            foreach($publications->comments as $comment)
+            foreach($publication->comments as $comment)
             {
                if($comment->approved)
                     $answer['comments'][] = array('user' => $comment->author()->first()->username,'content' => $comment->content, 'date' =>$comment->created_at);
