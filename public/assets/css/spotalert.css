@@ -174,7 +174,7 @@ button#search-glass {
 }
 
 .arrow_white{
-	background-color:#ED1C24;
+	background-color: transparent;
 	color:white;
 	border:0;
 	font-size:1.2em;	
@@ -189,7 +189,7 @@ button#search-glass {
 }
 
 .btn_white{
-	background-color:#ED1C24; 
+	background-color: transparent; 
 	color:white;
 	border:0;
 	font-size:1.2em;
@@ -205,7 +205,7 @@ button#search-glass {
 /* |||||||||||||   ALERTS AND  GUIDELINES   GENERAL SETTINGS  ||||||||||||||||||||||||||*/
 /****************************************************************************************/
 
-.publication-alert, .publication-guideline{
+.publication-alert, .publication-guideline {
 	-webkit-border-radius:35px;
 	-moz-border-radius:35px;
 	border-radius:35px;
@@ -213,15 +213,73 @@ button#search-glass {
 	outline-offset:15px;
 	text-align:center;
 	margin-bottom:3%;
-	padding-top:1%;
+	padding-top:5%;
 }
 
 .publication-alert.publ-risk1, 
 .publication-alert.publ-risk2,
 .publication-alert.publ-risk3, 
-.publication-alert.publ-risk4{
-    background-color:white;
+.publication-alert.publ-risk4 {
+    background-color: white;
 }
+
+.publication-alert.publ-risk1.inactive, 
+.publication-alert.publ-risk2.inactive,
+.publication-alert.publ-risk3.inactive, 
+.publication-alert.publ-risk4.inactive,
+.publication-guideline.inactive {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.publ-info {
+    width: 22.5%;
+    height: 20px;
+    margin-left: 5%;
+    margin-top: -20px;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomright: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    font-size: 10px;
+    padding-top: 5px;
+    font-weight: bold;
+}
+
+.publ-info.upd-white {
+    background-color: white;
+    color: #BF2333;
+}
+
+.publ-info.upd-red {
+    background-color: #BF2333;
+    color: white;
+}
+
+.publ-info.publ-inactive {
+    color: #666666;
+}
+
+.inactive .publ_header,
+.inactive hr,
+.inactive .publ_body,
+.inactive .publ_footer,
+.inactive a
+ {
+    opacity:0.3;
+    filter:alpha(opacity=30); /* For IE8 and earlier */
+}
+
+.publication-alert.publ-risk5.inactive {
+    background-color: rgba(237, 28, 36, 0.3);
+}
+
+.publ-info.publ-hidden {
+    background-color: black;
+    color: white;
+}
+
 /***************************************************************************************/
 /* |||||||||||||||||||||||||||   ALERT LEVEL 5  |||||||||||||||||||||||||||||||||||||||*/
 /****************************************************************************************/
@@ -366,6 +424,7 @@ button#search-glass {
     font-size:17px;
     display: inline;
 }
+
 .publication-alert.publ-risk1 .publ-countr{
     color:#666666;
     font-weight:normal;
@@ -393,7 +452,7 @@ button#search-glass {
 .publication-guideline{
 	background-color:white;
     margin-bottom:1%;
-    padding-top:1%;
+    padding-top:5%;
 }
 
 .publication-guideline .publ-risk{
@@ -425,7 +484,7 @@ button#search-glass {
 
 
 .publication-guideline > hr{ /*COR DAS LINHAS*/
-    width:80%;
+    width:90%;
     border-color:#CCCCCC;
 }
 
@@ -478,7 +537,7 @@ button#search-glass {
 	margin-left:20px;
 	padding-right:20px;  
 }
-#filt .dropdown-menu div:last-child{
+#filt .dropdown-menu > div:last-child{
 	margin-bottom:8px;
 }
 
@@ -500,15 +559,16 @@ button#search-glass {
     top: 0;
     display:none;
     margin-top: -1px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-left-color: #fff;
-    box-shadow: none;
-    text-align:left;
+    text-align: left;
 
 }
-#filt .filter-opt.filter-eventType{
+
+#filt .filter-opt {
 	margin-left:15px;
+}
+
+#filt .filter-country, #filt .filter-all {
+    text-transform: none;
 }
 
 #filt .filter-opt.selected {
@@ -524,28 +584,11 @@ button#search-glass {
 	color:#CCCCCC;
 	text-align:center;
 }
-/*
-#filt .right-caret:after{
-	border-left: 5px solid #CCCCCC; /// COR DAS SETAS DO TYPE OF EVENT ////
-}*/
-#filt .right-caret:after, 
-#filt .left-caret:after {
-    content:"";
-    border-bottom: 5px solid transparent;
-    border-top: 5px solid transparent;
-    display: inline-block;
-    height: 0;
-    vertical-align: middle;
-    width: 0;
-    margin-left: 5px;
-}
 
-.right-caret:after{
-    border-left: 5px solid #ffaf46;
-}
-
-.left-caret:after{
-    border-right: 5px solid #ffaf46;
+#filt .dropdown-menu > div > a.trigger > span {
+    color: #CCCCCC;
+    float: right;
+    right: 10%;
 }
 
 div.ajax-loading {
@@ -721,7 +764,6 @@ div.ajax-loading {
     text-indent:15px;
     text-align:justify;
     font-size:12px;
-    border: none;
     white-space: normal;
     word-break: break-all;
 
@@ -1051,24 +1093,21 @@ div.ajax-loading {
 
 
 /******************************************************
-************************ CONTACT **********************
+********************* GENERAL PANEL *******************
 *******************************************************/
 
-#contact{
+.general_panel{
     background-color: white;
-
     border: 2px solid #BF2333;
-
     -webkit-border-radius: 25px;
     -moz-border-radius: 25px;
     border-radius: 25px;
-
     margin-top: 3%;
     margin-bottom: 3%;
 }
 
 
-#contact h1{
+.general_panel h1{
     background-color:#BF2333;
     color: white;
     margin: 0px 0px 2% 0px;
@@ -1077,67 +1116,75 @@ div.ajax-loading {
     font-size:  1.1em;
 }
 
-#contact label{
+.general_panel label{
     color:#BF2333;
     text-transform: uppercase;
     font-size:  0.9em;
 }
-#contact #mand_field{
+.general_panel #mand_field{
     font-size: 9px;
 }
 
-#contact textarea {
+.general_panel textarea {
     text-indent:15px;
     text-align:justify;
     font-size:12px;
     white-space: normal;
     word-break: break-all;
     border-color:2px #a9a9a9;
-    margin-left:8px;
     margin-top:5px; 
+    max-width: 100%;
 }
 
-#contact p {
+.general_panel p {
     font-size: 13px;
     color:#BF2333;
 }
 
-#contact h5 {
+.general_panel h5 {
     color:#BF2333;
+    font-weight: 700;
+    margin-bottom: 0px;
 }
 
-#contact #moveright {
+.general_panel h5 span {
+    color: #666666;
+
+}
+
+.general_panel #moveright {
     left: 15px;
 }
 
-#contact input {
+.general_panel input {
     border: 0px;
     border-bottom: 1px dashed  #BF2333;
     margin-bottom: 1px;
     
 }
 
-#contact input[type=submit] {
+.general_panel input[type=submit] {
     width: 70%;
     border: 0px;
     margin: 5% 5% 5% 0%;
     background-color: #BF2333;
     color: white;
-	-webkit-border-radius: 25px;
+    -webkit-border-radius: 25px;
     -moz--topright: 25px;
     border-radius: 25px;
     margin-left:11px;
 }
 
-#contact span {
+.general_panel span {
     font-size:12px;
     color:red;
 }
 
-#contact span {
+.general_panel span {
     font-size:12px;
     color:red;
 }
+
 
 /*****************************************************
 *************** CREATE PUBLICATIONS *************
@@ -1280,3 +1327,74 @@ label {
 *************** USER PANEL - PUBLICATIONS *************
 *******************************************************/
 
+
+/*****-- Contact detail */
+#contact.general_panel textarea {
+    margin-left:8px;
+}
+
+/*****-- Eyewitnesses details */
+#eyewitness.general_panel textarea#title {
+    max-height: 50px;
+}
+
+/******************************************************
+*************** USER PANEL - PUBLICATIONS *************
+*******************************************************/
+
+#publications-up .table-wrapper {
+    padding: 15px;
+}
+
+.table-wrapper td:not(:last-child), .table-wrapper thead th:not(:last-child) {
+    border-right: 1px dashed #BF2333;
+}
+
+.table-wrapper td{
+    padding: 11px 5px;
+}
+
+.table-wrapper thead th {
+    text-align: center;
+    font-size: 16px;
+    color: #BF2333;
+}
+
+.table-wrapper thead th.sorting_desc span {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 13px solid;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-bottom: 4px solid transparent;
+    color: #BF2333 !important;
+}
+
+.table-wrapper thead th.sorting_asc span {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 0;
+    border-right: 8px solid transparent;
+    border-left: 8px solid transparent;
+    border-bottom: 13px solid;
+    color: #BF2333 !important;
+}
+
+.table-wrapper thead th.sorting span {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+    border-bottom: 4px solid;
+    color: #BF2333 !important;
+}

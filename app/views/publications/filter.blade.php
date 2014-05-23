@@ -5,7 +5,7 @@
 <div class="filter-opt filter-risk">{{Lang::get('home.filter.risk_low')}}</div>
     <hr>
 <div>
-    <a class="trigger right-caret">{{Lang::get('home.filter.type')}}</a>
+    <a class="trigger">{{Lang::get('home.filter.type')}}  <span class="glyphicon glyphicon-chevron-right"</span></a>
     <div class="dropdown-menu sub-menu">
         <div>
         @foreach (EventType::all() as $eventType)
@@ -18,7 +18,7 @@
         <hr>
 </div>
 <div>
-    <a class="trigger right-caret">{{Lang::get('home.filter.country')}}</a>
+    <a class="trigger">{{Lang::get('home.filter.country')}} <span class="glyphicon glyphicon-chevron-right"</span></a>
     <div class="dropdown-menu sub-menu">
         <div class="filter-opt filter-all">All countries</div>
         <div style="height:80px;width:218px;" class="scrollable" style="overflow-y: scroll;">

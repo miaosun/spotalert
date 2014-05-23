@@ -19,14 +19,6 @@ $('document').ready(function()
         alert('enviou hit sobre o share no facebook para o id:'+id);
     });*/
 
-	// Listing of publications
-    $('#publ-list').dataTable( {
-        "paging":   false,
-         "order": [[ 5, "desc" ]],
-        "info":     false,
-        "searching": false
-    } );
-
     // Everything for filtering to work
     filtering();
 
@@ -51,11 +43,12 @@ function filtering()
 	{
 		var current     = $(this).next();
 		var grandparent = $(this).parent().parent();
+		var children    = $(this).children();
 
-		if($(this).hasClass('left-caret') || $(this).hasClass('right-caret'))
-			$(this).toggleClass('right-caret left-caret');
+		if(children.hasClass('glyphicon-chevron-right') || children.hasClass('glyphicon-chevron-left'))
+			children.toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
 		
-		grandparent.find('.left-caret').not(this).toggleClass('right-caret left-caret');
+		grandparent.find('.glyphicon-chevron-left').not(children).toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
 		grandparent.find(".sub-menu:visible").not(current).hide();
 		current.toggle();
 		e.stopPropagation();
