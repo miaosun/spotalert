@@ -7,12 +7,17 @@
     <div id="controlpanel" class="col-md-8 col-md-offset-2">
         <div class="row" id="notifications">
             <ul>
-                <!-- FIXME change this for publication before to hide left curve active to selected -->
                 <li><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
                 <li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
+                @if($user->type != 'normal')
                 <li id="before"><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
                 <li id="active"><a href="">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
-                <li><a href="{{ URL::route('user-privileges') }}">{{ Lang::get('controlpanel.menu.privileges') }}</a></li>
+                    @if($user->type == 'publisher')
+                    <li></li>
+                    @elseif($user->type == 'admin' || $user->type == 'manager')
+                    <li><a href="{{ URL::route('user-privileges') }}">{{ Lang::get('controlpanel.menu.privileges') }}</a></li>
+                    @endif
+                @endif
             </ul>
             <h1>{{ Lang::get('controlpanel.comments.title') }}</h1>
 

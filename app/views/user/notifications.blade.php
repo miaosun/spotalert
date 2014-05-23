@@ -8,9 +8,16 @@
             <ul>
                 <li id="before"><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
                 <li id="active">{{ Lang::get('controlpanel.menu.notification') }}</li>
+                @if($user->type != 'normal')
                 <li><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
                 <li><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
+                @if($user->type == 'admin' || $user->type == 'manager')
                 <li><a href="{{ URL::route('user-privileges') }}">{{ Lang::get('controlpanel.menu.privileges') }}</a></li>
+                @else
+                <li></li>
+                @endif
+                @endif
+
             </ul>
             <h1>{{ Lang::get('controlpanel.notifications.title') }}</h1>
 

@@ -10,8 +10,13 @@
                 <li><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
                 <li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
                 <li><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
-                <li id="before"><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
-                <li id="active"> {{ Lang::get('controlpanel.menu.privileges') }}</li>
+                @if($user->type == 'admin' || $user->type == 'manager')
+                    <li id="before"><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
+                    <li id="active"> {{ Lang::get('controlpanel.menu.privileges') }}</li>
+                @else
+                    <li><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
+                @endif
+
             </ul>
             <h1>{{ Lang::get('controlpanel.privileges.title') }}</h1>
 
@@ -42,7 +47,11 @@
                         @if($selected)
                         {{ Form::text('department', $selectedUser->organization, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
                         <span class="glyphicon glyphicon-edit edit_button"></span>
-                        {{ Form::select('permissions', array('placeholder' => Lang::get('controlpanel.privileges.permissions'), 'n' => 'Normal', 'p' => 'Publisher', 'm' => 'Manager'), 'placeholder') }}
+                            @if($user->type == 'admin')
+                            {{ Form::select('permissions', array('placeholder' => Lang::get('controlpanel.privileges.permissions'), 'normal' => 'Normal', 'publisher' => 'Publisher', 'manager' => 'Manager'), $selectedUser->type) }}
+                            @elseif($user->type == 'manager')
+                            {{ Form::select('permissions', array('placeholder' => Lang::get('controlpanel.privileges.permissions'), 'normal' => 'Normal', 'publisher' => 'Publisher'), $selectedUser->type) }}
+                            @endif
                         @else
                         {{ Form::text('department', null, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
                         <span class="glyphicon glyphicon-edit"></span>

@@ -19,21 +19,42 @@ class UserPanelController extends BaseController {
         $users_with_permissions = User::where('type','<>', 'normal')->get();
         if(Input::has('username'))
         {
+            $selectedUser = User::where('username', '=', Input::get("username"))->first();
+            if($selectedUser == null)
+                return Redirect::route('user-privileges')->with('global', 'User not exists, try again!');
             $selected = true;
-            $selectedUser = User::where('username', '=', Input::get("username"))->firstOrFail();
             return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_with_permissions'=>$users_with_permissions));
         }
         else
             return Redirect::route('user-privileges');
-
     }
 
     public function updatePrivileges() {
+
+        //$user_selected = User::where('username','<>', 'normal')->get()
+
+        $validator = Validator::make(Input::all(),
+            array('permission'=> 'required')
+        );
+
+        if($validator->fails()) {
+            return Redirect::route('selectedUser-privileges')
+                -> withErrors($validator);
+        }
+        else
+        {
+            $permission = Input::get('permission');
+
+
+        }
+
+
         return Redirect::route('user-privileges')->with('global', 'Changes made with success!');
     }
 
     // Notifications Page
     public function getNotifications()  {
+        $profile = User::find(Auth::user()->getId());
         $temp = array();
         foreach(PublicationController::getAllPublications() as $publication)
         {
@@ -47,7 +68,7 @@ class UserPanelController extends BaseController {
                                 ->join('publicationContents', 'publicationContents.publication_id', '=', 'publications.id')
                                 ->get(array('publications.id', 'title'));
         //var_dump($user_publications->toArray());
-        return View::make('user.notifications')->with('country_options', $country_options)->with('publication_options', $publication_options)->with('notification_settings', $notification_settings)->with('user_publications', $user_publications);
+        return View::make('user.notifications')->with('country_options', $country_options)->with('publication_options', $publication_options)->with('notification_settings', $notification_settings)->with('user_publications', $user_publications)->with('user', $profile);
     }
 
     public function addCountryRisk() {
@@ -108,19 +129,39 @@ class UserPanelController extends BaseController {
 
     // Comments Page
     public function getComments()  {
-
-        return View::make('user.comments');
+        $profile = User::find(Auth::user()->getId());
+        return View::make('user.comments')->with('user', $profile);
     }
 
     /*  APIs  */
     public function getUsernames() {
-        $usernames_array = User::lists('username');
+        $profile = User::find(Auth::user()->getId());
+        if($profile['type'] == 'admin')
+            $temp = User::where('type', '<>', 'admin')->get();
+        if($profile['type'] == 'manager')
+            $temp = User::where('type', '<>', 'admin')->where('type', '<>', 'manager')->get();
+        $usernames_array = array();
+        foreach($temp as $tem)
+        {
+            $usernames_array[] = $tem['username'];
+        }
         return Response::json($usernames_array);
     }
 
     public function getEmails() {
-        $emails_array = User::lists('email');
-        return Response::json($emails_array);
+       // $emails_array = User::lists('email');
+       // return Response::json($emails_array);
+        $profile = User::find(Auth::user()->getId());
+        if($profile['type'] == 'admin')
+            $temp = User::where('type', '<>', 'admin')->get();
+        if($profile['type'] == 'manager')
+            $temp = User::where('type', '<>', 'admin')->where('type', '<>', 'manager')->get();
+        $usernames_array = array();
+        foreach($temp as $tem)
+        {
+            $usernames_array[] = $tem['email'];
+        }
+        return Response::json($usernames_array);
     }
 
     public function getAges() {
@@ -202,8 +243,9 @@ class UserPanelController extends BaseController {
 
     public function getPublications() 
     {
+        $profile = User::find(Auth::user()->getId());
         $publications = PublicationController::getPublicationsForUserPanel();
-        return View::make('user.publications')->with('publications', $publications);
+        return View::make('user.publications')->with('publications', $publications)->with('user', $profile);
     }
     
 	private function validate() 
