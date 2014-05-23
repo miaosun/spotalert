@@ -20,20 +20,16 @@ class UserPanelController extends BaseController {
         if(Input::has('username'))
         {
             $selected = true;
-            $selectedUser = User::where('username', '=', 'manager1')->firstOrFail();
+            $selectedUser = User::where('username', '=', Input::get("username"))->firstOrFail();
             return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_with_permissions'=>$users_with_permissions));
         }
         else
-        {
-            $selected = false;
-            return View::make('user.privileges' ,array('selected'=>$selected, 'user' => $profile,  'users_with_permissions'=>$users_with_permissions));
-        }
+            return Redirect::route('user-privileges');
+
     }
 
     public function updatePrivileges() {
-
-
-        return View::make('user.privileges');
+        return Redirect::route('user-privileges')->with('global', 'Changes made with success!');
     }
 
     // Notifications Page

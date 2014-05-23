@@ -50,12 +50,11 @@
                         <span class="caret"></span>
                         @endif
                     </div>
-                    {{ Form::close() }}
                 </div>
-
                 <div class="col-md-2 col-md-offset-8">
                     {{ Form::submit(Lang::get('controlpanel.privileges.add')) }}
                 </div>
+                {{ Form::close() }}
             </div>
             <div class="table-wrapper">
                 <table id="privileges-list" class="display" cellspacing="0" width="100%">
