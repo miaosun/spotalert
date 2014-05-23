@@ -1239,21 +1239,20 @@ div.ajax-loading {
 ******* USER PANEL - PUBLICATIONS + PRIVILEGES ********
 *******************************************************/
 
-#publications-up, #privileges .table-wrapper {
+.table-wrapper {
     padding: 15px;
 }
 
-#privileges td {
-    padding-left: 50px;
+.table-wrapper tbody td {
+    text-align: center;
+    font-size: 16px;
+    padding: 11px 5px;
 }
 
 .table-wrapper td:not(:last-child), .table-wrapper thead th:not(:last-child) {
     border-right: 1px dashed #BF2333;
 }
 
-.table-wrapper td{
-    padding: 11px 5px;
-}
 
 .table-wrapper thead th {
     text-align: center;

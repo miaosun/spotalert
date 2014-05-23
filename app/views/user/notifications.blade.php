@@ -1,13 +1,11 @@
 @extends('layouts.default')
 
 @section('content')
-{{ isset($errors) ? $errors : "sem_erros <br>" }}
 
 <div class="container-fluid">
     <div id="controlpanel" class="col-md-8 col-md-offset-2">
         <div class="row" id="notifications">
             <ul>
-                <!-- FIXME change this for publication before to hide left curve active to selected -->
                 <li id="before"><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
                 <li id="active">{{ Lang::get('controlpanel.menu.notification') }}</li>
                 <li><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
@@ -17,13 +15,14 @@
             <h1>{{ Lang::get('controlpanel.notifications.title') }}</h1>
 
             <div class="row">
+                {{ Form::open(array('route' => 'country-risk-notification')) }}
                 <div class="col-md-12 col-md-offset-0">
                     <div class="col-md-2">
                         <h3>{{ Lang::get('controlpanel.notifications.select') }}</h3>
                     </div>
                     <div class="col-md-3 col-md-offset-0 resid-drop">
-                        {{ Form::select('region', $country_options , Input::old('region')) }}
-                        @if($errors->has('region'))
+                        {{ Form::select('country', $country_options , Input::old('country')) }}
+                        @if($errors->has('country'))
                         <br><span>{{ $errors->first('region') }}</span>
                         @endif
                     </div>
@@ -37,40 +36,24 @@
                         {{ Form::submit(Lang::get('controlpanel.notifications.add')) }}
                     </div>
                 </div>
+                {{ Form::close() }}
+            </div>
+            <div class="table-wrapper">
+                <table id="notifiction-list" class="display" cellspacing="0" width="100%">
+                    <tbody>
+                    @foreach ($notification_settings as $notification_setting)
+                    <tr>
+                        <td>{{ $notification_setting['country']['name'] }}</td>
+                        <td>{{ $notification_setting['risk'] }}</td>
+                        <td>X</td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
 
-            <table id="privileges-list" class="display" cellspacing="0" width="100%">
-                <thead>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </thead>
-
-                <tfoot>
-                <tr>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                </tfoot>
-
-                <tbody>
-                <!--foreach ($users_with_permissions as $user_with_permission)-->
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <!--endforeach-->
-                </tbody>
-            </table>
-
             <div class="row">
+                {{ Form::open(array('route' => 'publication-notification')) }}
                 <div class="col-md-12 col-md-offset-0">
                     <div class="col-md-2"></div>
                     <div class="col-md-3 col-md-offset-0 resid-drop">
@@ -84,6 +67,20 @@
                         {{ Form::submit(Lang::get('controlpanel.notifications.add')) }}
                     </div>
                 </div>
+                {{ Form::close() }}
+            </div>
+
+            <div class="table-wrapper">
+                <table id="notifiction-list" class="display" cellspacing="0" width="100%">
+                    <tbody>
+                    @foreach ($user_publications as $user_publication)
+                    <tr>
+                        <td>{{ $user_publication->title }}</td>
+                        <td>X</td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
 
         </div>
@@ -91,6 +88,4 @@
     {{ Form::close() }}
 </div>
 
-{{ HTML::script('scripts/controlpanel.js') }}
-{{ HTML::style('http://cdn.datatables.net/1.10.0/css/jquery.dataTables.css'); }}
 @stop

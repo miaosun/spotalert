@@ -1,6 +1,6 @@
 <?php 
 class UserPanelController extends BaseController {
-	
+
 	/* show the usercontrol panel */
 	public function show() {
 		$profile = User::find(Auth::user()->getId());
@@ -38,9 +38,76 @@ class UserPanelController extends BaseController {
 
     // Notifications Page
     public function getNotifications()  {
+        $temp = array();
+        foreach(PublicationController::getAllPublications() as $publication)
+        {
+            $temp[$publication['id']] = $publication['title'];
+        }
         $country_options = array('' => Lang::get('controlpanel.notifications.country_option')) + Country::lists('name', 'id');
-        $publication_options = array('' => Lang::get('controlpanel.notifications.publication')) + Publication::lists('type', 'id');
-        return View::make('user.notifications')->with('country_options', $country_options)->with('publication_options', $publication_options);
+        $publication_options = array('' => Lang::get('controlpanel.notifications.publication')) + $temp;
+        $notification_settings = NotificationSetting::all();
+        $user_publications = DB::table('publications')
+                                ->join('users_publications', 'users_publications.publication_id', '=', 'publications.id')
+                                ->join('publicationContents', 'publicationContents.publication_id', '=', 'publications.id')
+                                ->get(array('publications.id', 'title'));
+        //var_dump($user_publications->toArray());
+        return View::make('user.notifications')->with('country_options', $country_options)->with('publication_options', $publication_options)->with('notification_settings', $notification_settings)->with('user_publications', $user_publications);
+    }
+
+    public function addCountryRisk() {
+        $validator = Validator::make(Input::all(),
+            array(
+                'country'        => 'required',
+                'minimum_risk'  => 'required',
+            )
+        );
+
+        if($validator->fails()) {
+            return Redirect::route('user-notifications')
+                -> withErrors($validator);
+        }
+        else
+        {
+            $country_id = Input::get('country');
+            $risk_level = Input::get('minimum_risk');
+            $notificationSetting = NotificationSetting::create(array(
+                'country_id'    => $country_id,
+                'risk'          => $risk_level,
+                'user_id'       => Auth::user()->getId()
+            ));
+
+            if($notificationSetting) {
+                return Redirect::route('user-notifications')
+                    -> with('global', 'Notofication for Country and Minimum Risk Level added successfully!');
+            }
+        }
+
+    }
+
+    public function addPublication() {
+        $validator = Validator::make(Input::all(),
+            array(
+                'publication'        => 'required',
+            )
+        );
+
+        if($validator->fails()) {
+            return Redirect::route('user-notifications')
+                -> withErrors($validator)
+                -> withInput();
+        }
+        else
+        {
+            $publication_id = Input::get('publication');
+
+            $user = User::find(Auth::user()->getId());
+            $user->publicationNotifications()->attach($publication_id);
+
+            if($user) {
+                return Redirect::route('user-notifications')
+                    -> with('global', 'Notofication for selected Publication added successfully!');
+            }
+        }
     }
 
     // Comments Page

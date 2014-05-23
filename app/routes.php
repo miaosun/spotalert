@@ -163,6 +163,16 @@ Route::group(array('before' => 'auth'), function() {
         'uses' => 'UserPanelController@getNotifications'
     ));
 
+    Route::post('/user/notifications/addCountryRisk', array(
+        'as' => 'country-risk-notification',
+        'uses' => 'UserPanelController@addCountryRisk'
+    ));
+
+    Route::post('/user/notifications/addPublication', array(
+        'as' => 'publication-notification',
+        'uses' => 'UserPanelController@addPublication'
+    ));
+
     //Comments
     Route::get('/user/comments', array(
         'as' => 'user-comments',

@@ -59,7 +59,7 @@ return array(
     "notifications"              => array(
         "title"             => "USER CONTROL PANEL - NOTIFICATIONS",
         "select"            => "SELECT",
-        "country_option"    => "REGION/COUNTRY",
+        "country_option"    => "COUNTRY",
         "minimum_risk"      => "MINIMUM RISK",
         "add"               => "ADD",
         "publication"      => "PUBLICATION"
