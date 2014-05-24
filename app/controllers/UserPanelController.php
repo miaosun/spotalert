@@ -135,7 +135,15 @@ class UserPanelController extends BaseController {
     // Comments Page
     public function getComments()  {
         $profile = User::find(Auth::user()->getId());
-        return View::make('user.comments')->with('user', $profile);
+        //$publications = PublicationController::getPublicationsForUserPanel();
+
+        $publications = DB::table('publications')
+            ->join('publicationContents', 'publicationContents.publication_id', '=', 'publications.id')
+            ->leftJoin('comments', 'comments.publication_id', '=', 'publications.id')
+            ->leftJoin('users', 'comments.user_id', '=', 'users.id')
+            ->get(array('publications.id', 'publicationContents.title', 'comments.content', 'users.username',  'publications.initial_date', 'publications.risk'));
+
+        return View::make('user.comments')->with('user', $profile)->with('publications', $publications);
     }
 
     /*  APIs  */
@@ -154,8 +162,6 @@ class UserPanelController extends BaseController {
     }
 
     public function getEmails() {
-       // $emails_array = User::lists('email');
-       // return Response::json($emails_array);
         $profile = User::find(Auth::user()->getId());
         if($profile['type'] == 'admin')
             $temp = User::where('type', '<>', 'admin')->get();

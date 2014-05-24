@@ -21,10 +21,32 @@
             </ul>
             <h1>{{ Lang::get('controlpanel.comments.title') }}</h1>
 
-            <div class="row">
-                <div class="col-md-12 col-md-offset-0">
+            <div class="table-wrapper">
+                <table id="publ-list" class="display" cellspacing="0" width="100%">
+                    <thead>
+                    <tr>
+                        <th>{{ Lang::get('controlpanel.comments.publication') }} <span></span></th>
+                        <th>{{ Lang::get('controlpanel.comments.comment') }} <span></span></th>
+                        <th>{{ Lang::get('controlpanel.comments.name') }} <span></span></th>
+                        <th>{{ Lang::get('controlpanel.comments.date') }} <span></span></th>
+                        <th>RISK <span></span></th>
+                        <th></th>
+                    </tr>
+                    </thead>
 
-                </div>
+                    <tbody>
+                    @foreach ($publications as $publication)
+                    <tr>
+                        <td>{{{$publication->title}}}</td>
+                        <td>{{{$publication->content}}}</td>
+                        <td>{{{$publication->username}}}</td>
+                        <td>{{{$publication->initial_date}}}</td>
+                        <td>{{{$publication->risk}}}</td>
+                        <td>Y X</td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                </table>
             </div>
 
         </div>
