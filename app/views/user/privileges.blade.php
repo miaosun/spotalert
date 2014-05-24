@@ -42,15 +42,19 @@
                         <button type="submit" class="glyphicon glyphicon-search" id="username"></button>
                     </div>
                     {{ Form::close() }}
-                    {{ Form::open(array('route' => 'update-privileges')) }}
+                    @if($selected)
+                    {{ Form::open(array('route' => array('update-privileges', $selectedUser->username))) }}
+                    @else
+                    {{ Form::open(array('route' => array('update-privileges', $user->username))) }}
+                    @endif
                     <div class="col-md-4" id='department'>
                         @if($selected)
                         {{ Form::text('department', $selectedUser->organization, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
                         <span class="glyphicon glyphicon-edit edit_button"></span>
                             @if($user->type == 'admin')
-                            {{ Form::select('permissions', array('placeholder' => Lang::get('controlpanel.privileges.permissions'), 'normal' => 'Normal', 'publisher' => 'Publisher', 'manager' => 'Manager'), $selectedUser->type) }}
+                            {{ Form::select('permissions', array('normal' => 'Normal', 'publisher' => 'Publisher', 'manager' => 'Manager'), $selectedUser->type) }}
                             @elseif($user->type == 'manager')
-                            {{ Form::select('permissions', array('placeholder' => Lang::get('controlpanel.privileges.permissions'), 'normal' => 'Normal', 'publisher' => 'Publisher'), $selectedUser->type) }}
+                            {{ Form::select('permissions', array( 'normal' => 'Normal', 'publisher' => 'Publisher'), $selectedUser->type) }}
                             @endif
                         @else
                         {{ Form::text('department', null, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}

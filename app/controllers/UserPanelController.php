@@ -17,9 +17,13 @@ class UserPanelController extends BaseController {
     public function getPrivilegesWithUser() {
         $profile = User::find(Auth::user()->getId());
         $users_with_permissions = User::where('type','<>', 'normal')->get();
-        if(Input::has('username'))
+
+        if(Input::has('username') || Input::has('email'))
         {
-            $selectedUser = User::where('username', '=', Input::get("username"))->first();
+            if(Input::has('username'))
+                $selectedUser = User::where('username', '=', Input::get("username"))->first();
+            if(Input::has('email'))
+                $selectedUser = User::where('email', '=', Input::get("email"))->first();
             if($selectedUser == null)
                 return Redirect::route('user-privileges')->with('global', 'User not exists, try again!');
             $selected = true;
@@ -29,25 +33,13 @@ class UserPanelController extends BaseController {
             return Redirect::route('user-privileges');
     }
 
-    public function updatePrivileges() {
+    public function updatePrivileges($username) {
+        //Have to select a user (click search button, go to route('selectedUser->privileges') first
+        $profile = User::find(Auth::user()->getId());
+        if($profile->username == $username)
+            return Redirect::route('user-privileges')->with('global', 'Change failed! Select a user first!');
 
-        //$user_selected = User::where('username','<>', 'normal')->get()
-
-        $validator = Validator::make(Input::all(),
-            array('permission'=> 'required')
-        );
-
-        if($validator->fails()) {
-            return Redirect::route('selectedUser-privileges')
-                -> withErrors($validator);
-        }
-        else
-        {
-            $permission = Input::get('permission');
-
-
-        }
-
+        DB::update('update users set type = ? where username = ?', array(Input::get('permissions'), $username));
 
         return Redirect::route('user-privileges')->with('global', 'Changes made with success!');
     }
