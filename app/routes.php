@@ -185,6 +185,16 @@ Route::group(array('before' => 'auth'), function() {
         'uses' => 'UserPanelController@addPublication'
     ));
 
+    Route::get('/user/notifications/deleteNot/{id}', array(
+        'as' => 'notification-delete',
+        'uses' => 'UserPanelController@deleteNotification'
+    ));
+
+    Route::get('/user/notifications/deletePub/{id}', array(
+        'as' => 'publication-delete',
+        'uses' => 'UserPanelController@deletePublication'
+    ));
+
     //Comments
     Route::get('/user/comments', array(
         'as' => 'user-comments',

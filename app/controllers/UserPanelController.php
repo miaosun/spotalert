@@ -59,8 +59,21 @@ class UserPanelController extends BaseController {
                                 ->join('users_publications', 'users_publications.publication_id', '=', 'publications.id')
                                 ->join('publicationContents', 'publicationContents.publication_id', '=', 'publications.id')
                                 ->get(array('publications.id', 'title'));
-        //var_dump($user_publications->toArray());
+
         return View::make('user.notifications')->with('country_options', $country_options)->with('publication_options', $publication_options)->with('notification_settings', $notification_settings)->with('user_publications', $user_publications)->with('user', $profile);
+    }
+
+    public function deleteNotification($id)
+    {
+        NotificationSetting::find($id)->delete();
+        return Redirect::route('user-notifications')->with('global', 'Notification Setting deleted successfully!');
+    }
+
+    public function deletePublication($id)
+    {
+        $user = User::find(Auth::user()->getId());
+        $user->publicationNotifications()->detach($id);
+        return Redirect::route('user-notifications')->with('global', 'Notification for selected Publication deleted successfully!');
     }
 
     public function addCountryRisk() {

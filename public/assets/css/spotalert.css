@@ -1513,3 +1513,22 @@ label {
     border-bottom: 4px solid;
     color: #BF2333 !important;
 }
+
+/******************************************************
+************* USER PANEL - NOTIFICATIONS **************
+*******************************************************/
+
+#notifications .country_risk {
+    padding: 10px;
+    font-size: 16px;
+
+}
+
+#notifications .country_risk:not(:last-child) {
+    border-right: 1px dashed #BF2333;
+}
+
+#notifications #delete a {
+    color: #BF2333;
+    font-size: 23px;
+}

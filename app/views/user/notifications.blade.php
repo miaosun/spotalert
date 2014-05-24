@@ -45,19 +45,20 @@
                 </div>
                 {{ Form::close() }}
             </div>
-            <div class="table-wrapper">
-                <table id="notifiction-list" class="display" cellspacing="0" width="100%">
-                    <tbody>
-                    @foreach ($notification_settings as $notification_setting)
-                    <tr>
-                        <td>{{ $notification_setting['country']['name'] }}</td>
-                        <td>{{ $notification_setting['risk'] }}</td>
-                        <td>X</td>
-                    </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+
+            @foreach ($notification_settings as $notification_setting)
+            <div class="col-md-12 country_risk">
+                <div class="col-md-4 col-md-offset-2">
+                    {{ $notification_setting['country']['name'] }}
+                </div>
+                <div class="col-md-3">
+                    {{ $notification_setting['risk'] }}
+                </div>
+                <div class="col-md-3" id="delete">
+                    <a href="{{ URL::route('notification-delete', $notification_setting['id'])}}">X</a>
+                </div>
             </div>
+            @endforeach
 
             <div class="row">
                 {{ Form::open(array('route' => 'publication-notification')) }}
@@ -77,22 +78,18 @@
                 {{ Form::close() }}
             </div>
 
-            <div class="table-wrapper">
-                <table id="notifiction-list" class="display" cellspacing="0" width="100%">
-                    <tbody>
-                    @foreach ($user_publications as $user_publication)
-                    <tr>
-                        <td>{{ $user_publication->title }}</td>
-                        <td>X</td>
-                    </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+            @foreach ($user_publications as $user_publication)
+            <div class="col-md-12 country_risk">
+                <div class="col-md-7 col-md-offset-2">
+                    {{ $user_publication->title }}
+                </div>
+                <div class="col-md-3" id="delete">
+                    <a href="{{ URL::route('publication-delete', $user_publication->id)}}">X</a>
+                </div>
             </div>
-
+            @endforeach
         </div>
     </div>
-    {{ Form::close() }}
 </div>
 
 @stop
