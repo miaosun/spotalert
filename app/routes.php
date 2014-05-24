@@ -26,6 +26,12 @@ Route::post('/contact', array(
     'uses' => 'HomeController@sendContact'
 ));
 
+// Eyewitness page
+Route::get('/eyewitness', array(
+    'as' => 'eyewitness',
+    'uses' => 'EyewitnessController@showEyewitnessCreation'
+));
+
 Route::group(array('prefix' => 'publications'), function()
 {
     // For removing publication, it just removes
@@ -120,6 +126,12 @@ Route::group(array('before' => 'auth'), function() {
             'as' => 'account-change-password-post',
             'uses' => 'AccountController@postChangePassword'
         ));
+
+        // Create Eyewitness (POST)
+        Route::post('/create-eyewitness', array(
+            'as' => 'create-eyewitness',
+            'uses' => 'EyewitnessController@createEyewitness'
+        ));
     });
 
     // change password (GET)
@@ -195,8 +207,6 @@ Route::group(array('before' => 'auth'), function() {
         'as' => 'update-user-password',
         'uses' => 'UserPanelController@updatepassword'
     ));
-
-
 });
 
 
