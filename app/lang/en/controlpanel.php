@@ -33,7 +33,7 @@ return array(
 		"agerange" => "AGE RANGE",
 		"email" => "EMAIL",
 		"phone" => "PHONE NUMBER",
-		"address" => "address",
+		"address" => "ADDRESS",
 		"date" => "MEMBER SINCE",
 		"organization" => "ORGANIZATION",
 		"okbutton" => "OK"

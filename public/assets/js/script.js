@@ -8,18 +8,6 @@ $('document').ready(function()
         e.stopPropagation();
     });
 
-
-    /*FB.Event.subscribe('edge.create', function(targetUrl) {
-        ga('send', {
-          'hitType': 'social',
-          'socialNetwork': 'facebook',
-          'socialAction': 'share',
-          'socialTarget': 'http://spotalert.fe.up.pt',
-          'page': '/publication/'+id
-            });
-        alert('enviou hit sobre o share no facebook para o id:'+id);
-    });*/
-
     // Everything for filtering to work
     filtering();
 
@@ -34,6 +22,9 @@ $('document').ready(function()
     {
     	nextSelector: 'a.jscroll-next:last'
     });
+    
+    // setting up expand buttons for publication
+    setupBtnPublication();
 });
 
 
@@ -107,12 +98,13 @@ function filtering()
 					$('#main').html(nothing_returned_message);
 				else
 			    	$('#main').html(data);
-			    
 			    // Infinite scrolling
 			    $('.scroll').jscroll(
 			    {
 			    	nextSelector: 'a.jscroll-next:last'
 			    });
+                // reload click on btns
+                setupBtnPublication();
 			})
 			.fail(function() 
 			{
@@ -196,11 +188,14 @@ function searching()
 						$('#main').html(nothing_returned_message);
 					else
 				    	$('#main').html(data);
+
 				    // Infinite scrolling
 				    $('.scroll').jscroll(
 				    {
 				    	nextSelector: 'a.jscroll-next:last'
 				    });
+
+                    setupBtnPublication();
 				})
 				.fail(function() 
 				{
@@ -209,6 +204,98 @@ function searching()
 				});
 		}
 	});
+}
+
+/**
+* Get publication content by ajax
+**/
+function getPublicationContent(id)
+{
+	var btn = $('#publ-'+id+' .publ-expand');
+	if(btn.hasClass('publ-ajax-loaded'))
+		togglePubBtn(id);
+	else
+	{
+	    jQuery.getJSON("/publications/content/"+id,function(data){
+	        // fill description
+	        $('#publ-'+id+' .publ-content p').html(data.content);
+	        // fill linked publications
+	        if(data.pubLinked.length == 0)
+	            $('#publ-'+id+' .publ-linked').remove();
+	        else
+	        {
+	            var links = "";
+	            for(var i = 0; i < data.pubLinked.length ; i++){
+	                links = links + "<p><a href='publication/"+id+"'>"+data.pubLinked[i].title+"</a>";
+	            }
+	            $('#publ-'+id+' .publ-content .publ-linked-toggle').html(links);
+	        }
+	        // fill comments 
+	        if(data.comments.length == 0)
+	            $('#publ-'+id+' .publ-comments').remove();
+	        else
+	        {
+	            //TODO insert number of comments
+	            var links = "";
+	            for(var i = 0; i < data.comments.length ; i++){
+	                if(i != 0)
+	                    links = links +"<hr>"
+	                links = links +
+	                    "<div class='comments'>\
+	                    <p class='comments-content'>"+data.comments[i].content+"</p>\
+	                    <p class='comments-info'>"+data.comments[i].user+" - "+data.comments[i].date.date+"</p>\
+	                    </div>";
+	            }
+	            //alert(links);
+	            $('#publ-'+id+' .publ-content .publ-comments-toggle').html(links);
+	        }
+	        // change btn to toggle only
+	        btn.addClass('publ-ajax-loaded');
+	        // show content
+	        togglePubBtn(id);
+	    });
+	}
+}
+// toggle expansion btn
+function togglePubBtn(id)
+{
+    var btn = $('#publ-'+id+' .publ-expand');
+    btn.toggleClass("glyphicon-chevron-down");
+    btn.toggleClass("glyphicon-chevron-up");
+    $('#publ-'+id+' .publ-colapse').toggle();
+}
+// toggle linked div and arrow
+function toggleLinkedBtn(id)
+{
+    var btn = $('#publ-'+id+' .publ-linked-toggle-btn');
+    btn.toggleClass("glyphicon-chevron-right");
+    btn.toggleClass("glyphicon-chevron-down");
+    $('#publ-'+id+' .publ-linked-toggle').toggle();
+    
+}
+// toggle comments div and arrow
+function toggleCommentsBtn(id)
+{
+    var btn = $('#publ-'+id+' .publ-comments-toggle-btn');
+    btn.toggleClass("glyphicon-chevron-right");
+    btn.toggleClass("glyphicon-chevron-down");
+    $('#publ-'+id+' .publ-comments-toggle').toggle();
+    
+}
+// setup btn to expand and load updated data missing
+function setupBtnPublication(){
+    $('div#main').on('click', '.publ-expand', function(){
+        var id = $(this).attr('publicationid');
+        getPublicationContent(id);
+    });
+    $('div#main').on('click', '.publ-linked-toggle-btn', function(){
+        var id = $(this).attr('publicationid');
+        toggleLinkedBtn(id);
+    });
+    $('div#main').on('click', '.publ-comments-toggle-btn', function(){
+        var id = $(this).attr('publicationid');
+        toggleCommentsBtn(id);
+    });
 }
 
 /**
@@ -223,7 +310,7 @@ function shareFacebook(id){
   'socialTarget': 'http://spotalert.fe.up.pt',
   'page': '/publication/'+id
     });
-    alert('enviou hit sobre o share no facebook para o id:'+id);
+    //alert('enviou hit sobre o share no facebook para o id:'+id);
 }
 // Send hit to google analytics for a Twitter tweet
 function shareTwitter(id){
@@ -233,15 +320,15 @@ function shareTwitter(id){
   'socialAction': 'tweet',
   'socialTarget': 'http://spotalert.fe.up.pt/publication/'+id
     });
-    alert('enviou hit sobre o share no twitter para o id:'+id);
+    //alert('enviou hit sobre o share no twitter para o id:'+id);
 }
 // Send hit to google analytics for a google share 
 function shareGoogle(id){
     var a = ga('send','social','google','shareplus','http://spotalert.fe.up.pt','/publication/'+id);
-     alert('enviou hit sobre o share no google para o id:'+id);
+     //alert('enviou hit sobre o share no google para o id:'+id);
 }
 // Send hit to google analytics for a linkdIn share
-function shareGoogle(id){
-    var a = ga('send','social','google','shareplus','http://spotalert.fe.up.pt','/publication/'+id);
-     alert('enviou hit sobre o share no google para o id:'+id);
+function shareLinkdIn(id){
+    var a = ga('send','social','Linkdin','share','http://spotalert.fe.up.pt','/publication/'+id);
+     //alert('enviou hit sobre o share no linkdIn para o id:'+id);
 }

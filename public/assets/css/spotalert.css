@@ -229,7 +229,7 @@ button#search-glass {
 .publication-alert.publ-risk3.inactive, 
 .publication-alert.publ-risk4.inactive,
 .publication-guideline.inactive {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .publ-info {
@@ -268,12 +268,12 @@ button#search-glass {
 .inactive .publ_footer,
 .inactive a
  {
-    opacity:0.3;
-    filter:alpha(opacity=30); /* For IE8 and earlier */
+    opacity:0.5;
+    filter:alpha(opacity=50); /* For IE8 and earlier */
 }
 
 .publication-alert.publ-risk5.inactive {
-    background-color: rgba(237, 28, 36, 0.3);
+    background-color: rgba(237, 28, 36, 0.5);
 }
 
 .publ-info.publ-hidden {
@@ -287,6 +287,7 @@ button#search-glass {
 .publication-alert.publ-risk5{
 
 	background-color: #ED1C24;
+    color:white;
 }
 
 .publication-alert.publ-risk5 .publ-type{
@@ -426,101 +427,6 @@ button#search-glass {
     display: inline;
 }
 
-.content {
-    width: 90%;
-    margin: auto;
-}
-
-#alert-tabs {
-    position: relative;
-    width: 60%;
-}
-
-#languages_tabs {
-    position: relative;
-    display: block;
-    margin: 10px;
-    padding-bottom: 5px;
-    width: 100%;
-    background-color: lightblue;
-}
-
-.tab-content {
-    position: relative;
-    display: block;
-    width: 100%;
-    border: 2px solid #BF2333;
-    border-radius: 10px;
-    margin: 10px;
-}
-
-#alert-left-half {
-    position: relative;
-    float: left;
-    width: 50%;
-    padding-left: 50px;
-}
-
-#alert-right-half {
-    position: relative;
-    float: left;
-    width: 50%;
-}
-
-#alert-header {
-    width: 100%;
-    text-align: left;
-    background-color: #BF2333;
-    text-transform: uppercase;
-    font-weight: bold;
-    color: white;
-    
-}
-
-label {
-    color: #BF2333;
-    text-transform: uppercase;
-    display: block;
-}
-
-#alert-left-half input {
-    width: 80%;
-}
-
-#alert-left-half textarea {
-    width: 80%;
-}
-
-#alert-right-half input {
-    width: 80%;
-    margin-right: 10px;
-}
-
-.tab-content .inrow {
-    margin-left: none;
-    margin-right: none;
-    display: flex;
-    width: 80%;
-}
-
-#alert-header {
-    padding-left: 50px;
-}
-
-.tab-content .inrow>label /*:not(label[for="alert-risk-label"])*/{
-    color: #666666;
-    font-size: 12px;
-    font-weight: lighter;
-    margin-right: 10px;
-}
-
-#alert-risk-label {
-    color: #BF2333;
-    font-size: inherit;
-    font-weight: bold;
-    margin-right: 10px;
-}
-
 .publication-alert.publ-risk1 .publ-countr{
     color:#666666;
     font-weight:normal;
@@ -579,7 +485,7 @@ label {
 }
 
 
-.publication-guideline > hr{ /*COR DAS LINHAS*/
+.publication-guideline hr{ /*COR DAS LINHAS*/
     width:90%;
     border-color:#CCCCCC;
 }
@@ -594,6 +500,64 @@ label {
 	margin-top:2%;
 	margin-right:10%;
 }
+
+/**  
+* Publication Colapse section 
+**/
+.publ-colapse{
+    display: none;
+}
+.publ-content{
+    text-align: left;
+    padding-left: 5%;
+    font-size: 10px;
+    text-transform: none;
+}
+.publ-content h1{
+    color: inherit;
+    font-weight:normal;
+    font-size:15px;
+}
+.publ-content .publ-linked-toggle{
+    display: none;
+}
+.publ-content .publ-comments-toggle{
+    display: none;
+    max-height: 160px;
+    overflow-y: scroll;
+    
+}
+.publ-content .publ-comments-toggle p.comments-info{
+    font-size: 8px;
+}
+
+.publ-content a{
+    color: inherit;
+    text-decoration: none;
+}
+.publ-content a:hover{
+    color: #FF931E;    
+}
+/* social */
+.publ-content .sprite-social{
+    background-image: url('../images/share.png');
+    height:27px;
+	width:27px;
+    display:inline-block;
+}
+.publ-content .social-facebook{
+	background-position:0px 0px;
+}
+.publ-content .social-google{
+	background-position:-26px 0px;
+}
+.publ-content .social-twitter{
+	background-position:-52px 0px;
+}
+.publ-content .social-linkdin{
+	background-position:-82px 0px;
+}
+
 
 /******************************************************
 ********************** FILTERING **********************
@@ -1447,7 +1411,6 @@ label {
 /*****-- Eyewitnesses details */
 #eyewitness.general_panel textarea#title {
     max-height: 50px;
->>>>>>> remotes/origin/master
 }
 
 /******************************************************
