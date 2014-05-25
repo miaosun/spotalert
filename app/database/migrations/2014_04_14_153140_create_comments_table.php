@@ -16,7 +16,7 @@ class CreateCommentsTable extends Migration
 		{
 			$table->increments('id');
 			$table->string('content');
-			$table->date('created_at');
+			$table->dateTime('created_at');
 			$table->boolean('approved');
 			$table->integer('user_id')->unsigned();
 			$table->integer('publication_id')->unsigned();

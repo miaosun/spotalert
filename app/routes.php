@@ -70,6 +70,24 @@ Route::group(array('prefix' => 'publications'), function()
         'as'   => 'next-page',
         'uses' => 'PublicationController@getNextPage'
     ));
+    
+    // Load publication content
+    Route::get('/content/{publ_id}', array(
+		'as'	=> 'publications-content',
+		'uses'	=> 'PublicationController@getPublicationExpandableContentByID'
+	))
+    ->where('publ_id', '[0-9]+');
+    
+	// For searching publications
+	Route::get('/search/{search_query}', array(
+		'as'	=> 'publications-route',
+		function($search_query)
+		{
+			$publications = PublicationController::getSearchedPublications($search_query);
+      		return View::make('includes.publications')->with('publications', $publications);
+		}
+	))
+    ->where('publ_id', '[0-9]+');
 });
 /*
 Route::get('/user/{username}', array(
