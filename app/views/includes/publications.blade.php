@@ -10,7 +10,7 @@
     <div class="row row-publ">
     @endif
     <div class="col-md-4">
-        <div class="col-md-12 col-sm-12 publication-{{{$publication['type']}}} publ-risk{{{$publication['risk']}}}"
+        <div class="col-md-12 col-sm-12 publication-{{{$publication['type']}}} publ-risk{{{$publication['risk']}}} {{(isset($publication['inactive'])) ? 'inactive' : ''}}"
             id="publ-{{ $publication['id'] }}">
 
             <div class="publ_header">

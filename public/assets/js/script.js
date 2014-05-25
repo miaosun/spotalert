@@ -326,7 +326,7 @@ function shareGoogle(id){
      //alert('enviou hit sobre o share no google para o id:'+id);
 }
 // Send hit to google analytics for a linkdIn share
-function shareGoogle(id){
-    var a = ga('send','social','google','shareplus','http://spotalert.fe.up.pt','/publication/'+id);
-     //alert('enviou hit sobre o share no google para o id:'+id);
+function shareLinkdIn(id){
+    var a = ga('send','social','Linkdin','share','http://spotalert.fe.up.pt','/publication/'+id);
+     //alert('enviou hit sobre o share no linkdIn para o id:'+id);
 }
