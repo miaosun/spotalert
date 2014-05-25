@@ -7,6 +7,7 @@ $('document').ready(function()
 	$('.dropdown-menu').click(function(e) {
         e.stopPropagation();
     });
+
     // Everything for filtering to work
     filtering();
 

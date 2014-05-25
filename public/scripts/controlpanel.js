@@ -122,6 +122,16 @@ function loadEditButtons() {
             $('#organization .editbutton').hide().unbind();
         }
     );
+
+    // Privilages Page
+    $('#department .edit_button').click(
+        function() {
+            $('#department input').prop('disabled', false);
+            $('#department .edit_button').hide().unbind();
+        }
+    );
+
+
 }
 function loadFileUpload(){
     $('.custom-upload input[type=file]').change(function(){
@@ -132,12 +142,15 @@ function loadFileUpload(){
 
 function loadAutocompleteUsername() {
 
-    var availableTags = [
-        "ActionScript",
-        "AppleScript",
-        "Asp"
-    ];
-    $( "#username" ).autocomplete({
-        //source: availableT
+    $.getJSON( "api/usernames", function( data ) {
+        $( "#username" ).autocomplete({
+            source: data
+        });
+    });
+
+    $.getJSON( "api/emails", function( data ) {
+        $( "#email" ).autocomplete({
+            source: data
+        });
     });
 }

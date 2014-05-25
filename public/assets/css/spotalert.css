@@ -89,6 +89,7 @@ header .row-header > div#language {
     					inset  0 8px 8px -5px #d1d1d1;
     box-shadow:        inset  0 -8px 8px -5px #d1d1d1,
     					inset  0 8px 8px -5px #d1d1d1;
+
     padding-bottom: 60px; /* A little bit more than footer's height */
     padding-top: 30px;
     background-color:#f2f2f2;
@@ -1132,7 +1133,7 @@ div.ajax-loading {
 
 }
 
-#privileges h3 {
+#controlpanel h3 {
     width: 100%;
     color:#BF2333;
     font-weight:bold;
@@ -1150,6 +1151,10 @@ div.ajax-loading {
 
 }
 
+#controlpanel a {
+    text-decoration: none;
+    color: inherit;
+}
 
 /******************************************************
 ********************* GENERAL PANEL *******************
@@ -1244,6 +1249,17 @@ div.ajax-loading {
     color:red;
 }
 
+#notifications input[type=submit] {
+    width: 80%;
+    border: 0px;
+    margin: 0% 5% 5% 0%;
+    background-color: #BF2333;
+    color: white;
+
+    -webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+}
 
 /*****************************************************
 *************** CREATE PUBLICATIONS *************
@@ -1398,20 +1414,23 @@ label {
 }
 
 /******************************************************
-*************** USER PANEL - PUBLICATIONS *************
+******* USER PANEL - PUBLICATIONS + PRIVILEGES ********
 *******************************************************/
 
-#publications-up .table-wrapper {
+.table-wrapper {
     padding: 15px;
+}
+
+.table-wrapper tbody td {
+    text-align: center;
+    font-size: 16px;
+    padding: 11px 5px;
 }
 
 .table-wrapper td:not(:last-child), .table-wrapper thead th:not(:last-child) {
     border-right: 1px dashed #BF2333;
 }
 
-.table-wrapper td{
-    padding: 11px 5px;
-}
 
 .table-wrapper thead th {
     text-align: center;
@@ -1456,4 +1475,23 @@ label {
     border-left: 4px solid transparent;
     border-bottom: 4px solid;
     color: #BF2333 !important;
+}
+
+/******************************************************
+************* USER PANEL - NOTIFICATIONS **************
+*******************************************************/
+
+#notifications .country_risk {
+    padding: 10px;
+    font-size: 16px;
+
+}
+
+#notifications .country_risk:not(:last-child) {
+    border-right: 1px dashed #BF2333;
+}
+
+#notifications #delete a {
+    color: #BF2333;
+    font-size: 23px;
 }

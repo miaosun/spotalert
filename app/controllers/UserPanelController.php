@@ -1,17 +1,178 @@
 <?php 
 class UserPanelController extends BaseController {
-	
+
 	/* show the usercontrol panel */
 	public function show() {
-		// get user profile data to fill. TODO: fix to Auth:user 
 		$profile = User::find(Auth::user()->getId());
-		return View::make('user.controlpanel',array('user'=>$profile));
+        return View::make('user.controlpanel',array('user'=>$profile));
 	}
 
     public function getPrivileges() {
-        $usernames_array = User::lists('username', 'id');
         $profile = User::find(Auth::user()->getId());
-        return View::make('user.privileges')->with('user', $profile)->with('names_array', $usernames_array);
+        $users_with_permissions = User::where('type','<>', 'normal')->get();
+        $selected = false;
+        return View::make('user.privileges' ,array('selected'=>$selected, 'user' => $profile,  'users_with_permissions'=>$users_with_permissions));
+    }
+
+    public function getPrivilegesWithUser() {
+        $profile = User::find(Auth::user()->getId());
+        $users_with_permissions = User::where('type','<>', 'normal')->get();
+
+        if(Input::has('username') || Input::has('email'))
+        {
+            if(Input::has('username'))
+                $selectedUser = User::where('username', '=', Input::get("username"))->first();
+            if(Input::has('email'))
+                $selectedUser = User::where('email', '=', Input::get("email"))->first();
+            if($selectedUser == null)
+                return Redirect::route('user-privileges')->with('global', 'User not exists, try again!');
+            $selected = true;
+            return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_with_permissions'=>$users_with_permissions));
+        }
+        else
+            return Redirect::route('user-privileges');
+    }
+
+    public function updatePrivileges($username) {
+        //Have to select a user (click search button, go to route('selectedUser->privileges') first
+        $profile = User::find(Auth::user()->getId());
+        if($profile->username == $username)
+            return Redirect::route('user-privileges')->with('global', 'Change failed! Select a user first!');
+
+        DB::update('update users set type = ? where username = ?', array(Input::get('permissions'), $username));
+
+        return Redirect::route('user-privileges')->with('global', 'Changes made with success!');
+    }
+
+    // Notifications Page
+    public function getNotifications()  {
+        $profile = User::find(Auth::user()->getId());
+        $temp = array();
+        foreach(PublicationController::getAllPublications() as $publication)
+        {
+            $temp[$publication['id']] = $publication['title'];
+        }
+        $country_options = array('' => Lang::get('controlpanel.notifications.country_option')) + Country::lists('name', 'id');
+        $publication_options = array('' => Lang::get('controlpanel.notifications.publication')) + $temp;
+        $notification_settings = NotificationSetting::all();
+        $user_publications = DB::table('publications')
+                                ->join('users_publications', 'users_publications.publication_id', '=', 'publications.id')
+                                ->join('publicationContents', 'publicationContents.publication_id', '=', 'publications.id')
+                                ->get(array('publications.id', 'title'));
+
+        return View::make('user.notifications')->with('country_options', $country_options)->with('publication_options', $publication_options)->with('notification_settings', $notification_settings)->with('user_publications', $user_publications)->with('user', $profile);
+    }
+
+    public function deleteNotification($id)
+    {
+        NotificationSetting::find($id)->delete();
+        return Redirect::route('user-notifications')->with('global', 'Notification Setting deleted successfully!');
+    }
+
+    public function deletePublication($id)
+    {
+        $user = User::find(Auth::user()->getId());
+        $user->publicationNotifications()->detach($id);
+        return Redirect::route('user-notifications')->with('global', 'Notification for selected Publication deleted successfully!');
+    }
+
+    public function addCountryRisk() {
+        $validator = Validator::make(Input::all(),
+            array(
+                'country'        => 'required',
+                'minimum_risk'  => 'required',
+            )
+        );
+
+        if($validator->fails()) {
+            return Redirect::route('user-notifications')
+                -> withErrors($validator);
+        }
+        else
+        {
+            $country_id = Input::get('country');
+            $risk_level = Input::get('minimum_risk');
+            $notificationSetting = NotificationSetting::create(array(
+                'country_id'    => $country_id,
+                'risk'          => $risk_level,
+                'user_id'       => Auth::user()->getId()
+            ));
+
+            if($notificationSetting) {
+                return Redirect::route('user-notifications')
+                    -> with('global', 'Notofication for Country and Minimum Risk Level added successfully!');
+            }
+        }
+
+    }
+
+    public function addPublication() {
+        $validator = Validator::make(Input::all(),
+            array(
+                'publication'        => 'required',
+            )
+        );
+
+        if($validator->fails()) {
+            return Redirect::route('user-notifications')
+                -> withErrors($validator)
+                -> withInput();
+        }
+        else
+        {
+            $publication_id = Input::get('publication');
+
+            $user = User::find(Auth::user()->getId());
+            $user->publicationNotifications()->attach($publication_id);
+
+            if($user) {
+                return Redirect::route('user-notifications')
+                    -> with('global', 'Notofication for selected Publication added successfully!');
+            }
+        }
+    }
+
+    // Comments Page
+    public function getComments()  {
+        $profile = User::find(Auth::user()->getId());
+        //$publications = PublicationController::getPublicationsForUserPanel();
+
+        $publications = DB::table('publications')
+            ->join('publicationContents', 'publicationContents.publication_id', '=', 'publications.id')
+            ->leftJoin('comments', 'comments.publication_id', '=', 'publications.id')
+            ->leftJoin('users', 'comments.user_id', '=', 'users.id')
+            ->get(array('publications.id', 'publicationContents.title', 'comments.content', 'users.username',  'publications.initial_date', 'publications.risk'));
+
+        return View::make('user.comments')->with('user', $profile)->with('publications', $publications);
+    }
+
+    /*  APIs  */
+    public function getUsernames() {
+        $profile = User::find(Auth::user()->getId());
+        if($profile['type'] == 'admin')
+            $temp = User::where('type', '<>', 'admin')->get();
+        if($profile['type'] == 'manager')
+            $temp = User::where('type', '<>', 'admin')->where('type', '<>', 'manager')->get();
+        $usernames_array = array();
+        foreach($temp as $tem)
+        {
+            $usernames_array[] = $tem['username'];
+        }
+        return Response::json($usernames_array);
+    }
+
+    public function getEmails() {
+        $profile = User::find(Auth::user()->getId());
+        if($profile['type'] == 'admin')
+            $temp = User::where('type', '<>', 'admin')->get();
+        if($profile['type'] == 'manager')
+            $temp = User::where('type', '<>', 'admin')->where('type', '<>', 'manager')->get();
+        $usernames_array = array();
+        foreach($temp as $tem)
+        {
+            $usernames_array[] = $tem['email'];
+        }
+        return Response::json($usernames_array);
     }
 
     public function getAges() {
@@ -93,8 +254,9 @@ class UserPanelController extends BaseController {
 
     public function getPublications() 
     {
+        $profile = User::find(Auth::user()->getId());
         $publications = PublicationController::getPublicationsForUserPanel();
-        return View::make('user.publications')->with('publications', $publications);
+        return View::make('user.publications')->with('publications', $publications)->with('user', $profile);
     }
     
 	private function validate() 

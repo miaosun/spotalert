@@ -121,6 +121,16 @@ Route::get('/user/api/countries', array(
     'uses' => 'UserPanelController@getCountries'
 ));
 
+Route::get('/user/api/usernames', array(
+   'as' => 'api-usernames',
+    'uses' => 'UserPanelController@getUsernames'
+));
+
+Route::get('/user/api/emails', array(
+    'as' => 'api-emails',
+    'uses' => 'UserPanelController@getEmails'
+));
+
 /*
  * AUTHENTICATED GROUP
  */
@@ -165,6 +175,48 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('/user/privileges', array(
        'as' => 'user-privileges',
        'uses' => 'UserPanelController@getPrivileges'
+    ));
+
+    Route::post('/user/privileges/selected', array(
+        'as' => 'selectedUser-privileges',
+        'uses' => 'UserPanelController@getPrivilegesWithUser'
+    ));
+
+    Route::post('/user/privileges/{username}', array(
+        'as' => 'update-privileges',
+        'uses' => 'UserPanelController@updatePrivileges'
+    ));
+
+    //Notifications
+    Route::get('/user/notifications', array(
+        'as' => 'user-notifications',
+        'uses' => 'UserPanelController@getNotifications'
+    ));
+
+    Route::post('/user/notifications/addCountryRisk', array(
+        'as' => 'country-risk-notification',
+        'uses' => 'UserPanelController@addCountryRisk'
+    ));
+
+    Route::post('/user/notifications/addPublication', array(
+        'as' => 'publication-notification',
+        'uses' => 'UserPanelController@addPublication'
+    ));
+
+    Route::get('/user/notifications/deleteNot/{id}', array(
+        'as' => 'notification-delete',
+        'uses' => 'UserPanelController@deleteNotification'
+    ));
+
+    Route::get('/user/notifications/deletePub/{id}', array(
+        'as' => 'publication-delete',
+        'uses' => 'UserPanelController@deletePublication'
+    ));
+
+    //Comments
+    Route::get('/user/comments', array(
+        'as' => 'user-comments',
+        'uses' => 'UserPanelController@getComments'
     ));
 
     // Publications listing
