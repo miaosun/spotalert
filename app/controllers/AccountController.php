@@ -63,13 +63,13 @@ class AccountController extends BaseController {
 				'password_again' => 'required|same:password',
                 'firstname'      => 'max:20',
                 'lastname'       => 'max:20',
-                'phonenumber'    => 'max:20',
+                'phonenumber'    => 'numeric|max:20',
                 'address'        => 'max:30',
                 'city'           => 'max:20',
                 'postalCode'     => 'max:15',
-                'agerange'       => 'Digits|required|min:1',
-                'residence'      => 'Digits|required|min:1',
-                'nationality'    => 'Digits|required|min:1',
+                'agerange'       => 'numeric|required|min:1',
+                'residence'      => 'numeric|required|min:1',
+                'nationality'    => 'numeric|required|min:1',
                 'accept'         => 'accepted'
 			)
 		);

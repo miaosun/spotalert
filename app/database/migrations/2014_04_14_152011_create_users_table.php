@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
 			$table->string('password_temp')->nullable(); // For password recovery
             $table->string('code')->nullable(); // For account activation
             $table->string('created_at')->nullable();
-			$table->bigInteger('phonenumber')->nullable();
+			$table->string('phonenumber')->nullable();
 			$table->string('address')->nullable();
 			$table->string('postalCode')->nullable();
 			$table->string('city')->nullable();

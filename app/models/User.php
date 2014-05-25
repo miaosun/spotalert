@@ -7,8 +7,8 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
     protected $fillable   = array('username', 'firstname', 'lastname', 'email', 'password', 'password_temp',
                                      'code', 'created_at', 'phonenumber', 'address', 'postalCode', 'city', 'type',
-                                     'age_id', 'residence_country_id', 'nationality_country_id');
-    protected $guarded    = array('id', 'facebookId', 'googleId', 'organization', 'activated', 'supervisor_id');
+                                     'age_id', 'residence_country_id', 'nationality_country_id', 'organization');
+    protected $guarded    = array('id', 'facebookId', 'googleId', 'activated', 'supervisor_id');
     protected $table      = 'users';
     public    $timestamps = false;
 
@@ -59,6 +59,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	{
 		return $this->belongsTo('Age','age_id');
 	}
+
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
 
 	public function residence()
 	{

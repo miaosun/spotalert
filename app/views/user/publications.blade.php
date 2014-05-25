@@ -2,58 +2,78 @@
 
 @section('content')
 <div class="container-fluid">
-    <div id="controlpanel" class="col-md-8 col-md-offset-2">
-        <div class="row" id="privileges">
+    <div id="controlpanel" class="col-md-10 col-md-offset-1">
+        <div class="row" id="publications-up">
             <ul>
-                <li> {{ Lang::get('controlpanel.menu.profile') }}</li>
-                <li id="before"> {{ Lang::get('controlpanel.menu.notification') }}</li>
+                <li><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
+                <li id="before"><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
+                @if($user->type != 'normal')
                 <li id="active"> {{ Lang::get('controlpanel.menu.publications') }}</li>
-                <li> {{ Lang::get('controlpanel.menu.comments') }}</li>
-                <li> {{ Lang::get('controlpanel.menu.privileges') }}</li>
+                <li><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
+                @if($user->type == 'admin' || $user->type == 'manager')
+                <li><a href="{{ URL::route('user-privileges') }}">{{ Lang::get('controlpanel.menu.privileges') }}</a></li>
+                @endif
+                @endif
             </ul>
             <h1>{{ Lang::get('controlpanel.publications.title') }}</h1>
-            
-            <table id="publ-list" class="display" cellspacing="0" width="100%">
-                <thead>
-                    <tr>
-                        <th>PUBLICATION</th>
-                        <th>PUBLISHER</th>
-                        <th>AFFECTED COUNTRIES</th>
-                        <th>INITIAL DATE</th>
-                        <th>FINAL DATE</th>
-                        <th>RISK</th>
-                    </tr>
-                </thead>
-         
-                <tfoot>
-                    <tr>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </tfoot>
-         
-                <tbody>
-            <!-- FIXME: Add author feature, language up here, title link, location, col-m-12, corrected CSS...-->
-            @foreach ($publications as $publication)
-                    <tr>
-                        <td>{{{$publication['title']}}}</td>
-                        <td>tjiagom</td>
-                        <td>{{{implode(",",$publication['affected_countries'])}}}</td>
-                        <td>{{{$publication['initial_date']}}}</td>
-                        <td>{{{$publication['final_date']}}}</td>
-                        <td>{{{$publication['risk']}}}</td>
-                    </tr>
-            @endforeach
-                </tbody>
-            </table>
+        
+            <div class="table-wrapper">
+                <table id="publ-list" class="display" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th>PUBLICATION <span></span></th>
+                            <th>AUTHOR <span></span></th>
+                            <th>AFFECTED COUNTRIES <span></span></th>
+                            <th>INITIAL DATE <span></span></th>
+                            <th>FINAL DATE <span></span></th>
+                            <th>RISK <span></span></th>
+                        </tr>
+                    </thead>
+             
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>
+             
+                    <tbody>
+                @foreach ($publications as $publication)
+                    @if(sort($publication['affected_countries']))
+                    @endif
+                        <tr>
+                            <td>{{{$publication['title']}}}</td>
+                            <td>{{{$publication['author']}}}</td>
+                            <td>{{{implode(",",$publication['affected_countries'])}}}</td>
+                            <td>{{{$publication['initial_date']}}}</td>
+                            <td>{{{$publication['final_date']}}}</td>
+                            <td>{{{$publication['risk']}}}</td>
+                        </tr>
+                @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
 
     </div>
 </div>
+
+{{ HTML::script('assets/js/jquery.dataTables.js') }}
+<script>
+$('document').ready(function() 
+{
+    $('#publ-list').dataTable( {
+        "paging":   false,
+        "order": [[ 4, "desc" ]],
+        "info":     false,
+        "searching": false
+    });
+});
+</script>
 
 @stop
 

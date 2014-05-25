@@ -7,15 +7,18 @@
 	<div id="controlpanel" class="col-md-8 col-md-offset-2"> 
 		<div class="row">
 			<ul>
-				<!-- FIXME change this for publication before to hide left curve active to selected -->
-				<li id="before"> {{ Lang::get('controlpanel.menu.profile') }} </li>
-				<li id="active"> {{ Lang::get('controlpanel.menu.notification') }} </li>
-				<li> {{ Lang::get('controlpanel.menu.publications') }} </li>
-				<li> {{ Lang::get('controlpanel.menu.comments') }} </li>
-				<li> {{ Lang::get('controlpanel.menu.privileges') }} </li>
+				<li id="active"> {{ Lang::get('controlpanel.menu.profile') }} </li>
+				<li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
+				@if($user->type != 'normal')
+                <li><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
+				<li><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
+                @if($user->type == 'admin' || $user->type == 'manager')
+                <li><a href="{{ URL::route('user-privileges') }}">{{ Lang::get('controlpanel.menu.privileges') }}</a></li>
+                @endif
+                @endif
 			</ul>
 			<h1>{{ Lang::get('controlpanel.profile.title') }}</h1>
-			{{ Form::open(array('route' => 'update-profile', 'file' => 'true')) }}    					
+			{{ Form::open(array('route' => 'update-profile', 'file' => 'true')) }}
 			<div class="col-md-4 col-md-offset-1">
 				<div class="row">
                     

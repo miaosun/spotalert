@@ -123,10 +123,16 @@ class PublicationsSeeder extends Seeder
 		// ######################################################################
 
         // Users
-        $admin = User::create(array('username' => 'admin1',       'firstname' => 'Admin',    'lastname' => 'Silva', 'email' => 'admin@spotalert.com',  'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 915283154, 'address' => 'Address 1', 'postalCode' => '4200-000', 'city' => 'Porto', 'activated' => 'true',  'type' => 'admin',       'age_id' =>$age20->id, 'residence_country_id' => $portugal->id, 'nationality_country_id' => $portugal->id ));
-        User::create(array('username' => 'manager1',    'firstname' => 'Manager',   'lastname' => 'Silva', 'email' => 'manager@spotalert.com', 'password' => Hash::make('222222'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 912345678, 'address' => 'Address 2', 'postalCode' => '4900-000', 'city' => 'Lisboa', 'activated' => 'true', 'type' => 'manager',    'age_id' =>$age30->id, 'residence_country_id' => $portugal->id, 'nationality_country_id' =>  $portugal->id ));
-        User::create(array('username' => 'publisher1',  'firstname' => 'Publisher', 'lastname' => 'Silva', 'email' => 'publisher@spotalert.com', 'password' => Hash::make('333333'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 918765432, 'address' => 'Address 3', 'postalCode' => '4100-000', 'city' => 'Aveiro', 'activated' => 'true', 'type' => 'publisher',  'age_id' =>$age20->id, 'residence_country_id' => $spain->id, 'nationality_country_id' => $spain->id ));
-        User::create(array('username' => 'normal1',     'firstname' => 'Normal',    'lastname' => 'Silva', 'email' => 'normal@spotalert.com', 'password' => Hash::make('444444'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 915821654, 'address' => 'Address 4', 'postalCode' => '4500-000', 'city' => 'Coimbra',  'activated' => 'true','type' => 'normal',    'age_id' =>$age30->id, 'residence_country_id' => $france->id, 'nationality_country_id' => $spain->id ));
+
+        $admin = User::create(array('username' => 'admin1',         'firstname' => 'Admin',     'lastname' => 'Silva', 'email' => 'admin@spotalert.com',     'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => '+351915283154', 'address' => 'Address 1', 'postalCode' => '4200-000', 'city' => 'Porto',   'activated' => 'true', 'type' => 'admin',     'age_id' =>$age20->id, 'residence_country_id' => $portugal->id, 'nationality_country_id' => $portugal->id, 'organization'=>'Department Admin' ));
+        $manager = User::create(array('username' => 'manager1',     'firstname' => 'Manager',   'lastname' => 'Silva', 'email' => 'manager@spotalert.com',   'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => '+351912345678', 'address' => 'Address 2', 'postalCode' => '4900-000', 'city' => 'Lisboa',  'activated' => 'true', 'type' => 'manager',   'age_id' =>$age30->id, 'residence_country_id' => $portugal->id, 'nationality_country_id' => $portugal->id, 'organization'=>'Department Manager' ));
+        $publisher = User::create(array('username' => 'publisher1', 'firstname' => 'Publisher', 'lastname' => 'Silva', 'email' => 'publisher@spotalert.com', 'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => '+351918765432', 'address' => 'Address 3', 'postalCode' => '4100-000', 'city' => 'Aveiro',  'activated' => 'true', 'type' => 'publisher', 'age_id' =>$age20->id, 'residence_country_id' => $spain->id,    'nationality_country_id' => $spain->id,    'organization'=>'Department Publisher' ));
+        $normal = User::create(array('username' => 'normal1',       'firstname' => 'Normal',    'lastname' => 'Silva', 'email' => 'normal@spotalert.com',    'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => '+351915821654', 'address' => 'Address 4', 'postalCode' => '4500-000', 'city' => 'Coimbra', 'activated' => 'true', 'type' => 'normal',    'age_id' =>$age30->id, 'residence_country_id' => $france->id,   'nationality_country_id' => $spain->id ));
+
+        $publisher->supervisor_id = $admin->id;
+        $publisher->save();
+        $manager->supervisor_id = $admin->id;
+        $manager->save();
         // ######################################################################
 
 		// Event Types
@@ -146,7 +152,7 @@ class PublicationsSeeder extends Seeder
 			'is_public'		=> true,
 			'risk'			=> 4,
 			'type'			=> 'alert',
-			'user_id'       => $admin->id
+			'user_id'       => $publisher->id
 		));
 
 		$content1EN = PublicationContent::create(array(
@@ -173,6 +179,7 @@ class PublicationsSeeder extends Seeder
 			'is_public'		=> true,
 			'risk'			=> 4,
 			'type'			=> 'guideline',
+			'last_update'   => '2014-05-23',
 			'user_id'       => $admin->id
 		));
 
@@ -201,7 +208,7 @@ class PublicationsSeeder extends Seeder
 			'is_public'		=> true,
 			'risk'			=> 1,
 			'type'			=> 'guideline',
-			'user_id'       => $admin->id
+			'user_id'       => $manager->id
 		));
 
 		$content3EN = PublicationContent::create(array(
@@ -224,6 +231,7 @@ class PublicationsSeeder extends Seeder
 			'is_public'		=> true,
 			'risk'			=> 5,
 			'type'			=> 'alert',
+			'last_update'   => '2014-05-23',
 			'user_id'       => $admin->id
 		));
 
@@ -727,6 +735,50 @@ class PublicationsSeeder extends Seeder
 		
 		// Linking publications
 		$publication1->guidelines()->attach($publication2->id);
+        $publication1->guidelines()->attach($publication3->id);
+        $publication2->alerts()->attach($publication4->id);
+        $publication2->alerts()->attach($publication6->id);
+        $publication7->alerts()->attach($publication5->id);
+        $publication7->alerts()->attach($publication6->id);
+        
+        // Comments
+        $comment1 = Comment::create(array(
+			'content'	=> 'Meu deus que grande susto!.',
+			'created_at' => date("Y-m-d H:i:s"),
+			'approved'=> "true",
+            'user_id' => $admin->id,
+            'publication_id' => $publication2->id
+		));
+         $comment2 = Comment::create(array(
+			'content' => 'Isto provocou um transito tremendo na rua das amoras.',
+			'created_at' => date("Y-m-d H:i:s"),
+			'approved'=> "true",
+            'user_id' => $admin->id,
+            'publication_id' => $publication2->id
+		));
+         $comment3 = Comment::create(array(
+			'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in tortor pretium, pellentesque magna nec, posuere libero. Vestibulum condimentum felis et neque volutpat cursus. Aliquam in tellus mi. Vivamus consectetur.',
+			'created_at' => date("Y-m-d H:i:s"),
+			'approved'=> "true",
+            'user_id' => $publisher->id,
+            'publication_id' => $publication2->id
+		));
+         $comment4 = Comment::create(array(
+			'content'	=> 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in tortor pretium, pellentesque magna nec, posuere libero. Vestibulum condimentum felis et neque volutpat cursus.',
+			'created_at' => date("Y-m-d H:i:s"),
+			'approved'=> "true",
+            'user_id' => $manager->id,
+            'publication_id' => $publication4->id
+		));
+         $comment5 = Comment::create(array(
+			'content'	=> 'Consectetur adipiscing elit. Curabitur in tortor pretium, pellentesque magna nec, posuere libero. Vestibulum condimentum felis et neque volutpat cursus.',
+			'created_at' => date("Y-m-d H:i:s"),
+			'approved'=> "true",
+            'user_id' => $normal->id,
+            'publication_id' => $publication8->id
+		));
+
+        
 	}
 
 	public function clearDatabase()

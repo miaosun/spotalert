@@ -8,25 +8,6 @@ $('document').ready(function()
         e.stopPropagation();
     });
 
-    /*FB.Event.subscribe('edge.create', function(targetUrl) {
-        ga('send', {
-          'hitType': 'social',
-          'socialNetwork': 'facebook',
-          'socialAction': 'share',
-          'socialTarget': 'http://spotalert.fe.up.pt',
-          'page': '/publication/'+id
-            });
-        alert('enviou hit sobre o share no facebook para o id:'+id);
-    });*/
-
-	// Listing of publications
-    $('#publ-list').dataTable( {
-        "paging":   false,
-         "order": [[ 5, "desc" ]],
-        "info":     false,
-        "searching": false
-    } );
-
     // Everything for filtering to work
     filtering();
 
@@ -35,6 +16,15 @@ $('document').ready(function()
 
     // Everything for deleting a publication
     deletePublication();
+
+    // Infinite scrolling
+    $('.scroll').jscroll(
+    {
+    	nextSelector: 'a.jscroll-next:last'
+    });
+    
+    // setting up expand buttons for publication
+    setupBtnPublication();
 });
 
 
@@ -45,11 +35,12 @@ function filtering()
 	{
 		var current     = $(this).next();
 		var grandparent = $(this).parent().parent();
+		var children    = $(this).children();
 
-		if($(this).hasClass('left-caret') || $(this).hasClass('right-caret'))
-			$(this).toggleClass('right-caret left-caret');
+		if(children.hasClass('glyphicon-chevron-right') || children.hasClass('glyphicon-chevron-left'))
+			children.toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
 		
-		grandparent.find('.left-caret').not(this).toggleClass('right-caret left-caret');
+		grandparent.find('.glyphicon-chevron-left').not(children).toggleClass('glyphicon-chevron-right glyphicon-chevron-left');
 		grandparent.find(".sub-menu:visible").not(current).hide();
 		current.toggle();
 		e.stopPropagation();
@@ -98,7 +89,7 @@ function filtering()
 			countries = addText('#filt .filter-country.selected');
 
 		// Let's retrieve the publications
-		$.get('publications/filter', 
+		$.get('/publications/filter', 
 			  { 'risks': risks, 'event_types': eventTypes, 'affected_countries': countries},
 			  function() { $('#main').html('<div class="ajax-loading"></div>' + loading_message);})
 			.done(function( data ) 
@@ -107,6 +98,13 @@ function filtering()
 					$('#main').html(nothing_returned_message);
 				else
 			    	$('#main').html(data);
+			    // Infinite scrolling
+			    $('.scroll').jscroll(
+			    {
+			    	nextSelector: 'a.jscroll-next:last'
+			    });
+                // reload click on btns
+                setupBtnPublication();
 			})
 			.fail(function() 
 			{
@@ -147,7 +145,7 @@ function deletePublication()
 		var id_publ = $('#myModal .modal-publ-id').attr('id');
 
 		// Let's delete the publications
-		$.post('publications/delete/' + id_publ)
+		$.post('/publications/delete/' + id_publ)
 			.done(function( data ) 
 			{
 				if(data == 'ok')
@@ -182,7 +180,7 @@ function searching()
 			$('#filt .filter-opt').removeClass('selected');
 
 			// Let's retrieve the publications
-			$.get('publications/search/' + search_content,
+			$.get('/publications/search/' + search_content,
 				  function() { $('#main').html('<div class="ajax-loading"></div>' + loading_message);})
 				.done(function( data ) 
 				{
@@ -190,6 +188,14 @@ function searching()
 						$('#main').html(nothing_returned_message);
 					else
 				    	$('#main').html(data);
+
+				    // Infinite scrolling
+				    $('.scroll').jscroll(
+				    {
+				    	nextSelector: 'a.jscroll-next:last'
+				    });
+
+                    setupBtnPublication();
 				})
 				.fail(function() 
 				{
@@ -198,6 +204,98 @@ function searching()
 				});
 		}
 	});
+}
+
+/**
+* Get publication content by ajax
+**/
+function getPublicationContent(id)
+{
+	var btn = $('#publ-'+id+' .publ-expand');
+	if(btn.hasClass('publ-ajax-loaded'))
+		togglePubBtn(id);
+	else
+	{
+	    jQuery.getJSON("/publications/content/"+id,function(data){
+	        // fill description
+	        $('#publ-'+id+' .publ-content p').html(data.content);
+	        // fill linked publications
+	        if(data.pubLinked.length == 0)
+	            $('#publ-'+id+' .publ-linked').remove();
+	        else
+	        {
+	            var links = "";
+	            for(var i = 0; i < data.pubLinked.length ; i++){
+	                links = links + "<p><a href='publication/"+id+"'>"+data.pubLinked[i].title+"</a>";
+	            }
+	            $('#publ-'+id+' .publ-content .publ-linked-toggle').html(links);
+	        }
+	        // fill comments 
+	        if(data.comments.length == 0)
+	            $('#publ-'+id+' .publ-comments').remove();
+	        else
+	        {
+	            //TODO insert number of comments
+	            var links = "";
+	            for(var i = 0; i < data.comments.length ; i++){
+	                if(i != 0)
+	                    links = links +"<hr>"
+	                links = links +
+	                    "<div class='comments'>\
+	                    <p class='comments-content'>"+data.comments[i].content+"</p>\
+	                    <p class='comments-info'>"+data.comments[i].user+" - "+data.comments[i].date.date+"</p>\
+	                    </div>";
+	            }
+	            //alert(links);
+	            $('#publ-'+id+' .publ-content .publ-comments-toggle').html(links);
+	        }
+	        // change btn to toggle only
+	        btn.addClass('publ-ajax-loaded');
+	        // show content
+	        togglePubBtn(id);
+	    });
+	}
+}
+// toggle expansion btn
+function togglePubBtn(id)
+{
+    var btn = $('#publ-'+id+' .publ-expand');
+    btn.toggleClass("glyphicon-chevron-down");
+    btn.toggleClass("glyphicon-chevron-up");
+    $('#publ-'+id+' .publ-colapse').toggle();
+}
+// toggle linked div and arrow
+function toggleLinkedBtn(id)
+{
+    var btn = $('#publ-'+id+' .publ-linked-toggle-btn');
+    btn.toggleClass("glyphicon-chevron-right");
+    btn.toggleClass("glyphicon-chevron-down");
+    $('#publ-'+id+' .publ-linked-toggle').toggle();
+    
+}
+// toggle comments div and arrow
+function toggleCommentsBtn(id)
+{
+    var btn = $('#publ-'+id+' .publ-comments-toggle-btn');
+    btn.toggleClass("glyphicon-chevron-right");
+    btn.toggleClass("glyphicon-chevron-down");
+    $('#publ-'+id+' .publ-comments-toggle').toggle();
+    
+}
+// setup btn to expand and load updated data missing
+function setupBtnPublication(){
+    $('div#main').on('click', '.publ-expand', function(){
+        var id = $(this).attr('publicationid');
+        getPublicationContent(id);
+    });
+    $('div#main').on('click', '.publ-linked-toggle-btn', function(){
+        var id = $(this).attr('publicationid');
+        toggleLinkedBtn(id);
+    });
+    $('div#main').on('click', '.publ-comments-toggle-btn', function(){
+        var id = $(this).attr('publicationid');
+        toggleCommentsBtn(id);
+    });
 }
 
 /**
@@ -212,7 +310,7 @@ function shareFacebook(id){
   'socialTarget': 'http://spotalert.fe.up.pt',
   'page': '/publication/'+id
     });
-    alert('enviou hit sobre o share no facebook para o id:'+id);
+    //alert('enviou hit sobre o share no facebook para o id:'+id);
 }
 // Send hit to google analytics for a Twitter tweet
 function shareTwitter(id){
@@ -222,15 +320,15 @@ function shareTwitter(id){
   'socialAction': 'tweet',
   'socialTarget': 'http://spotalert.fe.up.pt/publication/'+id
     });
-    alert('enviou hit sobre o share no twitter para o id:'+id);
+    //alert('enviou hit sobre o share no twitter para o id:'+id);
 }
 // Send hit to google analytics for a google share 
 function shareGoogle(id){
     var a = ga('send','social','google','shareplus','http://spotalert.fe.up.pt','/publication/'+id);
-     alert('enviou hit sobre o share no google para o id:'+id);
+     //alert('enviou hit sobre o share no google para o id:'+id);
 }
 // Send hit to google analytics for a linkdIn share
-function shareGoogle(id){
-    var a = ga('send','social','google','shareplus','http://spotalert.fe.up.pt','/publication/'+id);
-     alert('enviou hit sobre o share no google para o id:'+id);
+function shareLinkdIn(id){
+    var a = ga('send','social','Linkdin','share','http://spotalert.fe.up.pt','/publication/'+id);
+     //alert('enviou hit sobre o share no linkdIn para o id:'+id);
 }

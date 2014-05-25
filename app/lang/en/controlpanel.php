@@ -33,7 +33,7 @@ return array(
 		"agerange" => "AGE RANGE",
 		"email" => "EMAIL",
 		"phone" => "PHONE NUMBER",
-		"address" => "address",
+		"address" => "ADDRESS",
 		"date" => "MEMBER SINCE",
 		"organization" => "ORGANIZATION",
 		"okbutton" => "OK"
@@ -54,5 +54,23 @@ return array(
     ),
 	"publications" => array(
 		"title" => "USER CONTROL PANEL - PUBLICATIONS"
-	)
+	),
+
+    "notifications"              => array(
+        "title"             => "USER CONTROL PANEL - NOTIFICATIONS",
+        "select"            => "SELECT",
+        "country_option"    => "COUNTRY",
+        "minimum_risk"      => "MINIMUM RISK",
+        "add"               => "ADD",
+        "publication"      => "PUBLICATION"
+    ),
+
+    "comments"                  => array(
+        "title"             => "USER CONTROL PANEL - MANAGE COMMENTS",
+        "publication"       => "PUBLICATION",
+        "comment"           => "COMMENT",
+        "name"              => "NAME",
+        "date"              => "DATE",
+        "risk"              => "RISK"
+    )
 );

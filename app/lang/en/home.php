@@ -58,4 +58,9 @@ return array(
 		"msg-placeholder"   => "WRITE YOUR MESSAGE HERE",
 		"send"              => "SEND"
 	),
+	"publications" => array(
+		"hidden"   => "!! HIDEN !!",
+		"inactive" => "INACTIVE",
+		"updated"  => "UPDATED"
+	)
 );

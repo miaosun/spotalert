@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container-fluid">
-	<div id="contact" class="col-md-4 col-md-offset-4"> 
+	<div id="contact" class="col-md-4 col-md-offset-4 general_panel"> 
 		<div class="row">
 			<br>
 			<h1>{{ Lang::get('home.contact.title') }}</h1>
