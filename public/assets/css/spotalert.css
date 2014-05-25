@@ -228,7 +228,7 @@ button#search-glass {
 .publication-alert.publ-risk3.inactive, 
 .publication-alert.publ-risk4.inactive,
 .publication-guideline.inactive {
-    background-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .publ-info {
@@ -267,12 +267,12 @@ button#search-glass {
 .inactive .publ_footer,
 .inactive a
  {
-    opacity:0.3;
-    filter:alpha(opacity=30); /* For IE8 and earlier */
+    opacity:0.5;
+    filter:alpha(opacity=50); /* For IE8 and earlier */
 }
 
 .publication-alert.publ-risk5.inactive {
-    background-color: rgba(237, 28, 36, 0.3);
+    background-color: rgba(237, 28, 36, 0.5);
 }
 
 .publ-info.publ-hidden {
@@ -484,7 +484,7 @@ button#search-glass {
 }
 
 
-.publication-guideline > hr{ /*COR DAS LINHAS*/
+.publication-guideline hr{ /*COR DAS LINHAS*/
     width:90%;
     border-color:#CCCCCC;
 }
