@@ -4,6 +4,9 @@ var idtoremove;
 var languagetoremove;
 $(document).ready(function () {
     
+    if (typeof window.contents != 'undefined') {
+        languages = window.contents;
+    } 
     
      $('#addlanguage_tab').click(function(event) {
          event.preventDefault();
@@ -19,8 +22,9 @@ $(document).ready(function () {
         //visual
         $('.add-language-modal').modal('hide');
         $("<li class='active'><a id='alert_tab_" + language_id + "' href='#alert_" + language_id + "' data-toggle='tab'>" + language_text + "</a><span id='rm-language' class='glyphicon glyphicon-remove'></span></li>").insertBefore(".nav-tabs li:last");
+        $(".nav-tabs").find(".active").removeClass("active");
         $(".tab-content").find(".active").removeClass("active");
-        $(".tab-content").append('<div class="tab-pane fade in active" id="alert_' + language_id + '"><div class="form-group"><label for="alert-title-label">Title</label><input name="alert-title' + language_id + '" type="text"></div><div class="form-group"><label for="alert-description-label">Description</label><textarea name="alert-description' + language_id + '" cols="50" rows="10"></textarea></div></div>');
+        $(".tab-content").append('<div class="tab-pane fade in" id="alert_' + language_id + '"><div class="form-group"><label for="alert-title-label">Title</label><input name="alert-title' + language_id + '" type="text"></div><div class="form-group"><label for="alert-description-label">Description</label><textarea name="alert-description' + language_id + '" cols="50" rows="10"></textarea></div></div>');
         $('#languages_tabs a:nth-last-child(2)').tab('show');
         
         //functional
@@ -49,6 +53,7 @@ $(document).ready(function () {
         $("#alert_tab_"+tabtoremove).closest('li').remove();
         //remove div
         $("#alert_"+tabtoremove).remove();
+        $(".tab-content").find(".active").removeClass("active");
         $('#languages_tabs a:first-child').tab('show');
         
         //functional

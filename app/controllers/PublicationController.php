@@ -33,6 +33,27 @@ class PublicationController extends BaseController
         
     }
     
+    public function showEditAlert($id)
+    {
+
+        $country_options = Country::lists('name', 'id');
+        $event_type_options = EventType::lists('name', 'id');
+        $guideline_options = DB::table('publications AS p')->join('publicationContents AS pc','pc.publication_id','=','p.id')->where('p.type','=','guideline')->lists('title','publication_id');
+        $language_options = Language::lists('name', 'id');
+        
+        $publication = Publication::find($id);
+        $types = Publication::find($id)->eventTypes->lists('id');
+        $countries = Publication::find($id)->affectedCountries->lists('id');
+        $guidelines = Publication::find($id)->guidelines->lists('id');
+        $contents = Publication::find($id)->contents->toArray();
+        
+        //var_dump($types, $countries, $guidelines, $contents);
+        
+
+        return View::make('publication.edit-alert')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options)->with('publication',$publication)->with('types',$types)->with('countries',$countries)->with('guidelines',$guidelines)->with('contents',$contents);
+
+    }
+    
 	/**
 	 * It removes a publication with a certain id from the database
 	 */
@@ -351,7 +372,72 @@ class PublicationController extends BaseController
         else
             return Redirect::back()->withErrors($valid_publication)->withInput();            
     }
+ 
+    public function updateAlert($id) {
         
+        $publication = Publication::find($id);
+        
+        //create the publication
+        $publication->initial_date = Input::get('alert-durationfrom');
+        $publication->final_date = Input::get('alert-durationto');
+        $publication->is_public = Input::get('alert-visibility');
+        $publication->periodic_notification = 7;
+        $publication->risk = Input::get('alert-risk');
+        $publication->type = "alert";
+
+        $alert_guidelines = Input::get('alert-guidelines');
+        $alert_countries = Input::get('alert-countries');
+        $alert_types = Input::get('alert-types');
+
+        
+        $languages = json_decode(Input::get('alert-languages'), true);
+        $languages_toarray = [];
+
+        
+        $publication_content1 = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,1]);
+        //publication content in english
+        $publication_content1->title = Input::get('alert-title');
+        $publication_content1->content = Input::get('alert-description');
+        $publication_content1->language_id = 1; //language id
+        $publication_content1->publication_id = null; //defined at insertion in db*
+
+        
+
+        foreach($languages as $key => $lang) {
+            
+            $publication_content = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,$lang]);
+            
+            //create the publication content
+            $publication_content->title = Input::get("alert-title".$lang);
+            $publication_content->content = Input::get("alert-description".$lang);
+            $publication_content->language_id = $lang; //language id
+            $publication_content->publication_id = $id; //defined at insertion in db*
+
+            $languages_toarray[$key] = $publication_content;
+        }
+
+        $publication->save();
+        //cycle through multiple languages
+        $publication_content1->publication_id = $publication->id;
+        $publication_content1->save();
+        foreach($languages_toarray as $lang){
+            $lang->publication_id = $publication->id;// here*
+            $lang->save();
+        }
+        //create the constraints in the database
+        foreach ($alert_guidelines as $guideline_id) {
+            $publication->guidelines()->attach($guideline_id);
+        }
+        foreach ($alert_types as $types_id) {
+            $publication->eventTypes()->attach($types_id);
+        }
+        foreach ($alert_countries as $country_id) {
+            $publication->affectedCountries()->attach($country_id);
+        }
+
+        return Redirect::to('/')->with('success', 'The alert was updated!');      
+    }
+    
 	/**
 	 * Queries for publications that go to the homepage are modified here to
 	 * go with a good structure.

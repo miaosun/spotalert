@@ -36,6 +36,21 @@ class PublicationsSeeder extends Seeder
 			'name'	=> 'Português',
 			'code'	=> 'PT'
 		));
+        
+        $langES = Language::create(array(
+            'name'	=> 'Español',
+            'code'	=> 'ES'
+        ));
+        
+        $langFR = Language::create(array(
+            'name'	=> 'Français',
+            'code'	=> 'FR'
+        ));
+        
+        $langDE = Language::create(array(
+            'name'	=> 'Deutsch',
+            'code'	=> 'DE'
+        ));
 
 		// ######################################################################
 		// European Countries

@@ -233,10 +233,16 @@ Route::group(array('before' => 'guest'), function() {
 		'uses' => 'PublicationController@showCreateAlert'
 	));
     
-    // show create alert (GET)
+    // show create guideline (GET)
 	Route::get('/publication/create-guideline', array(
-		'as' => 'publication-create-alert',
+		'as' => 'publication-create-guideline',
 		'uses' => 'PublicationController@showCreateGuideline'
 	));
+    
+    // show edit alert (GET)
+    Route::get('/publication/edit-alert/{id}', array(
+        'as' => 'publication-edit-alert',
+        'uses' => 'PublicationController@showEditAlert'
+    ));
 
 });

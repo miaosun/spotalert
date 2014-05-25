@@ -78,9 +78,9 @@
                         {{Form::label('alert-duration-label', 'Duration')}}
                         <div class="inrow">
                             {{ Form::label('alert-durationfrom-label', 'From');
-                            echo Form::input('date', 'guideline-durationfrom');
+                            echo Form::input('text', 'guideline-durationfrom', null, array('class'=>'datepicker'));
                             echo Form::label('alert-durationto-label', 'To');
-                            echo Form::input('date', 'guideline-durationto');}}
+                            echo Form::input('text', 'guideline-durationto', null, array('class'=>'datepicker'));}}
                         </div>
                     </div>
 
@@ -126,6 +126,8 @@
 </div>
 {{ HTML::script('assets/js/createalert.js') }}
 {{ HTML::script('assets/js/chosen.jquery.min.js'); }}
+{{ HTML::script('assets/js/bootstrap-datepicker.js'); }}
+{{ HTML::style('assets/css/datepicker.css'); }}
 <script type="text/javascript">
     var config = {
         '.chosen-select'           : {no_results_text:'Oops, nothing found!'},
@@ -133,6 +135,12 @@
     for (var selector in config) {
         $(selector).chosen(config[selector]);
     }
+    
+    $('.datepicker').datepicker({
+        format: "dd-mm-yyyy",
+        autoclose: true,
+        todayHighlight: true
+    });
 
     //languages
 
