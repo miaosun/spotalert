@@ -132,6 +132,20 @@
 
     @endforeach
 
+@if(isset($next_page))
+   @if($type == 'search')
+       <a class="jscroll-next" href="/publications/search/{{{$search_text}}}/{{{$next_page}}}">next page</a>
+   @elseif($type == 'filter')
+       <a class="jscroll-next" href="/publications/filter?risks={{{$risks}}}&event_types={{{$event_types}}}&affected_countries={{{$affected_countries}}}&next_page={{{$next_page}}}">next page</a>
+   @else
+       <a class="jscroll-next" href="/publications/next_page/{{{$next_page}}}">next page</a>
+   @endif
+
+   @if($next_page == 2)
+   </div>
+   @endif
+@endif
+
     @if(Auth::check() && Auth::user()->type != 'normal')
     <!-- Modal dialog for deleting publication -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
