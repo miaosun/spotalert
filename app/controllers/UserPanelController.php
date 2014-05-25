@@ -135,13 +135,8 @@ class UserPanelController extends BaseController {
     // Comments Page
     public function getComments()  {
         $profile = User::find(Auth::user()->getId());
-        //$publications = PublicationController::getPublicationsForUserPanel();
 
-        $comments = DB::table('comments')
-            ->join('publications', 'comments.publication_id', '=', 'publications.id')
-            ->join('publicationContents', 'publicationContents.publication_id', '=', 'comments.publication_id')
-            ->join('users', 'comments.user_id', '=', 'users.id')
-            ->get(array('comments.id', 'publicationContents.title', 'comments.content', 'comments.approved', 'users.username',  'publications.initial_date', 'publications.risk'));
+        $comments = Comment::with(array('author', 'publication', 'publication.contents'))->get();
 
         return View::make('user.comments')->with('user', $profile)->with('comments', $comments);
     }

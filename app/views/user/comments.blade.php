@@ -38,11 +38,11 @@
                     @foreach ($comments as $comment)
                     @if($comment->approved == false)
                     <tr>
-                        <td>{{{$comment->title}}}</td>
+                        <td>{{{$comment->publication->contents->first()->title}}}</td>
                         <td>{{{$comment->content}}}</td>
-                        <td>{{{$comment->username}}}</td>
-                        <td>{{{$comment->initial_date}}}</td>
-                        <td>{{{$comment->risk}}}</td>
+                        <td>{{{$comment->author->username}}}</td>
+                        <td>{{{$comment->created_at}}}</td>
+                        <td>{{{$comment->publication->risk}}}</td>
                         <td><a href="{{ URL::route('comment-approved', $comment->id) }}">Y</a> <a href="{{ URL::route('comment-deleted', $comment->id) }}">X</a></td>
                     </tr>
                     @endif
