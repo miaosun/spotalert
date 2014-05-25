@@ -210,48 +210,50 @@ function searching()
 **/
 function getPublicationContent(id)
 {
-    jQuery.getJSON("publications/content/"+id,function(data){
-        // fill description
-        $('#publ-'+id+' .publ-content p').html(data.content);
-        // fill linked publications
-        if(data.pubLinked.length == 0)
-            $('#publ-'+id+' .publ-linked').remove();
-        else
-        {
-            var links = "";
-            for(var i = 0; i < data.pubLinked.length ; i++){
-                links = links + "<p><a href='publication/"+id+"'>"+data.pubLinked[i].title+"</a>";
-            }
-            $('#publ-'+id+' .publ-content .publ-linked-toggle').html(links);
-        }
-        // fill comments 
-        if(data.comments.length == 0)
-            $('#publ-'+id+' .publ-comments').remove();
-        else
-        {
-            //TODO insert number of comments
-            var links = "";
-            for(var i = 0; i < data.comments.length ; i++){
-                if(i != 0)
-                    links = links +"<hr>"
-                links = links +
-                    "<div class='comments'>\
-                    <p class='comments-content'>"+data.comments[i].content+"</p>\
-                    <p class='comments-info'>"+data.comments[i].user+" - "+data.comments[i].date.date+"</p>\
-                    </div>";
-            }
-            //alert(links);
-            $('#publ-'+id+' .publ-content .publ-comments-toggle').html(links);
-        }
-        // change btn to toggle only
-        var btn = $('#publ-'+id+' .publ-expand');
-        btn.unbind();
-        btn.click(function(){
-            togglePubBtn(id);
-        });
-        // show content
-        togglePubBtn(id);
-    });
+	var btn = $('#publ-'+id+' .publ-expand');
+	if(btn.hasClass('publ-ajax-loaded'))
+		togglePubBtn(id);
+	else
+	{
+	    jQuery.getJSON("/publications/content/"+id,function(data){
+	        // fill description
+	        $('#publ-'+id+' .publ-content p').html(data.content);
+	        // fill linked publications
+	        if(data.pubLinked.length == 0)
+	            $('#publ-'+id+' .publ-linked').remove();
+	        else
+	        {
+	            var links = "";
+	            for(var i = 0; i < data.pubLinked.length ; i++){
+	                links = links + "<p><a href='publication/"+id+"'>"+data.pubLinked[i].title+"</a>";
+	            }
+	            $('#publ-'+id+' .publ-content .publ-linked-toggle').html(links);
+	        }
+	        // fill comments 
+	        if(data.comments.length == 0)
+	            $('#publ-'+id+' .publ-comments').remove();
+	        else
+	        {
+	            //TODO insert number of comments
+	            var links = "";
+	            for(var i = 0; i < data.comments.length ; i++){
+	                if(i != 0)
+	                    links = links +"<hr>"
+	                links = links +
+	                    "<div class='comments'>\
+	                    <p class='comments-content'>"+data.comments[i].content+"</p>\
+	                    <p class='comments-info'>"+data.comments[i].user+" - "+data.comments[i].date.date+"</p>\
+	                    </div>";
+	            }
+	            //alert(links);
+	            $('#publ-'+id+' .publ-content .publ-comments-toggle').html(links);
+	        }
+	        // change btn to toggle only
+	        btn.addClass('publ-ajax-loaded');
+	        // show content
+	        togglePubBtn(id);
+	    });
+	}
 }
 // toggle expansion btn
 function togglePubBtn(id)
@@ -260,7 +262,6 @@ function togglePubBtn(id)
     btn.toggleClass("glyphicon-chevron-down");
     btn.toggleClass("glyphicon-chevron-up");
     $('#publ-'+id+' .publ-colapse').toggle();
-    
 }
 // toggle linked div and arrow
 function toggleLinkedBtn(id)
@@ -282,15 +283,15 @@ function toggleCommentsBtn(id)
 }
 // setup btn to expand and load updated data missing
 function setupBtnPublication(){
-    $('.publ-expand').bind('click','.publ-expand', function(){
+    $('div#main').on('click', '.publ-expand', function(){
         var id = $(this).attr('publicationid');
         getPublicationContent(id);
     });
-    $('.publ-linked-toggle-btn').bind('click',function(){
+    $('div#main').on('click', '.publ-linked-toggle-btn', function(){
         var id = $(this).attr('publicationid');
         toggleLinkedBtn(id);
     });
-    $('.publ-comments-toggle-btn').bind('click',function(){
+    $('div#main').on('click', '.publ-comments-toggle-btn', function(){
         var id = $(this).attr('publicationid');
         toggleCommentsBtn(id);
     });
