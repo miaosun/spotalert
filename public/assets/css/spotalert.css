@@ -1255,6 +1255,10 @@ div.ajax-loading {
 #eyewitness.general_panel textarea#title {
     max-height: 50px;
 }
+#eyewitness h1{
+	font-weight:bold;
+	font-size:18px;
+}
 
 #eyewitness.general_panel .chosen-container {
     margin-top: 5px;
@@ -1271,8 +1275,11 @@ div.ajax-loading {
 #eyewitness.general_panel #lang-drop {
     margin-top: 10px;
 }
+#eyewitness .search-field input[type="text"]{
+	height:20px;
+}
 
-/*****-- Notifications deatils */
+/* ****-- Notifications deatils */
 #notifications input[type=submit] {
     width: 80%;
     border: 0px;
