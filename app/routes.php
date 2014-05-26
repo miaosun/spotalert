@@ -241,7 +241,12 @@ Route::group(array('before' => 'auth'), function() {
         'uses' => 'UserPanelController@deleteComment'
     ));
 
-
+    // Eyewitness Management
+    Route::get('/user/eyewitnesses', array(
+       'before' => 'auth.not_normal',
+       'as' => 'user-eyewitnesses',
+       'uses' => 'EyewitnessController@getEyewitnesses'
+    ));
 
     // Publications listing
     Route::get('/user/publications', array(

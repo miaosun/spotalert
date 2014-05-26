@@ -6,8 +6,9 @@
         <div class="row" id="publications-up">
             <ul>
                 <li><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
-                <li id="before"><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
+                <li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
                 @if($user->type != 'normal')
+                <li id="before"><a href="{{ URL::route('user-eyewitnesses') }}">{{ Lang::get('controlpanel.menu.eyewitnesses') }}</a></li>
                 <li id="active"> {{ Lang::get('controlpanel.menu.publications') }}</li>
                 <li><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
                 @if($user->type == 'admin' || $user->type == 'manager')

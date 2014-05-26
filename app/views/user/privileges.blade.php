@@ -3,11 +3,12 @@
 @section('content')
 
 <div class="container-fluid">
-    <div id="controlpanel" class="col-md-8 col-md-offset-2">
+    <div id="controlpanel" class="col-md-10 col-md-offset-1">
         <div class="row" id="privileges">
             <ul>
                 <li><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
                 <li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
+                <li><a href="{{ URL::route('user-eyewitnesses') }}">{{ Lang::get('controlpanel.menu.eyewitnesses') }}</a></li>
                 <li><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
                 @if($user->type == 'admin' || $user->type == 'manager')
                     <li id="before"><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>

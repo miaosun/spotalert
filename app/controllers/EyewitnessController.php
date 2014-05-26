@@ -20,10 +20,6 @@ class EyewitnessController extends BaseController
 
 	public function createEyewitness()
 	{
-		/*foreach (Input::file('images') as $image)
-		{
-			var_dump($image);
-		}return;*/
 		$validator = Validator::make(Input::all(),
 			array(
 				'title'              => 'required|max:50|min:3',

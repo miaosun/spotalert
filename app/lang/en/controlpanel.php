@@ -15,7 +15,8 @@ return array(
 		"notification"    => "NOTIFICATIONS",
 		"publications"  => "PUBLICATIONS",
 		"comments"   => "MANAGE COMMENTS",
-		"privileges" => "PRIVILEGES"
+		"privileges" => "PRIVILEGES",
+		"eyewitnesses" => "MANAGE EYEWITNESSES"
 	),
 	"profile"             => array(
 		"title" => "USER CONTROL PANEL - PROFILE",
