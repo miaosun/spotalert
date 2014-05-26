@@ -20,12 +20,15 @@ class EyewitnessController extends BaseController
 
 	public function createEyewitness()
 	{
+		/*foreach (Input::file('images') as $image)
+		{
+			var_dump($image);
+		}return;*/
 		$validator = Validator::make(Input::all(),
 			array(
 				'title'              => 'required|max:50|min:3',
 				'description'        => 'required|min:10',
 				'affected-countries' => 'array',
-				'images'             => 'array',
 				'language'           => 'exists:languages,id'
 			)
 		);
@@ -38,16 +41,39 @@ class EyewitnessController extends BaseController
 		}
 
 		// Validating countries
-		foreach(Input::get('affected-countries') as $country)
-		{
-			$validator = Validator::make(array($country), ['country' => 'exists:countries,id']);
-			if($validator->fails()) 
+		if(Input::has('affected-countries'))
+			foreach(Input::get('affected-countries') as $country)
 			{
-				return Redirect::route('eyewitness')
-						-> withErrors($validator)
-						-> withInput();
+				$validator = Validator::make(array($country), ['country' => 'exists:countries,id']);
+				if($validator->fails()) 
+				{
+					return Redirect::route('eyewitness')
+							-> withErrors($validator)
+							-> withInput();
+				}
+
 			}
 
+		// Validating the files that must be images
+		$files = Input::file('images');
+		for ($i=0; $i < count($files); $i++)
+		{
+		    $file = $files[$i];
+		    $input = array(
+		        'file' => $files[$i]
+		    );
+
+		    $rules = array(
+		        'file' => 'image|max:2048'
+		    );
+		    $validation = Validator::make($input, $rules);
+
+		    if($validation->fails()) 
+			{
+				return Redirect::route('eyewitness')
+						-> withErrors($validation)
+						-> withInput();
+			}
 		}
 
 		// Creating the eyewitness
@@ -59,17 +85,22 @@ class EyewitnessController extends BaseController
 			'language_id' => Input::get('language')
 		));
 
-		// Linking to the countries
-		foreach(Input::get('affected-countries') as $country)
-		{
-			$eyewitness->countries()->attach($country);
-		}
+		// Linking eyewitness to the countries
+		if(Input::has('affected-countries'))
+			foreach(Input::get('affected-countries') as $country)
+				$eyewitness->countries()->attach($country);
 		
 		//Storing images
-		/*foreach ($image as $key => $value) 
+		$destinationPath = '/var/www/spotalert/app/images/eyewitnesses' . $eyewitness->id;
+		if(!File::exists($destinationPath))
+			File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
+		$images = Input::file('images');
+		for ($i=0; $i < count($images); $i++)
 		{
-			# code...
-		}*/
+			$image = $images[$i];
+			$extension = $image->guessExtension();
+			$image->move($destinationPath, $i . '.' . $extension );
+		}
 
 		return Redirect::route('home')
 			-> with('global', 'Eyewitness successfully received! As soon as possible we will analyse it.');

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <div id="eyewitness" class="col-md-8 col-sm-8 col-md-offset-2 general_panel">
-        <form action="{{ URL::route('create-eyewitness') }}" method="post"> <!-- FIXME -->
+        <form action="{{ URL::route('create-eyewitness') }}" method="post" enctype="multipart/form-data">
             <div class="row">
                 <br>
                 <h1>{{Lang::get('eyewitness.title')}}</h1>
@@ -30,8 +30,8 @@
                         <div class="col-md-12 col-sm-12">
                             <h5>{{Lang::get('eyewitness.fields.images')}}</h5>
                             {{ Form::file('images[]',array('multiple')) }}
-                            @if($errors->has('images'))
-                            <br><span>{{ $errors->first('images') }}</span>
+                            @if($errors->has('file'))
+                            <br><span>{{ $errors->first('file') }}</span>
                             @endif
                         </div>
                     </div>
