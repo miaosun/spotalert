@@ -94,6 +94,7 @@ header .row-header > div#language {
     padding-top: 30px;
     background-color:#f2f2f2;
     width: 100%;
+    min-height:550px;
 }
 
 @media (max-width:991px) {
@@ -1064,6 +1065,8 @@ div.ajax-loading {
 #controlpanel .editbutton {
     color: #BF2333;
     float: right;
+    font-size:1.1em;
+
 }
 
 #controlpanel .dotline{
@@ -1407,6 +1410,14 @@ label {
 #contact.general_panel textarea {
     margin-left:8px;
 }
+#contact{
+	width:38%;
+}
+#contact h1{
+	text-transform:uppercase;
+	font-weight:bold;
+	font-size:18px; 
+}
 
 /*****-- Eyewitnesses details */
 #eyewitness.general_panel textarea#title {
@@ -1495,3 +1506,4 @@ label {
     color: #BF2333;
     font-size: 23px;
 }
+
