@@ -231,6 +231,18 @@ Route::group(array('before' => 'auth'), function() {
         'uses' => 'UserPanelController@getComments'
     ));
 
+    Route::get('/user/comments/approve/{id}', array(
+        'as' => 'comment-approved',
+        'uses' => 'UserPanelController@approveComment'
+    ));
+
+    Route::get('/user/comments/delete/{id}', array(
+        'as' => 'comment-deleted',
+        'uses' => 'UserPanelController@deleteComment'
+    ));
+
+
+
     // Publications listing
     Route::get('/user/publications', array(
        'before' => 'auth.not_normal',

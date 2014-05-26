@@ -1,7 +1,6 @@
 @extends('layouts.default')
 
 @section('content')
-{{ isset($errors) ? $errors : "sem_erros <br>" }}
 
 <div class="container-fluid">
     <div id="controlpanel" class="col-md-8 col-md-offset-2">
@@ -116,6 +115,18 @@
             "order": [[ 3, "desc" ]],
             "info":     false,
             "searching": false
+        });
+
+        $.getJSON( "api/usernames", function( data ) {
+            $( "#username" ).autocomplete({
+                source: data
+            });
+        });
+
+        $.getJSON( "api/emails", function( data ) {
+            $( "#email" ).autocomplete({
+                source: data
+            });
         });
     });
 </script>
