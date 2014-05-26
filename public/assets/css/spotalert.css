@@ -1213,7 +1213,6 @@ div.ajax-loading {
 
 .general_panel h5 span {
     color: #666666;
-
 }
 
 .general_panel #moveright {
@@ -1244,11 +1243,33 @@ div.ajax-loading {
     color:red;
 }
 
-.general_panel span {
-    font-size:12px;
-    color:red;
+/*****-- Contact detail */
+#contact.general_panel textarea {
+    margin-left:8px;
 }
 
+/*****-- Eyewitnesses details */
+#eyewitness.general_panel textarea#title {
+    max-height: 50px;
+}
+
+#eyewitness.general_panel .chosen-container {
+    margin-top: 5px;
+}
+
+#eyewitness.general_panel .last-row {
+    margin-top: 30px;
+}
+
+#eyewitness.general_panel label {
+    padding-left: 0;
+}
+
+#eyewitness.general_panel #lang-drop {
+    margin-top: 10px;
+}
+
+/*****-- Notifications deatils */
 #notifications input[type=submit] {
     width: 80%;
     border: 0px;
@@ -1395,23 +1416,6 @@ label {
     margin-right: 10px;
 }
 
-
-
-
-/*****************************************************
-*************** USER PANEL - PUBLICATIONS *************
-*******************************************************/
-
-
-/*****-- Contact detail */
-#contact.general_panel textarea {
-    margin-left:8px;
-}
-
-/*****-- Eyewitnesses details */
-#eyewitness.general_panel textarea#title {
-    max-height: 50px;
-}
 
 /******************************************************
 ******* USER PANEL - PUBLICATIONS + PRIVILEGES ********

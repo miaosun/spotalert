@@ -124,6 +124,7 @@
     {{  Form::submit('Submit', array('class' => 'alert-submit'));
                         Form::close()}}
 </div>
+{{ HTML::style('assets/css/chosen.css'); }}
 {{ HTML::script('assets/js/createalert.js') }}
 {{ HTML::script('assets/js/chosen.jquery.min.js'); }}
 <script type="text/javascript">

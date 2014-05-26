@@ -108,6 +108,18 @@ Route::post('/publication/createguideline', array(
     'uses' => 'PublicationController@createGuideline'
 ));
 
+// show create alert (GET)
+Route::get('/publication/create-alert', array(
+    'as' => 'publication-create-alert',
+    'uses' => 'PublicationController@showCreateAlert'
+));
+
+// show create guideline (GET)
+Route::get('/publication/create-guideline', array(
+    'as' => 'publication-create-guideline',
+    'uses' => 'PublicationController@showCreateGuideline'
+));
+
 /*
  * API Controle Panel
  */
@@ -295,17 +307,4 @@ Route::group(array('before' => 'guest'), function() {
         'as' => 'account-activate',
         'uses' => 'AccountController@getActivate'
     ));
-    
-    // show create alert (GET)
-    Route::get('/publication/create-alert', array(
-        'as' => 'publication-create-alert',
-        'uses' => 'PublicationController@showCreateAlert'
-    ));
-    
-    // show create alert (GET)
-    Route::get('/publication/create-guideline', array(
-        'as' => 'publication-create-alert',
-        'uses' => 'PublicationController@showCreateGuideline'
-    ));
-
 });

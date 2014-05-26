@@ -1,7 +1,6 @@
 @extends('layouts.default')
 
 @section('content')
-{{ isset($errors) ? $errors : "sem_erros <br>" }}
 
 <div class="container-fluid">
 	<div id="controlpanel" class="col-md-8 col-md-offset-2"> 

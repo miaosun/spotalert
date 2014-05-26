@@ -10,8 +10,8 @@
                 <div class="col-md-5 col-sm-5 col-md-offset-0" id="moveright">
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <h5>TITLE <span>(maximum of 50 characters)</span></h5>
-                            {{ Form::textarea('title', '', array('id'=>'title', 'placeholder'=>'WRITE YOUR TITLE HERE')) }}
+                            <h5>{{Lang::get('eyewitness.fields.title')}} <span>{{Lang::get('eyewitness.fields.max_size')}}</span></h5>
+                            {{ Form::textarea('title', '', array('id'=>'title', 'placeholder'=>Lang::get('eyewitness.placeholders.title'))) }}
                             @if($errors->has('title'))
                             <br><span>{{ $errors->first('title') }}</span>
                             @endif
@@ -19,8 +19,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <h5>DESCRIPTION</h5>
-                            {{ Form::textarea('description', '', array('placeholder'=>'WRITE YOUR DESCRIPTION HERE')) }}
+                            <h5>{{Lang::get('eyewitness.fields.description')}}</h5>
+                            {{ Form::textarea('description', '', array('placeholder'=>Lang::get('eyewitness.placeholders.description'))) }}
                             @if($errors->has('description'))
                             <br><span>{{ $errors->first('description') }}</span>
                             @endif
@@ -28,146 +28,45 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <h5>UPLOAD IMAGES</h5>
-                            {{ Form::file('uploadfile',array('multiple')) }}
-                            @if($errors->has('description'))
-                            <br><span>{{ $errors->first('description') }}</span>
+                            <h5>{{Lang::get('eyewitness.fields.images')}}</h5>
+                            {{ Form::file('images[]',array('multiple')) }}
+                            @if($errors->has('images'))
+                            <br><span>{{ $errors->first('images') }}</span>
                             @endif
                         </div>
                     </div>
                 </div>
 
 
-                <div class="col-md-7 col-sm-7 col-md-offset-0">
+                <div class="col-md-6 col-sm-6 col-sm-offset-1 col-md-offset-1">
                     <div class="row">
-                        <div class="col-md-4 col-sm-4">
+                        <div class="col-md-12 col-sm-12">
+                            <h5>{{Lang::get('eyewitness.fields.affected_countries')}}</h5>
+                            {{Form::select('affected-countries[]', $countries, null,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('eyewitness.placeholders.countries')))}}
+                            @if($errors->has('affected-countries'))
+                            <br><span>{{ $errors->first('affected-countries') }}</span>
+                            @endif
+                        </div>
+                    </div>
 
-                            {{ Form::label(Lang::get('register.field.username') . '*',null,array('class' => 'label')) }}
+                    <div class="row" id="lang-drop">
+                        <div class="col-md-4">
+                            {{ Form::label(Lang::get('eyewitness.fields.language') . '*:', null, array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('username', Input::old('username'), array('placeholder'=>Lang::get('register.placeholder.username'))) }}
-                            @if($errors->has('username'))
-                            <br><span>{{ $errors->first('username') }}</span>
+                            {{ Form::select('language', $languages ) }}
+                            @if($errors->has('language'))
+                            <br><span>{{ $errors->first('language') }}</span>
                             @endif
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4 col-sm-4">
-                            {{ Form::label(Lang::get('register.field.password').'*',null, array('class' => 'label')) }}
-                        </div>
-                        <div class="col-md-7 col-sm-7 col-md-offset-0">
-                            {{ Form::password('password', array('placeholder'=>Lang::get('register.placeholder.password'))) }}
-                            @if($errors->has('password'))
-                            <br><span>{{ $errors->first('password') }}</span>
-                            @endif
-                            {{ Form::password('password_again', array('placeholder'=>Lang::get('register.placeholder.confirmpassword'))) }}
-                            @if($errors->has('password_again'))
-                            <br><span>{{ $errors->first('password_again') }}</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            {{ Form::label(Lang::get('register.field.first_name'),null,array('class' => 'label')) }}
-                        </div>
-                        <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('firstname', Input::old('firstname') , array('placeholder'=>Lang::get('register.placeholder.first_name') )) }}
-                            @if($errors->has('firstname'))
-                            <br><span>{{ $errors->first('firstname') }}</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            {{ Form::label(Lang::get('register.field.last_name'),null,array('class' => 'label')) }}
-                        </div>
-                        <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('lastname', Input::old('lastname'), array('placeholder'=>Lang::get('register.placeholder.last_name') )) }}
-                            @if($errors->has('lastname'))
-                            <br><span>{{ $errors->first('lastname') }}</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            {{ Form::label(Lang::get('register.field.age_range').'*', null, array('class' => 'label')) }}
-                        </div>
-                        <div class="col-md-7 col-md-offset-0 range-age">
-                            {{-- Form::select('agerange', $age_options, Input::old('agerange')) --}}
-                            @if($errors->has('agerange'))
-                            <br><span>{{ $errors->first('agerange') }}</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            {{ Form::label(Lang::get('register.field.email_address').'*', null, array('class' => 'label')) }}
-                        </div>
-                        <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('email', Input::old('email'), array('placeholder'=>Lang::get('register.placeholder.email_address') )) }}
-                            @if($errors->has('email'))
-                            <br><span>{{ $errors->first('email') }}</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            {{ Form::label(Lang::get('register.field.phone_number'), null, array('class' => 'label')) }}
-                        </div>
-                        <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('phonenumber', null, array('placeholder'=>Lang::get('register.placeholder.phone_number') )) }}
-                            @if($errors->has('phonenumber'))
-                            <br><span>{{ $errors->first('phonenumber') }}</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            {{ Form::label(Lang::get('register.field.address'), null, array('class' => 'label')) }}
-                        </div>
-                        <div class="col-md-7 col-md-offset-0">
-                            {{ Form::text('address', null, array('placeholder'=>Lang::get('register.placeholder.address'))) }}
-                            @if($errors->has('address'))
-                            <br><span>{{ $errors->first('address') }}</span>
-                            @endif
-                            {{ Form::text('city', null, array('placeholder'=>Lang::get('register.placeholder.city') )) }}
-                            @if($errors->has('city'))
-                            <br><span>{{ $errors->first('city') }}</span>
-                            @endif
-                            {{ Form::text('postalCode', null, array('placeholder'=>Lang::get('register.placeholder.postalcode') )) }}
-                            @if($errors->has('postalCode'))
-                            <br><span>{{ $errors->first('postalCode') }}</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            {{ Form::label(Lang::get('register.field.residence') . '*', null, array('class' => 'label')) }}
-                        </div>
-                        <div class="col-md-7 col-md-offset-0 resid-drop">
-                            {{-- Form::select('residence', $country_options , Input::old('residence')) --}}
-                            @if($errors->has('residence'))
-                            <br><span>{{ $errors->first('residence') }}</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            {{ Form::label(Lang::get('register.field.nationality') . '*', null, array('class' => 'label')) }}
-                        </div>
-                        <div class="col-md-7 col-md-offset-0 country-drop">
-                            {{-- Form::select('nationality', $country_options , Input::old('nationality')) --}}
-                            @if($errors->has('nationality'))
-                            <br><span>{{ $errors->first('nationality') }}</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="row">
+                    
+                    <div class="row last-row">
                         <div class="col-md-4" id="mand_field">
-                            <br>{{ Form::label('*'.Lang::get('register.field.mandatory'), null, array('class' => 'label')) }}
+                            <br>{{ Form::label('*'.Lang::get('eyewitness.mandatory'), null, array('class' => 'label')) }}
                         </div>
                         <div class="col-md-6 pull-right">
-                            {{ Form::submit(Lang::get('register.register')) }}
+                            {{ Form::submit(Lang::get('eyewitness.submit')) }}
                         </div>
                     </div>
                 </div>
@@ -176,4 +75,18 @@
             {{ Form::close() }}
     </div>
 </div>
+{{ HTML::style('assets/css/chosen.css'); }}
+{{ HTML::script('assets/js/chosen.jquery.min.js') }}
+
+<script>
+$('document').ready(function() 
+{
+    $('.chosen-select').chosen(
+        { 
+            no_results_text: 'Oops, nothing found!',
+            width: "100%"
+        });
+});
+</script>
+
 @stop
