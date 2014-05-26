@@ -174,12 +174,12 @@ class UserPanelController extends BaseController {
             $temp = User::where('type', '<>', 'admin')->get();
         if($profile['type'] == 'manager')
             $temp = User::where('type', '<>', 'admin')->where('type', '<>', 'manager')->get();
-        $usernames_array = array();
+        $useremails_array = array();
         foreach($temp as $tem)
         {
-            $usernames_array[] = $tem['email'];
+            $useremails_array[] = $tem['email'];
         }
-        return Response::json($usernames_array);
+        return Response::json($useremails_array);
     }
 
     public function getAges() {

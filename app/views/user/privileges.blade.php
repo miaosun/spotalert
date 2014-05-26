@@ -116,6 +116,18 @@
             "info":     false,
             "searching": false
         });
+
+        $.getJSON( "api/usernames", function( data ) {
+            $( "#username" ).autocomplete({
+                source: data
+            });
+        });
+
+        $.getJSON( "api/emails", function( data ) {
+            $( "#email" ).autocomplete({
+                source: data
+            });
+        });
     });
 </script>
 
