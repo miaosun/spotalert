@@ -135,15 +135,22 @@ class UserPanelController extends BaseController {
     // Comments Page
     public function getComments()  {
         $profile = User::find(Auth::user()->getId());
-        //$publications = PublicationController::getPublicationsForUserPanel();
 
-        $publications = DB::table('publications')
-            ->join('publicationContents', 'publicationContents.publication_id', '=', 'publications.id')
-            ->leftJoin('comments', 'comments.publication_id', '=', 'publications.id')
-            ->leftJoin('users', 'comments.user_id', '=', 'users.id')
-            ->get(array('publications.id', 'publicationContents.title', 'comments.content', 'users.username',  'publications.initial_date', 'publications.risk'));
+        $comments = Comment::with(array('author', 'publication', 'publication.contents'))->get();
 
-        return View::make('user.comments')->with('user', $profile)->with('publications', $publications);
+        return View::make('user.comments')->with('user', $profile)->with('comments', $comments);
+    }
+
+    public function approveComment($id) {
+        DB::update('update comments set approved = ? where id = ?', array('true', $id));
+
+        return Redirect::route('user-comments')->with('global', 'Comment approved with success!');
+    }
+
+    public function deleteComment($id) {
+        Comment::destroy($id);
+        //Comment::where('id', '=', $id)->delete();
+        return Redirect::route('user-comments')->with('global', 'Comment deleted with success!');
     }
 
     /*  APIs  */
@@ -167,12 +174,12 @@ class UserPanelController extends BaseController {
             $temp = User::where('type', '<>', 'admin')->get();
         if($profile['type'] == 'manager')
             $temp = User::where('type', '<>', 'admin')->where('type', '<>', 'manager')->get();
-        $usernames_array = array();
+        $useremails_array = array();
         foreach($temp as $tem)
         {
-            $usernames_array[] = $tem['email'];
+            $useremails_array[] = $tem['email'];
         }
-        return Response::json($usernames_array);
+        return Response::json($useremails_array);
     }
 
     public function getAges() {
