@@ -108,6 +108,12 @@ Route::post('/publication/createguideline', array(
     'uses' => 'PublicationController@createGuideline'
 ));
 
+//Edit Alert (POST)
+Route::post('/publication/editalert', array(
+    'as' => 'publication-editalert',
+    'uses' => 'PublicationController@updateAlert'
+));
+
 // show create alert (GET)
 Route::get('/publication/create-alert', array(
     'as' => 'publication-create-alert',

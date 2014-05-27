@@ -5,10 +5,11 @@
 <?php 
     $all_contents = $contents;
     $contents = array_slice($contents,1);
+    $idp = $publication['id'];
 ?>
 
 <div class="content">
-    {{ Form::open(['url'=>'/publication/createalert']) }}
+    {{ Form::open(['url' => '/publication/editalert']) }}
     <div id="alert-tabs">
         <div id="languages_tabs">
             <ul class="nav nav-tabs">
@@ -148,9 +149,11 @@
         </div>
     </div>
     <input type="hidden" name="alert-languages" display="none">
+    <input type="hidden" name="alert-id" display="none" value="{{$idp}}">
     {{  Form::submit('Submit', array('class' => 'alert-submit'));
     Form::close()}}
 </div>
+{{ HTML::style('assets/css/chosen.css'); }}
 {{ HTML::script('assets/js/createalert.js') }}
 {{ HTML::script('assets/js/chosen.jquery.min.js'); }}
 {{ HTML::script('assets/js/bootstrap-datepicker.js'); }}
@@ -162,6 +165,12 @@
     for (var selector in config) {
         $(selector).chosen(config[selector]);
     }
+    
+    $('.datepicker').datepicker({
+        format: "yyyy-mm-dd",
+        autoclose: true,
+        todayHighlight: true
+    });
 
     //languages
     <?php
