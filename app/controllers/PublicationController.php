@@ -685,7 +685,35 @@ class PublicationController extends BaseController
             $publication->affectedCountries()->attach($country_id);
         }
 
+        $this->checkEditNotification($publication);
+
         return Redirect::to('/')->with('success', 'The alert was updated!');      
+    }
+
+    public function checkEditNotification($publication)
+    {
+    	if($publication->is_public)
+    	{
+            $users = $publication->usersNotified;
+
+            foreach ($users as $user) 
+            {
+            	$email       = $user->email;
+	    		$username    = $user->username; 
+	    		$email_spotA = Config::get('mail.username');
+				$name_spotA  = Config::get('mail.from.name');
+
+	    		Mail::send('emails.notification_edit', 
+				array('username' => $username, 'publ_name' => $publication->title), 
+				function($message) use ($email, $username, $email_spotA, $name_spotA) 
+				{
+						$message->from($email_spotA, $name_spotA)
+							->to($email, $username)
+							->subject('[Spot Alert] You have received a notification!')
+							->replyTo($email_spotA, $name_spotA);
+				});
+            }
+	    }
     }
     
 	/**
