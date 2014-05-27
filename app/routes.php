@@ -160,7 +160,6 @@ Route::group(array('before' => 'auth'), function() {
         // Create Eyewitness (POST)
         Route::post('/create-eyewitness', array(
             'as' => 'create-eyewitness',
-            'before' => 'auth.not_normal',
             'uses' => 'EyewitnessController@createEyewitness'
         ));
 
