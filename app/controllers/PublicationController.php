@@ -369,7 +369,7 @@ class PublicationController extends BaseController
 	}
     
     public function createAlert() {
-        
+
         //create the publication
         $pub = [
             'initial_date' => Input::get('alert-durationfrom'),
@@ -456,7 +456,8 @@ class PublicationController extends BaseController
                      $publication->affectedCountries()->attach($country_id);
                 }
                 
-
+                // If there notifications to send, send it
+                $this->checkCreateNotification($publication);
                 return Redirect::to('/')->with('success', 'Alert was created!');
             }
             else
@@ -555,6 +556,8 @@ class PublicationController extends BaseController
                     $publication->affectedCountries()->attach($country_id);
                 }
 
+				// If there notifications to send, send it
+                $this->checkCreateNotification($publication);
 
                 return Redirect::to('/')->with('success', 'Alert was created!');
             }
@@ -563,6 +566,48 @@ class PublicationController extends BaseController
         }
         else
             return Redirect::back()->withErrors($valid_publication)->withInput();            
+    }
+
+    public function checkCreateNotification($publication)
+    {
+    	if($publication->is_public)
+    	{
+	    	//Creating the countries array
+	    	$countries = array();
+	    	foreach ($publication->affectedCountries() as $country)
+	    		array_push($countries, $country->id);
+
+	    	// Get the notifications
+	    	$notifications = NotificationSetting::with('user')
+	    		->where('risk', '>=', $publication->risk)
+	    		->whereIn('country_id', $countries)->get();
+
+	    	$already_sent = array();
+	    	// Sending the email to each needed user
+	    	foreach ($notifications as $notification) 
+	    	{
+	    		$user_id = $notification->user->id;
+	    		// Avoid sending repeated emails
+	    		if(!in_array($user_id, $already_sent))
+	    		{
+	    			array_push($already_sent, $user_id);
+		    		$email       = $notification->user->email;
+		    		$username    = $notification->user->username; 
+		    		$email_spotA = Config::get('mail.username');
+					$name_spotA  = Config::get('mail.from.name');
+
+		    		Mail::send('emails.notification_create', 
+					array('username' => $username, 'publ_name' => $publication->title, 'publ_risk' => $$publication->risk), 
+					function($message) use ($email, $username, $email_spotA, $name_spotA) 
+					{
+							$message->from($email_spotA, $name_spotA)
+								->to($email, $username)
+								->subject('[Spot Alert] You have received a notification!')
+								->replyTo($email_spotA, $name_spotA);
+					});
+	    		}
+	    	}
+	    }
     }
  
     public function updateAlert() {
