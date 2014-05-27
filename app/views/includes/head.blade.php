@@ -9,7 +9,6 @@
 {{ HTML::style('assets/css/normalize.css'); }}
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-{{ HTML::style('assets/css/chosen.min.css'); }}
 {{ HTML::style('assets/css/spotalert.css'); }}
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 

@@ -759,7 +759,7 @@ class PublicationsSeeder extends Seeder
          $comment3 = Comment::create(array(
 			'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in tortor pretium, pellentesque magna nec, posuere libero. Vestibulum condimentum felis et neque volutpat cursus. Aliquam in tellus mi. Vivamus consectetur.',
 			'created_at' => date("Y-m-d H:i:s"),
-			'approved'=> "true",
+			'approved'=> "false",
             'user_id' => $publisher->id,
             'publication_id' => $publication2->id
 		));
@@ -773,7 +773,7 @@ class PublicationsSeeder extends Seeder
          $comment5 = Comment::create(array(
 			'content'	=> 'Consectetur adipiscing elit. Curabitur in tortor pretium, pellentesque magna nec, posuere libero. Vestibulum condimentum felis et neque volutpat cursus.',
 			'created_at' => date("Y-m-d H:i:s"),
-			'approved'=> "true",
+			'approved'=> "false",
             'user_id' => $normal->id,
             'publication_id' => $publication8->id
 		));

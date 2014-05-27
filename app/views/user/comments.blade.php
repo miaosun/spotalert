@@ -1,15 +1,15 @@
 @extends('layouts.default')
 
 @section('content')
-{{ isset($errors) ? $errors : "sem_erros <br>" }}
 
 <div class="container-fluid">
-    <div id="controlpanel" class="col-md-8 col-md-offset-2">
+    <div id="controlpanel" class="col-md-10 col-md-offset-1">
         <div class="row" id="notifications">
             <ul>
                 <li><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
                 <li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
                 @if($user->type != 'normal')
+                <li><a href="{{ URL::route('user-eyewitnesses') }}">{{ Lang::get('controlpanel.menu.eyewitnesses') }}</a></li>
                 <li id="before"><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
                 <li id="active"><a href="">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
                     @if($user->type == 'publisher')
@@ -22,28 +22,30 @@
             <h1>{{ Lang::get('controlpanel.comments.title') }}</h1>
 
             <div class="table-wrapper">
-                <table id="publ-list" class="display" cellspacing="0" width="100%">
+                <table id="comments-list" class="display" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>{{ Lang::get('controlpanel.comments.publication') }} <span></span></th>
                         <th>{{ Lang::get('controlpanel.comments.comment') }} <span></span></th>
                         <th>{{ Lang::get('controlpanel.comments.name') }} <span></span></th>
                         <th>{{ Lang::get('controlpanel.comments.date') }} <span></span></th>
-                        <th>RISK <span></span></th>
+                        <th>{{ Lang::get('controlpanel.comments.risk') }} <span></span></th>
                         <th></th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    @foreach ($publications as $publication)
+                    @foreach ($comments as $comment)
+                    @if($comment->approved == false)
                     <tr>
-                        <td>{{{$publication->title}}}</td>
-                        <td>{{{$publication->content}}}</td>
-                        <td>{{{$publication->username}}}</td>
-                        <td>{{{$publication->initial_date}}}</td>
-                        <td>{{{$publication->risk}}}</td>
-                        <td>Y X</td>
+                        <td>{{{$comment->publication->contents->first()->title}}}</td>
+                        <td>{{{$comment->content}}}</td>
+                        <td>{{{$comment->author->username}}}</td>
+                        <td>{{{$comment->created_at}}}</td>
+                        <td>{{{$comment->publication->risk}}}</td>
+                        <td><a href="{{ URL::route('comment-approved', $comment->id) }}">Y</a> <a href="{{ URL::route('comment-deleted', $comment->id) }}">X</a></td>
                     </tr>
+                    @endif
                     @endforeach
                     </tbody>
                 </table>
@@ -53,6 +55,27 @@
     </div>
 </div>
 
-{{ HTML::script('scripts/controlpanel.js') }}
-{{ HTML::style('http://cdn.datatables.net/1.10.0/css/jquery.dataTables.css'); }}
+{{ HTML::script('assets/js/jquery.dataTables.js') }}
+
+<script>
+    $('document').ready(function()
+    {
+        $('#comments-list').dataTable( {
+            "paging":   false,
+            "order": [[4, "desc" ]],
+            "info":     false,
+            "searching": false,
+            "bAutoWidth": false,
+            "aoColumns" : [
+                { sWidth: '20%' },
+                { sWidth: '30%' },
+                { sWidth: '15%' },
+                { sWidth: '15%' },
+                { sWidth: '10%' },
+                { sWidth: '10%' }
+            ]
+        });
+    });
+</script>
+
 @stop
