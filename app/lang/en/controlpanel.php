@@ -78,7 +78,12 @@ return array(
         "comment"     => "COMMENT",
         "name"        => "NAME",
         "date"        => "DATE",
-        "risk"        => "RISK"
+        "risk"        => "RISK",
+        "submit_msg"      => array(
+            "success"       => "Comment submited with success and waiting to be approve!",
+            "fail"          => "Comment submited without success! Try again later or contact admin",
+            "bad_format"    => "Bad Format or you don't have permitions to submit new comments. Try Again or contact admin!"
+        )
     ),
 
     "eyewitnesses" => array(

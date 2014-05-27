@@ -152,6 +152,29 @@ class UserPanelController extends BaseController {
         //Comment::where('id', '=', $id)->delete();
         return Redirect::route('user-comments')->with('global', 'Comment deleted with success!');
     }
+    
+    /*  Submit new comments API  */
+    public function submitComment($id) {
+        
+        if(Auth::check() && Input::has("text"))
+        {
+            //'content', 'created_at', 'approved', 'user_id', 'publication_id'
+            $comment = new Comment;
+            $comment->content = Input::get("text");
+            $comment->created_at = date("Y-m-d H:i:s");
+            $comment->approved = true;
+            $comment->user_id = Auth::user()->id;
+            $comment->publication_id = $id;
+            if($comment->save())
+                $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.success'),"id"=>$id,"status"=>"ok");
+            else
+                $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.fail'),"id"=>$id,"status"=>"DataBase Error: can't saved");
+        }  
+        else
+            $answer = array("msg"=>Lang::get('controlpanel.comments.submit_msg.bad_format'),"id"=>$id); 
+        
+        return Response::json($answer);
+    }
 
     /*  APIs  */
     public function getUsernames() {

@@ -25,6 +25,8 @@ $('document').ready(function()
     
     // setting up expand buttons for publication
     setupBtnPublication();
+    
+    //default url
 });
 
 
@@ -216,7 +218,7 @@ function getPublicationContent(id)
 		togglePubBtn(id);
 	else
 	{
-	    jQuery.getJSON("/publications/content/"+id,function(data){
+	    jQuery.getJSON("publications/content/"+id,function(data){
 	        // fill description
 	        $('#publ-'+id+' .publ-content p').html(data.content);
 	        // fill linked publications
@@ -231,23 +233,24 @@ function getPublicationContent(id)
 	            $('#publ-'+id+' .publ-content .publ-linked-toggle').html(links);
 	        }
 	        // fill comments 
-	        if(data.comments.length == 0)
-	            $('#publ-'+id+' .publ-comments').remove();
+	        if(data.comments.length == 0){
+	            $('#publ-'+id+' .publ-comments-toggle-btn').hide();
+            
+            }
 	        else
 	        {
 	            //TODO insert number of comments
 	            var links = "";
 	            for(var i = 0; i < data.comments.length ; i++){
 	                if(i != 0)
-	                    links = links +"<hr>"
-	                links = links +
-	                    "<div class='comments'>\
-	                    <p class='comments-content'>"+data.comments[i].content+"</p>\
-	                    <p class='comments-info'>"+data.comments[i].user+" - "+data.comments[i].date.date+"</p>\
-	                    </div>";
+	                    links = links +"<hr>";
+	                links = links +"<div class='comments'>\
+	                                <p class='comments-content'>"+data.comments[i].content+"</p>\
+                                    <p class='comments-info'>"+data.comments[i].user+" - "+data.comments[i].date.date+"</p>\
+	                                </div>";
 	            }
 	            //alert(links);
-	            $('#publ-'+id+' .publ-content .publ-comments-toggle').html(links);
+	            $('#publ-'+id+' .publ-content .publ-comments-area').html(links);
 	        }
 	        // change btn to toggle only
 	        btn.addClass('publ-ajax-loaded');
@@ -255,6 +258,10 @@ function getPublicationContent(id)
 	        togglePubBtn(id);
 	    });
 	}
+}
+// add comment div
+function addCommentDiv(){
+
 }
 // toggle expansion btn
 function togglePubBtn(id)
@@ -273,10 +280,19 @@ function toggleLinkedBtn(id)
     $('#publ-'+id+' .publ-linked-toggle').toggle();
     
 }
+// add comments if login
+function showAddCommentBtn(id){
+    $('#publ-'+id+' .publ-comments-addcomment').show();
+    
+    var btn = $('#publ-'+id+' .publ-addcomment-btn');
+    btn.toggleClass("glyphicon-chevron-right");
+    btn.toggleClass("glyphicon-chevron-down");
+    $('#publ-'+id+' .publ-comments-toggle').show();
+}
 // toggle comments div and arrow
 function toggleCommentsBtn(id)
 {
-    var btn = $('#publ-'+id+' .publ-comments-toggle-btn');
+    var btn = $('#publ-'+id+' .publ-addcomment-btn');
     btn.toggleClass("glyphicon-chevron-right");
     btn.toggleClass("glyphicon-chevron-down");
     $('#publ-'+id+' .publ-comments-toggle').toggle();
@@ -296,7 +312,38 @@ function setupBtnPublication(){
         var id = $(this).attr('publicationid');
         toggleCommentsBtn(id);
     });
+    $('div#main').on('click', 'span.addcomment-btn', function(){
+        var id = $(this).attr('publicationid');
+        showAddCommentBtn(id);
+    });
+    $('div#main').on('click', '.submit-comment-btn ', function(){
+    var id = $(this).attr('publicationid');
+    
+    submitCommentBtn(id);
+    });
 }
+function submitCommentBtn(id){
+    var msg = $('#publ-'+id+' .publ-comments-addcomment .submit-comment-textarea').val();
+    $.ajax({
+        url : "user/comments/submit/"+id,
+        type: "POST",
+        data : {text:msg},
+        datatype: JSON,
+        success: function(data, textStatus, jqXHR)
+        {
+            alert(data.msg);
+            $('#publ-'+id+' .publ-comments-addcomment .submit-comment-textarea').val("");
+            $('#publ-'+id+' .publ-comments-addcomment').hide();
+            
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert(textStatus);
+        }
+    });
+
+}
+
 
 /**
 * Share links code
@@ -304,31 +351,37 @@ function setupBtnPublication(){
 // Send hit to google analytics for a facebook share
 function shareFacebook(id){
     ga('send', {
-  'hitType': 'social',
-  'socialNetwork': 'facebook',
-  'socialAction': 'share',
-  'socialTarget': 'http://spotalert.fe.up.pt',
-  'page': '/publication/'+id
+      'hitType': 'social',
+      'socialNetwork': 'Facebook',
+      'socialAction': 'FacebookShare',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publication/'+id
     });
-    //alert('enviou hit sobre o share no facebook para o id:'+id);
 }
 // Send hit to google analytics for a Twitter tweet
 function shareTwitter(id){
     ga('send', {
-  'hitType': 'social',
-  'socialNetwork': 'twitter',
-  'socialAction': 'tweet',
-  'socialTarget': 'http://spotalert.fe.up.pt/publication/'+id
+      'hitType': 'social',
+      'socialNetwork': 'Twitter',
+      'socialAction': 'Tweet',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publication/'+id
     });
-    //alert('enviou hit sobre o share no twitter para o id:'+id);
 }
 // Send hit to google analytics for a google share 
 function shareGoogle(id){
-    var a = ga('send','social','google','shareplus','http://spotalert.fe.up.pt','/publication/'+id);
-     //alert('enviou hit sobre o share no google para o id:'+id);
+    ga('send', {
+      'hitType': 'social',
+      'socialNetwork': 'GooglePlus',
+      'socialAction': 'GooglePlusShare',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publication/'+id
+    });
 }
 // Send hit to google analytics for a linkdIn share
 function shareLinkdIn(id){
-    var a = ga('send','social','Linkdin','share','http://spotalert.fe.up.pt','/publication/'+id);
-     //alert('enviou hit sobre o share no linkdIn para o id:'+id);
+     ga('send', {
+      'hitType': 'social',
+      'socialNetwork': 'LinkdIN',
+      'socialAction': 'LinkdINShare',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publication/'+id
+     });
 }
+        

@@ -25,7 +25,7 @@ header .row-header {
 .footer-up {
     display:inline;
     margin-left:2%;
-    margin-bottom:0.5%;;
+    margin-bottom:0.5%;
      
 }
 
@@ -539,6 +539,57 @@ button#search-glass {
 .publ-content a:hover{
     color: #FF931E;    
 }
+.publ-content span.addcomment-btn{
+    font-size:10px;
+    float:right;
+    padding-top: 0.5em;
+    cursor: pointer;
+}
+.publ-content .publ-comments-addcomment{
+    margin-bottom: 10px;
+    display:none;
+}
+.publ-content textarea.submit-comment-textarea{
+    text-indent:15px;
+    text-align:justify;
+    font-size:10px;
+    white-space: normal;
+    word-break: break-all;
+    width: 80%;
+    height: 50px;
+    color: black;
+    
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+    
+    padding: 5px;
+    border:0;
+
+    resize: none;
+    overflow: hidden;
+}
+.publ-content textarea.submit-comment-textarea.border{
+    border: 1px solid black;
+}
+.publ-content button.submit-comment-btn{
+    -webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+    padding:3px;
+    border: 0;
+    width: 15%;
+    margin-left: 5px;
+}
+.publ-content button.submit-comment-btn.red{
+    background-color: #BF2333;
+    color: white;
+}
+.publ-content button.submit-comment-btn.white{
+    background-color: white;
+    color:black;
+}
+
 /* social */
 .publ-content .sprite-social{
     background-image: url('../images/share.png');

@@ -248,6 +248,10 @@ Route::group(array('before' => 'auth'), function() {
         'as' => 'comment-deleted',
         'uses' => 'UserPanelController@deleteComment'
     ));
+    Route::post('/user/comments/submit/{id}',array(
+        'as' => 'insert-comment',
+        'uses' => 'UserPanelController@submitComment'
+    ))->where('id', '[0-9]+');;
 
     // Eyewitness Management
     Route::get('/user/eyewitnesses', array(
