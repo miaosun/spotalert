@@ -82,7 +82,7 @@
             @foreach ($user_publications as $user_publication)
             <div class="col-md-12 country_risk">
                 <div class="col-md-7 col-md-offset-2">
-                    {{ $user_publication->title }}
+                    {{ $user_publication->contents->first()->title }}
                 </div>
                 <div class="col-md-3" id="delete">
                     <a href="{{ URL::route('publication-delete', $user_publication->id)}}">X</a>
