@@ -18,6 +18,46 @@ class EyewitnessController extends BaseController
 		}
 	}
 
+	public function deleteEyewitness($eyewitId)
+	{
+		$eyewitness = Eyewitness::find($eyewitId);
+		$eyewitness->delete();
+
+		// Remove possible stored images
+		$destinationPath = '/var/www/spotalert/app/images/eyewitnesses' . $eyewitId;
+			if(File::exists($destinationPath))
+			{
+				if (is_dir($destinationPath)) 
+				{ 
+					$objects = scandir($destinationPath); 
+				    foreach ($objects as $object) 
+				    { 
+				    	if ($object != "." && $object != "..") 
+				    	{ 
+				        	if (filetype($destinationPath."/".$object) == "dir") rrmdir($destinationPath."/".$object); else unlink($destinationPath."/".$object); 
+				        } 
+				    } 
+				    reset($objects); 
+				    rmdir($destinationPath); 
+				} 
+			}
+
+		return Redirect::route('user-eyewitnesses')->with('global', 'Eyewitness successfully deleted!');
+	}
+
+	public function getEyewitnesses()
+	{
+		$profile      = User::find(Auth::user()->getId());
+		$eyewitnesses = Eyewitness::with(array(
+			'author',
+			'countries',
+			'language'))->get();
+
+		return View::make('user.eyewitnesses')
+						->with('user', $profile)
+						->with('eyewitnesses', $eyewitnesses);
+	}
+
 	public function createEyewitness()
 	{
 		$validator = Validator::make(Input::all(),
@@ -51,24 +91,27 @@ class EyewitnessController extends BaseController
 			}
 
 		// Validating the files that must be images
-		$files = Input::file('images');
-		for ($i=0; $i < count($files); $i++)
+		if(Input::hasFile('images'))
 		{
-		    $file = $files[$i];
-		    $input = array(
-		        'file' => $files[$i]
-		    );
-
-		    $rules = array(
-		        'file' => 'image|max:2048'
-		    );
-		    $validation = Validator::make($input, $rules);
-
-		    if($validation->fails()) 
+			$files = Input::file('images');
+			for ($i=0; $i < count($files); $i++)
 			{
-				return Redirect::route('eyewitness')
-						-> withErrors($validation)
-						-> withInput();
+			    $file = $files[$i];
+			    $input = array(
+			        'file' => $files[$i]
+			    );
+
+			    $rules = array(
+			        'file' => 'image|max:2048'
+			    );
+			    $validation = Validator::make($input, $rules);
+
+			    if($validation->fails()) 
+				{
+					return Redirect::route('eyewitness')
+							-> withErrors($validation)
+							-> withInput();
+				}
 			}
 		}
 
@@ -87,15 +130,18 @@ class EyewitnessController extends BaseController
 				$eyewitness->countries()->attach($country);
 		
 		//Storing images
-		$destinationPath = '/var/www/spotalert/app/images/eyewitnesses' . $eyewitness->id;
-		if(!File::exists($destinationPath))
-			File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
-		$images = Input::file('images');
-		for ($i=0; $i < count($images); $i++)
+		if(Input::hasFile('images'))
 		{
-			$image = $images[$i];
-			$extension = $image->guessExtension();
-			$image->move($destinationPath, $i . '.' . $extension );
+			$destinationPath = '/var/www/spotalert/app/images/eyewitnesses' . $eyewitness->id;
+			if(!File::exists($destinationPath))
+				File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
+			$images = Input::file('images');
+			for ($i=0; $i < count($images); $i++)
+			{
+				$image = $images[$i];
+				$extension = $image->guessExtension();
+				$image->move($destinationPath, $i . '.' . $extension );
+			}
 		}
 
 		return Redirect::route('home')

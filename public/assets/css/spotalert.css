@@ -880,6 +880,13 @@ div.ajax-loading {
     color:red;
 }
 
+/*****-- Specific for eyewitnesses management*/
+#controlpanel #eyewitness-list td.description {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 
 /******************************************************
 ************************* LOGIN ***********************
@@ -1251,7 +1258,7 @@ div.ajax-loading {
     margin-left:8px;
 }
 
-/*****-- Eyewitnesses details */
+/*****-- Eyewitness creation details */
 #eyewitness.general_panel textarea#title {
     max-height: 50px;
 }

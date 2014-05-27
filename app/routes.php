@@ -160,8 +160,17 @@ Route::group(array('before' => 'auth'), function() {
         // Create Eyewitness (POST)
         Route::post('/create-eyewitness', array(
             'as' => 'create-eyewitness',
+            'before' => 'auth.not_normal',
             'uses' => 'EyewitnessController@createEyewitness'
         ));
+
+        // Delete Eyewitness
+        Route::post('/delete-eyewitness/{eyewit_id}', array(
+            'as' => 'delete-eyewitness',
+            'before' => 'auth.not_normal',
+            'uses' => 'EyewitnessController@deleteEyewitness'
+        ))
+        ->where('eyewit_id', '[0-9]+');
     });
 
     // change password (GET)
@@ -255,7 +264,7 @@ Route::group(array('before' => 'auth'), function() {
        'uses' => 'UserPanelController@getPublications'
     ));
 
-// update profile form route
+    // update profile form route
     Route::post('/user/updateprofile', array(
         'as' => 'update-profile',
         'uses' => 'UserPanelController@updateprofile'

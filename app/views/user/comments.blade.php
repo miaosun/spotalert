@@ -29,7 +29,7 @@
                         <th>{{ Lang::get('controlpanel.comments.comment') }} <span></span></th>
                         <th>{{ Lang::get('controlpanel.comments.name') }} <span></span></th>
                         <th>{{ Lang::get('controlpanel.comments.date') }} <span></span></th>
-                        <th>RISK <span></span></th>
+                        <th>{{ Lang::get('controlpanel.comments.risk') }} <span></span></th>
                         <th></th>
                     </tr>
                     </thead>
