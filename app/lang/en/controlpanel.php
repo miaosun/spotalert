@@ -78,7 +78,9 @@ return array(
         "comment"     => "COMMENT",
         "name"        => "NAME",
         "date"        => "DATE",
-        "risk"        => "RISK"
+        "risk"        => "RISK",
+        "readmore"    => "Read More",
+        "readless"    => "Read Less"
     ),
 
     "eyewitnesses" => array(

@@ -41,7 +41,7 @@
                         <td>{{{$comment->publication->contents->first()->title}}}</td>
                         <td class="readcomment">
                             <div class="comment-readmore">{{{$comment->content}}}</div>
-                            <a href="#" class="readmore" style="color:red;">read more</a>
+                            <a href="#" class="readmore" style="color:red;">{{ Lang::get('controlpanel.comments.readmore') }}</a>
                         </td>
                         <td>{{{$comment->author->username}}}</td>
                         <td>{{{$comment->created_at}}}</td>
@@ -90,12 +90,12 @@
 
         $('.readcomment').on('click', '.readmore', function() {
             $(this).siblings().css('max-height', '100%');
-            $(this).toggleClass('readmore readless').html('read less');
+            $(this).toggleClass('readmore readless').html('{{ Lang::get('controlpanel.comments.readless') }}');
         });
 
         $('.readcomment').on('click', '.readless', function() {
             $(this).siblings().css( "max-height", "90px" );
-            $(this).toggleClass('readless readmore').html('read more');
+            $(this).toggleClass('readless readmore').html('{{ Lang::get('controlpanel.comments.readmore') }}');
         });
 
     });
