@@ -1049,7 +1049,7 @@ div.ajax-loading {
     text-transform: uppercase;
     font-size:  0.9em;
 }
-#controlpanel input {
+#controlpanel input, .delete_user_button {
     border: 0px;
     /*border-bottom: 1px dashed  #BF2333;*/
 }
@@ -1058,7 +1058,7 @@ div.ajax-loading {
     border: 0px;
     background-color: #CCCCCC;
 }
-#controlpanel input[type=submit] {
+#controlpanel input[type=submit], .delete_user_button {
     width: 80%;
     border: 0px;
     margin: 5% 5% 5% 0%;
