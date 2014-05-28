@@ -15,6 +15,13 @@ Route::get('/', array(
     'as' => 'home',
     'uses' => 'HomeController@showWelcome'
 ));
+// single publication
+Route::get('/{id}', array(
+		'as'	=> 'publication-solo',
+        'uses' =>'PublicationController@getPublication'
+	))
+    ->where('id', '[0-9]+');
+/*TODO filter by publ title also */
 
 Route::get('/contact', array(
     'as' => 'contact',

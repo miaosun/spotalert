@@ -27,6 +27,28 @@ class PublicationController extends BaseController
 
 		return self::makeSimpleAnswer($publications);
 	}
+    public static function getPublication($id)
+    {
+       $stmt = Publication::with(array(
+			'contents',
+			'contents.language',
+			'affectedCountries',
+			'eventTypes'));
+
+		if(!Auth::check() || Auth::user()->type == 'normal')
+			$stmt->where('is_public', '=', true);
+        
+        ;
+        $publication = $stmt->where('id', '=', $id)->get()->first();
+        // In case of not find send 404  
+        if(count($publication))
+        {    
+            $result = self::makeSimpleAnswerPlus($publication);
+            return View::make('home')->with('publications', $result)->with('publicationAlone','true');
+        }
+        else
+            App::abort(404);
+    }
     /**
 	 * Get certain publication expandile data from databse and return 
 	 */
@@ -651,4 +673,74 @@ class PublicationController extends BaseController
 
 		return array_merge($first_array, $second_array);
 	}
+    /*
+    *   make same as makeSimpleAnswer with description
+    */
+    private static function makeSimpleAnswerPlus($publication)
+	{
+		//Two arrays to append at the end
+        $json_response = array();
+
+        $json_response = array();
+        $json_response['id'] = $publication->id;
+        $json_response['initial_date'] = $publication->initial_date;
+        $json_response['final_date']   = $publication->final_date;
+        $json_response['risk']         = $publication->risk;
+        $json_response['type']         = $publication->type;
+        if(Auth::check() && Auth::user()->type != 'normal')
+            $json_response['author']       = $publication->author->username;
+
+        // Putting the titles in the response
+        foreach ($publication->contents as $content)
+        {
+            if($content->language->code === Config::get('database.website_language_code'))
+            {
+                $json_response['title'] = $content->title;
+                $json_response['content'] = $content->content;
+                break;
+            }
+        }
+
+        // Putting the affected countries in the response
+        $json_response['affected_countries'] = array();
+        foreach ($publication->affectedCountries as $key2 => $country) 
+        {
+            $json_response['affected_countries'][$key2] = $country->name;
+        }
+
+        // Putting the event types in the response
+        $json_response['event_types'] = array();
+        foreach ($publication->eventTypes as $key2 => $eventType) 
+        {
+            $json_response['event_types'][$key2] = $eventType->name;
+        }
+
+        // See if it is a hidden publication
+        if(!$publication->is_public)
+            $json_response['hidden'] = 1;
+
+
+        //See if there is an update to do
+        $today       = new DateTime;
+        $last_update = DateTime::createFromFormat('Y-m-d', $publication->last_update);
+        if($last_update)
+            if($last_update->add(new DateInterval('P'.self::$update_interval.'D')) >= $today)
+                $json_response['updated'] = 1;
+
+        //Decide if goes to the first or to the second array
+        $ini_date = DateTime::createFromFormat('Y-m-d', $publication->initial_date);
+        $fin_date = DateTime::createFromFormat('Y-m-d', $publication->final_date);
+
+        if($ini_date)
+            if($ini_date > $today)
+            {
+                $json_response['inactive'] = 1;
+            }
+        if($fin_date)
+            if($fin_date < $today)
+            {
+                $json_response['inactive'] = 1;
+            }
+         return array($json_response);
+    }
 }

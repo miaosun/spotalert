@@ -2,6 +2,12 @@
 <meta name="description" content="">
 <meta name="author" content="Spot Alert Team">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+@if (isset($publicationAlone) && isset($publications[0]))
+<meta property="og:title" content="{{$publications[0]['title']}}" />
+<meta property="og:site_name" content="Spotalert"/>
+<meta property="og:url" content="{{ URL::route('publication-solo',array($publications[0]['id'])) }}" />
+<meta property="og:description" content="{{$publications[0]['content']}}" />
+@endif
 
 <title>Spot Alert</title>
 

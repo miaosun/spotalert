@@ -228,7 +228,7 @@ function getPublicationContent(id)
 	        {
 	            var links = "";
 	            for(var i = 0; i < data.pubLinked.length ; i++){
-	                links = links + "<p><a href='publication/"+id+"'>"+data.pubLinked[i].title+"</a>";
+	                links = links + "<p><a href='"+id+"'>"+data.pubLinked[i].title+"</a>";
 	            }
 	            $('#publ-'+id+' .publ-content .publ-linked-toggle').html(links);
 	        }
@@ -349,39 +349,39 @@ function submitCommentBtn(id){
 * Share links code
 **/
 // Send hit to google analytics for a facebook share
-function shareFacebook(id){
+function shareFacebook(id,title){
     ga('send', {
       'hitType': 'social',
       'socialNetwork': 'Facebook',
       'socialAction': 'FacebookShare',
-      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publication/'+id
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publications/'+id+" Title: "+title
     });
 }
 // Send hit to google analytics for a Twitter tweet
-function shareTwitter(id){
+function shareTwitter(id,title){
     ga('send', {
       'hitType': 'social',
       'socialNetwork': 'Twitter',
       'socialAction': 'Tweet',
-      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publication/'+id
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publications/'+id+" Title: "+title
     });
 }
 // Send hit to google analytics for a google share 
-function shareGoogle(id){
+function shareGoogle(id,title){
     ga('send', {
       'hitType': 'social',
       'socialNetwork': 'GooglePlus',
       'socialAction': 'GooglePlusShare',
-      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publication/'+id
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publications/'+id+" Title: "+title
     });
 }
 // Send hit to google analytics for a linkdIn share
-function shareLinkdIn(id){
+function shareLinkdIn(id,title){
      ga('send', {
       'hitType': 'social',
       'socialNetwork': 'LinkdIN',
       'socialAction': 'LinkdINShare',
-      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publication/'+id
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publications/'+id+" Title: "+title
      });
 }
         
