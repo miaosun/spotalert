@@ -141,7 +141,7 @@ class PublicationsSeeder extends Seeder
 		));
 
 		$content1EN = PublicationContent::create(array(
-			'title'			=> 'Hurricane in Portugal',
+			'title'			=> 'Hurricane in Spain',
 			'content'		=> 'Be careful about this Hurricane, stay at home!',
 			'publication_id'=> $publication1->id,
 			'language_id'	=> $langEN->id
@@ -301,7 +301,7 @@ class PublicationsSeeder extends Seeder
 		));
 
 		$content8EN = PublicationContent::create(array(
-			'title'			=> 'Hurricane in Portugal',
+			'title'			=> 'Hurricane in Somewhere',
 			'content'		=> 'Be careful about this Hurricane, stay at home!',
 			'publication_id'=> $publication8->id,
 			'language_id'	=> $langEN->id

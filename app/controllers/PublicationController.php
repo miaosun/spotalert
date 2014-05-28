@@ -51,17 +51,37 @@ class PublicationController extends BaseController
         if(!$publication->alerts->isEmpty())
         {
             foreach($publication->alerts as $alert)
-                    $answer['pubLinked'][] = array('id'=> $alert->id,
-                                           'title' =>$language->publicationContents()->where('publication_id','=',$alert->id)->first()->title
-                                          );
+            {
+                if($alert->is_public == 'TRUE')
+                {
+                    $answer['pubLinked'][] = array('id'=> $alert->id, 
+                                                   'title' =>$language->publicationContents()->where('publication_id','=',$alert->id)->first()->title);
+                }
+                else 
+                    if(Auth::check() && !(Auth::user()->type == 'normal'))
+                    {    
+                        $answer['pubLinked'][] = array('id'=> $alert->id, 
+                                                       'title' =>$language->publicationContents()->where('publication_id','=',$alert->id)->first()->title);
+                    }
+            }
         }
         
         if(!$publication->guidelines->isEmpty())
         {
                 foreach($publication->guidelines as $guidelines)
+                {
+                    if($guidelines->is_public == 'TRUE')
+                    {
                         $answer['pubLinked'][] = array('id'=> $guidelines->id,
-                                           'title' => $language->publicationContents()->where('publication_id','=',$guidelines->id)->first()->title
-                                          );
+                                                       'title' =>$language->publicationContents()->where('publication_id','=',$guidelines->id)->first()->title);
+                    }
+                    else 
+                        if(Auth::check() && !(Auth::user()->type == 'normal'))
+                        {    
+                            $answer['pubLinked'][] = array('id'=> $guidelines->id,
+                                                           'title' =>$language->publicationContents()->where('publication_id','=',$guidelines->id)->first()->title);
+                        }
+                }
         }
          if(!$publication->comments->isEmpty())
         {

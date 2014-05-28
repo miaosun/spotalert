@@ -106,7 +106,7 @@ function filtering()
 			    	nextSelector: 'a.jscroll-next:last'
 			    });
                 // reload click on btns
-                setupBtnPublication();
+                //setupBtnPublication();
 			})
 			.fail(function() 
 			{
@@ -182,7 +182,7 @@ function searching()
 			$('#filt .filter-opt').removeClass('selected');
 
 			// Let's retrieve the publications
-			$.get('/publications/search/' + search_content,
+			$.get('publications/search/' + search_content,
 				  function() { $('#main').html('<div class="ajax-loading"></div>' + loading_message);})
 				.done(function( data ) 
 				{
@@ -197,7 +197,7 @@ function searching()
 				    	nextSelector: 'a.jscroll-next:last'
 				    });
 
-                    setupBtnPublication();
+                    //setupBtnPublication();
 				})
 				.fail(function() 
 				{
