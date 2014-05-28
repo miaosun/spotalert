@@ -29,7 +29,7 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <h5>{{Lang::get('eyewitness.fields.images')}}</h5>
-                            {{ Form::file('images[]',array('multiple')) }}
+                            {{ Form::file('images[]',array('multiple', 'class' => 'multi')) }}
                             @if($errors->has('file'))
                             <br><span>{{ $errors->first('file') }}</span>
                             @endif
@@ -77,6 +77,7 @@
 </div>
 {{ HTML::style('assets/css/chosen.css'); }}
 {{ HTML::script('assets/js/chosen.jquery.min.js') }}
+{{ HTML::script('assets/js/jquery.MultiFile.js') }}
 
 <script>
 $('document').ready(function() 

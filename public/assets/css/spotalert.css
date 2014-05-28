@@ -1229,11 +1229,27 @@ div.ajax-loading {
     left: 15px;
 }
 
-.general_panel input {
+.general_panel input:not([type=file]) {
     border: 0px;
     border-bottom: 1px dashed  #BF2333;
     margin-bottom: 1px;
-    
+}
+
+.general_panel div.MultiFile-label span {
+    color: #666666;
+}
+
+.general_panel div.MultiFile-label {
+    border-bottom: 1px dashed  #BF2333;
+    margin-bottom: 1px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.general_panel div.MultiFile-label a{
+    float: right;
+    color: #BF2333;
+    font-size: 16px;
 }
 
 .general_panel input[type=submit] {
