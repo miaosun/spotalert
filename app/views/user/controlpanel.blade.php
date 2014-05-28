@@ -1,15 +1,15 @@
 @extends('layouts.default')
 
 @section('content')
-{{ isset($errors) ? $errors : "sem_erros <br>" }}
 
 <div class="container-fluid">
-	<div id="controlpanel" class="col-md-8 col-md-offset-2"> 
+	<div id="controlpanel" class="col-md-10 col-md-offset-1"> 
 		<div class="row">
 			<ul>
 				<li id="active"> {{ Lang::get('controlpanel.menu.profile') }} </li>
 				<li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
 				@if($user->type != 'normal')
+				<li><a href="{{ URL::route('user-eyewitnesses') }}">{{ Lang::get('controlpanel.menu.eyewitnesses') }}</a></li>
                 <li><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
 				<li><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
                 @if($user->type == 'admin' || $user->type == 'manager')

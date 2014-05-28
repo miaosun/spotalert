@@ -108,6 +108,18 @@ Route::post('/publication/createguideline', array(
     'uses' => 'PublicationController@createGuideline'
 ));
 
+// show create alert (GET)
+Route::get('/publication/create-alert', array(
+    'as' => 'publication-create-alert',
+    'uses' => 'PublicationController@showCreateAlert'
+));
+
+// show create guideline (GET)
+Route::get('/publication/create-guideline', array(
+    'as' => 'publication-create-guideline',
+    'uses' => 'PublicationController@showCreateGuideline'
+));
+
 /*
  * API Controle Panel
  */
@@ -150,6 +162,14 @@ Route::group(array('before' => 'auth'), function() {
             'as' => 'create-eyewitness',
             'uses' => 'EyewitnessController@createEyewitness'
         ));
+
+        // Delete Eyewitness
+        Route::post('/delete-eyewitness/{eyewit_id}', array(
+            'as' => 'delete-eyewitness',
+            'before' => 'auth.not_normal',
+            'uses' => 'EyewitnessController@deleteEyewitness'
+        ))
+        ->where('eyewit_id', '[0-9]+');
     });
 
     // change password (GET)
@@ -229,7 +249,12 @@ Route::group(array('before' => 'auth'), function() {
         'uses' => 'UserPanelController@deleteComment'
     ));
 
-
+    // Eyewitness Management
+    Route::get('/user/eyewitnesses', array(
+       'before' => 'auth.not_normal',
+       'as' => 'user-eyewitnesses',
+       'uses' => 'EyewitnessController@getEyewitnesses'
+    ));
 
     // Publications listing
     Route::get('/user/publications', array(
@@ -238,7 +263,7 @@ Route::group(array('before' => 'auth'), function() {
        'uses' => 'UserPanelController@getPublications'
     ));
 
-// update profile form route
+    // update profile form route
     Route::post('/user/updateprofile', array(
         'as' => 'update-profile',
         'uses' => 'UserPanelController@updateprofile'
@@ -307,17 +332,4 @@ Route::group(array('before' => 'guest'), function() {
         'as' => 'account-activate',
         'uses' => 'AccountController@getActivate'
     ));
-    
-    // show create alert (GET)
-    Route::get('/publication/create-alert', array(
-        'as' => 'publication-create-alert',
-        'uses' => 'PublicationController@showCreateAlert'
-    ));
-    
-    // show create alert (GET)
-    Route::get('/publication/create-guideline', array(
-        'as' => 'publication-create-alert',
-        'uses' => 'PublicationController@showCreateGuideline'
-    ));
-
 });

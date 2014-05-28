@@ -94,6 +94,7 @@ header .row-header > div#language {
     padding-top: 30px;
     background-color:#f2f2f2;
     width: 100%;
+    min-height:550px;
 }
 
 @media (max-width:991px) {
@@ -879,6 +880,13 @@ div.ajax-loading {
     color:red;
 }
 
+/*****-- Specific for eyewitnesses management*/
+#controlpanel #eyewitness-list td.description {
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 
 /******************************************************
 ************************* LOGIN ***********************
@@ -1064,6 +1072,8 @@ div.ajax-loading {
 #controlpanel .editbutton {
     color: #BF2333;
     float: right;
+    font-size:1.1em;
+
 }
 
 #controlpanel .dotline{
@@ -1213,7 +1223,6 @@ div.ajax-loading {
 
 .general_panel h5 span {
     color: #666666;
-
 }
 
 .general_panel #moveright {
@@ -1244,11 +1253,40 @@ div.ajax-loading {
     color:red;
 }
 
-.general_panel span {
-    font-size:12px;
-    color:red;
+/*****-- Contact detail */
+#contact.general_panel textarea {
+    margin-left:8px;
 }
 
+/*****-- Eyewitness creation details */
+#eyewitness.general_panel textarea#title {
+    max-height: 50px;
+}
+#eyewitness h1{
+	font-weight:bold;
+	font-size:18px;
+}
+
+#eyewitness.general_panel .chosen-container {
+    margin-top: 5px;
+}
+
+#eyewitness.general_panel .last-row {
+    margin-top: 30px;
+}
+
+#eyewitness.general_panel label {
+    padding-left: 0;
+}
+
+#eyewitness.general_panel #lang-drop {
+    margin-top: 10px;
+}
+#eyewitness .search-field input[type="text"]{
+	height:20px;
+}
+
+/* ****-- Notifications deatils */
 #notifications input[type=submit] {
     width: 80%;
     border: 0px;
@@ -1398,6 +1436,7 @@ label {
 
 
 
+
 /*****************************************************
 *************** USER PANEL - PUBLICATIONS *************
 *******************************************************/
@@ -1406,6 +1445,14 @@ label {
 /*****-- Contact detail */
 #contact.general_panel textarea {
     margin-left:8px;
+}
+#contact{
+	width:38%;
+}
+#contact h1{
+	text-transform:uppercase;
+	font-weight:bold;
+	font-size:18px; 
 }
 
 /*****-- Eyewitnesses details */
@@ -1505,3 +1552,4 @@ label {
     white-space: normal;
     word-break: break-all;
 }
+

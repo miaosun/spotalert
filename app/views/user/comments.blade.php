@@ -9,6 +9,7 @@
                 <li><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
                 <li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
                 @if($user->type != 'normal')
+                <li><a href="{{ URL::route('user-eyewitnesses') }}">{{ Lang::get('controlpanel.menu.eyewitnesses') }}</a></li>
                 <li id="before"><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
                 <li id="active"><a href="">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
                     @if($user->type == 'publisher')
@@ -28,7 +29,7 @@
                         <th>{{ Lang::get('controlpanel.comments.comment') }} <span></span></th>
                         <th>{{ Lang::get('controlpanel.comments.name') }} <span></span></th>
                         <th>{{ Lang::get('controlpanel.comments.date') }} <span></span></th>
-                        <th>RISK <span></span></th>
+                        <th>{{ Lang::get('controlpanel.comments.risk') }} <span></span></th>
                         <th></th>
                     </tr>
                     </thead>

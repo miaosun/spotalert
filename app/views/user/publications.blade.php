@@ -6,8 +6,9 @@
         <div class="row" id="publications-up">
             <ul>
                 <li><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
-                <li id="before"><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
+                <li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
                 @if($user->type != 'normal')
+                <li id="before"><a href="{{ URL::route('user-eyewitnesses') }}">{{ Lang::get('controlpanel.menu.eyewitnesses') }}</a></li>
                 <li id="active"> {{ Lang::get('controlpanel.menu.publications') }}</li>
                 <li><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
                 @if($user->type == 'admin' || $user->type == 'manager')
@@ -21,12 +22,12 @@
                 <table id="publ-list" class="display" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>PUBLICATION <span></span></th>
-                            <th>AUTHOR <span></span></th>
-                            <th>AFFECTED COUNTRIES <span></span></th>
-                            <th>INITIAL DATE <span></span></th>
-                            <th>FINAL DATE <span></span></th>
-                            <th>RISK <span></span></th>
+                            <th>{{ Lang::get('controlpanel.publications.publication') }} <span></span></th>
+                            <th>{{ Lang::get('controlpanel.publications.author') }} <span></span></th>
+                            <th>{{ Lang::get('controlpanel.publications.affected_countries') }} <span></span></th>
+                            <th>{{ Lang::get('controlpanel.publications.initial_date') }} <span></span></th>
+                            <th>{{ Lang::get('controlpanel.publications.final_date') }} <span></span></th>
+                            <th>{{ Lang::get('controlpanel.publications.risk') }} <span></span></th>
                         </tr>
                     </thead>
              

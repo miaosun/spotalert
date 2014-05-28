@@ -12,7 +12,7 @@ class Eyewitness extends Eloquent
 		return $this->belongsToMany('Country', 'eyewitnesses_countries', 'eyewitness_id', 'country_id');
 	}
 
-	public function publication()
+	public function author()
 	{
 		return $this->belongsTo('User', 'user_id');
 	}
