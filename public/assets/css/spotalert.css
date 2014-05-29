@@ -748,9 +748,39 @@ div.ajax-loading {
     color:red;
 }
 
+input[name=accept] {
+    opacity: 0;
+    float: right;
+}
+
+.radiobutton:last-child {
+    margin-left: 10px;
+}
+
+.radiobutton .option {
+    border-right: 1px solid #BF2333;
+    text-align: center;
+    color: #666666;
+}
+
+.radiobutton .glyphicon  {
+    text-align: center;
+    display: inherit;
+    padding: 0;
+    margin-top: 2px
+}
+
+.radiobutton {
+    border: 1px solid #BF2333;
+    width: 30%;
+    padding: 0px;
+    color: #BF2333;
+}
+
+
 #controlpanel span {
-    font-size:12px;
-    color:red;
+    font-size: 12px;
+    color: red;
 }
 
 /*****-- Specific for eyewitnesses management*/

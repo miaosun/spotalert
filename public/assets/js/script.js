@@ -25,6 +25,9 @@ $('document').ready(function()
 
     // Style the form's selects
     $('select.styled').customSelect();
+
+    // For the radioboxes in the register page
+    setRegisterRadioBoxes();
 });
 
 
@@ -203,6 +206,20 @@ function searching()
 				    alert( "Sorry, an error occurred, please reload the page :(" );
 				});
 		}
+	});
+}
+
+function setRegisterRadioBoxes()
+{
+	$('#create .radiobutton').click(function()
+	{
+		$(this).children('.glyphicon').addClass('glyphicon-remove');
+		$(this).siblings('.radiobutton').children('.glyphicon').removeClass('glyphicon-remove');
+
+		if($(this).children('.glyphicon').hasClass('yes'))
+			$('#create .terms-service input#yes').prop('checked', true);
+		else
+			$('#create .terms-service input#no').prop('checked', true);
 	});
 }
 
