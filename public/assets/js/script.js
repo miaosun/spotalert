@@ -25,6 +25,9 @@ $('document').ready(function()
     
     // setting up expand buttons for publication
     setupBtnPublication();
+
+    // Style the select buttons
+    $('select.styled').customSelect();
 });
 
 

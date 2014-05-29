@@ -54,7 +54,7 @@
                             {{ Form::label(Lang::get('eyewitness.fields.language') . '*:', null, array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0">
-                            {{ Form::select('language', $languages ) }}
+                            {{ Form::select('language', $languages, null, array('class' => 'styled') ) }}
                             @if($errors->has('language'))
                             <br><span>{{ $errors->first('language') }}</span>
                             @endif

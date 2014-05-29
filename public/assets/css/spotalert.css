@@ -850,13 +850,6 @@ div.ajax-loading {
     text-decoration:none;
 }
 
-#create .range-age > select, #create .resid-drop > select, #create .country-drop > select{
-	border: 0px;
-    border-bottom: 1px dashed  #BF2333;
-    margin-bottom: 1px;
-    color:#a9a9a9;
-}
-
 
 #create input[type=submit] {
     width: 80%;
@@ -1559,3 +1552,62 @@ label {
     font-size: 23px;
 }
 
+/******************************************************
+******************** CUSTOM SELECT ********************
+*******************************************************/
+
+.customSelect { 
+    color: #666666 !important;
+    background:#fff url('../images/red_arrow.png') right center no-repeat;
+    font-size: 16px !important;
+}
+
+.customSelect.customSelectHover {
+/* Styles for when the select box is hovered */
+}
+
+.customSelect.customSelectOpen {
+/* Styles for when the select box is open */
+}
+
+.customSelect.customSelectFocus {
+/* Styles for when the select box is in focus */
+}
+
+.customSelect.customSelectDisabledOption {
+/* Styles for when the selected item is a disabled one */
+}
+
+.customSelect.customSelectDisabled {
+/* Styles for when the select box itself is disabled */
+}
+
+.customSelectInner {
+    border-bottom: 1px dashed #BF2333;
+    color: #666666 !important;
+    font-size: 16px !important;
+}
+
+#eyewitness .customSelect, 
+#eyewitness .customSelectInner,
+#create .customSelect, 
+#create .customSelectInner {
+    font-size: 14px !important;
+    color: #666666 !important;
+}
+
+*::-webkit-input-placeholder {
+    color: #666666;
+}
+*:-moz-placeholder {
+    /* FF 4-18 */
+    color: #666666;
+}
+*::-moz-placeholder {
+    /* FF 19+ */
+    color: #666666;
+}
+*:-ms-input-placeholder {
+    /* IE 10+ */
+    color: #666666;
+}
