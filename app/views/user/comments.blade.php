@@ -44,7 +44,7 @@
                         <td>{{{$comment->author->username}}}</td>
                         <td>{{{$comment->created_at}}}</td>
                         <td>{{{$comment->publication->risk}}}</td>
-                        <td><a href="{{ URL::route('comment-approved', $comment->id) }}">Y</a> <a href="{{ URL::route('comment-deleted', $comment->id) }}">X</a></td>
+                        <td><a class="glyphicon glyphicon-ok aprove" href="{{ URL::route('comment-approved', $comment->id) }}"></a> <a class="glyphicon glyphicon-remove close-button"href="{{ URL::route('comment-deleted', $comment->id) }}"></a></td>
                     </tr>
                     @endif
                     @endforeach

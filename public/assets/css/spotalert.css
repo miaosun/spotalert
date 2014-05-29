@@ -1237,6 +1237,24 @@ input[name=accept] {
     word-break: break-all;
 }
 
+#comments-list a.aprove{
+	background-color: #BF2333;
+    color: white;
+    font-style:2em;
+    padding-left:7px;
+    padding-right:7px;
+    padding-bottom:2px;
+    padding-top:2px;
+    -webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+    margin-right:10px;
+}
+
+#comments-list a.close-button{
+	color:#BF2333;
+	font-style:2em;
+}
 /*****************************************************
 *************** CREATE PUBLICATIONS *************
 *******************************************************/
