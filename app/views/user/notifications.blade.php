@@ -14,8 +14,6 @@
                 <li><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
                 @if($user->type == 'admin' || $user->type == 'manager')
                 <li><a href="{{ URL::route('user-privileges') }}">{{ Lang::get('controlpanel.menu.privileges') }}</a></li>
-                @else
-                <li></li>
                 @endif
                 @endif
 
@@ -92,5 +90,15 @@
         </div>
     </div>
 </div>
+
+<style>
+#controlpanel li {
+@if($user->type == 'normal')
+    width: 49%;
+@elseif($user->type == 'publisher')
+    width: 19%;
+@endif
+}
+</style>
 
 @stop

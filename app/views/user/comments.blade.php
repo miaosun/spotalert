@@ -12,9 +12,7 @@
                 <li><a href="{{ URL::route('user-eyewitnesses') }}">{{ Lang::get('controlpanel.menu.eyewitnesses') }}</a></li>
                 <li id="before"><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
                 <li id="active"><a href="">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
-                    @if($user->type == 'publisher')
-                    <li></li>
-                    @elseif($user->type == 'admin' || $user->type == 'manager')
+                    @if($user->type == 'admin' || $user->type == 'manager')
                     <li><a href="{{ URL::route('user-privileges') }}">{{ Lang::get('controlpanel.menu.privileges') }}</a></li>
                     @endif
                 @endif
@@ -54,6 +52,14 @@
         </div>
     </div>
 </div>
+
+<style>
+#controlpanel li {
+@if($user->type == 'publisher')
+    width: 19%;
+@endif
+}
+</style>
 
 {{ HTML::script('assets/js/jquery.dataTables.js') }}
 

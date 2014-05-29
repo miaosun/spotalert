@@ -21,15 +21,16 @@
 			{{ Form::open(array('route' => 'update-profile', 'file' => 'true')) }}
 			<div class="col-md-4 col-md-offset-1">
 				<div class="row">
-                    
-					{{ /* FIXME FROM HARCODED */ HTML::image('assets/images/user/2.jpg', $alt="Lang::get('controlpanel.profile.altpic')", $attributes = array('width' => '200px', 'height' => '200px')) }}
-					<div class="col-md-10 custom-upload">
-                        {{ Form::file('uploadfile',array('class' => 'upload')) }}
-                        <div class="fake-file dotline">
-                            {{ Form::text('displayfile',Lang::get('controlpanel.profile.addpic'),array('id'=>'displayfile','disabled' => 'disabled')) }} 
-                            <span>&#43;</span>
-                        </div>
-                    </div>
+                    <div class="col-md-12">
+						<div class="col-md-10 custom-upload">
+							{{ /* FIXME FROM HARCODED */ HTML::image('assets/images/user/2.jpg', $alt="Lang::get('controlpanel.profile.altpic')", $attributes = array('width' => '200px', 'height' => '200px')) }}
+	                        {{ Form::file('uploadfile',array('class' => 'upload')) }}
+	                        <div class="fake-file dotline">
+	                            {{ Form::text('displayfile',Lang::get('controlpanel.profile.addpic'),array('id'=>'displayfile','disabled' => 'disabled')) }} 
+	                            <span>&#43;</span>
+	                        </div>
+	                    </div>
+                	</div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
@@ -211,5 +212,16 @@
 		{{ Form::close() }}
 	</div>
 </div>
+
+<style>
+#controlpanel li {
+@if($user->type == 'normal')
+    width: 49%;
+@elseif($user->type == 'publisher')
+	width: 19%;
+@endif
+}
+</style>
+
 {{ HTML::script('scripts/controlpanel.js') }}
 @stop
