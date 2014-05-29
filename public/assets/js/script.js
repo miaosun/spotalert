@@ -226,6 +226,7 @@ function getPublicationContent(id)
 	            $('#publ-'+id+' .publ-linked').remove();
 	        else
 	        {
+                $('#publ-'+id+' .publ-content span.number-linked').html(data.pubLinked.length);
 	            var links = "";
 	            for(var i = 0; i < data.pubLinked.length ; i++){
 	                links = links + "<p><a href='"+id+"'>"+data.pubLinked[i].title+"</a>";
@@ -239,7 +240,8 @@ function getPublicationContent(id)
             }
 	        else
 	        {
-	            //TODO insert number of comments
+	            //insert number of comments
+                $('#publ-'+id+' .publ-content .publ-comments span.number-comments').html(data.comments.length);
 	            var links = "";
 	            for(var i = 0; i < data.comments.length ; i++){
 	                if(i != 0)
@@ -258,10 +260,6 @@ function getPublicationContent(id)
 	        togglePubBtn(id);
 	    });
 	}
-}
-// add comment div
-function addCommentDiv(){
-
 }
 // toggle expansion btn
 function togglePubBtn(id)
@@ -292,7 +290,7 @@ function showAddCommentBtn(id){
 // toggle comments div and arrow
 function toggleCommentsBtn(id)
 {
-    var btn = $('#publ-'+id+' .publ-addcomment-btn');
+    var btn = $('#publ-'+id+' .publ-comments-toggle-btn');
     btn.toggleClass("glyphicon-chevron-right");
     btn.toggleClass("glyphicon-chevron-down");
     $('#publ-'+id+' .publ-comments-toggle').toggle();

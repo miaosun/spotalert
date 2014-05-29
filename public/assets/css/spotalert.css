@@ -514,6 +514,14 @@ button#search-glass {
     font-size: 10px;
     text-transform: none;
 }
+.publ-content a{
+    color: inherit;
+    text-decoration: none;
+}
+.publ-content a:hover{
+    color: #FF931E;    
+}
+
 .publ-content h1{
     color: inherit;
     font-weight:normal;
@@ -521,6 +529,10 @@ button#search-glass {
 }
 .publ-content .publ-linked-toggle{
     display: none;
+}
+.publ-content .publ-linked span.number-linked{
+    color: #CCCCCC;
+    padding-left: 1em;
 }
 .publ-content .publ-comments-toggle{
     display: none;
@@ -531,14 +543,11 @@ button#search-glass {
 .publ-content .publ-comments-toggle p.comments-info{
     font-size: 8px;
 }
+.publ-content .publ-comments span.number-comments{
+    color: #CCCCCC;
+    padding-left: 1em;
+}
 
-.publ-content a{
-    color: inherit;
-    text-decoration: none;
-}
-.publ-content a:hover{
-    color: #FF931E;    
-}
 .publ-content span.addcomment-btn{
     font-size:10px;
     float:right;
