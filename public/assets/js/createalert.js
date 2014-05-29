@@ -86,6 +86,8 @@ $(document).ready(function () {
         
         $("input[name=alert-durationfrom]").val(today);
         $("input[name=alert-durationto]").val("");
+        $("input[name=guideline-durationfrom]").val(today);
+        $("input[name=guideline-durationto]").val("");
         
     });
     
@@ -94,6 +96,8 @@ $(document).ready(function () {
         
         $("input[name=alert-durationfrom]").val("");
         $("input[name=alert-durationto]").val(yesterday);
+        $("input[name=guideline-durationfrom]").val("");
+        $("input[name=guideline-durationto]").val(yesterday);
 
     });
 

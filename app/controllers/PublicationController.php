@@ -116,8 +116,7 @@ class PublicationController extends BaseController
 		return View::make('publication.create-alert')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options);
         }
         else
-            return Redirect::route('home')
-                ->with('global', "You're either not registered or you do not have enough privileges.");
+            return Redirect::route('home')->with('global', "You're either not registered or you do not have enough privileges.");
         
     }
     
@@ -253,12 +252,18 @@ class PublicationController extends BaseController
     
     public function showCreateGuideline() {
         
+        if(Auth::check() && Auth::user()->type != 'normal') {
+        
         $country_options = Country::lists('name', 'id');
         $event_type_options = EventType::lists('name', 'id');
         $alert_options = DB::table('publications AS p')->join('publicationContents AS pc','pc.publication_id','=','p.id')->where('p.type','=','alert')->lists('title','publication_id');
         $language_options = Language::lists('name', 'id');
 
-        return View::make('publication.create-guideline')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('alert_options',$alert_options)->with('language_options',$language_options);;
+        return View::make('publication.create-guideline')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('alert_options',$alert_options)->with('language_options',$language_options);
+        }
+        
+        else
+            return Redirect::route('home')->with('global', "You're either not registered or you do not have enough privileges.");
     }
     
 	/**
@@ -424,8 +429,6 @@ class PublicationController extends BaseController
         
         //rules for validator
         $rules_publication = [
-            'initial_date' => 'required',
-            'final_date' => 'required',
             'is_public' => 'required',
             'risk' => 'required|numeric',
             'type' => 'required'
@@ -539,8 +542,6 @@ class PublicationController extends BaseController
 
         //rules for validator
         $rules_publication = [
-            'initial_date' => 'required',
-            'final_date' => 'required',
             'is_public' => 'required',
             'risk' => 'required|numeric',
             'type' => 'required'
@@ -559,6 +560,22 @@ class PublicationController extends BaseController
             if($valid_content->passes()){
                 $publication->save();
                 //cycle through multiple languages
+                
+                //Storing images
+                if(Input::hasFile('guideline-images'))
+                {   
+                    $destinationPath = '/public/assets/images/publications/' . $publication->id . '/';
+                    if(!File::exists($destinationPath))
+                        File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
+                    $images = Input::file('guideline-images');
+                    for ($i=0; $i < count($images); $i++)
+                    {
+                        $image = $images[$i];
+                        $extension = $image->guessExtension();
+                        $image->move($destinationPath, $i . '.' . $extension );
+                    }
+                }
+                
                 $publication_content1->publication_id = $publication->id;
                 $publication_content1->save();
                 foreach($languages_toarray as $lang){
@@ -578,7 +595,7 @@ class PublicationController extends BaseController
                 }
 
 				// If there notifications to send, send it
-                $this->checkCreateNotification($publication);
+                //$this->checkCreateNotification($publication);
 
                 return Redirect::to('/')->with('success', 'Alert was created!');
             }

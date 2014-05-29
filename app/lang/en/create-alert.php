@@ -10,20 +10,25 @@ return array(
 	| The following language lines contain all strings used in eyewitness view
 	|
 	*/
-    "title" => "CREATE ALERT",
+    "create_alert" => "CREATE ALERT",
+    "create_guideline" => "CREATE GUIDELINE",
+    "edit_alert" => "CREATE ALERT",
+    "edit_guideline" => "CREATE GUIDELINE",
     "addtab" => "Add Language",
     "fields" => array(
         "title"              => "TITLE *",
         "max_size"           => "(maximum of 50 characters)",
         "description"        => "DESCRIPTION *",
         "images"             => "UPLOAD IMAGES",
+        "already_uploaded"   => "IMAGES ALREADY UPLOADED",
         "affected_countries" => "AFFECTED COUNTRIES",
         "language"           => "LANGUAGE",
         "duration"           => "DURATION",
         "eventrisk"          => "EVENT RISK",
         "eventtype"          => "EVENT TYPE",
-        "visibility"          => "EVENT RISK",
-        "guidelines"          => "GUIDELINES"
+        "visibility"         => "EVENT RISK",
+        "guidelines"         => "GUIDELINES",
+        "alerts"             => "ALERTS"
     ),
     "modals" => array(
         "cancel"        => "Cancel",
@@ -44,7 +49,8 @@ return array(
         "description" => "WRITE YOUR DESCRIPTION HERE",
         "countries"   => "PICK AT LEAST ONE COUNTRY",
         "types"       => "PICK AT LEAST ONE TYPE OF EVENT",
-        "guidelines"  => "PICK A GUIDELINE"
+        "guidelines"  => "PICK A GUIDELINE",
+        "alerts"      => "PICK AN ALERT"
     ),
     "activate"  => "ACTIVATE",
     "deactivate"=> "DEACTIVATE",

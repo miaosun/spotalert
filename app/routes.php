@@ -96,12 +96,6 @@ Route::get('/user/{username}', array(
 ));
 */
         
-//Create Guideline (POST)
-Route::post('/publication/createguideline', array(
-    'as' => 'publication-createguideline',
-    'uses' => 'PublicationController@createGuideline'
-));
-
 //Edit Alert (POST)
 Route::post('/publication/editalert', array(
     'as' => 'publication-editalert',
@@ -175,6 +169,12 @@ Route::group(array('before' => 'auth'), function() {
         Route::post('/publication/createalert', array(
             'as' => 'publication-createalert',
             'uses' => 'PublicationController@createAlert'
+        ));
+        
+        //Create Guideline (POST)
+        Route::post('/publication/createguideline', array(
+            'as' => 'publication-createguideline',
+            'uses' => 'PublicationController@createGuideline'
         ));
     });
 
@@ -344,12 +344,6 @@ Route::group(array('before' => 'guest'), function() {
         'as' => 'account-activate',
         'uses' => 'AccountController@getActivate'
     ));
-    
-    // show create guideline (GET)
-	Route::get('/publication/create-guideline', array(
-		'as' => 'publication-create-guideline',
-		'uses' => 'PublicationController@showCreateGuideline'
-	));
     
     // show edit alert (GET)
     Route::get('/publication/edit-alert/{id}', array(
