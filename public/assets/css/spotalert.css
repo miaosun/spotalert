@@ -728,6 +728,7 @@ div.ajax-loading {
     border-bottom: 1px dashed  #BF2333;
     margin-bottom: 1px;
     text-decoration:none;
+    width: 100%;
 }
 
 
@@ -905,7 +906,7 @@ input[name=accept] {
     border-top-right-radius: 25px;
 }
 #controlpanel li {
-    width: 19.5%;
+    width: 16%;
     margin: 0px;
     display:inline-block;
     text-transform: uppercase;
@@ -951,8 +952,9 @@ input[name=accept] {
     color:#BF2333;
     text-transform: uppercase;
     font-size:  0.9em;
+    float: left;
 }
-#controlpanel input {
+#controlpanel input, .delete_user_button {
     border: 0px;
     /*border-bottom: 1px dashed  #BF2333;*/
 }
@@ -960,8 +962,11 @@ input[name=accept] {
 #controlpanel input[type=password] {
     border: 0px;
     background-color: #CCCCCC;
+    clear: left;
+    float: left;
+    width: 80%;
 }
-#controlpanel input[type=submit] {
+#controlpanel input[type=submit], .delete_user_button {
     width: 80%;
     border: 0px;
     margin: 5% 5% 5% 0%;
@@ -976,12 +981,15 @@ input[name=accept] {
     color: #BF2333;
     float: right;
     font-size:1.1em;
-
+    right: 0;
+    position: absolute;
+    margin-top: 3px;
 }
 
 #controlpanel .dotline{
     border-bottom: 1px dashed  #BF2333;
     display: inline-block;
+    position: relative;
 }
 #controlpanel .dropdownlist
 {
@@ -1205,6 +1213,47 @@ input[name=accept] {
 	height:20px;
 }
 
+/* ****-- Notifications details */
+#notifications input[type=submit] {
+    width: 80%;
+    border: 0px;
+    margin: 0% 5% 5% 0%;
+    background-color: #BF2333;
+    color: white;
+}
+
+/*****-- Comments details */
+#comments .comment-readmore {
+    max-height: 90px;
+    /*white-space: nowrap;*/
+    overflow:hidden;
+    text-overflow: ellipsis;
+    text-align:justify;
+    white-space: normal;
+    word-break: break-all;
+}
+
+#comments-list a.aprove{
+	background-color: #BF2333;
+    color: white;
+    font-style:2em;
+    padding-left:7px;
+    padding-right:7px;
+    padding-bottom:2px;
+    padding-top:2px;
+    -webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+    margin-right:10px;
+}
+
+#comments-list a.close-button{
+	color:#BF2333;
+	font-style:2em;
+}
+/*****************************************************
+*************** CREATE PUBLICATIONS *************
+*******************************************************/
 
 /*****-- Alert creation details */
 #create-alert.general_panel textarea#title {
@@ -1496,6 +1545,7 @@ label {
     color: #666666 !important;
     background:#fff url('../images/red_arrow.png') right center no-repeat;
     font-size: 16px !important;
+    width: 100%;
 }
 
 .customSelect.customSelectHover {
@@ -1522,6 +1572,7 @@ label {
     border-bottom: 1px dashed #BF2333;
     color: #666666 !important;
     font-size: 16px !important;
+    width: 100% !important;
 }
 
 #eyewitness .customSelect, 
@@ -1533,17 +1584,21 @@ label {
 }
 
 *::-webkit-input-placeholder {
-    color: #666666;
+    color: #666666 !important;
+    opacity: 1;
 }
 *:-moz-placeholder {
     /* FF 4-18 */
-    color: #666666;
+    color: #666666 !important;
+    opacity: 1;
 }
 *::-moz-placeholder {
     /* FF 19+ */
-    color: #666666;
+    color: #666666 !important;
+    opacity: 1;
 }
 *:-ms-input-placeholder {
     /* IE 10+ */
-    color: #666666;
+    color: #666666 !important;
+    opacity; 1;
 }

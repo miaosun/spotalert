@@ -2,6 +2,26 @@
 
 @section('content')
 
+@if($selected)
+<div class="modal fade delete-account" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="mySmallModalLabel">Are you sure?</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ Lang::get('controlpanel.privileges.warning') }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ Lang::get('controlpanel.privileges.cancel') }}</button>
+                <a href="{{ URL::route('privileges-delete', $selectedUser->username)}}" class="btn btn-danger btn-primary">{{ Lang::get('controlpanel.privileges.confirm') }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 <div class="container-fluid">
     <div id="controlpanel" class="col-md-10 col-md-offset-1">
         <div class="row" id="privileges">
@@ -50,7 +70,7 @@
                     <div class="col-md-4" id='department'>
                         @if($selected)
                         {{ Form::text('department', $selectedUser->organization, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
-                        <span class="glyphicon glyphicon-edit edit_button"></span>
+                        <span class="glyphicon glyphicon-edit edit_button"></span><br>
                             @if($user->type == 'admin')
                             {{ Form::select('permissions', array('normal' => 'Normal', 'publisher' => 'Publisher', 'manager' => 'Manager'), $selectedUser->type, array('class'=>'styled')) }}
                             @elseif($user->type == 'manager')
@@ -58,15 +78,22 @@
                             @endif
                         @else
                         {{ Form::text('department', null, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
-                        <span class="glyphicon glyphicon-edit"></span>
+                        <span class="glyphicon glyphicon-edit"></span><br>
                         {{ Form::text('permissions', null, array('disabled'=>'disabled','placeholder'=>Lang::get('controlpanel.privileges.permissions'))) }}
                         <span class="caret"></span>
                         @endif
                     </div>
                 </div>
-                <div class="col-md-2 col-md-offset-8">
+                <div class="col-md-2 col-md-offset-7">
                     {{ Form::submit(Lang::get('controlpanel.privileges.add')) }}
                 </div>
+                @if($selected && $user->type == 'admin')
+                <div class="col-md-2 col-md-offset-0" id="delete">
+                    <button type="button" class="btn btn-warning btn-danger" data-toggle="modal" data-target=".delete-account">
+                        {{ Lang::get('controlpanel.privileges.deleteuser') }}
+                    </button>
+                </div>
+                @endif
                 {{ Form::close() }}
             </div>
             <div class="table-wrapper">
@@ -79,15 +106,6 @@
                             <th>{{ Lang::get('controlpanel.privileges.member_since') }}<span></span></th>
                         </tr>
                     </thead>
-
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
 
                     <tbody>
                     @foreach ($users_with_permissions as $user_with_permission)
@@ -118,17 +136,21 @@
             "searching": false
         });
 
-        $.getJSON( "api/usernames", function( data ) {
-            $( "#username" ).autocomplete({
-                source: data
+        if("{{$selected}}" == 0)
+        {
+            $.getJSON( "api/usernames", function( data ) {
+                $( "#username" ).autocomplete({
+                    source: data
+                });
             });
-        });
 
-        $.getJSON( "api/emails", function( data ) {
-            $( "#email" ).autocomplete({
-                source: data
+            $.getJSON( "api/emails", function( data ) {
+                $( "#email" ).autocomplete({
+                    source: data
+                });
             });
-        });
+        }
+
     });
 </script>
 

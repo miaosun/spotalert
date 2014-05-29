@@ -48,6 +48,6 @@ return array(
     ),
     "activate"  => "ACTIVATE",
     "deactivate"=> "DEACTIVATE",
-    "mandatory" => "MANDATORY FIELD",
+    "mandatory" => "* MANDATORY FIELD",
     "submit"    => "SUBMIT"
 );

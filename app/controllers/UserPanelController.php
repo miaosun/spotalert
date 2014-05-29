@@ -7,6 +7,7 @@ class UserPanelController extends BaseController {
         return View::make('user.controlpanel',array('user'=>$profile));
 	}
 
+    /* Privileges Page */
     public function getPrivileges() {
         $profile = User::find(Auth::user()->getId());
         $users_with_permissions = User::where('type','<>', 'normal')->get();
@@ -42,6 +43,15 @@ class UserPanelController extends BaseController {
         DB::update('update users set type = ? where username = ?', array(Input::get('permissions'), $username));
 
         return Redirect::route('user-privileges')->with('global', 'Changes made with success!');
+    }
+
+    public function deleteUser($username) {
+        $profile = User::find(Auth::user()->getId());
+        if($profile->type == 'admin')
+        {
+            User::where('username', '=', $username)->delete();
+            return Redirect::route('user-privileges')->with('global', 'Selected user deleted successfully!');
+        }
     }
 
     // Notifications Page

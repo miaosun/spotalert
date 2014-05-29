@@ -63,6 +63,14 @@
     </div>
 </div>
 
+<style>
+#controlpanel li {
+@if($user->type == 'publisher')
+    width: 19%;
+@endif
+}
+</style>
+
 {{ HTML::script('assets/js/jquery.dataTables.js') }}
 <script>
 $('document').ready(function() 
