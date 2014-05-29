@@ -354,7 +354,7 @@ function shareFacebook(id,title){
       'hitType': 'social',
       'socialNetwork': 'Facebook',
       'socialAction': 'FacebookShare',
-      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publications/'+id+" Title: "+title
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
     });
 }
 // Send hit to google analytics for a Twitter tweet
@@ -363,7 +363,7 @@ function shareTwitter(id,title){
       'hitType': 'social',
       'socialNetwork': 'Twitter',
       'socialAction': 'Tweet',
-      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publications/'+id+" Title: "+title
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
     });
 }
 // Send hit to google analytics for a google share 
@@ -372,7 +372,7 @@ function shareGoogle(id,title){
       'hitType': 'social',
       'socialNetwork': 'GooglePlus',
       'socialAction': 'GooglePlusShare',
-      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publications/'+id+" Title: "+title
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
     });
 }
 // Send hit to google analytics for a linkdIn share
@@ -381,7 +381,7 @@ function shareLinkdIn(id,title){
       'hitType': 'social',
       'socialNetwork': 'LinkdIN',
       'socialAction': 'LinkdINShare',
-      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/publications/'+id+" Title: "+title
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
      });
 }
         
