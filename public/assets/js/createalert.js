@@ -21,10 +21,11 @@ $(document).ready(function () {
         //add tab and container to the form
         //visual
         $('.add-language-modal').modal('hide');
-        $("<li class='active'><a id='alert_tab_" + language_id + "' href='#alert_" + language_id + "' data-toggle='tab'>" + language_text + "</a><span id='rm-language' class='glyphicon glyphicon-remove'></span></li>").insertBefore(".nav-tabs li:last");
+        $("<li class='active'><a id='alert_tab_" + language_id + "' href='#alert_" + language_id + "' data-toggle='tab'>" + language_text + "<span id='rm-language' class='glyphicon glyphicon-remove' style='padding-left: 5px'></span></a></li>").insertBefore(".nav-tabs li:last");
         $(".nav-tabs").find(".active").removeClass("active");
         $(".tab-content").find(".active").removeClass("active");
-        $(".tab-content").append('<div class="tab-pane fade in" id="alert_' + language_id + '"><div class="form-group"><label for="alert-title-label">Title</label><input name="alert-title' + language_id + '" type="text"></div><div class="form-group"><label for="alert-description-label">Description</label><textarea name="alert-description' + language_id + '" cols="50" rows="10"></textarea></div></div>');
+        $(".tab-content").append('<div class="tab-pane fade in active" id="alert_' + language_id + '"><h1>Create alert</h1><div class="col-md-5 col-sm-5 col-md-offset-0" id="moveright"><div class="row"><div class="col-md-12 col-sm-12"><h5>Title* <span>(maximum of 50 characters)</span></h5><textarea placeholder="Write your title here" name="alert-title' + language_id + '"></textarea></div><div class="col-md-12 col-sm-12"><h5>Description*</h5><textarea placeholder="Write your title here" name="alert-description' + language_id + '" cols="50" rows="10"></textarea></div></div></div></div>');
+        
         $('#languages_tabs a:nth-last-child(2)').tab('show');
         
         //functional
@@ -64,7 +65,37 @@ $(document).ready(function () {
         //languages.pop(language_id);
     });
     
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if(dd<10) {
+        dd='0'+dd
+    } 
+
+    if(mm<10) {
+        mm='0'+mm
+    } 
+
+    today = yyyy+'-'+mm+'-'+dd;
+    var yesterday = yyyy+'-'+mm+'-'+(dd-1);
     
+    $("#activate_publication").click(function(e){
+        e.preventDefault();
+        
+        $("input[name=alert-durationfrom]").val(today);
+        $("input[name=alert-durationto]").val("");
+        
+    });
+    
+    $("#deactivate_publication").click(function(e){
+        e.preventDefault();
+        
+        $("input[name=alert-durationfrom]").val("");
+        $("input[name=alert-durationto]").val(yesterday);
+
+    });
 
     $('#languages_tabs a:not(#addlanguage_tab)').click(function (e) {
         e.preventDefault();

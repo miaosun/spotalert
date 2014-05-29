@@ -105,7 +105,8 @@ class PublicationController extends BaseController
 	}
     
     public function showCreateAlert()
-    {
+    {   
+        if(Auth::check() && Auth::user()->type != 'normal') {
         
         $country_options = Country::lists('name', 'id');
         $event_type_options = EventType::lists('name', 'id');
@@ -113,6 +114,10 @@ class PublicationController extends BaseController
         $language_options = Language::lists('name', 'id');
         
 		return View::make('publication.create-alert')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options);
+        }
+        else
+            return Redirect::route('home')
+                ->with('global', "You're either not registered or you do not have enough privileges.");
         
     }
     
@@ -386,16 +391,16 @@ class PublicationController extends BaseController
         $alert_types = Input::get('alert-types');
         
         $publication = new Publication($pub);
-        
 
         $languages = json_decode(Input::get('alert-languages'), true);
         $languages_toarray = [];
         
+        $en_id = Language::where('name','=','English')->first()->id;
         //publication content in english
         $pub_content1 = [
                 'title' => Input::get('alert-title'),
                 'content' => Input::get('alert-description'),
-                'language_id' => 1, //language id
+                'language_id' => $en_id, //language id
                 'publication_id' => null, //defined at insertion in db*
         ];
 
@@ -439,6 +444,22 @@ class PublicationController extends BaseController
             if($valid_content->passes()){
                 $publication->save();
                 //cycle through multiple languages
+                
+                //Storing images
+                if(Input::hasFile('alert-images'))
+                {   
+                    $destinationPath = '/public/assets/images/publications/' . $publication->id . '/';
+                    if(!File::exists($destinationPath))
+                        File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
+                    $images = Input::file('alert-images');
+                    for ($i=0; $i < count($images); $i++)
+                    {
+                        $image = $images[$i];
+                        $extension = $image->guessExtension();
+                        $image->move($destinationPath, $i . '.' . $extension );
+                    }
+                }
+                
                 $publication_content1->publication_id = $publication->id;
                 $publication_content1->save();
                 foreach($languages_toarray as $lang){

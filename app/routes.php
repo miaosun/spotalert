@@ -95,14 +95,8 @@ Route::get('/user/{username}', array(
     'uses' => 'ProfileController@user'
 ));
 */
-
-//Create Alert (POST)
-Route::post('/publication/createalert', array(
-    'as' => 'publication-createalert',
-    'uses' => 'PublicationController@createAlert'
-));
-            
-//Create Alert (POST)
+        
+//Create Guideline (POST)
 Route::post('/publication/createguideline', array(
     'as' => 'publication-createguideline',
     'uses' => 'PublicationController@createGuideline'
@@ -176,6 +170,12 @@ Route::group(array('before' => 'auth'), function() {
             'uses' => 'EyewitnessController@deleteEyewitness'
         ))
         ->where('eyewit_id', '[0-9]+');
+        
+        //Create Alert (POST)
+        Route::post('/publication/createalert', array(
+            'as' => 'publication-createalert',
+            'uses' => 'PublicationController@createAlert'
+        ));
     });
 
     // change password (GET)
@@ -337,12 +337,6 @@ Route::group(array('before' => 'guest'), function() {
     Route::get('/account/activate/{code}', array(
         'as' => 'account-activate',
         'uses' => 'AccountController@getActivate'
-    ));
-    
-    // show create alert (GET)
-    Route::get('/publication/create-alert', array(
-        'as' => 'publication-create-alert',
-        'uses' => 'PublicationController@showCreateAlert'
     ));
     
     // show create guideline (GET)
