@@ -173,7 +173,7 @@ class UserPanelController extends BaseController {
             $comment = new Comment;
             $comment->content = Input::get("text");
             $comment->created_at = date("Y-m-d H:i:s");
-            $comment->approved = true;
+            $comment->approved = false;
             $comment->user_id = Auth::user()->id;
             $comment->publication_id = $id;
             
