@@ -19,8 +19,6 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <!-- the mousewheel plugin - optional to provide mousewheel support -->
 {{ HTML::script('assets/js/jquery.mousewheel.js') }}
-<!-- the jScrollPane script -->
-{{ HTML::script('assets/js/jquery.jscrollpane.min.js') }}
 {{ HTML::script('assets/js/jquery.jscroll.min.js') }}
 {{ HTML::script('assets/js/jquery.customSelect.min.js') }}
 {{ HTML::script('scripts/controlpanel.js') }}

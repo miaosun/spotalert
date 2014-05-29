@@ -1,8 +1,5 @@
 $('document').ready(function() 
 {
-	// Just to activate the custom scrolling using the jScrollPane jQuery plugin
-	$('.scrollable').jScrollPane({ hideFocus : true, autoReinitialise : true, contentWidth : '218px' });
-
 	// If clicking anywhere in the dropdown menu, it doesn't close
 	$('.dropdown-menu').click(function(e) {
         e.stopPropagation();
@@ -26,7 +23,7 @@ $('document').ready(function()
     // setting up expand buttons for publication
     setupBtnPublication();
 
-    // Style the select buttons
+    // Style the form's selects
     $('select.styled').customSelect();
 });
 
