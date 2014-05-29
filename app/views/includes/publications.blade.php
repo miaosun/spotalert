@@ -56,6 +56,7 @@
                     <hr>
                     <div class="publ-content">
                         <p></p>
+                        <div class="pub-content-imgs"></div>
                         <div class="publ-linked">
                         @if ($publication['type'] == 'alert')
                             <h1>{{ Lang::get('publication.titles.guide') }}<span class="number-linked">0</span> 
@@ -98,10 +99,14 @@
                                 @if(Auth::check())
                                 <div class='publ-comments-addcomment'>
                                     @if ($publication['risk'] >=5)
+                                    <form>
                                         <textarea class='submit-comment-textarea' name='text-comment' maxlength='255'></textarea>
+                                        <input type='file' class='submit-comment-file' name='file-comment'>
                                         <button type='button' class='submit-comment-btn white' publicationid="{{ $publication['id'] }}" > {{Lang::get('publication.titles.comments.btnSubmit')}}</button>
+                                    </form>
                                     @else
                                         <textarea class='submit-comment-textarea border' name='text-comment' maxlength='255'></textarea>
+                                        <input type='file' class='submit-comment-file' name='file-comment'>
                                         <button type='button' class='submit-comment-btn red' publicationid="{{ $publication['id'] }}"> {{Lang::get('publication.titles.comments.btnSubmit')}}</button>
                                     @endif
                                 </div>

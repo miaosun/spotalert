@@ -22,7 +22,11 @@
 			<div class="col-md-4 col-md-offset-1">
 				<div class="row">
                     
-					{{ /* FIXME FROM HARCODED */ HTML::image('assets/images/user/2.jpg', $alt="Lang::get('controlpanel.profile.altpic')", $attributes = array('width' => '200px', 'height' => '200px')) }}
+					@if($pic) 
+                        {{HTML::image('assets/images/user/'.$user->id.'.jpg', $alt="Lang::get('controlpanel.profile.altpic')", $attributes = array('width' => '200px', 'height' => '200px')) }}
+                    @else  
+                        {{HTML::image('assets/images/user/default.jpg', $alt="Lang::get('controlpanel.profile.altpic')", $attributes = array('width' => '200px', 'height' => '200px')) }}
+                    @endif
 					<div class="col-md-10 custom-upload">
                         {{ Form::file('uploadfile',array('class' => 'upload')) }}
                         <div class="fake-file dotline">
@@ -208,8 +212,9 @@
 				</div>
 			</div>
 		</div>
+        {{ Form::token() }}
 		{{ Form::close() }}
 	</div>
 </div>
-{{ HTML::script('scripts/controlpanel.js') }}
+{{ HTML::script('assets/js/controlpanel.js') }}
 @stop

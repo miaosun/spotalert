@@ -527,6 +527,11 @@ button#search-glass {
     font-weight:normal;
     font-size:15px;
 }
+.publ-content .pub-content-imgs img{
+    width: 30px;
+    height: 30px;
+    margin-right: 3px;
+}
 .publ-content .publ-linked-toggle{
     display: none;
 }
@@ -541,7 +546,11 @@ button#search-glass {
     
 }
 .publ-content .publ-comments-toggle p.comments-info{
+    margin-top: 17px;
     font-size: 8px;
+}
+.publ-content .publ-comments-area p.comments-info span.comments-delete{
+    float:right;
 }
 .publ-content .publ-comments span.number-comments{
     color: #CCCCCC;
@@ -557,6 +566,15 @@ button#search-glass {
 .publ-content .publ-comments-addcomment{
     margin-bottom: 10px;
     display:none;
+}
+.publ-content .publ-comments-area .comments-imgs{
+    float:right;
+}
+
+.publ-content .publ-comments-area .comments-imgs img{
+    width: 30px;
+    height: 30px;
+    margin-right: 3px;
 }
 .publ-content textarea.submit-comment-textarea{
     text-indent:15px;

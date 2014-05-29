@@ -28,7 +28,6 @@
 <!-- the jScrollPane script -->
 {{ HTML::script('assets/js/jquery.jscrollpane.min.js') }}
 {{ HTML::script('assets/js/jquery.jscroll.min.js') }}
-{{ HTML::script('scripts/controlpanel.js') }}
 {{ HTML::script('assets/js/script.js') }}
 
 <script>

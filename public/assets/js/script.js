@@ -221,6 +221,12 @@ function getPublicationContent(id)
 	    jQuery.getJSON("publications/content/"+id,function(data){
 	        // fill description
 	        $('#publ-'+id+' .publ-content p').html(data.content);
+            // fill images
+            var imgHTML ="";
+            for(var i = 0; i < data.images.length ; i++){
+                imgHTML = imgHTML + "<a href='"+data.images[i].url+"'><img src='"+data.images[i].url+"'alt='"+data.images[i].alt+"'/></a>";
+            }
+            $('#publ-'+id+' .pub-content-imgs').html(imgHTML);
 	        // fill linked publications
 	        if(data.pubLinked.length == 0)
 	            $('#publ-'+id+' .publ-linked').remove();
@@ -236,20 +242,35 @@ function getPublicationContent(id)
 	        // fill comments 
 	        if(data.comments.length == 0){
 	            $('#publ-'+id+' .publ-comments-toggle-btn').hide();
-            
             }
 	        else
 	        {
 	            //insert number of comments
                 $('#publ-'+id+' .publ-content .publ-comments span.number-comments').html(data.comments.length);
 	            var links = "";
-	            for(var i = 0; i < data.comments.length ; i++){
+	            for(var i = 0; i < data.comments.length ; i++)
+                {
 	                if(i != 0)
 	                    links = links +"<hr>";
-	                links = links +"<div class='comments'>\
-	                                <p class='comments-content'>"+data.comments[i].content+"</p>\
-                                    <p class='comments-info'>"+data.comments[i].user+" - "+data.comments[i].date.date+"</p>\
-	                                </div>";
+                   
+                    links = links +"<div class='comments'>";
+                    //if exist photo
+	                if(data.comments[i].img.length != 0)
+                    {
+                        links = links +"<div class='comments-imgs'><a href="+data.comments[i].img.url+"'>\
+                                        <img src='"+data.comments[i].img.url+"'alt='"+data.comments[i].img.alt+"'/>\
+                                        </a></div>"
+                    }
+                    links = links +"<p class='comments-content'>"+data.comments[i].content+"</p>\
+                                    <p class='comments-info'>"+data.comments[i].user+" - "+data.comments[i].date.date
+	                                ;
+                    if(data.comments[i].delete != 0)
+                    {
+                        links= links + "<span class='comments-delete'>\
+                                        <a href='"+data.comments[i].delete.url+"'>"+data.comments[i].delete.text+"</a></span>";
+                    }
+                    links= links +"</p></div>";
+                    
 	            }
 	            //alert(links);
 	            $('#publ-'+id+' .publ-content .publ-comments-area').html(links);
@@ -320,17 +341,50 @@ function setupBtnPublication(){
     submitCommentBtn(id);
     });
 }
+// code to submit a comment
+$( 'form' ).submit(function ( e ) {
+    var data;
+
+    data = new FormData();
+    data.append( 'file', $( '#file' )[0].files[0] );
+
+    $.ajax({
+        url: 'http://hacheck.tel.fer.hr/xml.pl',
+        data: data,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function ( data ) {
+            alert( data );
+        }
+    });
+
+    e.preventDefault();
+});
+
 function submitCommentBtn(id){
-    var msg = $('#publ-'+id+' .publ-comments-addcomment .submit-comment-textarea').val();
+    data = new FormData();
+    data.append('text',$('#publ-'+id+' .publ-comments-addcomment .submit-comment-textarea').val())
+    data.append('img',$('#publ-'+id+' .publ-comments-addcomment .submit-comment-file')[0].files[0]);
+   /* var file = $('#publ-'+id+' .publ-comments-addcomment .submit-comment-file')[0].files[0];
+    var reader = new FileReader();
+        reader.readAsText(file);
+    reader.onload = function(e) {
+        // browser completed reading file - display it
+        alert(e.target.result);
+        };*/
     $.ajax({
         url : "user/comments/submit/"+id,
         type: "POST",
-        data : {text:msg},
+        data : data,
+        processData: false,
+        contentType: false,
         datatype: JSON,
         success: function(data, textStatus, jqXHR)
         {
             alert(data.msg);
             $('#publ-'+id+' .publ-comments-addcomment .submit-comment-textarea').val("");
+            $('#publ-'+id+' .publ-comments-addcomment .submit-comment-file').val("");
             $('#publ-'+id+' .publ-comments-addcomment').hide();
             
         },
@@ -339,7 +393,6 @@ function submitCommentBtn(id){
             alert(textStatus);
         }
     });
-
 }
 
 

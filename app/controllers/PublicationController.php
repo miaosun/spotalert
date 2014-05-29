@@ -68,7 +68,8 @@ class PublicationController extends BaseController
                                 'title' => $content->title,
                                 'content' => $content->content,
                                 'pubLinked' =>array(),
-                                'comments' => array()
+                                'comments' => array(),
+                                'images' =>array()
                                );
         if(!$publication->alerts->isEmpty())
         {
@@ -106,14 +107,42 @@ class PublicationController extends BaseController
                 }
         }
          if(!$publication->comments->isEmpty())
-        {
+         {
             foreach($publication->comments as $comment)
             {
                if($comment->approved)
-                    $answer['comments'][] = array('user' => $comment->author()->first()->username,'content' => $comment->content, 'date' =>$comment->created_at);
+               {    
+                   $commentData = array('user' => $comment->author()->first()->username,'content' => $comment->content, 'date' =>$comment->created_at,'img'=>array(),'delete' => array());
+                    // load images from publication if exists
+                    $srcPath = public_path().'/assets/images/comments/'.$comment->id;
+                    if(File::exists($srcPath))
+                    {
+                        $imagesUrl = File::allFiles($srcPath);
+                        foreach($imagesUrl as $imgUrl)
+                        {
+                            $commentData['img'] = array('url'=>$url = asset('assets/images/comments/'.$comment->id.'/'.$imgUrl->getRelativePathName()),'alt'=>$content->title);
+                        }
+                    }
+                   if(Auth::check() && !(Auth::user()->type == 'normal'))
+                    {
+                        $commentData['delete'] = array('url' => route('comment-deleted', $comment->id),'text' => Lang::get('controlpanel.comments.delete'));
+                    }
+                    $answer['comments'][] = $commentData;
+                }
             }
             //TODO add Lang words for the comments be in selected language (e.g. "by", "on", "of" - $answer['language']) 
         }
+        // load images from publication if exists
+        $srcPath = public_path().'/assets/images/publications/'.$publ_id;
+        if(File::exists($srcPath))
+        {
+            $imagesUrl = File::allFiles($srcPath);
+            foreach($imagesUrl as $imgUrl)
+            {
+                $answer['images'][] = array('url'=>$url = asset('assets/images/publications/'.$publ_id.'/'.$imgUrl->getRelativePathName()),'alt'=>$content->title);
+            }
+        }
+           
 		return Response::json($answer);
         //return Response::json($publications);
 	}
