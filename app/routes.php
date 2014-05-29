@@ -207,6 +207,12 @@ Route::group(array('before' => 'auth'), function() {
         'uses' => 'UserPanelController@updatePrivileges'
     ));
 
+    // Delete User
+    Route::get('/user/privileges/delete/{username}', array(
+       'as' => 'privileges-delete',
+        'uses' => 'UserPanelController@deleteUser'
+    ));
+
     //Notifications
     Route::get('/user/notifications', array(
         'as' => 'user-notifications',

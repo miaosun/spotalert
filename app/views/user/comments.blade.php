@@ -4,7 +4,7 @@
 
 <div class="container-fluid">
     <div id="controlpanel" class="col-md-10 col-md-offset-1">
-        <div class="row" id="notifications">
+        <div class="row" id="comments">
             <ul>
                 <li><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
                 <li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
@@ -37,7 +37,10 @@
                     @if($comment->approved == false)
                     <tr>
                         <td>{{{$comment->publication->contents->first()->title}}}</td>
-                        <td>{{{$comment->content}}}</td>
+                        <td class="readcomment">
+                            <div class="comment-readmore">{{{$comment->content}}}</div>
+                            <a href="#" class="readmore" style="color:red;">{{ Lang::get('controlpanel.comments.readmore') }}</a>
+                        </td>
                         <td>{{{$comment->author->username}}}</td>
                         <td>{{{$comment->created_at}}}</td>
                         <td>{{{$comment->publication->risk}}}</td>
@@ -64,6 +67,8 @@
 {{ HTML::script('assets/js/jquery.dataTables.js') }}
 
 <script>
+
+    $.fn.overflown=function(){var e=this[0];return e.scrollHeight>e.clientHeight||e.scrollWidth>e.clientWidth;}
     $('document').ready(function()
     {
         $('#comments-list').dataTable( {
@@ -81,6 +86,24 @@
                 { sWidth: '10%' }
             ]
         });
+
+        $('.comment-readmore').each(function()
+        {
+            if(!$(this).overflown())
+                $(this).siblings().css('display', 'none');
+        });
+
+
+        $('.readcomment').on('click', '.readmore', function() {
+            $(this).siblings().css('max-height', '100%');
+            $(this).toggleClass('readmore readless').html('{{ Lang::get('controlpanel.comments.readless') }}');
+        });
+
+        $('.readcomment').on('click', '.readless', function() {
+            $(this).siblings().css( "max-height", "90px" );
+            $(this).toggleClass('readless readmore').html('{{ Lang::get('controlpanel.comments.readmore') }}');
+        });
+
     });
 </script>
 

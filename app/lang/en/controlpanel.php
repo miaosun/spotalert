@@ -51,7 +51,11 @@ return array(
         "add"            => "ADD",
         "email"          => "EMAIL",
         "permissions"    => "PERMISSIONS",
-        "remove"         => "REMOVE"
+        "remove"         => "REMOVE",
+        "deleteuser"     => "DELETE USER",
+        "warning"        => "Every information such as publications and comments of that user will be deleted as well!!!",
+        "cancel"         => "Cancel",
+        "confirm"        => "Yes I am"
     ),
 	"publications" => array(
 		"title"              => "USER CONTROL PANEL - PUBLICATIONS",
@@ -78,7 +82,9 @@ return array(
         "comment"     => "COMMENT",
         "name"        => "NAME",
         "date"        => "DATE",
-        "risk"        => "RISK"
+        "risk"        => "RISK",
+        "readmore"    => "Read More",
+        "readless"    => "Read Less"
     ),
 
     "eyewitnesses" => array(

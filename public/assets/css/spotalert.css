@@ -954,7 +954,7 @@ input[name=accept] {
     font-size:  0.9em;
     float: left;
 }
-#controlpanel input {
+#controlpanel input, .delete_user_button {
     border: 0px;
     /*border-bottom: 1px dashed  #BF2333;*/
 }
@@ -966,7 +966,7 @@ input[name=accept] {
     float: left;
     width: 80%;
 }
-#controlpanel input[type=submit] {
+#controlpanel input[type=submit], .delete_user_button {
     width: 80%;
     border: 0px;
     margin: 5% 5% 5% 0%;
@@ -1213,7 +1213,7 @@ input[name=accept] {
 	height:20px;
 }
 
-/* ****-- Notifications deatils */
+/* ****-- Notifications details */
 #notifications input[type=submit] {
     width: 80%;
     border: 0px;
@@ -1224,6 +1224,17 @@ input[name=accept] {
     -webkit-border-radius: 25px;
     -moz--topright: 25px;
     border-radius: 25px;
+}
+
+/*****-- Comments details */
+#comments .comment-readmore {
+    max-height: 90px;
+    /*white-space: nowrap;*/
+    overflow:hidden;
+    text-overflow: ellipsis;
+    text-align:justify;
+    white-space: normal;
+    word-break: break-all;
 }
 
 /*****************************************************
@@ -1535,3 +1546,6 @@ label {
     color: #666666 !important;
     opacity; 1;
 }
+
+
+
