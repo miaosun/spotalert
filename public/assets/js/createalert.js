@@ -111,4 +111,19 @@ $(document).ready(function () {
         $('input[name=alert-languages]').val(lang);
     });
     
+    $(document).on("click", '#gallery li',function(){
+        var $this = $(this);
+        var image = $('> img', this).attr('src');
+        var filename = image.replace(/^.*[\\\/]/, '')
+        var pub = $('> img', this).attr('class');
+        $.post("/deleteimage/"+pub+"/"+filename ).done(function(){
+            $this.remove();
+            if($("#gallery").children().length == 0)
+                $("#uploaded").remove();
+            alert("The image was deleted successufully.");
+        }).fail(function(){
+            alert( "Something went wrong. The image was not deleted." );
+        });
+    });
+    
 });

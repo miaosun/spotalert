@@ -84,7 +84,26 @@
                                 {{ Form::textarea('alert-description', $all_contents[0]['content'], array('placeholder'=>Lang::get('create-alert.placeholders.description'))) }}
                             </div>
                         </div>
-
+                        
+                        @if(!empty($imagesupl))
+                        <div id="uploaded" class="row">
+                            <div class="col-md-12 col-sm-12">
+                                <h5>{{Lang::get('create-alert.fields.already_uploaded')}}</h5>
+                                <ul id="gallery">
+                                @foreach($imagesupl as $image)
+                                    <li>
+                                       <?php
+                                            $info = new SplFileInfo($image);
+                                            $imagename = $info->getFilename();
+                                        ?>                                        {{HTML::image("assets/images/publications/".$publication->id."/".$imagename, null, array('class' => $publication->id))}}
+                                        <p class="imgremove">{{Lang::get('create-alert.remove')}}</p>
+                                    </li>
+                                @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        @endif
+                        
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.images')}}</h5>
@@ -111,7 +130,7 @@
                                 <div class="inrow">
                                     <span>{{Lang::get('create-alert.labels.from')}}</span>
                                     {{Form::input('text', 'alert-durationfrom', $publication->initial_date, array('class'=>'datepicker'))}} 
-                                    <span>{{Lang::get('create-alert.labels.from')}}</span>
+                                    <span>{{Lang::get('create-alert.labels.to')}}</span>
                                     {{Form::input('text', 'alert-durationto', $publication->final_date, array('class'=>'datepicker'))}}
                                 </div>
                             </div>

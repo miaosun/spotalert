@@ -1350,6 +1350,43 @@ input[name=accept] {
     margin-top: -2px;
 }
 
+#create-alert #gallery {
+    width: 70%;
+    float: left;
+    margin-top: 10px;
+}
+
+#create-alert #gallery li {
+    list-style: none;
+    margin: 1px;
+    float: left;
+    position: relative;
+    transition: .1s;
+}
+
+#create-alert #gallery li img {
+    width: 80px;
+    height: auto;
+}
+
+#create-alert #gallery li .imgremove {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(29, 106, 154, 0.72);
+    color: #fff;
+    
+    visibility: hidden;
+    opacity: 0; 
+}
+
+#create-alert #gallery li img:hover .imgremove {
+    visibility: visible;
+    opacity: 1;
+}
+
 /* ****-- Notifications deatils */
 #notifications input[type=submit] {
     width: 80%;
@@ -1374,8 +1411,6 @@ input[name=accept] {
     border-bottom-left-radius:2em;
     border-color:#f2f2f2;
 }
-
-
 
 .tab-content {
     position: relative;

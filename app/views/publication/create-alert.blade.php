@@ -94,7 +94,7 @@
                                     <div class="inrow">
                                         <span>{{Lang::get('create-alert.labels.from')}}</span>
                                         {{Form::input('text', 'alert-durationfrom', null, array('class'=>'datepicker'))}} 
-                                        <span>{{Lang::get('create-alert.labels.from')}}</span>
+                                        <span>{{Lang::get('create-alert.labels.to')}}</span>
                                         {{Form::input('text', 'alert-durationto', null, array('class'=>'datepicker'))}}
                                     </div>
                                 </div>

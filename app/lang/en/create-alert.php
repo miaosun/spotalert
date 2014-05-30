@@ -52,6 +52,7 @@ return array(
         "guidelines"  => "PICK A GUIDELINE",
         "alerts"      => "PICK AN ALERT"
     ),
+    "remove"    => "Remove",
     "activate"  => "ACTIVATE",
     "deactivate"=> "DEACTIVATE",
     "mandatory" => "* MANDATORY FIELD",
