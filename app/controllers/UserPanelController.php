@@ -172,7 +172,7 @@ class UserPanelController extends BaseController {
         {
             if(!$comment->approved)
             {
-                $commentData = array('username' => $comment->author()->first()->username, 'title' => $comment->publication->contents->first()->title, 'content' => $comment->publication->contents->first()->title, 'date' =>$comment->created_at,'risk' => $comment->publication->risk, 'img'=>array());
+                $commentData = array('img'=>array());
 
                 $srcPath = public_path().'/assets/images/comments/'.$comment->id;
                 if(File::exists($srcPath))
