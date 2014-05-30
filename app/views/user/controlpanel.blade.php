@@ -195,7 +195,7 @@
 					</div>
 					<div class="col-md-7 col-md-offset-1">
 						<div class="dotline" id="date">
-                            {{ Form::text('date',$user->date,array('disabled' => 'disabled')) }}
+                            {{ Form::text('date',$user->created_at->format('Y/m/d'),array('disabled' => 'disabled')) }}
                         </div>
 					</div>
 				</div>

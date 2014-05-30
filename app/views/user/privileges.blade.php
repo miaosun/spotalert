@@ -112,7 +112,7 @@
                         <td>{{$user_with_permission['organization']}}</td>
                         <td>{{$user_with_permission['firstname']}} {{$user_with_permission['lastname']}}</td>
                         <td>{{$user_with_permission['city']}}</td>
-                        <td>{{$user_with_permission['created_at']}}</td>
+                        <td>{{$user_with_permission['created_at']->format('Y/m/d')}}</td>
                     </tr>
                     @endforeach
                     </tbody>
