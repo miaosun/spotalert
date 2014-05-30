@@ -24,7 +24,7 @@ class EyewitnessController extends BaseController
 		$eyewitness->delete();
 
 		// Remove possible stored images
-		$destinationPath = '/var/www/spotalert/app/images/eyewitnesses' . $eyewitId;
+		$destinationPath = public_path() . '/assets/images/eyewitnesses' . $eyewitId;
 			if(File::exists($destinationPath))
 			{
 				if (is_dir($destinationPath)) 
@@ -135,7 +135,7 @@ class EyewitnessController extends BaseController
 		//Storing images
 		if($hasFiles)
 		{
-			$destinationPath = '/var/www/spotalert/app/images/eyewitnesses' . $eyewitness->id;
+			$destinationPath = public_path() . '/assets/images/eyewitnesses' . $eyewitness->id;
 			if(!File::exists($destinationPath))
 				File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
 			$images = Input::file('images');
