@@ -227,10 +227,10 @@ function setRegisterRadioBoxes()
 		$(this).children('.glyphicon').addClass('glyphicon-remove');
 		$(this).siblings('.radiobutton').children('.glyphicon').removeClass('glyphicon-remove');
 
-		if($(this).children('.glyphicon').hasClass('yes'))
-			$('#create .terms-service input#yes').prop('checked', true);
+		if($(this).children('.glyphicon').hasClass('public-o'))
+			$('#create-alert .visibility input#public-o').prop('checked', true);
 		else
-			$('#create .terms-service input#no').prop('checked', true);
+			$('#create-alert .visibility input#hidden-o').prop('checked', true);
 	});
 }
 
