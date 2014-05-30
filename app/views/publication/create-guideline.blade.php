@@ -58,6 +58,9 @@
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.title')}} <span>{{Lang::get('create-alert.fields.max_size')}}</span></h5>
                                 {{ Form::textarea('guideline-title', '', array('id'=>'title', 'placeholder'=>Lang::get('create-alert.placeholders.title'))) }}
+                                @if($errors->has('title'))
+                                    <br><span>{{ $errors->first('title') }}</span>
+                                @endif
                             </div>
                         </div>
 
@@ -65,13 +68,16 @@
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.description')}}</h5>
                                 {{ Form::textarea('guideline-description', '', array('placeholder'=>Lang::get('create-alert.placeholders.description'))) }}
+                                @if($errors->has('content'))
+                                    <br><span>{{ $errors->first('content') }}</span>
+                                @endif
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.images')}}</h5>
-                                {{ Form::file('guideline-images[]',array('multiple')) }}
+                                {{ Form::file('guideline-images[]',array('multiple', 'class' => 'multi')) }}
                                 @if($errors->has('file'))
                                 <br><span>{{ $errors->first('file') }}</span>
                                 @endif
@@ -117,11 +123,11 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.visibility')}}</h5>
-                                <div class="inrow">
-                                    <span>{{Lang::get('create-alert.labels.public')}}</span>
-                                    {{ Form::radio('guideline-visibility', 1, false)}}
-                                    <span>{{Lang::get('create-alert.labels.hidden')}}</span>
-                                    {{Form::radio('guideline-visibility', 0, true);}}
+                                <div class="inrow visibility">
+                                    {{ Form::radio('guideline-visibility', 1, false, array('id'=>'public-o', 'style' => 'display:none;')) }}
+                                    {{ Form::radio('guideline-visibility', 0, true, array('id'=>'hidden-o', 'style' => 'display:none;')) }}
+                                    <div class="col-md-5 col-sm-5 radiobutton"><div class="col-md-9 option">{{Lang::get('create-alert.labels.public')}}</div><div class="col-md-3 glyphicon public-o"></div></div>
+                                    <div class="col-md-5 col-sm-5 col-md-offset-1 radiobutton"><div class="col-md-9 option">{{Lang::get('create-alert.labels.hidden')}}</div><div class="col-md-3 glyphicon hidden-o glyphicon-remove"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -155,6 +161,7 @@
 {{ HTML::script('assets/js/chosen.jquery.min.js'); }}
 {{ HTML::script('assets/js/bootstrap-datepicker.js'); }}
 {{ HTML::style('assets/css/datepicker.css'); }}
+{{ HTML::script('assets/js/jquery.MultiFile.js') }}
 <script type="text/javascript">
     var config = {
         '.chosen-select'           : {no_results_text:'Oops, nothing found!'},

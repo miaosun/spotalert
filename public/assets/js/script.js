@@ -244,7 +244,7 @@ function getPublicationContent(id)
 		togglePubBtn(id);
 	else
 	{
-	    jQuery.getJSON("publications/content/"+id,function(data){
+	    jQuery.getJSON("/publications/content/"+id,function(data){
 	        // fill description
 	        $('#publ-'+id+' .publ-content p').html(data.content);
             // fill images

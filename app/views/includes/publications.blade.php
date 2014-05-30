@@ -68,7 +68,7 @@
                         @else
                             <h1>{{ Lang::get('publication.titles.alert') }}<span class="number-linked">0</span> 
                             @if($publication['risk'] >=5)
-                                <button class="glyphicon glyphicon-chevron-right arrow_white publ-linked-toggle-btn" publicationid="{{ $publication['id'] }}"></button>
+                                <button class="glyphicon glyphicon-chevron-right arrow_gray publ-linked-toggle-btn" publicationid="{{ $publication['id'] }}"></button>
                             @else
                                 <button class="glyphicon glyphicon-chevron-right arrow_gray publ-linked-toggle-btn" publicationid="{{ $publication['id'] }}"></button>
                             @endif
