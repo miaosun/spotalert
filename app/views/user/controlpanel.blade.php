@@ -196,7 +196,6 @@
 					<div class="col-md-7 col-md-offset-1">
 						<div class="dotline" id="date">
                             {{ Form::text('date',$user->date,array('disabled' => 'disabled')) }}
-                            <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
 					</div>
 				</div>
@@ -207,7 +206,6 @@
 					<div class="col-md-7 col-md-offset-1">
                         <div class="dotline" id="organization">
                             {{ Form::text('organization',$user->organization,array('disabled' => 'disabled')) }}
-                            <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
 					</div>
 				</div>

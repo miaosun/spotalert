@@ -70,7 +70,7 @@
                     <div class="col-md-4" id='department'>
                         @if($selected)
                         {{ Form::text('department', $selectedUser->organization, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
-                        <span class="glyphicon glyphicon-edit edit_button"></span><br>
+                        <span class="glyphicon glyphicon-edit edit_button edit-btn-priv"></span><br>
                             @if($user->type == 'admin')
                             {{ Form::select('permissions', array('normal' => 'Normal', 'publisher' => 'Publisher', 'manager' => 'Manager'), $selectedUser->type, array('class'=>'styled')) }}
                             @elseif($user->type == 'manager')
@@ -78,9 +78,8 @@
                             @endif
                         @else
                         {{ Form::text('department', null, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
-                        <span class="glyphicon glyphicon-edit"></span><br>
-                        {{ Form::text('permissions', null, array('disabled'=>'disabled','placeholder'=>Lang::get('controlpanel.privileges.permissions'))) }}
-                        <span class="caret"></span>
+                        <span class="glyphicon glyphicon-edit edit-btn-priv"></span><br>
+                        {{ Form::text('permissions', null, array('class'=>'styled','disabled'=>'disabled','placeholder'=>Lang::get('controlpanel.privileges.permissions'))) }}
                         @endif
                     </div>
                 </div>
@@ -89,7 +88,7 @@
                 </div>
                 @if($selected && $user->type == 'admin')
                 <div class="col-md-2 col-md-offset-0" id="delete">
-                    <button type="button" class="btn btn-warning btn-danger" data-toggle="modal" data-target=".delete-account">
+                    <button type="button" class="btn btn-warning btn-danger button-delete" data-toggle="modal" data-target=".delete-account">
                         {{ Lang::get('controlpanel.privileges.deleteuser') }}
                     </button>
                 </div>

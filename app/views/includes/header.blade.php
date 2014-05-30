@@ -25,6 +25,10 @@
 
             <div class="dropdown-menu">
                 <li><a href="{{ URL::route('control-panel')}}">{{Lang::get('home.menu.profile')}}</a></li>
+                @if(Auth::user()->type != 'normal')
+                <li><a href="{{ URL::route('publication-create-alert')}}">{{"Create Alert"}}</a></li>
+                <li><a href="{{ URL::route('publication-create-guideline')}}">{{"Create Guideline"}}</a></li>
+                @endif
                 @if(Auth::user()->type == 'admin')
                 <li><a href="https://www.google.com/analytics/web/" target="_blank">Google Analytics</a></li>
                 @endif
