@@ -64,7 +64,7 @@ class AccountController extends BaseController {
 				'password_again' => 'required|same:password',
                 'firstname'      => 'max:20',
                 'lastname'       => 'max:20',
-                'phonenumber'    => 'numeric|max:20',
+                'phonenumber'    => 'max:20',
                 'address'        => 'max:30',
                 'city'           => 'max:20',
                 'postalCode'     => 'max:15',
