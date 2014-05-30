@@ -121,10 +121,22 @@ Route::get('/publication/edit-alert/{id}', array(
     'uses' => 'PublicationController@showEditAlert'
 )); 
 
-// show edit alert (GET)
+// show edit guideline (GET)
 Route::get('/publication/edit-guideline/{id}', array(
-    'as' => 'publication-edit-alert',
+    'as' => 'publication-edit-guideline',
     'uses' => 'PublicationController@showEditGuideline'
+));
+
+// show create alert from eyewitness (GET)
+Route::post('/publication/eyewit-alert/{id}', array(
+    'as' => 'publication-eyewit-alert',
+    'uses' => 'PublicationController@showEyewitToAlert'
+));
+
+// show create guideline from eyewitness (GET)
+Route::post('/publication/eyewit-guideline/{id}', array(
+    'as' => 'publication-eyewit-guideline',
+    'uses' => 'PublicationController@showEyewitToGuideline'
 ));
 
 /*
@@ -319,6 +331,13 @@ Route::group(array('before' => 'auth'), function() {
         'as' => 'deleteimage',
         function($pub,$img)
         {                File::delete(public_path()."/assets/images/publications/".$pub."/".$img);
+        }
+    ));
+    
+    Route::post('/deleteimagew/{eye}/{img}', array(
+        'as' => 'deleteimagew',
+        function($eye,$img)
+        {                       File::delete(public_path()."/assets/images/eyewitnesses".$eye."/".$img);
         }
     ));
 });

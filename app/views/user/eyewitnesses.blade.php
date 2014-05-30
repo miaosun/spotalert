@@ -53,12 +53,12 @@
                         </td>
                         <!-- FIXME: Redirect to create-alert/create-guideline -->
                         <td>
-                        {{ Form::open(array('route' => 'eyewitness-alert', 'method' => 'post')) }}
+                            {{ Form::open(array('url' => '/publication/eyewit-guideline/'.$eyewit->id, 'method' => 'post')) }}
                         {{ Form::submit('ALERT') }}
                         {{ Form::token() }} 
                         {{ Form::close() }}
                             
-                            {{ Form::open(array('route' => 'eyewitness-guideline', 'method' => 'post')) }}
+                            {{ Form::open(array('url' => '/publication/eyewit-guideline/'.$eyewit->id, 'method' => 'post')) }}
                         {{ Form::submit('GUIDELINE') }}
                         {{ Form::token() }}
                         {{ Form::close() }}

@@ -249,6 +249,56 @@ class PublicationController extends BaseController
 
     }
     
+    public function showEyewitToAlert($id)
+    {
+        if(Auth::check() && Auth::user()->type != 'normal') {
+            
+            $eyewitness = Eyewitness::find($id);
+            $country_options = Country::lists('name', 'id');
+            $event_type_options = EventType::lists('name', 'id');
+            $guideline_options = DB::table('publications AS p')->join('publicationContents AS pc','pc.publication_id','=','p.id')->where('p.type','=','guideline')->lists('title','publication_id');
+            $language_options = Language::lists('name', 'id');
+            
+            $countries = $eyewitness->countries->lists('id');
+            
+            $images_directory = public_path()."/assets/images/eyewitnesses".$id;
+            $images = array();
+            foreach(glob($images_directory.'/*.*') as $file) {
+                array_push($images,$file);
+            }
+
+            return View::make('publication.eyewit-alert')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options)->with('eyewitness',$eyewitness)->with('countries',$countries)->with('imagesupl',$images);
+        }
+        else
+            return Redirect::route('home')->with('global', "You're either not registered or you do not have enough privileges.");           
+
+    }
+    
+    public function showEyewitToGuideline($id)
+    {
+        if(Auth::check() && Auth::user()->type != 'normal') {
+
+            $eyewitness = Eyewitness::find($id);
+            $country_options = Country::lists('name', 'id');
+            $event_type_options = EventType::lists('name', 'id');
+            $guideline_options = DB::table('publications AS p')->join('publicationContents AS pc','pc.publication_id','=','p.id')->where('p.type','=','guideline')->lists('title','publication_id');
+            $language_options = Language::lists('name', 'id');
+            
+            $countries = $eyewitness->countries->lists('id');
+            
+            $images_directory = public_path()."/assets/images/eyewitnesses".$id;
+            $images = array();
+            foreach(glob($images_directory.'/*.*') as $file) {
+                array_push($images,$file);
+            }
+
+            return View::make('publication.eyewit-alert')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options)->with('eyewitness',$eyewitness)->with('countries',$countries)->with('imagesupl',$images);
+        }
+        else
+            return Redirect::route('home')->with('global', "You're either not registered or you do not have enough privileges.");           
+
+    }
+    
 	/**
 	 * It gets some publications in the database 
 	 * (just the initial ones, so it's possible to scroll)
@@ -574,6 +624,16 @@ class PublicationController extends BaseController
                         $image = $images[$i];
                         $extension = $image->guessExtension();
                         $image->move($destinationPath, $i . '.' . $extension );
+                    }
+                }
+                
+                if(Input::has('eyewitness-previous'))
+                {
+                    $images_directory = public_path()."\assets\images\eyewitnesses".Input::get('eyewitness-previous');
+                    
+                    $images = array();
+                    foreach(glob($images_directory.'/*.*') as $k => $file) {
+                        rename ( $file , public_path()."\assets\images\publications\" . $publication->id . "\\" . $k . '.jpg');
                     }
                 }
                 
