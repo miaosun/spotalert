@@ -840,12 +840,13 @@ input[name=accept] {
 
 .radiobutton .option {
     border-right: 1px solid #BF2333;
-    text-align: center;
+    text-align: left;
     color: #666666;
+    
 }
 
 .radiobutton .glyphicon  {
-    text-align: center;
+    text-align: left;
     display: inherit;
     padding: 0;
     margin-top: 2px
@@ -858,7 +859,13 @@ input[name=accept] {
     color: #BF2333;
 }
 
+.radiobutton .col-md-9 {
+	width:82%;
+}
 
+.radiobutton .col-md-3 {
+	width:18%;
+}
 #controlpanel span {
     font-size: 12px;
     color: red;
@@ -1302,7 +1309,10 @@ input[disabled=disabled] {
 
 .general_panel span {
     font-size:12px;
-    color:red;
+    color:gray;
+}
+#alert-tabs .tab-content h1{
+ margin: 0px -30px 2% 0px;
 }
 
 /*****-- Contact detail */
