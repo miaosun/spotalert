@@ -955,7 +955,9 @@ input[name=accept] {
 .row-block{
 	color:#666666;
 }
-
+.terms-service{
+	padding-bottom:30px;
+}
 
 /******************************************************
 ******************* CONTROL PANEL **********************
@@ -1342,6 +1344,11 @@ input[disabled=disabled] {
 #comments-list a.close-button{
 	color:#BF2333;
 	font-style:2em;
+}
+
+#comments-list_wrapper .comment-readmore +a{
+
+		color:#BF2333;
 }
 /*****************************************************
 *************** CREATE PUBLICATIONS *************
