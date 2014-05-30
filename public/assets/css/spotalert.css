@@ -1074,9 +1074,13 @@ input[name=accept] {
 
 #controlpanel .edit-btn-priv{
 	color: #BF2333;
-    width:100px;
     font-size:1.1em;
     margin-top: 3px;
+}
+
+#controlpanel #department input,
+#controlpanel #department .customSelect {
+    width: 80%
 }
 
 #controlpanel .dotline{

@@ -32,7 +32,7 @@ class UserPanelController extends BaseController {
             if(Input::has('email'))
                 $selectedUser = User::where('email', '=', Input::get("email"))->first();
             if($selectedUser == null)
-                return Redirect::route('user-privileges')->with('global', 'User not exists, try again!');
+                return Redirect::route('user-privileges')->with('global', 'User doesn\'t exists, try again!');
             $selected = true;
             return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_with_permissions'=>$users_with_permissions));
         }
@@ -122,7 +122,7 @@ class UserPanelController extends BaseController {
 
                 if($notificationSetting) {
                     return Redirect::route('user-notifications')
-                        -> with('global', 'Notofication for Country and Minimum Risk Level added successfully!');
+                        -> with('global', 'Notification for Country and Minimum Risk Level added successfully!');
                 }
             }
             else
@@ -155,7 +155,7 @@ class UserPanelController extends BaseController {
 
             if($user) {
                 return Redirect::route('user-notifications')
-                    -> with('global', 'Notofication for selected Publication added successfully!');
+                    -> with('global', 'Notification for selected Publication successfully added!');
             }
         }
     }
