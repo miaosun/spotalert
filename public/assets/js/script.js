@@ -24,7 +24,7 @@ $('document').ready(function()
     setupBtnPublication();
 
     // Style the form's selects
-    $('select.styled').customSelect();
+    $('.styled').customSelect();
 
     // For the radioboxes in the register page
     setRegisterRadioBoxes();

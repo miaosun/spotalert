@@ -1069,6 +1069,14 @@ input[name=accept] {
     right: 0;
     position: absolute;
     margin-top: 3px;
+
+}
+
+#controlpanel .edit-btn-priv{
+	color: #BF2333;
+    width:100px;
+    font-size:1.1em;
+    margin-top: 3px;
 }
 
 #controlpanel .dotline{
@@ -1159,7 +1167,11 @@ input[disabled=disabled] {
 
 #privileges .glyphicon {
     margin:0;
-
+    background-color: transparent;
+	color: #BF2333;
+	border: 0;
+	padding-left: 0px;
+	font-size:1.1em;
 }
 
 #controlpanel a {
@@ -1167,6 +1179,17 @@ input[disabled=disabled] {
     color: inherit;
 }
 
+#privileges .button-delete{
+	width: 80%;
+	border: 0px;
+	margin: 5% 5% 5% 0%;
+	background-color: #BF2333;
+	color: white;
+	-webkit-border-radius: 25px;
+	-moz--topright: 25px;
+	border-radius: 25px;
+	padding:0;
+}
 /******************************************************
 ********************* GENERAL PANEL *******************
 *******************************************************/
@@ -1347,7 +1370,6 @@ input[disabled=disabled] {
 }
 
 #comments-list_wrapper .comment-readmore +a{
-
 		color:#BF2333;
 }
 /*****************************************************
