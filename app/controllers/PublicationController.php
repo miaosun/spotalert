@@ -235,14 +235,14 @@ class PublicationController extends BaseController
             $alerts = Publication::find($id)->alerts->lists('id');
             $contents = Publication::find($id)->contents->toArray();
 
-            $images_directory = public_path()."/assets/images/publications/".$  id;
+            $images_directory = public_path()."/assets/images/publications/".$id;
             $images = array();
             foreach(glob($images_directory.'/*.*') as $file) {
                 array_push($images,$file);
             }
 
 
-            return View::make('publication.edit-guideline')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options)->with('publication',$publication)->with('types',$types)->with('countries',$countries)->with('guidelines',$guidelines)->with('contents',$contents)->with('imagesupl',$images);
+            return View::make('publication.edit-guideline')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options)->with('publication',$publication)->with('types',$types)->with('countries',$countries)->with('alerts',$alerts)->with('contents',$contents)->with('imagesupl',$images);
         }
         else
             return Redirect::route('home')->with('global', "You're either not registered or you do not have enough privileges.");           
@@ -866,6 +866,95 @@ class PublicationController extends BaseController
         $this->checkEditNotification($publication);
 
         return Redirect::to('/')->with('success', 'The alert was updated!');      
+    }
+    
+    public function updateGuideline() {
+
+        $id = Input::get('guideline-id');
+
+        $publication = Publication::find($id);
+
+        $date = date_create('now');
+        $date = date_format($date, 'Y-m-d');
+
+        //edit the publication
+        if(Input::get('guideline-durationfrom') == "")
+            $publication->initial_date = null;
+        else $publication->initial_date = Input::get('guideline-durationfrom');
+        if(Input::get('guideline-durationto') == "")
+            $publication->final_date = null;
+        else $publication->final_date = Input::get('guideline-durationto');
+        $publication->is_public = Input::get('guideline-visibility');
+        $publication->periodic_notification = 7;
+        $publication->risk = Input::get('guideline-risk');
+        $publication->type = "guideline";
+        $publication->last_update = $date;
+
+        $guideline_guidelines = Input::get('guideline-alerts');
+        $guideline_countries = Input::get('guideline-countries');
+        $guideline_types = Input::get('guideline-types');
+
+
+        $languages = json_decode(Input::get('guideline-languages'), true);
+        $languages_toarray = [];
+
+
+        $publication_content1 = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,1])->first();
+        //publication content in english
+        $publication_content1->title = Input::get('guideline-title');
+        $publication_content1->content = Input::get('guideline-description');
+        $publication_content1->language_id = 1; //language id
+        $publication_content1->publication_id = null; //defined at insertion in db*
+
+
+
+        foreach($languages as $key => $lang) {
+
+            $publication_content = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,$lang])->first();
+
+            if($publication_content){
+                //create the publication content
+                $publication_content->title = Input::get("guideline-title".$lang);
+                $publication_content->content = Input::get("guideline-description".$lang);
+                $publication_content->language_id = $lang; //language id
+                $publication_content->publication_id = $id; //defined at insertion in db*
+
+
+                $languages_toarray[$key] = $publication_content;
+            }
+        }
+
+        $publication->save();
+        //cycle through multiple languages
+        //var_dump($publication_content1);
+        //die();
+        $publication_content1->publication_id = $publication->id;
+        $publication_content1->save();
+
+        foreach($languages_toarray as $lang){
+
+            $lang->publication_id = $publication->id;// here*
+            $lang->save();
+        }
+        //create the constraints in the database
+        if(!empty($guideline_alerts)){
+            foreach ($guideline_alerts as $alert) {
+                $publication->guidelines()->attach($guideline_id);
+            }
+        }
+        if(!empty($guideline_types)){
+            foreach ($guideline_types as $types_id) {
+                $publication->eventTypes()->attach($types_id);
+            }
+        }
+        if(!empty($guideline_countries)){
+            foreach ($guideline_countries as $country_id) {
+                $publication->affectedCountries()->attach($country_id);
+            }
+        }
+        $this->checkEditNotification($publication);
+
+        return Redirect::to('/')->with('success', 'The guideline was updated!');      
     }
 
     public function checkEditNotification($publication)

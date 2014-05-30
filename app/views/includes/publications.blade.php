@@ -134,8 +134,15 @@
                            <button type="button" class="glyphicon glyphicon-remove btn_white"></button>
                         <a href="/publication/edit-alert/{{$publication['id']}}"><button class="glyphicon glyphicon-edit btn_white"></button></a>
                         @else
-                            <button type="button" class="glyphicon glyphicon-remove btn_gray"></button>
-                        <a href="/publication/edit-alert/{{$publication['id']}}"><button class="glyphicon glyphicon-edit btn_gray" onclick="location.href='publication/edit-alert/{{ $publication['id'] }}'"></button></a>
+                            <button type="button" class="glyphicon glyphicon-remove btn_gray"></button> 
+                        @if($publication['type']=='alert')
+                        <a href="/publication/edit-alert/{{$publication['id']}}"><button class="glyphicon glyphicon-edit btn_gray"></button></a>
+                        @else
+                        <a href="/publication/edit-guideline/{{$publication['id']}}">
+                            <button class="glyphicon glyphicon-edit btn_gray">      </button>
+                        </a>
+                        @endif
+                        
                         @endif
 
                     </div>

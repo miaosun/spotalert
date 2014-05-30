@@ -185,7 +185,7 @@
                 </div>
                 @foreach($contents as $content)
                 <div class="tab-pane fade in " id="alert_{{$content['language_id']}}">
-                    <h1>Create alert</h1>
+                    <h1>EDIT ALERT</h1>
                     <div class="col-md-5 col-sm-5 col-md-offset-0" id="moveright"><div class="row">
                         <div class="col-md-12 col-sm-12">
                             <h5>Title* <span>(maximum of 50 characters)</span></h5>
