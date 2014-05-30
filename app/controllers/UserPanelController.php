@@ -355,12 +355,12 @@ class UserPanelController extends BaseController {
             //return Response::json(array("teste"=>$uploadSuccess));
 			//TODO verificar porque nao está a fazer upload do uploadfile <----
 			if($profile->save() && $uploadSuccess)
-                return Redirect::route('control-panel')->with('global','Teste: update with success!')->withErrors($valid);
+                return Redirect::route('control-panel')->with('global','Update with success!')->withErrors($valid);
 			else
-                return Redirect::route('control-panel')->with('global',"Teste: update without sucess! Can't save model!")->withErrors($valid);
+                return Redirect::route('control-panel')->with('global',"Update without sucess! Can't save model!")->withErrors($valid);
 		}
 		else
-            return Redirect::route('control-panel')->with('global',"Teste: update failed! Input not validated!")->withErrors($valid);
+            return Redirect::route('control-panel')->withErrors($valid);
 	}
 
     public function getPublications() 
