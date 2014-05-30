@@ -94,7 +94,7 @@ header .row-header > div#language {
     padding-top: 30px;
     background-color:#f2f2f2;
     width: 100%;
-    min-height:550px;
+    min-height:1000px;
 }
 
 @media (max-width:991px) {
@@ -1098,7 +1098,7 @@ input[name=accept] {
     margin-top: 5px;
 }
 
-.custom-upload input[type=file]
+#controlpanel .custom-upload input[type=file]
 {
     outline:none;
     position: absolute;
@@ -1113,9 +1113,8 @@ input[name=accept] {
     right: 0;
     width: 100% !important;
 }
-.custom-upload .fake-file
+#controlpanel .custom-upload .fake-file
 {
-    position: absolute;
     top: 0px;
     width: 200px;
     height: 100%;
@@ -1202,16 +1201,18 @@ input[disabled=disabled] {
     border-radius: 25px;
     margin-top: 3%;
     margin-bottom: 3%;
+    padding-bottom: 30px;
 }
 
 
 .general_panel h1{
     background-color:#BF2333;
     color: white;
-    margin: 0px 0px 2% 0px;
+    margin: 0px -30px 2% 0px;
     padding-left: 5%;
     line-height:200%;
     font-size:  1.1em;
+
 }
 
 .general_panel label{
@@ -1426,10 +1427,10 @@ input[disabled=disabled] {
 }
 #create-alert .actbuttons {
     width: 70%;
-    margin: 1% 1% 1% 0%;
-    margin
+    margin: 5% 1% 1% 0%;
     border-width: 2px;
-    border-color: #666; 
+    border:none;
+    text-transform:none; 
     background-color: #ccc;
     color: #666;
     border-radius: 25px;
