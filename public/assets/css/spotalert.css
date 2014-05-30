@@ -1087,6 +1087,8 @@ input[name=accept] {
     border-bottom: 1px dashed  #BF2333;
     display: inline-block;
     position: relative;
+    float: left;
+    clear: left;
 }
 #controlpanel .dropdownlist
 {
@@ -1100,6 +1102,11 @@ input[name=accept] {
 {
     position: relative;
     margin-top: 5px;
+}
+
+.custom-upload img {
+    float: left;
+    clear: left;
 }
 
 #controlpanel .custom-upload input[type=file]
