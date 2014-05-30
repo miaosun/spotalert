@@ -72,9 +72,9 @@
                         {{ Form::text('department', $selectedUser->organization, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
                         <span class="glyphicon glyphicon-edit edit_button"></span><br>
                             @if($user->type == 'admin')
-                            {{ Form::select('permissions', array('normal' => 'Normal', 'publisher' => 'Publisher', 'manager' => 'Manager'), $selectedUser->type) }}
+                            {{ Form::select('permissions', array('normal' => 'Normal', 'publisher' => 'Publisher', 'manager' => 'Manager'), $selectedUser->type, array('class'=>'styled')) }}
                             @elseif($user->type == 'manager')
-                            {{ Form::select('permissions', array( 'normal' => 'Normal', 'publisher' => 'Publisher'), $selectedUser->type) }}
+                            {{ Form::select('permissions', array( 'normal' => 'Normal', 'publisher' => 'Publisher'), $selectedUser->type, array('class'=>'styled')) }}
                             @endif
                         @else
                         {{ Form::text('department', null, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}

@@ -91,12 +91,15 @@ class EyewitnessController extends BaseController
 			}
 
 		// Validating the files that must be images
-		if(Input::hasFile('images'))
+		$files    = Input::file('images');
+		$hasFiles = false; //Some issues with laravel validation, it has to be this way
+
+		for ($i=0; $i < count($files); $i++)
 		{
-			$files = Input::file('images');
-			for ($i=0; $i < count($files); $i++)
-			{
-			    $file = $files[$i];
+		    $file = $files[$i];
+		    if($file != NULL)
+		    {
+		    	$hasFiles = true;
 			    $input = array(
 			        'file' => $files[$i]
 			    );
@@ -113,7 +116,7 @@ class EyewitnessController extends BaseController
 							-> withInput();
 				}
 			}
-		}
+			}
 
 		// Creating the eyewitness
 		$eyewitness = Eyewitness::create(array(
@@ -130,7 +133,7 @@ class EyewitnessController extends BaseController
 				$eyewitness->countries()->attach($country);
 		
 		//Storing images
-		if(Input::hasFile('images'))
+		if($hasFiles)
 		{
 			$destinationPath = '/var/www/spotalert/app/images/eyewitnesses' . $eyewitness->id;
 			if(!File::exists($destinationPath))
@@ -140,12 +143,11 @@ class EyewitnessController extends BaseController
 			{
 				$image = $images[$i];
 				$extension = $image->guessExtension();
-				$image->move($destinationPath, $i . '.' . $extension );
+				$image->move($destinationPath, $i . '.' . $extension);
 			}
 		}
 
 		return Redirect::route('home')
 			-> with('global', 'Eyewitness successfully received! As soon as possible we will analyse it.');
-		
 	}
 }

@@ -17,10 +17,12 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 terms-service">
                             <p>{{Lang::get('register.terms.do_you_accept')}}</p>
-                            {{Lang::get('register.terms.yes')}} {{ Form::radio('accept', 'yes') }}
-                            {{Lang::get('register.terms.no')}} {{ Form::radio('accept', 'no') }}
+                            {{ Form::radio('accept', 'yes', '', array('id'=>'yes', 'style' => 'display:none;')) }}
+                            {{ Form::radio('accept', 'no', '',array('id'=>'no', 'style' => 'display:none;')) }}
+                            <div class="col-md-5 col-sm-5 radiobutton"><div class="col-md-9 option">{{Lang::get('register.terms.yes')}}</div><div class="col-md-3 glyphicon yes"></div></div>
+                            <div class="col-md-5 col-sm-5 col-md-offset-1 radiobutton"><div class="col-md-9 option">{{Lang::get('register.terms.no')}}</div><div class="col-md-3 glyphicon no"></div></div>
                             @if($errors->has('accept'))
-                            <br><span>{{ $errors->first('accept') }}</span>
+                            <br><span class="col-md-12">{{ $errors->first('accept') }}</span>
                             @endif
                         </div>
                     </div>
@@ -82,7 +84,7 @@
                             {{ Form::label(Lang::get('register.field.age_range').'*', null, array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0 range-age">
-                            {{ Form::select('agerange', $age_options, Input::old('agerange')) }}
+                            {{ Form::select('agerange', $age_options, Input::old('agerange'), array('class'=>'styled')) }}
                             @if($errors->has('agerange'))
                             <br><span>{{ $errors->first('agerange') }}</span>
                             @endif
@@ -134,7 +136,7 @@
                             {{ Form::label(Lang::get('register.field.residence') . '*', null, array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0 resid-drop">
-                            {{ Form::select('residence', $country_options , Input::old('residence')) }}
+                            {{ Form::select('residence', $country_options , Input::old('residence'), array('class'=>'styled')) }}
                             @if($errors->has('residence'))
                             <br><span>{{ $errors->first('residence') }}</span>
                             @endif
@@ -145,7 +147,7 @@
                             {{ Form::label(Lang::get('register.field.nationality') . '*', null, array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0 country-drop">
-                            {{ Form::select('nationality', $country_options , Input::old('nationality')) }}
+                            {{ Form::select('nationality', $country_options , Input::old('nationality'), array('class'=>'styled')) }}
                             @if($errors->has('nationality'))
                             <br><span>{{ $errors->first('nationality') }}</span>
                             @endif

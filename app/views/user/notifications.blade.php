@@ -14,8 +14,6 @@
                 <li><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
                 @if($user->type == 'admin' || $user->type == 'manager')
                 <li><a href="{{ URL::route('user-privileges') }}">{{ Lang::get('controlpanel.menu.privileges') }}</a></li>
-                @else
-                <li></li>
                 @endif
                 @endif
 
@@ -29,13 +27,13 @@
                         <h3>{{ Lang::get('controlpanel.notifications.select') }}</h3>
                     </div>
                     <div class="col-md-3 col-md-offset-0 resid-drop">
-                        {{ Form::select('country', $country_options , Input::old('country')) }}
+                        {{ Form::select('country', $country_options , Input::old('country'), array('class' => 'styled')) }}
                         @if($errors->has('country'))
                         <br><span>{{ $errors->first('region') }}</span>
                         @endif
                     </div>
                     <div class="col-md-3 col-md-offset-0 resid-drop">
-                        {{ Form::select('minimum_risk', array('placeholder' => Lang::get('controlpanel.notifications.minimum_risk'), '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5'), 'placeholder') }}
+                        {{ Form::select('minimum_risk', array('placeholder' => Lang::get('controlpanel.notifications.minimum_risk'), '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5'), null, array('class' => 'styled')) }}
                         @if($errors->has('region'))
                         <br><span>{{ $errors->first('region') }}</span>
                         @endif
@@ -66,7 +64,7 @@
                 <div class="col-md-12 col-md-offset-0">
                     <div class="col-md-2"></div>
                     <div class="col-md-3 col-md-offset-0 resid-drop">
-                        {{ Form::select('publication', $publication_options , Input::old('publication')) }}
+                        {{ Form::select('publication', $publication_options , Input::old('publication'), array('class' => 'styled')) }}
                         @if($errors->has('publication'))
                         <br><span>{{ $errors->first('publication') }}</span>
                         @endif
@@ -92,5 +90,15 @@
         </div>
     </div>
 </div>
+
+<style>
+#controlpanel li {
+@if($user->type == 'normal')
+    width: 49%;
+@elseif($user->type == 'publisher')
+    width: 19%;
+@endif
+}
+</style>
 
 @stop

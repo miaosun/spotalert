@@ -1,8 +1,5 @@
 $('document').ready(function() 
 {
-	// Just to activate the custom scrolling using the jScrollPane jQuery plugin
-	$('.scrollable').jScrollPane({ hideFocus : true, autoReinitialise : true, contentWidth : '218px' });
-
 	// If clicking anywhere in the dropdown menu, it doesn't close
 	$('.dropdown-menu').click(function(e) {
         e.stopPropagation();
@@ -25,6 +22,12 @@ $('document').ready(function()
     
     // setting up expand buttons for publication
     setupBtnPublication();
+
+    // Style the form's selects
+    $('select.styled').customSelect();
+
+    // For the radioboxes in the register page
+    setRegisterRadioBoxes();
 });
 
 
@@ -203,6 +206,20 @@ function searching()
 				    alert( "Sorry, an error occurred, please reload the page :(" );
 				});
 		}
+	});
+}
+
+function setRegisterRadioBoxes()
+{
+	$('#create .radiobutton').click(function()
+	{
+		$(this).children('.glyphicon').addClass('glyphicon-remove');
+		$(this).siblings('.radiobutton').children('.glyphicon').removeClass('glyphicon-remove');
+
+		if($(this).children('.glyphicon').hasClass('yes'))
+			$('#create .terms-service input#yes').prop('checked', true);
+		else
+			$('#create .terms-service input#no').prop('checked', true);
 	});
 }
 

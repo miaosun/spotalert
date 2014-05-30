@@ -21,12 +21,10 @@
     <a class="trigger">{{Lang::get('home.filter.country')}} <span class="glyphicon glyphicon-chevron-right"></span></a>
     <div class="dropdown-menu sub-menu">
         <div class="filter-opt filter-all">All countries</div>
-        <div style="height:80px;width:218px;" class="scrollable" style="overflow-y: scroll;">
-        
+        <div id="filter-country-list">
             @foreach (Country::all() as $country)
             <div class="filter-opt filter-country">{{{$country->name}}}</div>
             @endforeach
-        
         </div>
         <hr>
         <div class="filter-ok">OK</div>
