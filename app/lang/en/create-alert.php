@@ -12,8 +12,8 @@ return array(
 	*/
     "create_alert" => "CREATE ALERT",
     "create_guideline" => "CREATE GUIDELINE",
-    "edit_alert" => "CREATE ALERT",
-    "edit_guideline" => "CREATE GUIDELINE",
+    "edit_alert" => "EDIT ALERT",
+    "edit_guideline" => "EDIT GUIDELINE",
     "addtab" => "Add Language",
     "fields" => array(
         "title"              => "TITLE *",
@@ -26,7 +26,7 @@ return array(
         "duration"           => "DURATION",
         "eventrisk"          => "EVENT RISK",
         "eventtype"          => "EVENT TYPE",
-        "visibility"         => "EVENT RISK",
+        "visibility"         => "VISIBILITY",
         "guidelines"         => "GUIDELINES",
         "alerts"             => "ALERTS"
     ),

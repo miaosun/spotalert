@@ -35,7 +35,7 @@ App::after(function($request, $response)
 
 Route::filter('auth', function()
 {
-	if (Auth::guest()) return Redirect::guest(URL::route('account-sign-in'));
+	if (Auth::guest()) return Redirect::guest(URL::route('home'));
 });
 
 
@@ -92,10 +92,10 @@ Route::filter('csrf', function()
 |--------------------------------------------------------------------------
 |
 */
-/*
+
 //--> FIXME: Uncomment and correct it at the end of the project
 App::missing(function($exception)
 {
-    return '404 not found exception (filters.php)';
-    //return Response::view('errors.missing', array('url' => Request::url()), 404);
-});*/
+    //return '404 not found exception (filters.php)';
+    return Response::view('page-not-found', array('url' => Request::url()), 404);
+});

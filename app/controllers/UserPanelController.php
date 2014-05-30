@@ -32,7 +32,7 @@ class UserPanelController extends BaseController {
             if(Input::has('email'))
                 $selectedUser = User::where('email', '=', Input::get("email"))->first();
             if($selectedUser == null)
-                return Redirect::route('user-privileges')->with('global', 'User not exists, try again!');
+                return Redirect::route('user-privileges')->with('global', 'User doesn\'t exists, try again!');
             $selected = true;
             return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_with_permissions'=>$users_with_permissions));
         }
@@ -122,7 +122,7 @@ class UserPanelController extends BaseController {
 
                 if($notificationSetting) {
                     return Redirect::route('user-notifications')
-                        -> with('global', 'Notofication for Country and Minimum Risk Level added successfully!');
+                        -> with('global', 'Notification for Country and Minimum Risk Level added successfully!');
                 }
             }
             else
@@ -155,7 +155,7 @@ class UserPanelController extends BaseController {
 
             if($user) {
                 return Redirect::route('user-notifications')
-                    -> with('global', 'Notofication for selected Publication added successfully!');
+                    -> with('global', 'Notification for selected Publication successfully added!');
             }
         }
     }
@@ -164,9 +164,31 @@ class UserPanelController extends BaseController {
     public function getComments()  {
         $profile = User::find(Auth::user()->getId());
 
-        $comments = Comment::with(array('author', 'publication', 'publication.contents'))->get();
+        $comments = Comment::with(array('author', 'publication', 'publication.contents'))->where('approved', '=', false)->get();
 
-        return View::make('user.comments')->with('user', $profile)->with('comments', $comments);
+        $answer = array();
+
+        foreach($comments as $comment)
+        {
+            if(!$comment->approved)
+            {
+                $commentData = array('img'=>array());
+
+                $srcPath = public_path().'/assets/images/comments/'.$comment->id;
+                if(File::exists($srcPath))
+                {
+                    $imagesUrl = File::allFiles($srcPath);
+                    foreach($imagesUrl as $imgUrl)
+                    {
+                        $commentData['img'] = array('url'=>$url = asset('assets/images/comments/'.$comment->id.'/'.$imgUrl->getRelativePathName()),'alt'=>$comment->publication->contents->first()->title);
+                    }
+                }
+
+                $answer[$comment->id] = $commentData;
+            }
+        }
+
+        return View::make('user.comments')->with('user', $profile)->with('comments', $comments)->with('images', $answer);
     }
 
     public function approveComment($id) {
@@ -355,12 +377,12 @@ class UserPanelController extends BaseController {
             //return Response::json(array("teste"=>$uploadSuccess));
 			//TODO verificar porque nao está a fazer upload do uploadfile <----
 			if($profile->save() && $uploadSuccess)
-                return Redirect::route('control-panel')->with('global','Teste: update with success!')->withErrors($valid);
+                return Redirect::route('control-panel')->with('global','Update with success!')->withErrors($valid);
 			else
-                return Redirect::route('control-panel')->with('global',"Teste: update without sucess! Can't save model!")->withErrors($valid);
+                return Redirect::route('control-panel')->with('global',"Update without sucess! Can't save model!")->withErrors($valid);
 		}
 		else
-            return Redirect::route('control-panel')->with('global',"Teste: update failed! Input not validated!")->withErrors($valid);
+            return Redirect::route('control-panel')->withErrors($valid);
 	}
 
     public function getPublications() 

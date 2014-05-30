@@ -34,14 +34,17 @@
 
                     <tbody>
                     @foreach ($comments as $comment)
-                    @if($comment->approved == false)
                     <tr>
                         <td>{{{$comment->publication->contents->first()->title}}}</td>
                         <td class="readcomment">
-                            <div class="comment-readmore">{{{$comment->content}}}</div>
+                            <div class="comment-readmore">{{{$comment->content}}}<br>
+                            @if($images[$comment->id]['img'] != null)
+                                <a href="{{$images[$comment->id]['img']['url']}}" target="_blank"><img src="{{$images[$comment->id]['img']['url']}}" alt="{{$images[$comment->id]['img']['url']}}" height="100" width="100"></a>
+                            @endif
+                            </div>
                             <a href="#" class="readmore">{{ Lang::get('controlpanel.comments.readmore') }}</a>
                         </td>
-                        <td>{{{$comment->author->username}}}</td>
+                        <td>{{{$comment->author()->first()->username}}}</td>
                         <td>{{{$comment->created_at}}}</td>
                         <td>{{{$comment->publication->risk}}}</td>
                         <td>
@@ -49,7 +52,6 @@
                             <a class="glyphicon glyphicon-remove close-button"href="{{ URL::route('comment-deleted', $comment->id) }}"></a>
                         </td>
                     </tr>
-                    @endif
                     @endforeach
                     </tbody>
                 </table>

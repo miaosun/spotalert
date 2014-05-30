@@ -11,7 +11,7 @@
 
 <div class="container-fluid">
     <div id="create-alert" class="col-md-8 col-sm-8 col-md-offset-2 general_panel">
-        {{ Form::open(['url'=>'/publication/editalert']) }}
+        {{ Form::open(['url'=>'/publication/editalert','files'=>'true']) }}
         <div id="alert-tabs">
             <div id="languages_tabs">
                 <ul class="nav nav-tabs">
@@ -185,7 +185,7 @@
                 </div>
                 @foreach($contents as $content)
                 <div class="tab-pane fade in " id="alert_{{$content['language_id']}}">
-                    <h1>Create alert</h1>
+                    <h1>EDIT ALERT</h1>
                     <div class="col-md-5 col-sm-5 col-md-offset-0" id="moveright"><div class="row">
                         <div class="col-md-12 col-sm-12">
                             <h5>Title* <span>(maximum of 50 characters)</span></h5>
