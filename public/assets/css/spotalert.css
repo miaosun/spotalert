@@ -25,7 +25,7 @@ header .row-header {
 .footer-up {
     display:inline;
     margin-left:2%;
-    margin-bottom:0.5%;;
+    margin-bottom:0.5%;
      
 }
 
@@ -94,7 +94,7 @@ header .row-header > div#language {
     padding-top: 30px;
     background-color:#f2f2f2;
     width: 100%;
-    min-height:550px;
+    min-height:1000px;
 }
 
 @media (max-width:991px) {
@@ -281,7 +281,9 @@ button#search-glass {
     background-color: black;
     color: white;
 }
-
+.publ_header + br + hr {
+	margin-top:45px;
+}
 /***************************************************************************************/
 /* |||||||||||||||||||||||||||   ALERT LEVEL 5  |||||||||||||||||||||||||||||||||||||||*/
 /****************************************************************************************/
@@ -514,13 +516,30 @@ button#search-glass {
     font-size: 10px;
     text-transform: none;
 }
+.publ-content a{
+    color: inherit;
+    text-decoration: none;
+}
+.publ-content a:hover{
+    color: #FF931E;    
+}
+
 .publ-content h1{
     color: inherit;
     font-weight:normal;
     font-size:15px;
 }
+.publ-content .pub-content-imgs img{
+    width: 30px;
+    height: 30px;
+    margin-right: 3px;
+}
 .publ-content .publ-linked-toggle{
     display: none;
+}
+.publ-content .publ-linked span.number-linked{
+    color: #CCCCCC;
+    padding-left: 1em;
 }
 .publ-content .publ-comments-toggle{
     display: none;
@@ -529,16 +548,77 @@ button#search-glass {
     
 }
 .publ-content .publ-comments-toggle p.comments-info{
+    margin-top: 17px;
     font-size: 8px;
 }
+.publ-content .publ-comments-area p.comments-info span.comments-delete{
+    float:right;
+}
+.publ-content .publ-comments span.number-comments{
+    color: #CCCCCC;
+    padding-left: 1em;
+}
 
-.publ-content a{
-    color: inherit;
-    text-decoration: none;
+.publ-content span.addcomment-btn{
+    font-size:10px;
+    float:right;
+    padding-top: 0.5em;
+    cursor: pointer;
 }
-.publ-content a:hover{
-    color: #FF931E;    
+.publ-content .publ-comments-addcomment{
+    margin-bottom: 10px;
+    display:none;
 }
+.publ-content .publ-comments-area .comments-imgs{
+    float:right;
+}
+
+.publ-content .publ-comments-area .comments-imgs img{
+    width: 30px;
+    height: 30px;
+    margin-right: 3px;
+}
+.publ-content textarea.submit-comment-textarea{
+    text-indent:15px;
+    text-align:justify;
+    font-size:10px;
+    white-space: normal;
+    word-break: break-all;
+    width: 80%;
+    height: 50px;
+    color: black;
+    
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+    
+    padding: 5px;
+    border:0;
+
+    resize: none;
+    overflow: hidden;
+}
+.publ-content textarea.submit-comment-textarea.border{
+    border: 1px solid black;
+}
+.publ-content button.submit-comment-btn{
+    -webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+    padding:3px;
+    border: 0;
+    width: 15%;
+    margin-left: 5px;
+}
+.publ-content button.submit-comment-btn.red{
+    background-color: #BF2333;
+    color: white;
+}
+.publ-content button.submit-comment-btn.white{
+    background-color: white;
+    color:black;
+}
+
 /* social */
 .publ-content .sprite-social{
     background-image: url('../images/share.png');
@@ -875,11 +955,16 @@ input[name=accept] {
 .row-block{
 	color:#666666;
 }
-
+.terms-service{
+	padding-bottom:30px;
+}
 
 /******************************************************
 ******************* CONTROL PANEL **********************
 *******************************************************/
+#controlpanel .custom-upload{
+	padding-left:35px;
+}
 
 #controlpanel{
     background-color: white;
@@ -984,6 +1069,18 @@ input[name=accept] {
     right: 0;
     position: absolute;
     margin-top: 3px;
+
+}
+
+#controlpanel .edit-btn-priv{
+	color: #BF2333;
+    font-size:1.1em;
+    margin-top: 3px;
+}
+
+#controlpanel #department input,
+#controlpanel #department .customSelect {
+    width: 80%
 }
 
 #controlpanel .dotline{
@@ -1005,10 +1102,10 @@ input[name=accept] {
     margin-top: 5px;
 }
 
-.custom-upload input[type=file]
+#controlpanel .custom-upload input[type=file]
 {
     outline:none;
-    position: relative;
+    position: absolute;
     text-align: right;
     -moz-opacity:0 ;
     filter:alpha(opacity: 0);
@@ -1017,13 +1114,13 @@ input[name=accept] {
     width: 90%;
     height: 100%;
     cursor: pointer;
+    right: 0;
+    width: 100% !important;
 }
-.custom-upload .fake-file
+#controlpanel .custom-upload .fake-file
 {
-    position: absolute;
     top: 0px;
-    left: 5%;
-    width: 80%;
+    width: 200px;
     height: 100%;
     padding: 0;
     margin: 0;
@@ -1043,6 +1140,10 @@ input[name=accept] {
     color: #BF2333;
     font-size:1.5em;
     float: right;
+}
+
+input[disabled=disabled] {
+    background-color: transparent;
 }
 
 
@@ -1069,7 +1170,11 @@ input[name=accept] {
 
 #privileges .glyphicon {
     margin:0;
-
+    background-color: transparent;
+	color: #BF2333;
+	border: 0;
+	padding-left: 0px;
+	font-size:1.1em;
 }
 
 #controlpanel a {
@@ -1077,6 +1182,17 @@ input[name=accept] {
     color: inherit;
 }
 
+#privileges .button-delete{
+	width: 80%;
+	border: 0px;
+	margin: 5% 5% 5% 0%;
+	background-color: #BF2333;
+	color: white;
+	-webkit-border-radius: 25px;
+	-moz--topright: 25px;
+	border-radius: 25px;
+	padding:0;
+}
 /******************************************************
 ********************* GENERAL PANEL *******************
 *******************************************************/
@@ -1089,16 +1205,18 @@ input[name=accept] {
     border-radius: 25px;
     margin-top: 3%;
     margin-bottom: 3%;
+    padding-bottom: 30px;
 }
 
 
 .general_panel h1{
     background-color:#BF2333;
     color: white;
-    margin: 0px 0px 2% 0px;
+    margin: 0px -30px 2% 0px;
     padding-left: 5%;
     line-height:200%;
     font-size:  1.1em;
+
 }
 
 .general_panel label{
@@ -1220,10 +1338,6 @@ input[name=accept] {
     margin: 0% 5% 5% 0%;
     background-color: #BF2333;
     color: white;
-
-    -webkit-border-radius: 25px;
-    -moz--topright: 25px;
-    border-radius: 25px;
 }
 
 /*****-- Comments details */
@@ -1255,27 +1369,153 @@ input[name=accept] {
 	color:#BF2333;
 	font-style:2em;
 }
+
+#comments-list_wrapper .comment-readmore +a{
+		color:#BF2333;
+}
 /*****************************************************
 *************** CREATE PUBLICATIONS *************
 *******************************************************/
 
-
-.content {
-    width: 70%;
-    margin: auto;
-    border: 2px solid #BF2333; /*#ED1C24*/
-
-    -webkit-border-radius: 25px;
-    -moz-border-radius: 25px;
-    border-radius: 25px;
-    margin-bottom: 1%;
+/*****-- Alert creation details */
+#create-alert.general_panel textarea#title {
+    max-height: 50px;
+}
+#create-alert h1{
+    font-weight:bold;
+    font-size:18px;
 }
 
+#create-alert.general_panel .chosen-container {
+    margin-top: 5px;
+}
+
+#create-alert.general_panel .last-row {
+    margin-top: 30px;
+}
+
+#create-alert.general_panel label {
+    padding-left: 0;
+}
+
+#create-alert.general_panel #lang-drop {
+    margin-top: 10px;
+}
+
+#create-alert .search-field input[type="text"]{
+    height:20px;
+}
+
+#create-alert h5{
+    margin-bottom: 10px;
+}
+
+#create-alert select{
+    margin-left: 20px;
+    margin-top: 8px;
+    border-color: #BF2333;
+    color: #BF2333;  
+}
+
+#create-alert .inrow {
+    display: inline-block;
+}
+
+#create-alert .row span {
+    color: #666666;
+}
 
 #alert-tabs {
     position: relative;
     width: 100%;
 }
+#create-alert .actbuttons {
+    width: 70%;
+    margin: 5% 1% 1% 0%;
+    border-width: 2px;
+    border:none;
+    text-transform:none; 
+    background-color: #ccc;
+    color: #666;
+    border-radius: 25px;
+    margin-left: 11px;
+}
+
+#create-alert .modal-header{
+    color: white;
+    background-color: #bf2333;
+    border-radius: 6px;
+}
+
+#create-alert #choose_language_button {
+    background-color: #bf2333;
+    border-color: #bf2333;
+}
+
+#create-alert #rm_language_button {
+    background-color: #bf2333;
+    border-color: #bf2333;
+}
+
+#create-alert a {
+    color: #666666;
+}
+
+ #create-alert li a{
+    border-right-color:#bf2333;
+    border-top-color:#bf2333;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+    text-align:center;
+    border-top-right-radius: 25px;
+    border-width: 2px;
+    margin-top: -2px;
+}
+
+#create-alert #gallery {
+    width: 70%;
+    float: left;
+    margin-top: 10px;
+}
+
+#create-alert #gallery li {
+    list-style: none;
+    margin: 1px;
+    float: left;
+    position: relative;
+    transition: .1s;
+}
+
+#create-alert #gallery li img {
+    width: 80px;
+    height: auto;
+}
+
+#create-alert #gallery li .imgremove {
+    position: absolute;
+    background-color: white;
+    top: 0;
+    color: #BF2333;
+    right: 0;
+    border: 1px solid #BF2333;
+}
+
+/* ****-- Notifications deatils */
+#notifications input[type=submit] {
+    width: 80%;
+    border: 0px;
+    margin: 0% 5% 5% 0%;
+    background-color: #BF2333;
+    color: white;
+
+    -webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+}
+
+/*****************************************************
+*************** CREATE PUBLICATIONS *************
+*******************************************************/
 
 .nav-tabs{
 	border-top-right-radius:2em;
@@ -1284,14 +1524,6 @@ input[name=accept] {
     border-bottom-left-radius:2em;
     border-color:#f2f2f2;
 }
-#alert_english_tab{
-	/*border-top-right-radius:2em #ED1C24;*/
-    border-top-left-radius:2em;
-    border-bottom-right-radius:2em;
-    border-bottom-left-radius:2em;
-    border-color:white;
-    text-align:center;
-}
 
 .tab-content {
     position: relative;
@@ -1299,46 +1531,13 @@ input[name=accept] {
     width: 100%;
 }
 
-#alert-left-half {
-    position: relative;
-    float: left;
-    width: 50%;
-    padding-left: 50px;
-}
-
-#alert-right-half {
-    position: relative;
-    float: left;
-    width: 50%;
-}
-
-#alert-header {
-    width: 100%;
-    text-align: left;
-    background-color: #BF2333;
-    text-transform: uppercase;
-    font-weight: normal;
-    color: white;
-    
-}
-.right_row label{
-	color:#BF2333;
-	font-size:18px;
-	font-weight:900;
-
-}
-
-.alert-title{
-
-}
 label {
     color: #BF2333;
     text-transform: uppercase;
     display: block;
-
-
 }
-
+/*/////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////*/
 
 .chosen-select{
 	width:70%;
@@ -1350,19 +1549,6 @@ label {
 
 }
 
-
-#alert-left-half input {
-    width: 80%;
-}
-
-#alert-left-half textarea {
-    width: 80%;
-}
-
-#alert-right-half input {
-    width: 80%;
-    margin-right: 10px;
-}
 
 .tab-content .inrow {
     margin-left: none;
@@ -1564,6 +1750,3 @@ label {
     color: #666666 !important;
     opacity; 1;
 }
-
-
-

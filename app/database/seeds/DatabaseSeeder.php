@@ -36,6 +36,21 @@ class PublicationsSeeder extends Seeder
 			'name'	=> 'Português',
 			'code'	=> 'PT'
 		));
+        
+        $langES = Language::create(array(
+            'name'	=> 'Español',
+            'code'	=> 'ES'
+        ));
+        
+        $langFR = Language::create(array(
+            'name'	=> 'Français',
+            'code'	=> 'FR'
+        ));
+        
+        $langDE = Language::create(array(
+            'name'	=> 'Deutsch',
+            'code'	=> 'DE'
+        ));
 
 		// ######################################################################
 		// European Countries
@@ -140,7 +155,7 @@ class PublicationsSeeder extends Seeder
 		));
 
 		$content1EN = PublicationContent::create(array(
-			'title'			=> 'Hurricane in Portugal',
+			'title'			=> 'Hurricane in Spain',
 			'content'		=> 'Be careful about this Hurricane, stay at home!',
 			'publication_id'=> $publication1->id,
 			'language_id'	=> $langEN->id
@@ -300,7 +315,7 @@ class PublicationsSeeder extends Seeder
 		));
 
 		$content8EN = PublicationContent::create(array(
-			'title'			=> 'Hurricane in Portugal',
+			'title'			=> 'Hurricane in Somewhere',
 			'content'		=> 'Be careful about this Hurricane, stay at home!',
 			'publication_id'=> $publication8->id,
 			'language_id'	=> $langEN->id

@@ -84,7 +84,14 @@ return array(
         "date"        => "DATE",
         "risk"        => "RISK",
         "readmore"    => "Read More",
-        "readless"    => "Read Less"
+        "readless"    => "Read Less",
+        "submit_msg"  => array(
+            "success"       => "Comment submited with success and waiting to be approve!",
+            "fail"          => "Comment submited without success! Try again later or contact admin.",
+            "fail_img"      => "Comment submited without success! Image you try to submit isn't supported.",
+            "bad_format"    => "Bad Format or you don't have permitions to submit new comments. Try Again or contact admin!"
+        ),
+        "delete"    => "DELETE COMMENT"
     ),
 
     "eyewitnesses" => array(

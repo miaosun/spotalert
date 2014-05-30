@@ -15,6 +15,13 @@ Route::get('/', array(
     'as' => 'home',
     'uses' => 'HomeController@showWelcome'
 ));
+// single publication
+Route::get('/{id}', array(
+		'as'	=> 'publication-solo',
+        'uses' =>'PublicationController@getPublication'
+	))
+    ->where('id', '[0-9]+');
+/*TODO filter by publ title also */
 
 Route::get('/contact', array(
     'as' => 'contact',
@@ -95,19 +102,7 @@ Route::get('/user/{username}', array(
     'uses' => 'ProfileController@user'
 ));
 */
-
-//Create Alert (POST)
-Route::post('/publication/createalert', array(
-    'as' => 'publication-createalert',
-    'uses' => 'PublicationController@createAlert'
-));
-            
-//Create Alert (POST)
-Route::post('/publication/createguideline', array(
-    'as' => 'publication-createguideline',
-    'uses' => 'PublicationController@createGuideline'
-));
-
+        
 // show create alert (GET)
 Route::get('/publication/create-alert', array(
     'as' => 'publication-create-alert',
@@ -119,6 +114,12 @@ Route::get('/publication/create-guideline', array(
     'as' => 'publication-create-guideline',
     'uses' => 'PublicationController@showCreateGuideline'
 ));
+
+// show edit alert (GET)
+Route::get('/publication/edit-alert/{id}', array(
+    'as' => 'publication-edit-alert',
+    'uses' => 'PublicationController@showEditAlert'
+)); 
 
 /*
  * API Controle Panel
@@ -170,6 +171,25 @@ Route::group(array('before' => 'auth'), function() {
             'uses' => 'EyewitnessController@deleteEyewitness'
         ))
         ->where('eyewit_id', '[0-9]+');
+        
+        //Create Alert (POST)
+        Route::post('/publication/createalert', array(
+            'as' => 'publication-createalert',
+            'uses' => 'PublicationController@createAlert'
+        ));
+        
+        //Create Guideline (POST)
+        Route::post('/publication/createguideline', array(
+            'as' => 'publication-createguideline',
+            'uses' => 'PublicationController@createGuideline'
+        ));
+        
+        //Edit Alert (POST)
+        Route::post('/publication/editalert', array(
+            'as' => 'publication-editalert',
+            'uses' => 'PublicationController@updateAlert'
+        ));
+        
     });
 
     // change password (GET)
@@ -254,6 +274,10 @@ Route::group(array('before' => 'auth'), function() {
         'as' => 'comment-deleted',
         'uses' => 'UserPanelController@deleteComment'
     ));
+    Route::post('/user/comments/submit/{id}',array(
+        'as' => 'insert-comment',
+        'uses' => 'UserPanelController@submitComment'
+    ))->where('id', '[0-9]+');;
 
     // Eyewitness Management
     Route::get('/user/eyewitnesses', array(
@@ -277,6 +301,13 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('/user/updatepassword', array(
         'as' => 'update-user-password',
         'uses' => 'UserPanelController@updatepassword'
+    ));
+    
+    Route::post('/deleteimage/{pub}/{img}', array(
+        'as' => 'deleteimage',
+        function($pub,$img)
+        {                File::delete(public_path()."/assets/images/publications/".$pub."/".$img);
+        }
     ));
 });
 
@@ -338,4 +369,5 @@ Route::group(array('before' => 'guest'), function() {
         'as' => 'account-activate',
         'uses' => 'AccountController@getActivate'
     ));
+
 });
