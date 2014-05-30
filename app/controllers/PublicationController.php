@@ -461,7 +461,7 @@ class PublicationController extends BaseController
                 //Storing images
                 if(Input::hasFile('alert-images'))
                 {   
-                    $destinationPath = '/public/assets/images/publications/' . $publication->id . '/';
+                    $destinationPath = public_path().'/assets/images/publications/' . $publication->id . '/';
                     if(!File::exists($destinationPath))
                         File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
                     $images = Input::file('alert-images');
@@ -574,7 +574,7 @@ class PublicationController extends BaseController
                 //Storing images
                 if(Input::hasFile('guideline-images'))
                 {   
-                    $destinationPath = '/public/assets/images/publications/' . $publication->id . '/';
+                    $destinationPath = public_path().'/assets/images/publications/' . $publication->id . '/';
                     if(!File::exists($destinationPath))
                         File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
                     $images = Input::file('guideline-images');
