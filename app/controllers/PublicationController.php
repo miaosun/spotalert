@@ -2,9 +2,9 @@
 
 class PublicationController extends BaseController
 {
-	/** Number of publications to initially show in the homepage */
+	/** Number of publications to initially show in the homepage. MUST BE MULTIPLE OF 3! */
 	private static $initial_publications = 9;
-	/** Number of publications to get in each scroll */
+	/** Number of publications to get in each scroll. MUST BE MULTIPLE OF 3! */
 	private static $scroll_step = 3;
 	/** Number of days to consider that a publication is updated */
 	private static $update_interval = 5;
