@@ -53,13 +53,18 @@
                         </td>
                         <!-- FIXME: Redirect to create-alert/create-guideline -->
                         <td>
-                        {{ Form::open(array('route' => 'comment-approved', 'method' => 'post')) }}
-                        {{ Form::submit('Y') }}
+                        {{ Form::open(array('route' => 'eyewitness-alert', 'method' => 'post')) }}
+                        {{ Form::submit('ALERT') }}
+                        {{ Form::token() }} 
+                        {{ Form::close() }}
+                            
+                            {{ Form::open(array('route' => 'eyewitness-guideline', 'method' => 'post')) }}
+                        {{ Form::submit('GUIDELINE') }}
                         {{ Form::token() }}
                         {{ Form::close() }}
 
                         {{ Form::open(array('route' => array('delete-eyewitness',$eyewit->id), 'method' => 'post')) }}
-                        {{ Form::submit('X') }}
+                        {{ Form::submit('REJECT') }}
                         {{ Form::token() }}
                         {{ Form::close() }}
                         </td>

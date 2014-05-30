@@ -12,8 +12,8 @@ return array(
 	*/
     "create_alert" => "CREATE ALERT",
     "create_guideline" => "CREATE GUIDELINE",
-    "edit_alert" => "CREATE ALERT",
-    "edit_guideline" => "CREATE GUIDELINE",
+    "edit_alert" => "EDIT ALERT",
+    "edit_guideline" => "EDIT GUIDELINE",
     "addtab" => "Add Language",
     "fields" => array(
         "title"              => "TITLE *",

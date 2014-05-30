@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <div id="create-alert" class="col-md-8 col-sm-8 col-md-offset-2 general_panel">
-        {{ Form::open(['url'=>'/publication/createalert']) }}
+        {{ Form::open(['url'=>'/publication/createalert','files'=>'true']) }}
         <div id="alert-tabs">
             <div id="languages_tabs">
                 <ul class="nav nav-tabs">
