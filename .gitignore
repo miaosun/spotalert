@@ -1,6 +1,8 @@
 /bootstrap/compiled.php
+/public/assets/images/user/*
+/public/assets/images/publications/*
+/public/assets/images/comments/*
 /vendor
-/app/images/*
 composer.phar
 composer.lock
 .env.local.php
