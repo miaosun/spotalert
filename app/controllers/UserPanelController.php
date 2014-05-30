@@ -70,11 +70,14 @@ class UserPanelController extends BaseController {
         }
         $country_options = array('' => Lang::get('controlpanel.notifications.country_option')) + Country::lists('name', 'id');
         $publication_options = array('' => Lang::get('controlpanel.notifications.publication')) + $temp;
-        $notification_settings = NotificationSetting::all();
-        $user_publications = DB::table('publications')
-                                ->join('users_publications', 'users_publications.publication_id', '=', 'publications.id')
-                                ->join('publicationContents', 'publicationContents.publication_id', '=', 'publications.id')
-                                ->get(array('publications.id', 'title'));
+        $notification_settings = NotificationSetting::where('user_id', '=', Auth::user()->getId())->get();
+
+        $user_publications = Publication::with(array('usersNotified', 'contents'))
+                                        ->whereHas('usersNotified', function($query)
+                                        {
+                                            $query->where('user_id', '=', Auth::user()->getId());
+                                        })
+                                        ->get();
 
         return View::make('user.notifications')->with('country_options', $country_options)->with('publication_options', $publication_options)->with('notification_settings', $notification_settings)->with('user_publications', $user_publications)->with('user', $profile);
     }

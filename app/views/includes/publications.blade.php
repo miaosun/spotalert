@@ -131,11 +131,11 @@
                 <div class="row">
                     <div class="button_edit" id="{{ $publication['id'] }}">
                         @if ($publication['risk'] >=5 && $publication['type'] == 'alert')
-                            <button type="button" class="glyphicon glyphicon-remove btn_white"></button>
-                            <button class="glyphicon glyphicon-edit btn_white"></button>
+                           <button type="button" class="glyphicon glyphicon-remove btn_white"></button>
+                        <a href="/publication/edit-alert/{{$publication['id']}}"><button class="glyphicon glyphicon-edit btn_white"></button></a>
                         @else
                             <button type="button" class="glyphicon glyphicon-remove btn_gray"></button>
-                            <button class="glyphicon glyphicon-edit btn_gray"></button>
+                        <a href="/publication/edit-alert/{{$publication['id']}}"><button class="glyphicon glyphicon-edit btn_gray" onclick="location.href='publication/edit-alert/{{ $publication['id'] }}'"></button></a>
                         @endif
 
                     </div>
