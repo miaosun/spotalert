@@ -46,10 +46,9 @@
                         {{{$country}}}<br>
                     @endforeach
                 </div>
-            
+            </div>
             <br>
             <hr>
-            </div>
             <div class="publ_body">
                 <div class="publ-title">{{{$publication['title']}}}</div>
                 <div class="publ-colapse">
