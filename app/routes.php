@@ -121,6 +121,12 @@ Route::get('/publication/edit-alert/{id}', array(
     'uses' => 'PublicationController@showEditAlert'
 )); 
 
+// show edit alert (GET)
+Route::get('/publication/edit-guideline/{id}', array(
+    'as' => 'publication-edit-alert',
+    'uses' => 'PublicationController@showEditGuideline'
+));
+
 /*
  * API Controle Panel
  */
@@ -188,6 +194,12 @@ Route::group(array('before' => 'auth'), function() {
         Route::post('/publication/editalert', array(
             'as' => 'publication-editalert',
             'uses' => 'PublicationController@updateAlert'
+        ));
+        
+        //Edit Guideline (POST)
+        Route::post('/publication/editguideline', array(
+            'as' => 'publication-editguideline',
+            'uses' => 'PublicationController@updateGuideline'
         ));
         
     });

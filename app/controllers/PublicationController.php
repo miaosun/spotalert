@@ -220,6 +220,35 @@ class PublicationController extends BaseController
 
     }
     
+    public function showEditGuideline($id)
+    {
+        if(Auth::check() && Auth::user()->type != 'normal') {
+
+            $country_options = Country::lists('name', 'id');
+            $event_type_options = EventType::lists('name', 'id');
+            $guideline_options = DB::table('publications AS p')->join('publicationContents AS pc','pc.publication_id','=','p.id')->where('p.type','=','guideline')->lists('title','publication_id');
+            $language_options = Language::lists('name', 'id');
+
+            $publication = Publication::find($id);
+            $types = Publication::find($id)->eventTypes->lists('id');
+            $countries = Publication::find($id)->affectedCountries->lists('id');
+            $alerts = Publication::find($id)->alerts->lists('id');
+            $contents = Publication::find($id)->contents->toArray();
+
+            $images_directory = public_path()."/assets/images/publications/".$id;
+            $images = array();
+            foreach(glob($images_directory.'/*.*') as $file) {
+                array_push($images,$file);
+            }
+
+
+            return View::make('publication.edit-guideline')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options)->with('publication',$publication)->with('types',$types)->with('countries',$countries)->with('alerts',$alerts)->with('contents',$contents)->with('imagesupl',$images);
+        }
+        else
+            return Redirect::route('home')->with('global', "You're either not registered or you do not have enough privileges.");           
+
+    }
+    
 	/**
 	 * It gets some publications in the database 
 	 * (just the initial ones, so it's possible to scroll)
@@ -471,6 +500,10 @@ class PublicationController extends BaseController
             'user_id' => Auth::user()->id,
             'type' => "alert"
         ];
+        if($pub['initial_date'] == '')
+            $pub['initial_date'] = null;
+        if($pub['final_date'] == '')
+            $pub['final_date'] = null;
         
         $alert_guidelines = Input::get('alert-guidelines');
         $alert_countries = Input::get('alert-countries');
@@ -516,7 +549,7 @@ class PublicationController extends BaseController
         ];
         
         $rules_content = [
-            'title' => 'required',
+            'title' => 'required|max:50',
             'content' => 'required'
         ];
         
@@ -550,15 +583,22 @@ class PublicationController extends BaseController
                     $lang->publication_id = $publication->id;// here*
                     $lang->save();
                 }
+                
                 //create the constraints in the database
-                foreach ($alert_guidelines as $guideline_id) {
-                     $publication->guidelines()->attach($guideline_id);
+                if(!empty($alert_guidelines)){
+                    foreach ($alert_guidelines as $guideline_id) {
+                         $publication->guidelines()->attach($guideline_id);
+                    }
                 }
-                foreach ($alert_types as $types_id) {
-                     $publication->eventTypes()->attach($types_id);
+                if(!empty($alert_types)){
+                    foreach ($alert_types as $types_id) {
+                         $publication->eventTypes()->attach($types_id);
+                    }
                 }
-                foreach ($alert_countries as $country_id) {
-                     $publication->affectedCountries()->attach($country_id);
+                if(!empty($alert_countries)){
+                    foreach ($alert_countries as $country_id) {
+                         $publication->affectedCountries()->attach($country_id);
+                    }
                 }
                 
                 // If there notifications to send, send it
@@ -584,6 +624,11 @@ class PublicationController extends BaseController
             'type' => "guideline",
             'user_id' => Auth::user()->id
         ];
+        
+        if($pub['initial_date'] == '')
+            $pub['initial_date'] = null;
+        if($pub['final_date'] == '')
+            $pub['final_date'] = null;
 
         $guideline_alerts = Input::get('guideline-alerts');
         $guideline_countries = Input::get('guideline-countries');
@@ -629,7 +674,7 @@ class PublicationController extends BaseController
         ];
 
         $rules_content = [
-            'title' => 'required',
+            'title' => 'required|max:50',
             'content' => 'required'
         ];
 
@@ -664,27 +709,32 @@ class PublicationController extends BaseController
                     $lang->save();
                 }
                 //create the constraints in the database
-                foreach ($guideline_alerts as $alert) {
-                    Publication::find($alert)->guidelines()->attach($publication->id);
-                    
+                if(!empty($guideline_alerts)){
+                    foreach ($guideline_alerts as $alert) {
+                        Publication::find($alert)->guidelines()->attach($publication->id);                    
+                    }
                 }
-                foreach ($guideline_types as $types_id) {
-                    $publication->eventTypes()->attach($types_id);
+                if(!empty($guideline_types)){
+                    foreach ($guideline_types as $types_id) {
+                        $publication->eventTypes()->attach($types_id);
+                    }
                 }
-                foreach ($guideline_countries as $country_id) {
-                    $publication->affectedCountries()->attach($country_id);
+                if(!empty($guideline_countries)){
+                    foreach ($guideline_countries as $country_id) {
+                        $publication->affectedCountries()->attach($country_id);
+                    }
                 }
 
-				// If there notifications to send, send it
-                //$this->checkCreateNotification($publication);
+				        // If there notifications to send, send it
+                $this->checkCreateNotification($publication);
 
-                return Redirect::to('/')->with('success', 'Alert was created!');
+                return Redirect::to('/')->with('global', 'Alert was created!');
             }
             else
-                return Redirect::back()->withErrors($valid_content)->withInput();
+                return Redirect::route('create-alert')->withErrors($valid_content)->withInput();
         }
         else
-            return Redirect::back()->withErrors($valid_publication)->withInput();            
+            return Redirect::route('create-alert')->withErrors($valid_publication)->withInput();            
     }
 
     public function checkCreateNotification($publication)
@@ -693,12 +743,14 @@ class PublicationController extends BaseController
     	{
 	    	//Creating the countries array
 	    	$countries = array();
-	    	foreach ($publication->affectedCountries() as $country)
+	    	foreach ($publication->affectedCountries as $country)
 	    		array_push($countries, $country->id);
 
+        if(count($countries) <= 0)
+          return;
+
 	    	// Get the notifications
-	    	$notifications = NotificationSetting::with('user')
-	    		->where('risk', '>=', $publication->risk)
+	    	$notifications = NotificationSetting::where('risk', '>=', $publication->risk)
 	    		->whereIn('country_id', $countries)->get();
 
 	    	$already_sent = array();
@@ -713,10 +765,10 @@ class PublicationController extends BaseController
 		    		$email       = $notification->user->email;
 		    		$username    = $notification->user->username; 
 		    		$email_spotA = Config::get('mail.username');
-					$name_spotA  = Config::get('mail.from.name');
+					  $name_spotA  = Config::get('mail.from.name');
 
 		    		Mail::send('emails.notification_create', 
-					array('username' => $username, 'publ_name' => $publication->title, 'publ_risk' => $$publication->risk), 
+					array('username' => $username, 'publ_name' => $publication->contents()->first()->title, 'publ_risk' => $publication->risk), 
 					function($message) use ($email, $username, $email_spotA, $name_spotA) 
 					{
 							$message->from($email_spotA, $name_spotA)
@@ -739,8 +791,12 @@ class PublicationController extends BaseController
         $date = date_format($date, 'Y-m-d');
         
         //edit the publication
-        $publication->initial_date = Input::get('alert-durationfrom');
-        $publication->final_date = Input::get('alert-durationto');
+        if(Input::get('alert-durationfrom') == "")
+            $publication->initial_date = null;
+        else $publication->initial_date = Input::get('alert-durationfrom');
+        if(Input::get('alert-durationto') == "")
+            $publication->final_date = null;
+        else $publication->final_date = Input::get('alert-durationto');
         $publication->is_public = Input::get('alert-visibility');
         $publication->periodic_notification = 7;
         $publication->risk = Input::get('alert-risk');
@@ -794,19 +850,113 @@ class PublicationController extends BaseController
             $lang->save();
         }
         //create the constraints in the database
-        foreach ($alert_guidelines as $guideline_id) {
-            $publication->guidelines()->attach($guideline_id);
+        if(!empty($alert_guidelines)){
+            foreach ($alert_guidelines as $guideline_id) {
+                $publication->guidelines()->attach($guideline_id);
+            }
         }
-        foreach ($alert_types as $types_id) {
-            $publication->eventTypes()->attach($types_id);
+        if(!empty($alert_types)){
+            foreach ($alert_types as $types_id) {
+                $publication->eventTypes()->attach($types_id);
+            }
         }
-        foreach ($alert_countries as $country_id) {
-            $publication->affectedCountries()->attach($country_id);
+        if(!empty($alert_countries)){
+            foreach ($alert_countries as $country_id) {
+                $publication->affectedCountries()->attach($country_id);
+            }
         }
-
         $this->checkEditNotification($publication);
 
         return Redirect::to('/')->with('success', 'The alert was updated!');      
+    }
+    
+    public function updateGuideline() {
+
+        $id = Input::get('guideline-id');
+
+        $publication = Publication::find($id);
+
+        $date = date_create('now');
+        $date = date_format($date, 'Y-m-d');
+
+        //edit the publication
+        if(Input::get('guideline-durationfrom') == "")
+            $publication->initial_date = null;
+        else $publication->initial_date = Input::get('guideline-durationfrom');
+        if(Input::get('guideline-durationto') == "")
+            $publication->final_date = null;
+        else $publication->final_date = Input::get('guideline-durationto');
+        $publication->is_public = Input::get('guideline-visibility');
+        $publication->periodic_notification = 7;
+        $publication->risk = Input::get('guideline-risk');
+        $publication->type = "guideline";
+        $publication->last_update = $date;
+
+        $guideline_guidelines = Input::get('guideline-alerts');
+        $guideline_countries = Input::get('guideline-countries');
+        $guideline_types = Input::get('guideline-types');
+
+
+        $languages = json_decode(Input::get('guideline-languages'), true);
+        $languages_toarray = [];
+
+
+        $publication_content1 = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,1])->first();
+        //publication content in english
+        $publication_content1->title = Input::get('guideline-title');
+        $publication_content1->content = Input::get('guideline-description');
+        $publication_content1->language_id = 1; //language id
+        $publication_content1->publication_id = null; //defined at insertion in db*
+
+
+
+        foreach($languages as $key => $lang) {
+
+            $publication_content = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,$lang])->first();
+
+            if($publication_content){
+                //create the publication content
+                $publication_content->title = Input::get("guideline-title".$lang);
+                $publication_content->content = Input::get("guideline-description".$lang);
+                $publication_content->language_id = $lang; //language id
+                $publication_content->publication_id = $id; //defined at insertion in db*
+
+
+                $languages_toarray[$key] = $publication_content;
+            }
+        }
+
+        $publication->save();
+        //cycle through multiple languages
+        //var_dump($publication_content1);
+        //die();
+        $publication_content1->publication_id = $publication->id;
+        $publication_content1->save();
+
+        foreach($languages_toarray as $lang){
+
+            $lang->publication_id = $publication->id;// here*
+            $lang->save();
+        }
+        //create the constraints in the database
+        if(!empty($guideline_alerts)){
+            foreach ($guideline_alerts as $alert) {
+                $publication->guidelines()->attach($guideline_id);
+            }
+        }
+        if(!empty($guideline_types)){
+            foreach ($guideline_types as $types_id) {
+                $publication->eventTypes()->attach($types_id);
+            }
+        }
+        if(!empty($guideline_countries)){
+            foreach ($guideline_countries as $country_id) {
+                $publication->affectedCountries()->attach($country_id);
+            }
+        }
+        $this->checkEditNotification($publication);
+
+        return Redirect::to('/')->with('success', 'The guideline was updated!');      
     }
 
     public function checkEditNotification($publication)

@@ -221,6 +221,17 @@ function setRegisterRadioBoxes()
 		else
 			$('#create .terms-service input#no').prop('checked', true);
 	});
+
+	$('#create-alert .radiobutton').click(function()
+	{
+		$(this).children('.glyphicon').addClass('glyphicon-remove');
+		$(this).siblings('.radiobutton').children('.glyphicon').removeClass('glyphicon-remove');
+
+		if($(this).children('.glyphicon').hasClass('public-o'))
+			$('#create-alert .visibility input#public-o').prop('checked', true);
+		else
+			$('#create-alert .visibility input#hidden-o').prop('checked', true);
+	});
 }
 
 /**
@@ -233,7 +244,7 @@ function getPublicationContent(id)
 		togglePubBtn(id);
 	else
 	{
-	    jQuery.getJSON("/publications/content/"+id,function(data){
+	    jQuery.getJSON("publications/content/"+id,function(data){
 	        // fill description
 	        $('#publ-'+id+' .publ-content p').html(data.content);
             // fill images
