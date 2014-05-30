@@ -164,9 +164,31 @@ class UserPanelController extends BaseController {
     public function getComments()  {
         $profile = User::find(Auth::user()->getId());
 
-        $comments = Comment::with(array('author', 'publication', 'publication.contents'))->get();
+        $comments = Comment::with(array('author', 'publication', 'publication.contents'))->where('approved', '=', false)->get();
 
-        return View::make('user.comments')->with('user', $profile)->with('comments', $comments);
+        $answer = array();
+
+        foreach($comments as $comment)
+        {
+            if(!$comment->approved)
+            {
+                $commentData = array('username' => $comment->author()->first()->username, 'title' => $comment->publication->contents->first()->title, 'content' => $comment->publication->contents->first()->title, 'date' =>$comment->created_at,'risk' => $comment->publication->risk, 'img'=>array());
+
+                $srcPath = public_path().'/assets/images/comments/'.$comment->id;
+                if(File::exists($srcPath))
+                {
+                    $imagesUrl = File::allFiles($srcPath);
+                    foreach($imagesUrl as $imgUrl)
+                    {
+                        $commentData['img'] = array('url'=>$url = asset('assets/images/comments/'.$comment->id.'/'.$imgUrl->getRelativePathName()),'alt'=>$comment->publication->contents->first()->title);
+                    }
+                }
+
+                $answer[$comment->id] = $commentData;
+            }
+        }
+
+        return View::make('user.comments')->with('user', $profile)->with('comments', $comments)->with('images', $answer);
     }
 
     public function approveComment($id) {
