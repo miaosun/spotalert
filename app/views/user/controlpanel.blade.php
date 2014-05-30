@@ -18,19 +18,23 @@
                 @endif
 			</ul>
 			<h1>{{ Lang::get('controlpanel.profile.title') }}</h1>
-			{{ Form::open(array('route' => 'update-profile', 'file' => 'true')) }}
+			{{ Form::open(array('route' => 'update-profile', 'files' => 'true')) }}
 			<div class="col-md-4 col-md-offset-1">
-				<div class="row">
+				<div class="row">                    
                     <div class="col-md-12">
 						<div class="col-md-10 custom-upload">
-							{{ /* FIXME FROM HARCODED */ HTML::image('assets/images/user/2.jpg', $alt="Lang::get('controlpanel.profile.altpic')", $attributes = array('width' => '200px', 'height' => '200px')) }}
-	                        {{ Form::file('uploadfile',array('class' => 'upload')) }}
+							@if($pic) 
+		                        {{HTML::image('assets/images/user/'.$user->id.'.jpg', $alt="Lang::get('controlpanel.profile.altpic')", $attributes = array('width' => '200px', 'height' => '200px')) }}
+		                    @else  
+		                        {{HTML::image('assets/images/user/default.jpg', $alt="Lang::get('controlpanel.profile.altpic')", $attributes = array('width' => '200px', 'height' => '200px')) }}
+		                    @endif
 	                        <div class="fake-file dotline">
+	                        	{{ Form::file('uploadfile',array('class' => 'upload')) }}
 	                            {{ Form::text('displayfile',Lang::get('controlpanel.profile.addpic'),array('id'=>'displayfile','disabled' => 'disabled')) }} 
 	                            <span>&#43;</span>
 	                        </div>
 	                    </div>
-                	</div>
+	                </div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
@@ -207,6 +211,7 @@
 				</div>
 			</div>
 		</div>
+        {{ Form::token() }}
 		{{ Form::close() }}
 	</div>
 </div>
@@ -221,5 +226,5 @@
 }
 </style>
 
-{{ HTML::script('scripts/controlpanel.js') }}
+{{ HTML::script('assets/js/controlpanel.js') }}
 @stop

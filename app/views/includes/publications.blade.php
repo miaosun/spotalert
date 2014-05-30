@@ -46,19 +46,20 @@
                         {{{$country}}}<br>
                     @endforeach
                 </div>
-            </div>
-
+            
             <br>
             <hr>
+            </div>
             <div class="publ_body">
                 <div class="publ-title">{{{$publication['title']}}}</div>
                 <div class="publ-colapse">
                     <hr>
                     <div class="publ-content">
                         <p></p>
+                        <div class="pub-content-imgs"></div>
                         <div class="publ-linked">
                         @if ($publication['type'] == 'alert')
-                            <h1>{{ Lang::get('publication.titles.guide') }} 
+                            <h1>{{ Lang::get('publication.titles.guide') }}<span class="number-linked">0</span> 
                             @if($publication['risk'] >=5)
                                 <button class="glyphicon glyphicon-chevron-right arrow_white publ-linked-toggle-btn" publicationid="{{ $publication['id'] }}"></button>
                             @else
@@ -66,7 +67,7 @@
                             @endif        
                             </h1>        
                         @else
-                            <h1>{{ Lang::get('publication.titles.alert') }} 
+                            <h1>{{ Lang::get('publication.titles.alert') }}<span class="number-linked">0</span> 
                             @if($publication['risk'] >=5)
                                 <button class="glyphicon glyphicon-chevron-right arrow_white publ-linked-toggle-btn" publicationid="{{ $publication['id'] }}"></button>
                             @else
@@ -79,12 +80,39 @@
                         @include('publications.publicationShare')
 
                         <div class="publ-comments">
-                            @if ($publication['risk'] >=5 && $publication['type'] == 'alert')
-                                <h1>{{ Lang::get('publication.titles.comments.title') }} <button class="glyphicon glyphicon-chevron-right arrow_white publ-comments-toggle-btn" publicationid="{{ $publication['id'] }}"></button></h1>
-                            @else
-                                <h1>{{ Lang::get('publication.titles.comments.title') }}  <button class="glyphicon glyphicon-chevron-right arrow_gray publ-comments-toggle-btn" publicationid="{{ $publication['id'] }}"></button></h1>
+                        @if($publication['risk'] >=5 && $publication['type'] == 'alert')
+                            <div>
+                            @if(Auth::check())
+                                <span class="addcomment-btn" publicationid="{{ $publication['id'] }}">{{Lang::get('publication.titles.comments.addComment')}}</span>
                             @endif
-                            <div class="publ-comments-toggle"></div>
+                                <h1>{{ Lang::get('publication.titles.comments.title') }}<span class="number-comments">0</span> <button class="glyphicon glyphicon-chevron-right arrow_white publ-comments-toggle-btn" publicationid="{{ $publication['id'] }}"></button></h1>
+                            </div>
+                        @else
+                            <div>
+                            @if(Auth::check())
+                                <span class="addcomment-btn" publicationid="{{ $publication['id'] }}">{{Lang::get('publication.titles.comments.addComment')}}</span>
+                            @endif
+                                <h1>{{ Lang::get('publication.titles.comments.title') }}<span class="number-comments">0</span>  <button class="glyphicon glyphicon-chevron-right arrow_gray publ-comments-toggle-btn" publicationid="{{ $publication['id'] }}"></button></h1>
+                            </div>
+                        @endif
+                            <div class="publ-comments-toggle">
+                                @if(Auth::check())
+                                <div class='publ-comments-addcomment'>
+                                    @if ($publication['risk'] >=5)
+                                    <form>
+                                        <textarea class='submit-comment-textarea' name='text-comment' maxlength='255'></textarea>
+                                        <input type='file' class='submit-comment-file' name='file-comment'>
+                                        <button type='button' class='submit-comment-btn white' publicationid="{{ $publication['id'] }}" > {{Lang::get('publication.titles.comments.btnSubmit')}}</button>
+                                    </form>
+                                    @else
+                                        <textarea class='submit-comment-textarea border' name='text-comment' maxlength='255'></textarea>
+                                        <input type='file' class='submit-comment-file' name='file-comment'>
+                                        <button type='button' class='submit-comment-btn red' publicationid="{{ $publication['id'] }}"> {{Lang::get('publication.titles.comments.btnSubmit')}}</button>
+                                    @endif
+                                </div>
+                                @endif
+                                <div class='publ-comments-area'></div>
+                            </div>
                         </div>
                     </div>
                 </div>

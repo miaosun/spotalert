@@ -129,8 +129,6 @@ function loadEditButtons() {
             $('#department .edit_button').hide().unbind();
         }
     );
-
-
 }
 function loadFileUpload(){
     $('.custom-upload input[type=file]').change(function(){
