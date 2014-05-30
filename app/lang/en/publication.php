@@ -16,6 +16,8 @@ return array(
 		"social"    => "SOCIAL",
 		"comments"    => array(
             "title" => "COMMENTS",
+            "addComment" => "ADD COMMENT",
+            "btnSubmit" => "SEND",
             "by" => "by",
             "on" => "on",
             "of" => "of"

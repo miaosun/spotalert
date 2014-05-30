@@ -4,7 +4,13 @@ class UserPanelController extends BaseController {
 	/* show the usercontrol panel */
 	public function show() {
 		$profile = User::find(Auth::user()->getId());
-        return View::make('user.controlpanel',array('user'=>$profile));
+        $srcPath = public_path().'/assets/images/user/'.Auth::user()->getId().'.jpg';
+        $pic=FALSE;
+        if(File::exists($srcPath))
+        {
+            $pic=TRUE;
+        }
+        return View::make('user.controlpanel',array('user'=>$profile))->with('pic',$pic);
 	}
 
     /* Privileges Page */
@@ -166,10 +172,83 @@ class UserPanelController extends BaseController {
         return Redirect::route('user-comments')->with('global', 'Comment approved with success!');
     }
 
-    public function deleteComment($id) {
+    public function deleteComment($id) 
+    {
+       if(Auth::check() && Auth::user()->type != 'normal')
+       { 
         Comment::destroy($id);
         //Comment::where('id', '=', $id)->delete();
         return Redirect::route('user-comments')->with('global', 'Comment deleted with success!');
+       }
+        else
+            return 'No Autorization';
+    }    
+    /*  Submit new comments API  */
+    public function submitComment($id) {
+        
+        if(Auth::check() && Input::has("text"))
+        {
+            //'content', 'created_at', 'approved', 'user_id', 'publication_id'
+            $comment = new Comment;
+            $comment->content = Input::get("text");
+            $comment->created_at = date("Y-m-d H:i:s");
+            $comment->approved = false;
+            $comment->user_id = Auth::user()->id;
+            $comment->publication_id = $id;
+            
+            if(Input::hasFile("img"))
+            {
+                // Validating the files that must be images
+		        $img = Input::file('img');
+                $input = array(
+                    'img' => $img
+                );
+
+                $rules = array(
+                    'img' => 'image|max:2048'
+                );
+                $validation = Validator::make($input, $rules);
+
+                if($validation->passes()) 
+                {
+                    if($comment->save())
+                    {
+                        $destinationPath = public_path().'/assets/images/comments/'.$comment->id;
+                        if(!File::exists($destinationPath))
+                            File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
+                        $extension = $img->guessExtension();
+                        $img->move($destinationPath, $comment->id . '.' . $extension);
+                        if(File::exists($destinationPath.'/'.$comment->id . '.' . $extension))
+                            $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.success'),"id"=>$id,"status"=>"ok");
+                        else
+                        {
+                            
+                            $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.fail_img'),"id"=>$id,"status"=>"Image not saved");
+                            $comment->delete();
+                        }
+                    }
+                    else
+                    {
+                        $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.fail'),"id"=>$id,"status"=>"DataBase Error: can't saved");
+                    }
+                }
+                else
+                {
+                   $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.fail_img'),"id"=>$id,"status"=>"Image not valid");
+                }
+            }
+            else
+            {
+                if($comment->save())
+                    $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.success'),"id"=>$id,"status"=>"ok");
+                else
+                    $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.fail'),"id"=>$id,"status"=>"DataBase Error: can't saved");
+            }
+        }
+        else
+            $answer = array("msg"=>Lang::get('controlpanel.comments.submit_msg.bad_format'),"id"=>$id); 
+        
+        return Response::json($answer);
     }
 
     /*  APIs  */
@@ -259,16 +338,19 @@ class UserPanelController extends BaseController {
 			if(Input::hasFile('uploadfile'))
 			{
 				$filename = $profile->username;
+                $destinationPath = public_path().'/assets/images/user';
 				//$extension = Input::file('photo')->getClientOriginalExtension();
-				//Input::file('uploadbtn')->move('/public/assets/images/user', $filename.$extension);
-                //FIXME - change hardcode 3.jpg to login userid
-				$uploadSuccess = Input::file('uploadfile')->move('/public/assets/images/user', Auth::user()->getId().'.jpg');
+                //FIXME - Not force to be jpg maybe? Photos have to be .jpg still..
+				Input::file('uploadfile')->move($destinationPath, Auth::user()->getId().'.jpg');
+                $uploadSuccess = File::exists($destinationPath.Auth::user()->getId().'.jpg');
+                
 			}
             else
             {
                 $uploadSuccess = true;
             }
-			//TODO rest of inputs
+            //return Response::json(array("teste"=>$uploadSuccess));
+			//TODO verificar porque nao está a fazer upload do uploadfile <----
 			if($profile->save() && $uploadSuccess)
                 return Redirect::route('control-panel')->with('global','Teste: update with success!')->withErrors($valid);
 			else
