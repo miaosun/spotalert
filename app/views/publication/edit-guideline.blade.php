@@ -11,7 +11,7 @@ $idp = $publication['id'];
 
 <div class="container-fluid">
     <div id="create-alert" class="col-md-8 col-sm-8 col-md-offset-2 general_panel">
-        {{ Form::open(['url'=>'/publication/editalert','files'=>'true']) }}
+        {{ Form::open(['url'=>'/publication/editguideline','files'=>'true']) }}
         <div id="alert-tabs">
             <div id="languages_tabs">
                 <ul class="nav nav-tabs">
@@ -74,14 +74,14 @@ unset($language_options[$lang_index]);
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.title')}} <span>{{Lang::get('create-alert.fields.max_size')}}</span></h5>
-                                {{ Form::textarea('alert-title', $all_contents[0]['title'], array('id'=>'title', 'placeholder'=>Lang::get('create-alert.placeholders.title'))) }}
+                                {{ Form::textarea('guideline-title', $all_contents[0]['title'], array('id'=>'title', 'placeholder'=>Lang::get('create-alert.placeholders.title'))) }}
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.description')}}</h5>
-                                {{ Form::textarea('alert-description', $all_contents[0]['content'], array('placeholder'=>Lang::get('create-alert.placeholders.description'))) }}
+                                {{ Form::textarea('guideline-description', $all_contents[0]['content'], array('placeholder'=>Lang::get('create-alert.placeholders.description'))) }}
                             </div>
                         </div>
 
@@ -93,9 +93,9 @@ unset($language_options[$lang_index]);
                                     @foreach($imagesupl as $image)
                                     <li>
                                         <?php
-$info = new SplFileInfo($image);
-$imagename = $info->getFilename();
-?>
+                                            $info = new SplFileInfo($image);
+                                            $imagename = $info->getFilename();
+                                        ?>
                                         <a href="{{"../../assets/images/publications/".$publication->id."/".$imagename }}" target="_blank">{{HTML::image("assets/images/publications/".$publication->id."/".$imagename, null, array('class' => $publication->id))}}</a>
                                         <span class="imgremove glyphicon glyphicon-remove"></span>
                                     </li>
@@ -108,7 +108,7 @@ $imagename = $info->getFilename();
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.images')}}</h5>
-                                {{ Form::file('alert-images[]',array('multiple')) }}
+                                {{ Form::file('guideline-images[]',array('multiple')) }}
                                 @if($errors->has('file'))
                                 <br><span>{{ $errors->first('file') }}</span>
                                 @endif
@@ -121,7 +121,7 @@ $imagename = $info->getFilename();
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.affected_countries')}}</h5>
-                                {{ Form::select('alert-countries[]', $country_options, $countries,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.countries')))}}
+                                {{ Form::select('guideline-countries[]', $country_options, $countries,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.countries')))}}
                             </div>
                         </div>
 
@@ -130,9 +130,9 @@ $imagename = $info->getFilename();
                                 <h5>{{Lang::get('create-alert.fields.duration')}}</h5>
                                 <div class="inrow">
                                     <span>{{Lang::get('create-alert.labels.from')}}</span>
-                                    {{Form::input('text', 'alert-durationfrom', $publication->initial_date, array('class'=>'datepicker'))}} 
+                                    {{Form::input('text', 'guideline-durationfrom', $publication->initial_date, array('class'=>'datepicker'))}} 
                                     <span>{{Lang::get('create-alert.labels.to')}}</span>
-                                    {{Form::input('text', 'alert-durationto', $publication->final_date, array('class'=>'datepicker'))}}
+                                    {{Form::input('text', 'guideline-durationto', $publication->final_date, array('class'=>'datepicker'))}}
                                 </div>
                             </div>
                         </div>
@@ -140,14 +140,14 @@ $imagename = $info->getFilename();
                         <div class="row">
                             <div class="col-md-12 col-sm-12 inrow">
                                 <h5 style="float: left">{{Lang::get('create-alert.fields.eventrisk')}}</h5>
-                                <span>{{ Form::selectRange('alert-risk', 1, 5, $publication->risk);}}</span>
+                                <span>{{ Form::selectRange('guideline-risk', 1, 5, $publication->risk);}}</span>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.eventtype')}}</h5>
-                                {{ Form::select('alert-types[]', $event_type_options, $types,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.types')))}}
+                                {{ Form::select('guideline-types[]', $event_type_options, $types,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.types')))}}
                             </div>
                         </div>
 
@@ -156,9 +156,9 @@ $imagename = $info->getFilename();
                                 <h5>{{Lang::get('create-alert.fields.visibility')}}</h5>
                                 <div class="inrow">
                                     <span>{{Lang::get('create-alert.labels.public')}}</span>
-                                    {{ Form::radio('alert-visibility', 1, false)}}
+                                    {{ Form::radio('guideline-visibility', 1, false)}}
                                     <span>{{Lang::get('create-alert.labels.hidden')}}</span>
-                                    {{Form::radio('alert-visibility', 0, true);}}
+                                    {{Form::radio('guideline-visibility', 0, true);}}
                                 </div>
                             </div>
                         </div>
@@ -166,7 +166,7 @@ $imagename = $info->getFilename();
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.guidelines')}}</h5>
-                                {{ Form::select('alert-guidelines[]', $guideline_options, $guidelines,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.guidelines')))}}
+                                {{ Form::select('guideline-alerts[]', $guideline_options, $alerts,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.guidelines')))}}
                             </div>
                         </div>
                         <input type="hidden" name="alert-languages" display="none">
@@ -185,7 +185,7 @@ $imagename = $info->getFilename();
                 </div>
                 @foreach($contents as $content)
                 <div class="tab-pane fade in " id="alert_{{$content['language_id']}}">
-                    <h1>Create alert</h1>
+                    <h1>EDIT GUIDELINE</h1>
                     <div class="col-md-5 col-sm-5 col-md-offset-0" id="moveright"><div class="row">
                         <div class="col-md-12 col-sm-12">
                             <h5>Title* <span>(maximum of 50 characters)</span></h5>
