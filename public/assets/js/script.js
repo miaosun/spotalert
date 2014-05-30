@@ -107,7 +107,7 @@ function filtering()
 			    	nextSelector: 'a.jscroll-next:last'
 			    });
                 // reload click on btns
-                setupBtnPublication();
+                //setupBtnPublication();
 			})
 			.fail(function() 
 			{
@@ -198,7 +198,7 @@ function searching()
 				    	nextSelector: 'a.jscroll-next:last'
 				    });
 
-                    setupBtnPublication();
+                    //setupBtnPublication();
 				})
 				.fail(function() 
 				{
@@ -236,35 +236,59 @@ function getPublicationContent(id)
 	    jQuery.getJSON("/publications/content/"+id,function(data){
 	        // fill description
 	        $('#publ-'+id+' .publ-content p').html(data.content);
+            // fill images
+            var imgHTML ="";
+            for(var i = 0; i < data.images.length ; i++){
+                imgHTML = imgHTML + "<a href='"+data.images[i].url+"'><img src='"+data.images[i].url+"'alt='"+data.images[i].alt+"'/></a>";
+            }
+            $('#publ-'+id+' .pub-content-imgs').html(imgHTML);
 	        // fill linked publications
 	        if(data.pubLinked.length == 0)
 	            $('#publ-'+id+' .publ-linked').remove();
 	        else
 	        {
+                $('#publ-'+id+' .publ-content span.number-linked').html(data.pubLinked.length);
 	            var links = "";
 	            for(var i = 0; i < data.pubLinked.length ; i++){
-	                links = links + "<p><a href='publication/"+id+"'>"+data.pubLinked[i].title+"</a>";
+	                links = links + "<p><a href='"+id+"'>"+data.pubLinked[i].title+"</a>";
 	            }
 	            $('#publ-'+id+' .publ-content .publ-linked-toggle').html(links);
 	        }
 	        // fill comments 
-	        if(data.comments.length == 0)
-	            $('#publ-'+id+' .publ-comments').remove();
+	        if(data.comments.length == 0){
+	            $('#publ-'+id+' .publ-comments-toggle-btn').hide();
+            }
 	        else
 	        {
-	            //TODO insert number of comments
+	            //insert number of comments
+                $('#publ-'+id+' .publ-content .publ-comments span.number-comments').html(data.comments.length);
 	            var links = "";
-	            for(var i = 0; i < data.comments.length ; i++){
+	            for(var i = 0; i < data.comments.length ; i++)
+                {
 	                if(i != 0)
-	                    links = links +"<hr>"
-	                links = links +
-	                    "<div class='comments'>\
-	                    <p class='comments-content'>"+data.comments[i].content+"</p>\
-	                    <p class='comments-info'>"+data.comments[i].user+" - "+data.comments[i].date.date+"</p>\
-	                    </div>";
+	                    links = links +"<hr>";
+                   
+                    links = links +"<div class='comments'>";
+                    //if exist photo
+	                if(data.comments[i].img.length != 0)
+                    {
+                        links = links +"<div class='comments-imgs'><a href="+data.comments[i].img.url+"'>\
+                                        <img src='"+data.comments[i].img.url+"'alt='"+data.comments[i].img.alt+"'/>\
+                                        </a></div>"
+                    }
+                    links = links +"<p class='comments-content'>"+data.comments[i].content+"</p>\
+                                    <p class='comments-info'>"+data.comments[i].user+" - "+data.comments[i].date.date
+	                                ;
+                    if(data.comments[i].delete != 0)
+                    {
+                        links= links + "<span class='comments-delete'>\
+                                        <a href='"+data.comments[i].delete.url+"'>"+data.comments[i].delete.text+"</a></span>";
+                    }
+                    links= links +"</p></div>";
+                    
 	            }
 	            //alert(links);
-	            $('#publ-'+id+' .publ-content .publ-comments-toggle').html(links);
+	            $('#publ-'+id+' .publ-content .publ-comments-area').html(links);
 	        }
 	        // change btn to toggle only
 	        btn.addClass('publ-ajax-loaded');
@@ -290,6 +314,15 @@ function toggleLinkedBtn(id)
     $('#publ-'+id+' .publ-linked-toggle').toggle();
     
 }
+// add comments if login
+function showAddCommentBtn(id){
+    $('#publ-'+id+' .publ-comments-addcomment').show();
+    
+    var btn = $('#publ-'+id+' .publ-addcomment-btn');
+    btn.toggleClass("glyphicon-chevron-right");
+    btn.toggleClass("glyphicon-chevron-down");
+    $('#publ-'+id+' .publ-comments-toggle').show();
+}
 // toggle comments div and arrow
 function toggleCommentsBtn(id)
 {
@@ -313,39 +346,82 @@ function setupBtnPublication(){
         var id = $(this).attr('publicationid');
         toggleCommentsBtn(id);
     });
+    $('div#main').on('click', 'span.addcomment-btn', function(){
+        var id = $(this).attr('publicationid');
+        showAddCommentBtn(id);
+    });
+    $('div#main').on('click', '.submit-comment-btn ', function(){
+    var id = $(this).attr('publicationid');
+    
+    submitCommentBtn(id);
+    });
 }
+
+function submitCommentBtn(id){
+    data = new FormData();
+    data.append('text',$('#publ-'+id+' .publ-comments-addcomment .submit-comment-textarea').val())
+    data.append('img',$('#publ-'+id+' .publ-comments-addcomment .submit-comment-file')[0].files[0]);
+
+    $.ajax({
+        url : "/user/comments/submit/"+id,
+        type: "POST",
+        data : data,
+        processData: false,
+        contentType: false,
+        datatype: JSON,
+        success: function(data, textStatus, jqXHR)
+        {
+            alert(data.msg);
+            $('#publ-'+id+' .publ-comments-addcomment .submit-comment-textarea').val("");
+            $('#publ-'+id+' .publ-comments-addcomment .submit-comment-file').val("");
+            $('#publ-'+id+' .publ-comments-addcomment').hide();
+            
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert(textStatus);
+        }
+    });
+}
+
 
 /**
 * Share links code
 **/
 // Send hit to google analytics for a facebook share
-function shareFacebook(id){
+function shareFacebook(id,title){
     ga('send', {
-  'hitType': 'social',
-  'socialNetwork': 'facebook',
-  'socialAction': 'share',
-  'socialTarget': 'http://spotalert.fe.up.pt',
-  'page': '/publication/'+id
+      'hitType': 'social',
+      'socialNetwork': 'Facebook',
+      'socialAction': 'FacebookShare',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
     });
-    //alert('enviou hit sobre o share no facebook para o id:'+id);
 }
 // Send hit to google analytics for a Twitter tweet
-function shareTwitter(id){
+function shareTwitter(id,title){
     ga('send', {
-  'hitType': 'social',
-  'socialNetwork': 'twitter',
-  'socialAction': 'tweet',
-  'socialTarget': 'http://spotalert.fe.up.pt/publication/'+id
+      'hitType': 'social',
+      'socialNetwork': 'Twitter',
+      'socialAction': 'Tweet',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
     });
-    //alert('enviou hit sobre o share no twitter para o id:'+id);
 }
 // Send hit to google analytics for a google share 
-function shareGoogle(id){
-    var a = ga('send','social','google','shareplus','http://spotalert.fe.up.pt','/publication/'+id);
-     //alert('enviou hit sobre o share no google para o id:'+id);
+function shareGoogle(id,title){
+    ga('send', {
+      'hitType': 'social',
+      'socialNetwork': 'GooglePlus',
+      'socialAction': 'GooglePlusShare',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
+    });
 }
 // Send hit to google analytics for a linkdIn share
-function shareLinkdIn(id){
-    var a = ga('send','social','Linkdin','share','http://spotalert.fe.up.pt','/publication/'+id);
-     //alert('enviou hit sobre o share no linkdIn para o id:'+id);
+function shareLinkdIn(id,title){
+     ga('send', {
+      'hitType': 'social',
+      'socialNetwork': 'LinkdIN',
+      'socialAction': 'LinkdINShare',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
+     });
 }
+        

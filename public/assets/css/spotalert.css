@@ -25,7 +25,7 @@ header .row-header {
 .footer-up {
     display:inline;
     margin-left:2%;
-    margin-bottom:0.5%;;
+    margin-bottom:0.5%;
      
 }
 
@@ -281,7 +281,9 @@ button#search-glass {
     background-color: black;
     color: white;
 }
-
+.publ_header + br + hr {
+	margin-top:45px;
+}
 /***************************************************************************************/
 /* |||||||||||||||||||||||||||   ALERT LEVEL 5  |||||||||||||||||||||||||||||||||||||||*/
 /****************************************************************************************/
@@ -514,13 +516,30 @@ button#search-glass {
     font-size: 10px;
     text-transform: none;
 }
+.publ-content a{
+    color: inherit;
+    text-decoration: none;
+}
+.publ-content a:hover{
+    color: #FF931E;    
+}
+
 .publ-content h1{
     color: inherit;
     font-weight:normal;
     font-size:15px;
 }
+.publ-content .pub-content-imgs img{
+    width: 30px;
+    height: 30px;
+    margin-right: 3px;
+}
 .publ-content .publ-linked-toggle{
     display: none;
+}
+.publ-content .publ-linked span.number-linked{
+    color: #CCCCCC;
+    padding-left: 1em;
 }
 .publ-content .publ-comments-toggle{
     display: none;
@@ -529,16 +548,77 @@ button#search-glass {
     
 }
 .publ-content .publ-comments-toggle p.comments-info{
+    margin-top: 17px;
     font-size: 8px;
 }
+.publ-content .publ-comments-area p.comments-info span.comments-delete{
+    float:right;
+}
+.publ-content .publ-comments span.number-comments{
+    color: #CCCCCC;
+    padding-left: 1em;
+}
 
-.publ-content a{
-    color: inherit;
-    text-decoration: none;
+.publ-content span.addcomment-btn{
+    font-size:10px;
+    float:right;
+    padding-top: 0.5em;
+    cursor: pointer;
 }
-.publ-content a:hover{
-    color: #FF931E;    
+.publ-content .publ-comments-addcomment{
+    margin-bottom: 10px;
+    display:none;
 }
+.publ-content .publ-comments-area .comments-imgs{
+    float:right;
+}
+
+.publ-content .publ-comments-area .comments-imgs img{
+    width: 30px;
+    height: 30px;
+    margin-right: 3px;
+}
+.publ-content textarea.submit-comment-textarea{
+    text-indent:15px;
+    text-align:justify;
+    font-size:10px;
+    white-space: normal;
+    word-break: break-all;
+    width: 80%;
+    height: 50px;
+    color: black;
+    
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    border-radius:10px;
+    
+    padding: 5px;
+    border:0;
+
+    resize: none;
+    overflow: hidden;
+}
+.publ-content textarea.submit-comment-textarea.border{
+    border: 1px solid black;
+}
+.publ-content button.submit-comment-btn{
+    -webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+    padding:3px;
+    border: 0;
+    width: 15%;
+    margin-left: 5px;
+}
+.publ-content button.submit-comment-btn.red{
+    background-color: #BF2333;
+    color: white;
+}
+.publ-content button.submit-comment-btn.white{
+    background-color: white;
+    color:black;
+}
+
 /* social */
 .publ-content .sprite-social{
     background-image: url('../images/share.png');
@@ -875,11 +955,16 @@ input[name=accept] {
 .row-block{
 	color:#666666;
 }
-
+.terms-service{
+	padding-bottom:30px;
+}
 
 /******************************************************
 ******************* CONTROL PANEL **********************
 *******************************************************/
+#controlpanel .custom-upload{
+	padding-left:35px;
+}
 
 #controlpanel{
     background-color: white;
@@ -1008,7 +1093,7 @@ input[name=accept] {
 .custom-upload input[type=file]
 {
     outline:none;
-    position: relative;
+    position: absolute;
     text-align: right;
     -moz-opacity:0 ;
     filter:alpha(opacity: 0);
@@ -1017,13 +1102,14 @@ input[name=accept] {
     width: 90%;
     height: 100%;
     cursor: pointer;
+    right: 0;
+    width: 100% !important;
 }
 .custom-upload .fake-file
 {
     position: absolute;
     top: 0px;
-    left: 5%;
-    width: 80%;
+    width: 200px;
     height: 100%;
     padding: 0;
     margin: 0;
@@ -1043,6 +1129,10 @@ input[name=accept] {
     color: #BF2333;
     font-size:1.5em;
     float: right;
+}
+
+input[disabled=disabled] {
+    background-color: transparent;
 }
 
 
@@ -1250,6 +1340,11 @@ input[name=accept] {
 #comments-list a.close-button{
 	color:#BF2333;
 	font-style:2em;
+}
+
+#comments-list_wrapper .comment-readmore +a{
+
+		color:#BF2333;
 }
 /*****************************************************
 *************** CREATE PUBLICATIONS *************

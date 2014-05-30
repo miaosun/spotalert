@@ -15,6 +15,13 @@ Route::get('/', array(
     'as' => 'home',
     'uses' => 'HomeController@showWelcome'
 ));
+// single publication
+Route::get('/{id}', array(
+		'as'	=> 'publication-solo',
+        'uses' =>'PublicationController@getPublication'
+	))
+    ->where('id', '[0-9]+');
+/*TODO filter by publ title also */
 
 Route::get('/contact', array(
     'as' => 'contact',
@@ -267,6 +274,10 @@ Route::group(array('before' => 'auth'), function() {
         'as' => 'comment-deleted',
         'uses' => 'UserPanelController@deleteComment'
     ));
+    Route::post('/user/comments/submit/{id}',array(
+        'as' => 'insert-comment',
+        'uses' => 'UserPanelController@submitComment'
+    ))->where('id', '[0-9]+');;
 
     // Eyewitness Management
     Route::get('/user/eyewitnesses', array(

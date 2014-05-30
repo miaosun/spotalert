@@ -2,9 +2,9 @@
 
 class PublicationController extends BaseController
 {
-	/** Number of publications to initially show in the homepage */
+	/** Number of publications to initially show in the homepage. MUST BE MULTIPLE OF 3! */
 	private static $initial_publications = 9;
-	/** Number of publications to get in each scroll */
+	/** Number of publications to get in each scroll. MUST BE MULTIPLE OF 3! */
 	private static $scroll_step = 3;
 	/** Number of days to consider that a publication is updated */
 	private static $update_interval = 5;
@@ -27,6 +27,28 @@ class PublicationController extends BaseController
 
 		return self::makeSimpleAnswer($publications);
 	}
+    public static function getPublication($id)
+    {
+       $stmt = Publication::with(array(
+			'contents',
+			'contents.language',
+			'affectedCountries',
+			'eventTypes'));
+
+		if(!Auth::check() || Auth::user()->type == 'normal')
+			$stmt->where('is_public', '=', true);
+        
+        ;
+        $publication = $stmt->where('id', '=', $id)->get()->first();
+        // In case of not find send 404  
+        if(count($publication))
+        {    
+            $result = self::makeSimpleAnswerPlus($publication);
+            return View::make('home')->with('publications', $result)->with('publicationAlone','true');
+        }
+        else
+            App::abort(404);
+    }
     /**
 	 * Get certain publication expandile data from databse and return 
 	 */
@@ -46,32 +68,81 @@ class PublicationController extends BaseController
                                 'title' => $content->title,
                                 'content' => $content->content,
                                 'pubLinked' =>array(),
-                                'comments' => array()
+                                'comments' => array(),
+                                'images' =>array()
                                );
         if(!$publication->alerts->isEmpty())
         {
             foreach($publication->alerts as $alert)
-                    $answer['pubLinked'][] = array('id'=> $alert->id,
-                                           'title' =>$language->publicationContents()->where('publication_id','=',$alert->id)->first()->title
-                                          );
+            {
+                if($alert->is_public == 'TRUE')
+                {
+                    $answer['pubLinked'][] = array('id'=> $alert->id, 
+                                                   'title' =>$language->publicationContents()->where('publication_id','=',$alert->id)->first()->title);
+                }
+                else 
+                    if(Auth::check() && !(Auth::user()->type == 'normal'))
+                    {    
+                        $answer['pubLinked'][] = array('id'=> $alert->id, 
+                                                       'title' =>$language->publicationContents()->where('publication_id','=',$alert->id)->first()->title);
+                    }
+            }
         }
         
         if(!$publication->guidelines->isEmpty())
         {
                 foreach($publication->guidelines as $guidelines)
+                {
+                    if($guidelines->is_public == 'TRUE')
+                    {
                         $answer['pubLinked'][] = array('id'=> $guidelines->id,
-                                           'title' => $language->publicationContents()->where('publication_id','=',$guidelines->id)->first()->title
-                                          );
+                                                       'title' =>$language->publicationContents()->where('publication_id','=',$guidelines->id)->first()->title);
+                    }
+                    else 
+                        if(Auth::check() && !(Auth::user()->type == 'normal'))
+                        {    
+                            $answer['pubLinked'][] = array('id'=> $guidelines->id,
+                                                           'title' =>$language->publicationContents()->where('publication_id','=',$guidelines->id)->first()->title);
+                        }
+                }
         }
          if(!$publication->comments->isEmpty())
-        {
+         {
             foreach($publication->comments as $comment)
             {
                if($comment->approved)
-                    $answer['comments'][] = array('user' => $comment->author()->first()->username,'content' => $comment->content, 'date' =>$comment->created_at);
+               {    
+                   $commentData = array('user' => $comment->author()->first()->username,'content' => $comment->content, 'date' =>$comment->created_at,'img'=>array(),'delete' => array());
+                    // load images from publication if exists
+                    $srcPath = public_path().'/assets/images/comments/'.$comment->id;
+                    if(File::exists($srcPath))
+                    {
+                        $imagesUrl = File::allFiles($srcPath);
+                        foreach($imagesUrl as $imgUrl)
+                        {
+                            $commentData['img'] = array('url'=>$url = asset('assets/images/comments/'.$comment->id.'/'.$imgUrl->getRelativePathName()),'alt'=>$content->title);
+                        }
+                    }
+                   if(Auth::check() && !(Auth::user()->type == 'normal'))
+                    {
+                        $commentData['delete'] = array('url' => route('comment-deleted', $comment->id),'text' => Lang::get('controlpanel.comments.delete'));
+                    }
+                    $answer['comments'][] = $commentData;
+                }
             }
             //TODO add Lang words for the comments be in selected language (e.g. "by", "on", "of" - $answer['language']) 
         }
+        // load images from publication if exists
+        $srcPath = public_path().'/assets/images/publications/'.$publ_id;
+        if(File::exists($srcPath))
+        {
+            $imagesUrl = File::allFiles($srcPath);
+            foreach($imagesUrl as $imgUrl)
+            {
+                $answer['images'][] = array('url'=>$url = asset('assets/images/publications/'.$publ_id.'/'.$imgUrl->getRelativePathName()),'alt'=>$content->title);
+            }
+        }
+           
 		return Response::json($answer);
         //return Response::json($publications);
 	}
@@ -851,4 +922,74 @@ class PublicationController extends BaseController
 
 		return array_merge($first_array, $second_array);
 	}
+    /*
+    *   make same as makeSimpleAnswer with description
+    */
+    private static function makeSimpleAnswerPlus($publication)
+	{
+		//Two arrays to append at the end
+        $json_response = array();
+
+        $json_response = array();
+        $json_response['id'] = $publication->id;
+        $json_response['initial_date'] = $publication->initial_date;
+        $json_response['final_date']   = $publication->final_date;
+        $json_response['risk']         = $publication->risk;
+        $json_response['type']         = $publication->type;
+        if(Auth::check() && Auth::user()->type != 'normal')
+            $json_response['author']       = $publication->author->username;
+
+        // Putting the titles in the response
+        foreach ($publication->contents as $content)
+        {
+            if($content->language->code === Config::get('database.website_language_code'))
+            {
+                $json_response['title'] = $content->title;
+                $json_response['content'] = $content->content;
+                break;
+            }
+        }
+
+        // Putting the affected countries in the response
+        $json_response['affected_countries'] = array();
+        foreach ($publication->affectedCountries as $key2 => $country) 
+        {
+            $json_response['affected_countries'][$key2] = $country->name;
+        }
+
+        // Putting the event types in the response
+        $json_response['event_types'] = array();
+        foreach ($publication->eventTypes as $key2 => $eventType) 
+        {
+            $json_response['event_types'][$key2] = $eventType->name;
+        }
+
+        // See if it is a hidden publication
+        if(!$publication->is_public)
+            $json_response['hidden'] = 1;
+
+
+        //See if there is an update to do
+        $today       = new DateTime;
+        $last_update = DateTime::createFromFormat('Y-m-d', $publication->last_update);
+        if($last_update)
+            if($last_update->add(new DateInterval('P'.self::$update_interval.'D')) >= $today)
+                $json_response['updated'] = 1;
+
+        //Decide if goes to the first or to the second array
+        $ini_date = DateTime::createFromFormat('Y-m-d', $publication->initial_date);
+        $fin_date = DateTime::createFromFormat('Y-m-d', $publication->final_date);
+
+        if($ini_date)
+            if($ini_date > $today)
+            {
+                $json_response['inactive'] = 1;
+            }
+        if($fin_date)
+            if($fin_date < $today)
+            {
+                $json_response['inactive'] = 1;
+            }
+         return array($json_response);
+    }
 }

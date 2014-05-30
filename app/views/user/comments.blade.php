@@ -39,7 +39,7 @@
                         <td>{{{$comment->publication->contents->first()->title}}}</td>
                         <td class="readcomment">
                             <div class="comment-readmore">{{{$comment->content}}}</div>
-                            <a href="#" class="readmore" style="color:red;">{{ Lang::get('controlpanel.comments.readmore') }}</a>
+                            <a href="#" class="readmore">{{ Lang::get('controlpanel.comments.readmore') }}</a>
                         </td>
                         <td>{{{$comment->author->username}}}</td>
                         <td>{{{$comment->created_at}}}</td>
