@@ -640,11 +640,12 @@ class PublicationController extends BaseController
         $languages = json_decode(Input::get('alert-languages'), true);
         $languages_toarray = [];
 
+        $en_id = Language::where('name','=','English')->first()->id;
         //publication content in english
         $pub_content1 = [
             'title' => Input::get('guideline-title'),
             'content' => Input::get('guideline-description'),
-            'language_id' => 1, //language id
+            'language_id' => $en_id, //language id
             'publication_id' => null, //defined at insertion in db*
         ];
 
@@ -728,13 +729,13 @@ class PublicationController extends BaseController
 				        // If there notifications to send, send it
                 $this->checkCreateNotification($publication);
 
-                return Redirect::to('/')->with('global', 'Alert was created!');
+                return Redirect::to('/')->with('global', 'Guideline was created!');
             }
             else
-                return Redirect::route('create-alert')->withErrors($valid_content)->withInput();
+                return Redirect::back()->withErrors($valid_content)->withInput();
         }
         else
-            return Redirect::route('create-alert')->withErrors($valid_publication)->withInput();            
+            return Redirect::back()->withErrors($valid_publication)->withInput();            
     }
 
     public function checkCreateNotification($publication)
