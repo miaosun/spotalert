@@ -125,6 +125,7 @@
 </div>
 
 {{ HTML::script('assets/js/jquery.dataTables.js') }}
+{{ HTML::script('assets/js/controlpanel.js') }}
 
 <script>
     $('document').ready(function()
