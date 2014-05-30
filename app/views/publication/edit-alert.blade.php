@@ -163,6 +163,22 @@
                         </div>
                     </div>
                 </div>
+                @foreach($contents as $content)
+                <div class="tab-pane fade in " id="alert_{{$content['language_id']}}">
+                    <h1>Create alert</h1>
+                    <div class="col-md-5 col-sm-5 col-md-offset-0" id="moveright"><div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <h5>Title* <span>(maximum of 50 characters)</span></h5>
+                            <textarea placeholder="Write your title here" name="alert-title{{$content['language_id']}}">{{$content['title']}}</textarea>
+                        </div>
+                        <div class="col-md-12 col-sm-12">
+                            <h5>Description*</h5>
+                            <textarea placeholder="Write your title here" name="alert-description{{$content['language_id']}}" cols="50" rows="10">{{$content['content']}}</textarea>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
             </div>
         </div>
     </div>
