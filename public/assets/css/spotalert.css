@@ -1086,7 +1086,7 @@ input[name=accept] {
 .custom-upload input[type=file]
 {
     outline:none;
-    position: relative;
+    position: absolute;
     text-align: right;
     -moz-opacity:0 ;
     filter:alpha(opacity: 0);
@@ -1095,13 +1095,14 @@ input[name=accept] {
     width: 90%;
     height: 100%;
     cursor: pointer;
+    right: 0;
+    width: 100% !important;
 }
 .custom-upload .fake-file
 {
     position: absolute;
     top: 0px;
-    left: 5%;
-    width: 80%;
+    width: 200px;
     height: 100%;
     padding: 0;
     margin: 0;
@@ -1121,6 +1122,10 @@ input[name=accept] {
     color: #BF2333;
     font-size:1.5em;
     float: right;
+}
+
+input[disabled=disabled] {
+    background-color: transparent;
 }
 
 

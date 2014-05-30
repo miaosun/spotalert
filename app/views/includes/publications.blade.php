@@ -92,7 +92,7 @@
                             @if(Auth::check())
                                 <span class="addcomment-btn" publicationid="{{ $publication['id'] }}">{{Lang::get('publication.titles.comments.addComment')}}</span>
                             @endif
-                                <h1>{{ Lang::get('publication.titles.comments.title') }}<span class="number-comments"></span>  <button class="glyphicon glyphicon-chevron-right arrow_gray publ-comments-toggle-btn" publicationid="{{ $publication['id'] }}"></button></h1>
+                                <h1>{{ Lang::get('publication.titles.comments.title') }}<span class="number-comments">0</span>  <button class="glyphicon glyphicon-chevron-right arrow_gray publ-comments-toggle-btn" publicationid="{{ $publication['id'] }}"></button></h1>
                             </div>
                         @endif
                             <div class="publ-comments-toggle">
