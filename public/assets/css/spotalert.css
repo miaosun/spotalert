@@ -94,7 +94,7 @@ header .row-header > div#language {
     padding-top: 30px;
     background-color:#f2f2f2;
     width: 100%;
-    min-height:1000px;
+    min-height:550px;
 }
 
 @media (max-width:991px) {
@@ -1219,7 +1219,7 @@ input[disabled=disabled] {
 .general_panel h1{
     background-color:#BF2333;
     color: white;
-    margin: 0px -30px 2% 0px;
+    margin: 0px 0px 2% 0px;
     padding-left: 5%;
     line-height:200%;
     font-size:  1.1em;
