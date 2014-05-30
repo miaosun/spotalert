@@ -1277,7 +1277,7 @@ input[disabled=disabled] {
 
 .general_panel div.MultiFile-label a{
     float: right;
-    color: #BF2333;
+    color: #BF2333 !important;
     font-size: 16px;
 }
 
@@ -1421,7 +1421,7 @@ input[disabled=disabled] {
     display: inline-block;
 }
 
-#create-alert .row span {
+#create-alert .row #duration span {
     color: #666666;
 }
 

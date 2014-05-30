@@ -58,6 +58,9 @@
                                 <div class="col-md-12 col-sm-12">
                                     <h5>{{Lang::get('create-alert.fields.title')}} <span>{{Lang::get('create-alert.fields.max_size')}}</span></h5>
                                     {{ Form::textarea('alert-title', '', array('id'=>'title', 'placeholder'=>Lang::get('create-alert.placeholders.title'))) }}
+                                    @if($errors->has('title'))
+                                    <br><span>{{ $errors->first('title') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             
@@ -65,13 +68,16 @@
                                 <div class="col-md-12 col-sm-12">
                                     <h5>{{Lang::get('create-alert.fields.description')}}</h5>
                                     {{ Form::textarea('alert-description', '', array('placeholder'=>Lang::get('create-alert.placeholders.description'))) }}
+                                    @if($errors->has('content'))
+                                    <br><span>{{ $errors->first('content') }}</span>
+                                    @endif
                                 </div>
                             </div>
                             
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
                                     <h5>{{Lang::get('create-alert.fields.images')}}</h5>
-                                    {{ Form::file('alert-images[]',array('multiple')) }}
+                                    {{ Form::file('alert-images[]',array('multiple', 'class' => 'multi')) }}
                                     @if($errors->has('file'))
                                     <br><span>{{ $errors->first('file') }}</span>
                                     @endif
@@ -89,7 +95,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-12 col-sm-12">
+                                <div class="col-md-12 col-sm-12" id="duration">
                                     <h5>{{Lang::get('create-alert.fields.duration')}}</h5>
                                     <div class="inrow">
                                         <span>{{Lang::get('create-alert.labels.from')}}</span>
@@ -103,7 +109,7 @@
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 inrow">
                                     <h5 style="float: left">{{Lang::get('create-alert.fields.eventrisk')}}</h5>
-                                    <span>{{ Form::selectRange('alert-risk', 1, 5);}}</span>
+                                    <span>{{ Form::selectRange('alert-risk', 1, 5)}}</span>
                                 </div>
                             </div>
 
@@ -116,7 +122,7 @@
 
                             <div class="row">
                                 <div class="col-md-12 col-sm-12">
-                                    <h5>{{Lang::get('create-alert.fields.visibility')}}</h5>
+                                    <h5>VISIBILITY</h5>
                                     <div class="inrow">
                                         <span>{{Lang::get('create-alert.labels.public')}}</span>
                                         {{ Form::radio('alert-visibility', 1, false)}}
@@ -155,6 +161,7 @@
 {{ HTML::script('assets/js/chosen.jquery.min.js'); }}
 {{ HTML::script('assets/js/bootstrap-datepicker.js'); }}
 {{ HTML::style('assets/css/datepicker.css'); }}
+{{ HTML::script('assets/js/jquery.MultiFile.js') }}
 <script type="text/javascript">
     var config = {
       '.chosen-select'           : {no_results_text:'Oops, nothing found!'},

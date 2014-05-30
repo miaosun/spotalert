@@ -235,7 +235,7 @@ class PublicationController extends BaseController
             $alerts = Publication::find($id)->alerts->lists('id');
             $contents = Publication::find($id)->contents->toArray();
 
-            $images_directory = public_path()."/assets/images/publications/".$  id;
+            $images_directory = public_path()."/assets/images/publications/".$id;
             $images = array();
             foreach(glob($images_directory.'/*.*') as $file) {
                 array_push($images,$file);
@@ -549,7 +549,7 @@ class PublicationController extends BaseController
         ];
         
         $rules_content = [
-            'title' => 'required',
+            'title' => 'required|max:50',
             'content' => 'required'
         ];
         
@@ -674,7 +674,7 @@ class PublicationController extends BaseController
         ];
 
         $rules_content = [
-            'title' => 'required',
+            'title' => 'required|max:50',
             'content' => 'required'
         ];
 
@@ -725,16 +725,16 @@ class PublicationController extends BaseController
                     }
                 }
 
-				// If there notifications to send, send it
-                //$this->checkCreateNotification($publication);
+				        // If there notifications to send, send it
+                $this->checkCreateNotification($publication);
 
-                return Redirect::to('/')->with('success', 'Alert was created!');
+                return Redirect::to('/')->with('global', 'Alert was created!');
             }
             else
-                return Redirect::back()->withErrors($valid_content)->withInput();
+                return Redirect::route('create-alert')->withErrors($valid_content)->withInput();
         }
         else
-            return Redirect::back()->withErrors($valid_publication)->withInput();            
+            return Redirect::route('create-alert')->withErrors($valid_publication)->withInput();            
     }
 
     public function checkCreateNotification($publication)
@@ -743,12 +743,14 @@ class PublicationController extends BaseController
     	{
 	    	//Creating the countries array
 	    	$countries = array();
-	    	foreach ($publication->affectedCountries() as $country)
+	    	foreach ($publication->affectedCountries as $country)
 	    		array_push($countries, $country->id);
 
+        if(count($countries) <= 0)
+          return;
+
 	    	// Get the notifications
-	    	$notifications = NotificationSetting::with('user')
-	    		->where('risk', '>=', $publication->risk)
+	    	$notifications = NotificationSetting::where('risk', '>=', $publication->risk)
 	    		->whereIn('country_id', $countries)->get();
 
 	    	$already_sent = array();
@@ -763,10 +765,10 @@ class PublicationController extends BaseController
 		    		$email       = $notification->user->email;
 		    		$username    = $notification->user->username; 
 		    		$email_spotA = Config::get('mail.username');
-					$name_spotA  = Config::get('mail.from.name');
+					  $name_spotA  = Config::get('mail.from.name');
 
 		    		Mail::send('emails.notification_create', 
-					array('username' => $username, 'publ_name' => $publication->title, 'publ_risk' => $$publication->risk), 
+					array('username' => $username, 'publ_name' => $publication->contents()->first()->title, 'publ_risk' => $publication->risk), 
 					function($message) use ($email, $username, $email_spotA, $name_spotA) 
 					{
 							$message->from($email_spotA, $name_spotA)
