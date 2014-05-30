@@ -2,7 +2,8 @@
 class AccountController extends BaseController {
 
 	public function getSignIn() {
-		return View::make('home');
+		//return View::make('home');
+        return Redirect::route('home');
 	}
 
 	public function postSignIn() {

@@ -36,6 +36,7 @@ class CreateUsersTable extends Migration
 			$table->integer('residence_country_id')->unsigned();
 			$table->integer('nationality_country_id')->unsigned();
 			$table->integer('supervisor_id')->unsigned()->nullable();
+            $table->text('remember_token')->nullable();
 			
 			$table->foreign('age_id')
 				  ->references('id')->on('ages')
