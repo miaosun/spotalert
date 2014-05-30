@@ -281,8 +281,11 @@ button#search-glass {
     background-color: black;
     color: white;
 }
-.publ_header + br + hr {
-	margin-top:45px;
+
+@-moz-document url-prefix() {
+    .publ_header + br + hr  {
+        margin-top:40px;
+    }
 }
 /***************************************************************************************/
 /* |||||||||||||||||||||||||||   ALERT LEVEL 5  |||||||||||||||||||||||||||||||||||||||*/
