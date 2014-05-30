@@ -102,16 +102,22 @@ class UserPanelController extends BaseController {
         {
             $country_id = Input::get('country');
             $risk_level = Input::get('minimum_risk');
-            $notificationSetting = NotificationSetting::create(array(
-                'country_id'    => $country_id,
-                'risk'          => $risk_level,
-                'user_id'       => Auth::user()->getId()
-            ));
+            $notificationSetting = NotificationSetting::where('country_id','=',$country_id)->where('risk','=',$risk_level)->where('user_id','=',Auth::user()->getId())->first();
+            if($notificationSetting == null)
+            {
+                $notificationSetting = NotificationSetting::create(array(
+                    'country_id'    => $country_id,
+                    'risk'          => $risk_level,
+                    'user_id'       => Auth::user()->getId()
+                ));
 
-            if($notificationSetting) {
-                return Redirect::route('user-notifications')
-                    -> with('global', 'Notofication for Country and Minimum Risk Level added successfully!');
+                if($notificationSetting) {
+                    return Redirect::route('user-notifications')
+                        -> with('global', 'Notofication for Country and Minimum Risk Level added successfully!');
+                }
             }
+            else
+                return Redirect::route('user-notifications')-> with('global', 'Selected Country and Minimum Risk Level already exist in the list!');
         }
 
     }
@@ -133,6 +139,9 @@ class UserPanelController extends BaseController {
             $publication_id = Input::get('publication');
 
             $user = User::find(Auth::user()->getId());
+            if($user->publicationNotifications->contains($publication_id))
+                return Redirect::route('user-notifications')->with('global', 'Selected Publication already in the list!');
+
             $user->publicationNotifications()->attach($publication_id);
 
             if($user) {
