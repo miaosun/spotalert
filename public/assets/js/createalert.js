@@ -111,13 +111,13 @@ $(document).ready(function () {
         $('input[name=alert-languages]').val(lang);
     });
     
-    $(document).on("click", '#gallery li',function(){
-        var $this = $(this);
-        var image = $('> img', this).attr('src');
+    $(document).on("click", '.imgremove',function(){
+        var $image = $(this).prev();
+        var image = $(this).prev().attr('src');
         var filename = image.replace(/^.*[\\\/]/, '')
-        var pub = $('> img', this).attr('class');
-        $.post("/deleteimage/"+pub+"/"+filename ).done(function(){
-            $this.remove();
+        var pub = $(this).prev().attr('class');
+        $   .post("/deleteimage/"+pub+"/"+filename ).done(function(){
+            $image.remove();
             if($("#gallery").children().length == 0)
                 $("#uploaded").remove();
             alert("The image was deleted successufully.");

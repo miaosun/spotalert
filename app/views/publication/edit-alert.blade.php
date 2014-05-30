@@ -95,8 +95,9 @@
                                        <?php
                                             $info = new SplFileInfo($image);
                                             $imagename = $info->getFilename();
-                                        ?>                                        {{HTML::image("assets/images/publications/".$publication->id."/".$imagename, null, array('class' => $publication->id))}}
-                                        <p class="imgremove">{{Lang::get('create-alert.remove')}}</p>
+                                        ?>
+                                        <a href="{{"../../assets/images/publications/".$publication->id."/".$imagename }}" target="_blank">{{HTML::image("assets/images/publications/".$publication->id."/".$imagename, null, array('class' => $publication->id))}}</a>
+                                        <span class="imgremove glyphicon glyphicon-remove"></span>
                                     </li>
                                 @endforeach
                                 </ul>

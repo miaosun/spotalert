@@ -1371,20 +1371,11 @@ input[name=accept] {
 
 #create-alert #gallery li .imgremove {
     position: absolute;
+    background-color: white;
     top: 0;
-    bottom: 0;
-    left: 0;
+    color: #BF2333;
     right: 0;
-    background: rgba(29, 106, 154, 0.72);
-    color: #fff;
-    
-    visibility: hidden;
-    opacity: 0; 
-}
-
-#create-alert #gallery li img:hover .imgremove {
-    visibility: visible;
-    opacity: 1;
+    border: 1px solid #BF2333;
 }
 
 /* ****-- Notifications deatils */
