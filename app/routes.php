@@ -96,12 +96,7 @@ Route::group(array('prefix' => 'publications'), function()
 	))
     ->where('publ_id', '[0-9]+');
 });
-/*
-Route::get('/user/{username}', array(
-    'as' => 'profile-user',
-    'uses' => 'ProfileController@user'
-));
-*/
+
         
 // show create alert (GET)
 Route::get('/publication/create-alert', array(

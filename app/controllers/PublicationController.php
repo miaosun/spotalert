@@ -700,11 +700,12 @@ class PublicationController extends BaseController
         $languages = json_decode(Input::get('alert-languages'), true);
         $languages_toarray = [];
 
+        $en_id = Language::where('name','=','English')->first()->id;
         //publication content in english
         $pub_content1 = [
             'title' => Input::get('guideline-title'),
             'content' => Input::get('guideline-description'),
-            'language_id' => 1, //language id
+            'language_id' => $en_id, //language id
             'publication_id' => null, //defined at insertion in db*
         ];
 
@@ -788,13 +789,13 @@ class PublicationController extends BaseController
 				        // If there notifications to send, send it
                 $this->checkCreateNotification($publication);
 
-                return Redirect::to('/')->with('global', 'Alert was created!');
+                return Redirect::to('/')->with('global', 'Guideline was created!');
             }
             else
-                return Redirect::route('create-alert')->withErrors($valid_content)->withInput();
+                return Redirect::back()->withErrors($valid_content)->withInput();
         }
         else
-            return Redirect::route('create-alert')->withErrors($valid_publication)->withInput();            
+            return Redirect::back()->withErrors($valid_publication)->withInput();            
     }
 
     public function checkCreateNotification($publication)
@@ -871,30 +872,32 @@ class PublicationController extends BaseController
         $languages = json_decode(Input::get('alert-languages'), true);
         $languages_toarray = [];
 
-        
-        $publication_content1 = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,1])->first();
+        $en_id = Language::where('name','=','English')->first()->id;
+        $publication_content1 = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,$en_id])->first();
         //publication content in english
         $publication_content1->title = Input::get('alert-title');
         $publication_content1->content = Input::get('alert-description');
-        $publication_content1->language_id = 1; //language id
+        $publication_content1->language_id = $en_id; //language id
         $publication_content1->publication_id = null; //defined at insertion in db*
 
         
-
-        foreach($languages as $key => $lang) {
-            
-            $publication_content = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,$lang])->first();
-            
-            if($publication_content){
-                //create the publication content
-                $publication_content->title = Input::get("alert-title".$lang);
-                $publication_content->content = Input::get("alert-description".$lang);
-                $publication_content->language_id = $lang; //language id
-                $publication_content->publication_id = $id; //defined at insertion in db*
-                
-                
-                $languages_toarray[$key] = $publication_content;
-            }
+        if($languages)
+        {
+          foreach($languages as $key => $lang) {
+              
+              $publication_content = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,$lang])->first();
+              
+              if($publication_content){
+                  //create the publication content
+                  $publication_content->title = Input::get("alert-title".$lang);
+                  $publication_content->content = Input::get("alert-description".$lang);
+                  $publication_content->language_id = $lang; //language id
+                  $publication_content->publication_id = $id; //defined at insertion in db*
+                  
+                  
+                  $languages_toarray[$key] = $publication_content;
+              }
+          }
         }
         
         $publication->save();
@@ -910,16 +913,19 @@ class PublicationController extends BaseController
             $lang->save();
         }
         //create the constraints in the database
+        $publication->guidelines()->detach();
         if(!empty($alert_guidelines)){
             foreach ($alert_guidelines as $guideline_id) {
                 $publication->guidelines()->attach($guideline_id);
             }
         }
+        $publication->eventTypes()->detach();
         if(!empty($alert_types)){
             foreach ($alert_types as $types_id) {
                 $publication->eventTypes()->attach($types_id);
             }
         }
+        $publication->affectedCountries()->detach();
         if(!empty($alert_countries)){
             foreach ($alert_countries as $country_id) {
                 $publication->affectedCountries()->attach($country_id);
@@ -960,30 +966,32 @@ class PublicationController extends BaseController
         $languages = json_decode(Input::get('guideline-languages'), true);
         $languages_toarray = [];
 
-
-        $publication_content1 = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,1])->first();
+        $en_id = Language::where('name','=','English')->first()->id;
+        $publication_content1 = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,$en_id])->first();
         //publication content in english
         $publication_content1->title = Input::get('guideline-title');
         $publication_content1->content = Input::get('guideline-description');
-        $publication_content1->language_id = 1; //language id
+        $publication_content1->language_id = $en_id; //language id
         $publication_content1->publication_id = null; //defined at insertion in db*
 
 
+        if($languages)
+        {
+          foreach($languages as $key => $lang) {
 
-        foreach($languages as $key => $lang) {
+              $publication_content = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,$lang])->first();
 
-            $publication_content = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,$lang])->first();
-
-            if($publication_content){
-                //create the publication content
-                $publication_content->title = Input::get("guideline-title".$lang);
-                $publication_content->content = Input::get("guideline-description".$lang);
-                $publication_content->language_id = $lang; //language id
-                $publication_content->publication_id = $id; //defined at insertion in db*
+              if($publication_content){
+                  //create the publication content
+                  $publication_content->title = Input::get("guideline-title".$lang);
+                  $publication_content->content = Input::get("guideline-description".$lang);
+                  $publication_content->language_id = $lang; //language id
+                  $publication_content->publication_id = $id; //defined at insertion in db*
 
 
-                $languages_toarray[$key] = $publication_content;
-            }
+                  $languages_toarray[$key] = $publication_content;
+              }
+          }
         }
 
         $publication->save();
@@ -999,16 +1007,19 @@ class PublicationController extends BaseController
             $lang->save();
         }
         //create the constraints in the database
+        $publication->guidelines()->detach();
         if(!empty($guideline_alerts)){
             foreach ($guideline_alerts as $alert) {
                 $publication->guidelines()->attach($guideline_id);
             }
         }
+        $publication->eventTypes()->detach();
         if(!empty($guideline_types)){
             foreach ($guideline_types as $types_id) {
                 $publication->eventTypes()->attach($types_id);
             }
         }
+        $publication->eventTypes()->detach();
         if(!empty($guideline_countries)){
             foreach ($guideline_countries as $country_id) {
                 $publication->affectedCountries()->attach($country_id);

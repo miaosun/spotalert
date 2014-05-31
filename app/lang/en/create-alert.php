@@ -26,7 +26,7 @@ return array(
         "duration"           => "DURATION",
         "eventrisk"          => "EVENT RISK",
         "eventtype"          => "EVENT TYPE",
-        "visibility"         => "EVENT RISK",
+        "visibility"         => "VISIBILITY",
         "guidelines"         => "GUIDELINES",
         "alerts"             => "ALERTS"
     ),

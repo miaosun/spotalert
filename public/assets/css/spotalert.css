@@ -94,7 +94,7 @@ header .row-header > div#language {
     padding-top: 30px;
     background-color:#f2f2f2;
     width: 100%;
-    min-height:1000px;
+    min-height:550px;
 }
 
 @media (max-width:991px) {
@@ -281,8 +281,11 @@ button#search-glass {
     background-color: black;
     color: white;
 }
-.publ_header + br + hr {
-	margin-top:45px;
+
+@-moz-document url-prefix() {
+    .publ_header + br + hr  {
+        margin-top:40px;
+    }
 }
 /***************************************************************************************/
 /* |||||||||||||||||||||||||||   ALERT LEVEL 5  |||||||||||||||||||||||||||||||||||||||*/
@@ -840,12 +843,13 @@ input[name=accept] {
 
 .radiobutton .option {
     border-right: 1px solid #BF2333;
-    text-align: center;
+    text-align: left;
     color: #666666;
+    
 }
 
 .radiobutton .glyphicon  {
-    text-align: center;
+    text-align: left;
     display: inherit;
     padding: 0;
     margin-top: 2px
@@ -858,7 +862,13 @@ input[name=accept] {
     color: #BF2333;
 }
 
+.radiobutton .col-md-9 {
+	width:82%;
+}
 
+.radiobutton .col-md-3 {
+	width:18%;
+}
 #controlpanel span {
     font-size: 12px;
     color: red;
@@ -1087,6 +1097,8 @@ input[name=accept] {
     border-bottom: 1px dashed  #BF2333;
     display: inline-block;
     position: relative;
+    float: left;
+    clear: left;
 }
 #controlpanel .dropdownlist
 {
@@ -1100,6 +1112,11 @@ input[name=accept] {
 {
     position: relative;
     margin-top: 5px;
+}
+
+.custom-upload img {
+    float: left;
+    clear: left;
 }
 
 #controlpanel .custom-upload input[type=file]
@@ -1212,7 +1229,7 @@ input[disabled=disabled] {
 .general_panel h1{
     background-color:#BF2333;
     color: white;
-    margin: 0px -30px 2% 0px;
+    margin: 0px 0px 2% 0px;
     padding-left: 5%;
     line-height:200%;
     font-size:  1.1em;
@@ -1295,7 +1312,10 @@ input[disabled=disabled] {
 
 .general_panel span {
     font-size:12px;
-    color:red;
+    color:gray;
+}
+#alert-tabs .tab-content h1{
+ margin: 0px -30px 2% 0px;
 }
 
 /*****-- Contact detail */
@@ -1749,4 +1769,12 @@ label {
     /* IE 10+ */
     color: #666666 !important;
     opacity; 1;
+}
+
+#not_found_404 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -50px;
+    margin-left: -100px;
 }

@@ -92,7 +92,7 @@ function filtering()
 			countries = addText('#filt .filter-country.selected');
 
 		// Let's retrieve the publications
-		$.get('/publications/filter', 
+		$.get('/publications/filter',
 			  { 'risks': risks, 'event_types': eventTypes, 'affected_countries': countries},
 			  function() { $('#main').html('<div class="ajax-loading"></div>' + loading_message);})
 			.done(function( data ) 
@@ -244,7 +244,7 @@ function getPublicationContent(id)
 		togglePubBtn(id);
 	else
 	{
-	    jQuery.getJSON("publications/content/"+id,function(data){
+	    jQuery.getJSON("/publications/content/"+id,function(data){
 	        // fill description
 	        $('#publ-'+id+' .publ-content p').html(data.content);
             // fill images

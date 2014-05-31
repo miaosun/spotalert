@@ -35,7 +35,7 @@
                     <tbody>
                     @foreach ($comments as $comment)
                     <tr>
-                        <td>{{{$comment->title}}}</td>
+                        <td>{{{$comment->publication->contents->first()->title}}}</td>
                         <td class="readcomment">
                             <div class="comment-readmore">{{{$comment->content}}}<br>
                             @if($images[$comment->id]['img'] != null)
@@ -44,9 +44,9 @@
                             </div>
                             <a href="#" class="readmore">{{ Lang::get('controlpanel.comments.readmore') }}</a>
                         </td>
-                        <td>{{{$comment->username}}}</td>
+                        <td>{{{$comment->author()->first()->username}}}</td>
                         <td>{{{$comment->created_at}}}</td>
-                        <td>{{{$comment->risk}}}</td>
+                        <td>{{{$comment->publication->risk}}}</td>
                         <td>
                             <a class="glyphicon glyphicon-ok aprove" href="{{ URL::route('comment-approved', $comment->id) }}"></a>
                             <a class="glyphicon glyphicon-remove close-button"href="{{ URL::route('comment-deleted', $comment->id) }}"></a>
