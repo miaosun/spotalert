@@ -21,7 +21,7 @@
 
         @if(Auth::check())
         <div class="col-md-1 col-sm-1 signout">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->username }}<b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><div id="username_length">{{ Auth::user()->username }}</div><b class="caret"></b></a>
 
             <div class="dropdown-menu">
                 <li><a href="{{ URL::route('control-panel')}}">{{Lang::get('home.menu.profile')}}</a></li>
