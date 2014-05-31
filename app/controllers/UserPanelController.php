@@ -333,8 +333,8 @@ class UserPanelController extends BaseController {
 		{	
 			if(Input::has('newpassword'))
 			{
-				//$profile->password = Hash::make(Input::get('newpassword'));
-				$profile->password = Input::get('newpassword');
+				$profile->password = Hash::make(Input::get('newpassword'));
+				//$profile->password = Input::get('newpassword');
 			}
 			if(Input::has('username'))
 			{
@@ -416,10 +416,10 @@ class UserPanelController extends BaseController {
     {
         return Validator::make(Input::all(),
             array(
-                'newpassword'=>'Required|AlphaNum|min:4|Confirmed',
+                'newpassword'=>'Required|AlphaNum|min:6|Confirmed',
                 'newpassword_confirmation'=>'Required|AlphaNum|min:4',
-                'email'          => 'required|max:50|email|unique:users',
-                'username'       => 'required|max:20|min:3|unique:users',
+                'email'          => 'max:50|email|unique:users',
+                'username'       => 'max:20|min:3|unique:users',
                 'firstname'      => 'max:20',
                 'lastname'       => 'max:20',
                 'phonenumber'    => 'max:20',
