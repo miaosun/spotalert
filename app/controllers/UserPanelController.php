@@ -318,7 +318,6 @@ class UserPanelController extends BaseController {
 	/* update user profile data  */
 	public function updateprofile() 
 	{
-		// TODO fix to auth:user
 		$profile = User::find(Auth::user()->getId());
 
 		if(Input::has('newpassword'))
@@ -394,7 +393,6 @@ class UserPanelController extends BaseController {
     
 	private function validate() 
 	{
-		//FIX and complete with more rules
         return Validator::make(Input::all(),
             array(
                 'email'          => 'max:50|email|unique:users',
