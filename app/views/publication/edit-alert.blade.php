@@ -86,7 +86,7 @@
                         </div>
                         
                         @if(!empty($imagesupl))
-                        <div id="uploaded" class="row">
+                        <div id="uploaded" class="row pub">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.already_uploaded')}}</h5>
                                 <ul id="gallery">

@@ -111,12 +111,29 @@ $(document).ready(function () {
         $('input[name=alert-languages]').val(lang);
     });
     
-    $(document).on("click", '.imgremove',function(){
+    $(document).on("click", '.eye .imgremove',function(){
+        var $image = $(this).parent();
+        var image = $(this).prev().attr('href');
+        console.log(image);
+        var filename = image.replace(/^.*[\\\/]/, '');
+        console.log(filename);
+        var eye = $(this).prev().children('img').attr('class');
+        $.post("/deleteimagew/"+eye+"/"+filename).done(function(){
+            $image.remove();
+            if($("#gallery").children().length == 0)
+                $("#uploaded").remove();
+            alert("The image was deleted successufully.");
+        }).fail(function(){
+            alert( "Something went wrong. The image was not deleted." );
+        });
+    });
+    
+    $(document).on("click", '.pub .imgremove',function(){
         var $image = $(this).prev();
         var image = $(this).prev().attr('src');
         var filename = image.replace(/^.*[\\\/]/, '')
         var pub = $(this).prev().attr('class');
-        $   .post("/deleteimage/"+pub+"/"+filename ).done(function(){
+        $.post("/deleteimage/"+pub+"/"+filename ).done(function(){
             $image.remove();
             if($("#gallery").children().length == 0)
                 $("#uploaded").remove();
