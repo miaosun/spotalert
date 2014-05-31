@@ -54,12 +54,15 @@
                         {{ Form::text('username',null, array('id'=>'username', 'placeholder'=>Lang::get('controlpanel.privileges.name'))) }}
                         @endif
                         <button type="submit" class="glyphicon glyphicon-search" id="username"></button>
+                        {{ Form::close() }}
+
+                        {{ Form::open(array('route' => 'selectedEmail-privileges')) }}
                         @if($selected)
                         {{ Form::text('email', $selectedUser->email, array('id'=>'email','placeholder'=>Lang::get('controlpanel.privileges.email'))) }}
                         @else
                         {{ Form::text('email', null, array('id'=>'email','placeholder'=>Lang::get('controlpanel.privileges.email'))) }}
                         @endif
-                        <button type="submit" class="glyphicon glyphicon-search" id="username"></button>
+                        <button type="submit" class="glyphicon glyphicon-search" id="email"></button>
                     </div>
                     {{ Form::close() }}
                     @if($selected)
@@ -76,16 +79,14 @@
                             @elseif($user->type == 'manager')
                             {{ Form::select('permissions', array( 'normal' => 'Normal', 'publisher' => 'Publisher'), $selectedUser->type, array('class'=>'styled')) }}
                             @endif
-                        @else
-                        {{ Form::text('department', null, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
-                        <span class="glyphicon glyphicon-edit edit-btn-priv"></span><br>
-                        {{ Form::text('permissions', null, array('class'=>'styled','disabled'=>'disabled','placeholder'=>Lang::get('controlpanel.privileges.permissions'))) }}
                         @endif
                     </div>
                 </div>
+                @if($selected)
                 <div class="col-md-2 col-md-offset-7">
                     {{ Form::submit(Lang::get('controlpanel.privileges.add')) }}
                 </div>
+                @endif
                 @if($selected && $user->type == 'admin')
                 <div class="col-md-2 col-md-offset-0" id="delete">
                     <button type="button" class="btn btn-warning btn-danger button-delete" data-toggle="modal" data-target=".delete-account">

@@ -241,6 +241,11 @@ Route::group(array('before' => 'auth'), function() {
         'uses' => 'UserPanelController@getPrivilegesWithUser'
     ));
 
+    Route::post('/user/privileges/selected/email', array(
+        'as' => 'selectedEmail-privileges',
+        'uses' => 'UserPanelController@getPrivilegesWithEmail'
+    ));
+
     Route::post('/user/privileges/{username}', array(
         'as' => 'update-privileges',
         'uses' => 'UserPanelController@updatePrivileges'

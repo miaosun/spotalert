@@ -25,10 +25,26 @@ class UserPanelController extends BaseController {
         $profile = User::find(Auth::user()->getId());
         $users_with_permissions = User::where('type','<>', 'normal')->get();
 
-        if(Input::has('username') || Input::has('email'))
+        if(Input::has('username'))
         {
             if(Input::has('username'))
                 $selectedUser = User::where('username', '=', Input::get("username"))->first();
+
+            if($selectedUser == null)
+                return Redirect::route('user-privileges')->with('global', 'User doesn\'t exists, try again!');
+            $selected = true;
+            return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_with_permissions'=>$users_with_permissions));
+        }
+        else
+            return Redirect::route('user-privileges');
+    }
+
+    public function getPrivilegesWithEmail() {
+        $profile = User::find(Auth::user()->getId());
+        $users_with_permissions = User::where('type','<>', 'normal')->get();
+
+        if(Input::has('email'))
+        {
             if(Input::has('email'))
                 $selectedUser = User::where('email', '=', Input::get("email"))->first();
             if($selectedUser == null)
