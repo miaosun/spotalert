@@ -1778,3 +1778,8 @@ label {
     margin-top: -50px;
     margin-left: -100px;
 }
+
+#username_length {
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
