@@ -62,7 +62,7 @@ class UserPanelController extends BaseController {
         if($profile->username == $username)
             return Redirect::route('user-privileges')->with('global', 'Change failed! Select a user first!');
 
-        DB::update('update users set type = ? where username = ?', array(Input::get('permissions'), $username));
+        DB::update('update users set organization=?, type = ? where username = ?', array(Input::get('department'), Input::get('permissions'), $username));
 
         return Redirect::route('user-privileges')->with('global', 'Changes made with success!');
     }
