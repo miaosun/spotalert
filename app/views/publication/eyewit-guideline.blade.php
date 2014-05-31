@@ -79,7 +79,7 @@
 $info = new SplFileInfo($image);
 $imagename = $info->getFilename();
 ?>
-                                        <a href="{{"../../assets/images/eyewitnesses" .$eyewitness->id."/".$imagename }}" target="_blank">{{HTML::image("assets/images/eyewitnesses".$eyewitness->id."/".$imagename, null, array('class' => $publication->id))}}</a>
+                                        <a href="{{"../../assets/images/eyewitnesses".$eyewitness->id."/".$imagename}}" target="_blank">{{HTML::image("assets/images/eyewitnesses".$eyewitness->id."/".$imagename, null, array('class' => $eyewitness->id))}}</a>
                                         <span class="imgremove glyphicon glyphicon-remove"></span>
                                     </li>
                                     @endforeach
@@ -152,6 +152,7 @@ $imagename = $info->getFilename();
                                 {{ Form::select('guideline-alerts[]', $alert_options, null,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.alerts')))}}
                             </div>
                         </div>
+                        <input type="hidden" name="eyewitness-previous" display="none" value="{{$eyewitness->id}}">
                         <input type="hidden" name="alert-languages" display="none">
                         <div class="row last-row">
                             <div class="col-md-4" id="mand_field">
