@@ -629,11 +629,15 @@ class PublicationController extends BaseController
                 
                 if(Input::has('eyewitness-previous'))
                 {
-                    $images_directory = public_path()."\assets\images\eyewitnesses".Input::get('eyewitness-previous');
+                    $images_directory = public_path()."/assets/images/eyewitnesses".Input::get('eyewitness-previous');
                     
                     $images = array();
-                    foreach(glob($images_directory.'/*.*') as $k => $file) {
-                        rename ( $file , public_path()."\assets\images\publications\" . $publication->id . "\\" . $k . '.jpg');
+                    foreach(glob($images_directory.'/*.*') as $k => $file) 
+                    {
+                      $destinationPath = public_path()."/assets/images/publications/" . $publication->id . "/";
+                      if(!File::exists($destinationPath))
+                          File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
+                        rename ( $file , $destinationPath . $k . '.jpg');
                     }
                 }
                 
