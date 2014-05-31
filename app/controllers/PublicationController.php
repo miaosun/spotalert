@@ -639,6 +639,8 @@ class PublicationController extends BaseController
                           File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
                         rename ( $file , $destinationPath . $k . '.jpg');
                     }
+                    
+                    Eyewitness::find(Input::get('eyewitness-previous'))->delete();
                 }
                 
                 $publication_content1->publication_id = $publication->id;
@@ -765,6 +767,22 @@ class PublicationController extends BaseController
                         $extension = $image->guessExtension();
                         $image->move($destinationPath, $i . '.' . $extension );
                     }
+                }
+                
+                if(Input::has('eyewitness-previous'))
+                {
+                    $images_directory = public_path()."/assets/images/eyewitnesses".Input::get('eyewitness-previous');
+
+                    $images = array();
+                    foreach(glob($images_directory.'/*.*') as $k => $file) 
+                    {
+                        $destinationPath = public_path()."/assets/images/publications/" . $publication->id . "/";
+                        if(!File::exists($destinationPath))
+                            File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
+                        rename ( $file , $destinationPath . $k . '.jpg');
+                    }
+
+                    Eyewitness::find(Input::get('eyewitness-previous'))->delete();
                 }
                 
                 $publication_content1->publication_id = $publication->id;
