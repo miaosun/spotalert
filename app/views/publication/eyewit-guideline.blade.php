@@ -137,11 +137,11 @@ $imagename = $info->getFilename();
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.visibility')}}</h5>
-                                <div class="inrow">
-                                    <span>{{Lang::get('create-alert.labels.public')}}</span>
-                                    {{ Form::radio('guideline-visibility', 1, false)}}
-                                    <span>{{Lang::get('create-alert.labels.hidden')}}</span>
-                                    {{Form::radio('guideline-visibility', 0, true);}}
+                                <div class="inrow visibility">
+                                    {{ Form::radio('guideline-visibility', 1, false, array('id'=>'public-o', 'style' => 'display:none;')) }}
+                                    {{ Form::radio('guideline-visibility', 0, true, array('id'=>'hidden-o', 'style' => 'display:none;')) }}
+                                    <div class="col-md-5 col-sm-5 radiobutton"><div class="col-md-9 option">{{Lang::get('create-alert.labels.public')}}</div><div class="col-md-3 glyphicon public-o"></div></div>
+                                    <div class="col-md-5 col-sm-5 col-md-offset-1 radiobutton"><div class="col-md-9 option">{{Lang::get('create-alert.labels.hidden')}}</div><div class="col-md-3 glyphicon hidden-o glyphicon-remove"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +149,7 @@ $imagename = $info->getFilename();
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.alerts')}}</h5>
-                                {{ Form::select('guideline-alerts[]', $alert_options, null,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.alerts')))}}
+                                {{ Form::select('guideline-alerts[]', $guideline_options, null,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.alerts')))}}
                             </div>
                         </div>
                         <input type="hidden" name="eyewitness-previous" display="none" value="{{$eyewitness->id}}">

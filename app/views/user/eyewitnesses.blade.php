@@ -53,7 +53,7 @@
                         </td>
                         <!-- FIXME: Redirect to create-alert/create-guideline -->
                         <td>
-                            {{ Form::open(array('url' => '/publication/eyewit-guideline/'.$eyewit->id, 'method' => 'post')) }}
+                            {{ Form::open(array('url' => '/publication/eyewit-alert/'.$eyewit->id, 'method' => 'post')) }}
                         {{ Form::submit('ALERT') }}
                         {{ Form::token() }} 
                         {{ Form::close() }}

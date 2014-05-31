@@ -283,7 +283,7 @@ function getPublicationContent(id)
                     //if exist photo
 	                if(data.comments[i].img.length != 0)
                     {
-                        links = links +"<div class='comments-imgs'><a href="+data.comments[i].img.url+"'>\
+                        links = links +"<div class='comments-imgs'><a href=\""+data.comments[i].img.url+"\">\
                                         <img src='"+data.comments[i].img.url+"'alt='"+data.comments[i].img.alt+"'/>\
                                         </a></div>"
                     }

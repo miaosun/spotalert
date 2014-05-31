@@ -292,7 +292,7 @@ class PublicationController extends BaseController
                 array_push($images,$file);
             }
 
-            return View::make('publication.eyewit-alert')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options)->with('eyewitness',$eyewitness)->with('countries',$countries)->with('imagesupl',$images);
+            return View::make('publication.eyewit-guideline')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options)->with('eyewitness',$eyewitness)->with('countries',$countries)->with('imagesupl',$images);
         }
         else
             return Redirect::route('home')->with('global', "You're either not registered or you do not have enough privileges.");           
