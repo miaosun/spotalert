@@ -1041,7 +1041,7 @@ class PublicationController extends BaseController
                 $publication->eventTypes()->attach($types_id);
             }
         }
-        $publication->eventTypes()->detach();
+        $publication->affectedCountries()->detach();
         if(!empty($guideline_countries)){
             foreach ($guideline_countries as $country_id) {
                 $publication->affectedCountries()->attach($country_id);
