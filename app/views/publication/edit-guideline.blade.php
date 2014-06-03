@@ -69,7 +69,7 @@ unset($language_options[$lang_index]);
 
             <div class="row tab-content" >
                 <div class="tab-pane fade in active" id="alert_english">
-                    <h1>{{Lang::get('create-alert.edit_alert')}}</h1>
+                    <h1>{{Lang::get('create-alert.edit_guideline')}}</h1>
                     <div class="col-md-5 col-sm-5 col-md-offset-0" id="moveright">
                         <div class="row">
                             <div class="col-md-12 col-sm-12">

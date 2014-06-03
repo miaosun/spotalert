@@ -1029,7 +1029,7 @@ class PublicationController extends BaseController
             $lang->save();
         }
         //create the constraints in the database
-        $publication->guidelines()->detach();
+        $publication->alerts()->detach();
         if(!empty($guideline_alerts)){
             foreach ($guideline_alerts as $alert) {
                 $publication->guidelines()->attach($guideline_id);
