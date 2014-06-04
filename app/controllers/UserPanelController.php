@@ -104,14 +104,14 @@ class UserPanelController extends BaseController {
     public function deleteNotification($id)
     {
         NotificationSetting::find($id)->delete();
-        return Redirect::route('user-notifications')->with('global', 'Notification Setting deleted successfully!');
+        return Redirect::route('user-notifications');
     }
 
     public function deletePublication($id)
     {
         $user = User::find(Auth::user()->getId());
         $user->publicationNotifications()->detach($id);
-        return Redirect::route('user-notifications')->with('global', 'Notification for selected Publication deleted successfully!');
+        return Redirect::route('user-notifications');
     }
 
     public function addCountryRisk() {
@@ -140,12 +140,11 @@ class UserPanelController extends BaseController {
                 ));
 
                 if($notificationSetting) {
-                    return Redirect::route('user-notifications')
-                        -> with('global', 'Notification for Country and Minimum Risk Level added successfully!');
+                    return Redirect::route('user-notifications');
                 }
             }
             else
-                return Redirect::route('user-notifications')-> with('global', 'Selected Country and Minimum Risk Level already exist in the list!');
+                return Redirect::route('user-notifications');
         }
 
     }
@@ -173,8 +172,7 @@ class UserPanelController extends BaseController {
             $user->publicationNotifications()->attach($publication_id);
 
             if($user) {
-                return Redirect::route('user-notifications')
-                    -> with('global', 'Notification for selected Publication successfully added!');
+                return Redirect::route('user-notifications');
             }
         }
     }
@@ -213,7 +211,7 @@ class UserPanelController extends BaseController {
     public function approveComment($id) {
         DB::update('update comments set approved = ? where id = ?', array('true', $id));
 
-        return Redirect::route('user-comments')->with('global', 'Comment approved with success!');
+        return Redirect::route('user-comments');
     }
 
     public function deleteComment($id) 
@@ -222,7 +220,7 @@ class UserPanelController extends BaseController {
        { 
         Comment::destroy($id);
         //Comment::where('id', '=', $id)->delete();
-        return Redirect::route('user-comments')->with('global', 'Comment deleted with success!');
+        return Redirect::route('user-comments');
        }
         else
             return 'No Autorization';
@@ -395,7 +393,7 @@ class UserPanelController extends BaseController {
             //return Response::json(array("teste"=>$uploadSuccess));
 			//TODO verificar porque nao está a fazer upload do uploadfile <----
 			if($profile->save() && $uploadSuccess)
-                return Redirect::route('control-panel')->with('global','Update with success!')->withErrors($valid);
+                return Redirect::route('control-panel')->withErrors($valid);
 			else
                 return Redirect::route('control-panel')->with('global',"Update without sucess! Can't save model!")->withErrors($valid);
 		}

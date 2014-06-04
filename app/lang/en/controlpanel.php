@@ -45,7 +45,7 @@ return array(
         "add_publishers" => "ADD PUBLISHERS",
         "managers"       => "MANAGERS",
         "department"     => "DEPARTMENT",
-        "name"           => "NAME",
+        "name"           => "USERNAME",
         "location"       => "LOCATION",
         "member_since"   => "MEMBER SINCE",
         "add"            => "ADD",

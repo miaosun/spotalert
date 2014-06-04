@@ -261,7 +261,7 @@ function getPublicationContent(id)
                 $('#publ-'+id+' .publ-content span.number-linked').html(data.pubLinked.length);
 	            var links = "";
 	            for(var i = 0; i < data.pubLinked.length ; i++){
-	                links = links + "<p><a href='"+id+"'>"+data.pubLinked[i].title+"</a>";
+	                links = links + "<p><a href='"+data.pubLinked[i].id+"'>"+data.pubLinked[i].title+"</a>";
 	            }
 	            $('#publ-'+id+' .publ-content .publ-linked-toggle').html(links);
 	        }

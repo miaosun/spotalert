@@ -305,20 +305,20 @@ class PublicationController extends BaseController
 	 */
 	public static function getInitialPublications()
 	{
-		$stmt = Publication::with(array(
-			'contents',
-			'contents.language',
-			'affectedCountries',
-			'eventTypes')
-			);
+        $stmt = Publication::with(array(
+            'contents',
+            'contents.language',
+            'affectedCountries',
+            'eventTypes')
+            );
 
-		if(!Auth::check() || Auth::user()->type == 'normal')
-			$stmt->where('is_public', '=', true);
+        if(!Auth::check() || Auth::user()->type == 'normal')
+            $stmt->where('is_public', '=', true);
 
-		$publications = $stmt->orderBy('risk', 'desc')->get();
+        $publications = $stmt->orderBy('risk', 'desc')->get();
 
-		$publications_ini = self::makeSimpleAnswer($publications);
-		$publications = array_slice($publications_ini, 0, self::$initial_publications);
+        $publications_ini = self::makeSimpleAnswer($publications);
+        $publications = array_slice($publications_ini, 0, self::$initial_publications);
 
 		if(count($publications_ini) > count($publications)) //More publications to see
       		return View::make('home')->with('publications', $publications)
@@ -327,6 +327,31 @@ class PublicationController extends BaseController
       	else
       		return View::make('home')->with('publications', $publications);
 	}
+
+    private static function getInitialPublicationsJustArray()
+    {
+        $stmt = Publication::with(array(
+            'contents',
+            'contents.language',
+            'affectedCountries',
+            'eventTypes')
+            );
+
+        if(!Auth::check() || Auth::user()->type == 'normal')
+            $stmt->where('is_public', '=', true);
+
+        $publications = $stmt->orderBy('risk', 'desc')->get();
+
+        $publications_ini = self::makeSimpleAnswer($publications);
+        $publications = array_slice($publications_ini, 0, self::$initial_publications);
+
+        if(count($publications_ini) > count($publications)) //More publications to see
+            return View::make('includes.publications')->with('publications', $publications)
+                                    ->with('next_page', 2)
+                                    ->with('type', 'normal');
+        else
+            return View::make('includes.publications')->with('publications', $publications);
+    }
 
 	public function getNextPage($next_page)
 	{
@@ -448,7 +473,7 @@ class PublicationController extends BaseController
 
 		// If it's all null, we should get all the publications as usual
 		if($risks == NULL && $event_types == NULL && $affected_countries == NULL)
-			return self::getInitialPublications();
+            return self::getInitialPublicationsJustArray();
 		else
 		{
 			$risks2 			 = explode(',', $risks);
