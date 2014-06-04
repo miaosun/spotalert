@@ -43,13 +43,13 @@
 						{{ Form::label('newpassword',Lang::get('controlpanel.profile.password.new'), array('class' => 'label')) }}
 						{{ Form::password('newpassword') }}
                         @if($errors->has('newpassword'))
-                        <br><span>{{ $errors->first('newpassword') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('newpassword') }}</span>
                         @endif
 
 						{{ Form::label('newmpassword_confirmation',Lang::get('controlpanel.profile.password.confirm'), array('class' => 'label')) }}
 						{{ Form::password('newpassword_confirmation') }}
                         @if($errors->has('newpassword_confirmation'))
-                        <br><span>{{ $errors->first('newpassword_confirmation') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('newpassword_confirmation') }}</span>
                         @endif
 						{{ Form::submit(Lang::get('controlpanel.profile.okbutton')) }}
 					</div>
@@ -66,7 +66,7 @@
 					       <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('username'))
-                        <br><span>{{ $errors->first('username') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('username') }}</span>
                         @endif
                     </div>
 				</div>	
@@ -80,14 +80,14 @@
 						  <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('firstname'))
-                        <br><span>{{ $errors->first('firstname') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('firstname') }}</span>
                         @endif
                         <div class="dotline" id="lastname">
                             {{ Form::text('lastname',$user->lastname,array('disabled' => 'disabled','placeholder'=>'Insert secondname')) }}
 					       <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('lastname'))
-                        <br><span>{{ $errors->first('lastname') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('lastname') }}</span>
                         @endif
                     </div>
 				</div>
@@ -101,7 +101,7 @@
                             <span class="glyphicon glyphicon-edit editbutton"></span>
 					   </div>
                         @if($errors->has('residence'))
-                        <br><span>{{ $errors->first('residence') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('residence') }}</span>
                         @endif
                     </div>
 				</div>
@@ -115,7 +115,7 @@
                             <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('nationality'))
-                        <br><span>{{ $errors->first('nationality') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('nationality') }}</span>
                         @endif
 					</div>
 				</div>
@@ -129,7 +129,7 @@
                             <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('agerange'))
-                        <br><span>{{ $errors->first('agerange') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('agerange') }}</span>
                         @endif
 					</div>
 				</div>
@@ -143,7 +143,7 @@
 					       <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('email'))
-                        <br><span>{{ $errors->first('email') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('email') }}</span>
                         @endif
                     </div>
 				</div>
@@ -157,7 +157,7 @@
                             <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('phonenumber'))
-                        <br><span>{{ $errors->first('phonenumber') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('phonenumber') }}</span>
                         @endif
                     </div>
 				</div>
@@ -171,21 +171,21 @@
                             <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('address'))
-                        <br><span>{{ $errors->first('address') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('address') }}</span>
                         @endif
                         <div class="dotline" id="city">
 						  {{ Form::text('city',$user->city,array('disabled' => 'disabled','placeholder'=>'Insert city')) }}
                             <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('city'))
-                        <br><span>{{ $errors->first('city') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('city') }}</span>
                         @endif
                         <div class="dotline" id="postalcode">
 						  {{ Form::text('postalCode',$user->postalCode,array('disabled' => 'disabled','placeholder'=>'Insert postalCode')) }}
                             <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('postalCode'))
-                        <br><span>{{ $errors->first('postalCode') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('postalCode') }}</span>
                         @endif
 					</div>
 				</div>

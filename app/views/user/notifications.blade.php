@@ -29,13 +29,13 @@
                     <div class="col-md-3 col-md-offset-0 resid-drop">
                         {{ Form::select('country', $country_options , Input::old('country'), array('class' => 'styled')) }}
                         @if($errors->has('country'))
-                        <br><span>{{ $errors->first('region') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('region') }}</span>
                         @endif
                     </div>
                     <div class="col-md-3 col-md-offset-0 resid-drop">
                         {{ Form::select('minimum_risk', array('placeholder' => Lang::get('controlpanel.notifications.minimum_risk'), '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5'), null, array('class' => 'styled')) }}
                         @if($errors->has('region'))
-                        <br><span>{{ $errors->first('region') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('region') }}</span>
                         @endif
                     </div>
                     <div class="col-md-2 col-md-offset-0">
@@ -66,7 +66,7 @@
                     <div class="col-md-3 col-md-offset-0 resid-drop">
                         {{ Form::select('publication', $publication_options , Input::old('publication'), array('class' => 'styled')) }}
                         @if($errors->has('publication'))
-                        <br><span>{{ $errors->first('publication') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('publication') }}</span>
                         @endif
                     </div>
                     <div class="col-md-3 col-md-offset-0"></div>

@@ -110,7 +110,7 @@
                                 <h5>{{Lang::get('create-alert.fields.images')}}</h5>
                                 {{ Form::file('alert-images[]',array('multiple', 'class' => 'multi')) }}
                                 @if($errors->has('file'))
-                                <br><span>{{ $errors->first('file') }}</span>
+                                <br><span class="error_msg">{{ $errors->first('file') }}</span>
                                 @endif
                             </div>
                         </div>

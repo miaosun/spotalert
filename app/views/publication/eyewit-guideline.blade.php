@@ -58,6 +58,9 @@
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.title')}} <span>{{Lang::get('create-alert.fields.max_size')}}</span></h5>
                                 {{ Form::textarea('guideline-title', $eyewitness->title, array('id'=>'title', 'placeholder'=>Lang::get('create-alert.placeholders.title'))) }}
+                                @if($errors->has('title'))
+                                <br><span class="error_msg">{{ $errors->first('title') }}</span>
+                                @endif
                             </div>
                         </div>
 
@@ -65,6 +68,9 @@
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.description')}}</h5>
                                 {{ Form::textarea('guideline-description', $eyewitness->description, array('placeholder'=>Lang::get('create-alert.placeholders.description'))) }}
+                                @if($errors->has('content'))
+                                <br><span class="error_msg">{{ $errors->first('content') }}</span>
+                                @endif
                             </div>
                         </div>
                         
@@ -93,7 +99,7 @@ $imagename = $info->getFilename();
                                 <h5>{{Lang::get('create-alert.fields.images')}}</h5>
                                 {{ Form::file('guideline-images[]',array('multiple')) }}
                                 @if($errors->has('file'))
-                                <br><span>{{ $errors->first('file') }}</span>
+                                <br><span class="error_msg">{{ $errors->first('file') }}</span>
                                 @endif
                             </div>
                         </div>

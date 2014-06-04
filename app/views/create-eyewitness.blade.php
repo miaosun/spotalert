@@ -13,7 +13,7 @@
                             <h5>{{Lang::get('eyewitness.fields.title')}} <span>{{Lang::get('eyewitness.fields.max_size')}}</span></h5>
                             {{ Form::textarea('title', '', array('id'=>'title', 'placeholder'=>Lang::get('eyewitness.placeholders.title'))) }}
                             @if($errors->has('title'))
-                            <br><span>{{ $errors->first('title') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('title') }}</span>
                             @endif
                         </div>
                     </div>
@@ -22,7 +22,7 @@
                             <h5>{{Lang::get('eyewitness.fields.description')}}</h5>
                             {{ Form::textarea('description', '', array('placeholder'=>Lang::get('eyewitness.placeholders.description'))) }}
                             @if($errors->has('description'))
-                            <br><span>{{ $errors->first('description') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('description') }}</span>
                             @endif
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                             <h5>{{Lang::get('eyewitness.fields.images')}}</h5>
                             {{ Form::file('images[]',array('multiple', 'class' => 'multi')) }}
                             @if($errors->has('file'))
-                            <br><span>{{ $errors->first('file') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('file') }}</span>
                             @endif
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                             <h5>{{Lang::get('eyewitness.fields.affected_countries')}}</h5>
                             {{Form::select('affected-countries[]', $countries, null,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('eyewitness.placeholders.countries')))}}
                             @if($errors->has('affected-countries'))
-                            <br><span>{{ $errors->first('affected-countries') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('affected-countries') }}</span>
                             @endif
                         </div>
                     </div>
@@ -56,7 +56,7 @@
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::select('language', $languages, null, array('class' => 'styled') ) }}
                             @if($errors->has('language'))
-                            <br><span>{{ $errors->first('language') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('language') }}</span>
                             @endif
                         </div>
                     </div>

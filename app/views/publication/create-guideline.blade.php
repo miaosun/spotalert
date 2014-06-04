@@ -59,7 +59,7 @@
                                 <h5>{{Lang::get('create-alert.fields.title')}} <span>{{Lang::get('create-alert.fields.max_size')}}</span></h5>
                                 {{ Form::textarea('guideline-title', '', array('id'=>'title', 'placeholder'=>Lang::get('create-alert.placeholders.title'))) }}
                                 @if($errors->has('title'))
-                                    <br><span>{{ $errors->first('title') }}</span>
+                                    <br><span class="error_msg">{{ $errors->first('title') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -69,7 +69,7 @@
                                 <h5>{{Lang::get('create-alert.fields.description')}}</h5>
                                 {{ Form::textarea('guideline-description', '', array('placeholder'=>Lang::get('create-alert.placeholders.description'))) }}
                                 @if($errors->has('content'))
-                                    <br><span>{{ $errors->first('content') }}</span>
+                                    <br><span class="error_msg">{{ $errors->first('content') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                                 <h5>{{Lang::get('create-alert.fields.images')}}</h5>
                                 {{ Form::file('guideline-images[]',array('multiple', 'class' => 'multi')) }}
                                 @if($errors->has('file'))
-                                <br><span>{{ $errors->first('file') }}</span>
+                                <br><span class="error_msg">{{ $errors->first('file') }}</span>
                                 @endif
                             </div>
                         </div>

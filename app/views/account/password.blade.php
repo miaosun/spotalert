@@ -11,7 +11,7 @@
                         {{ Form::password('password') }}
                         <!--Old password: <input type="password" name="old_password">-->
                         @if($errors->has('old_password'))
-                            <span>{{ $errors->first('old_password') }}</span>
+                            <span class="error_msg">{{ $errors->first('old_password') }}</span>
                         @endif
                     </div>
 
@@ -20,7 +20,7 @@
                         {{ Form::password('password') }}
                         <!--New password: <input type="password" name="password">-->
                         @if($errors->has('password'))
-                            <span>{{ $errors->first('password') }}</span>
+                            <span class="error_msg">{{ $errors->first('password') }}</span>
                         @endif
                     </div>
 
@@ -29,7 +29,7 @@
                         {{ Form::password('password') }}
                         <!--New password again: <input type="password" name="password_again">-->
                         @if($errors->has('password_again'))
-                            <span>{{ $errors->first('password_again') }}</span>
+                            <span class="error_msg">{{ $errors->first('password_again') }}</span>
                         @endif
                     </div>
                     <div class="col-md-6 col-md-offset0">

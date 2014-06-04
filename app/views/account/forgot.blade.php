@@ -12,7 +12,7 @@
                     {{ Form::label('email address', null, array('class' => 'label')) }}
                     {{ Form::text('email_recover', Input::old('email_recover'), array('placeholder'=>'INSERT EMAIL')) }}
                     @if($errors->has('email_recover'))
-                    <span>{{ $errors->first('email_recover') }}</span>
+                    <span class="error_msg">{{ $errors->first('email_recover') }}</span>
                     @endif
                 </div>
                 <div class="col-md-6 col-md-offset0">
