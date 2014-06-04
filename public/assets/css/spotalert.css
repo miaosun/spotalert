@@ -94,7 +94,9 @@ header .row-header > div#language {
     padding-top: 30px;
     background-color:#f2f2f2;
     width: 100%;
-    min-height:550px;
+    height: auto;
+    min-height: 100%;
+    position: absolute;
 }
 
 @media (max-width:991px) {
