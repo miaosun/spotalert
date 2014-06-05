@@ -37,7 +37,7 @@
 			</label>
 		</div>
 
-		<button type="submit" class="btn btn btn-primary pull-right">{{Lang::get('home.signin.signin')}}</button><br>
+		<button type="submit" class="btn btn btn-primary pull-right">{{Lang::get('home.signin.signin')}}</button>
         {{ Form::token() }}
         <!--<br>
         <hr width="90%">
@@ -47,6 +47,8 @@
             <a href="#" class="btn btn-danger btn-block">{{Lang::get('home.signin.login_google')}}</a>
         </div>-->
 
+        <br>
+        <br>
         <hr width="90%">
 
         <div class="register-block">
