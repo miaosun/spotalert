@@ -59,7 +59,7 @@ return array(
 		"send"              => "SEND"
 	),
 	"publications" => array(
-		"hidden"   => "!! HIDEN !!",
+		"hidden"   => "HIDDEN",
 		"inactive" => "INACTIVE",
 		"updated"  => "UPDATED"
 	)

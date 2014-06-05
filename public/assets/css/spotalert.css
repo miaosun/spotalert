@@ -1083,6 +1083,11 @@ input[name=accept] {
     -moz--topright: 25px;
     border-radius: 25px;
 }
+
+#controlpanel input[type=submit].list-publ {
+    width: 100%;
+}
+
 #controlpanel .editbutton {
     color: #BF2333;
     float: right;

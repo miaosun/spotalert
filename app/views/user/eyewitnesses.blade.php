@@ -54,17 +54,17 @@
                         <!-- FIXME: Redirect to create-alert/create-guideline -->
                         <td>
                             {{ Form::open(array('url' => '/publication/eyewit-alert/'.$eyewit->id, 'method' => 'post')) }}
-                        {{ Form::submit('ALERT') }}
+                        {{ Form::submit('ALERT', array('class' => 'list-publ')) }}
                         {{ Form::token() }} 
                         {{ Form::close() }}
                             
                             {{ Form::open(array('url' => '/publication/eyewit-guideline/'.$eyewit->id, 'method' => 'post')) }}
-                        {{ Form::submit('GUIDELINE') }}
+                        {{ Form::submit('GUIDELINE', array('class' => 'list-publ')) }}
                         {{ Form::token() }}
                         {{ Form::close() }}
 
                         {{ Form::open(array('route' => array('delete-eyewitness',$eyewit->id), 'method' => 'post')) }}
-                        {{ Form::submit('REJECT') }}
+                        {{ Form::submit('REJECT', array('class' => 'list-publ')) }}
                         {{ Form::token() }}
                         {{ Form::close() }}
                         </td>
