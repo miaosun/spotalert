@@ -15,7 +15,7 @@
 		</div>
 
 		<div class="form-group">
-			<a class="pull-right" href="{{ URL::route('account-forgot-password') }}"><span style="font-size:10px">Forgot password?</span></a>
+			<a class="pull-right" href="{{ URL::route('account-forgot-password') }}" tabIndex="-1"><span style="font-size:10px">Forgot password?</span></a>
 			<label for="inputPassword">{{Lang::get('home.signin.password')}}</label><br>
 			<input type="password" class="form-control" id="inputPassword" name="password_signin">
             @if($errors->has('password_signin'))
