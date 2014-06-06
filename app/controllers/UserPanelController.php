@@ -16,14 +16,14 @@ class UserPanelController extends BaseController {
     /* Privileges Page */
     public function getPrivileges() {
         $profile = User::find(Auth::user()->getId());
-        $users_with_permissions = User::where('type','<>', 'normal')->get();
+        $users_privileges = User::all();
         $selected = false;
-        return View::make('user.privileges' ,array('selected'=>$selected, 'user' => $profile,  'users_with_permissions'=>$users_with_permissions));
+        return View::make('user.privileges' ,array('selected'=>$selected, 'user' => $profile,  'users_privileges'=>$users_privileges));
     }
 
     public function getPrivilegesWithUser() {
         $profile = User::find(Auth::user()->getId());
-        $users_with_permissions = User::where('type','<>', 'normal')->get();
+        $users_privileges = User::all();
 
         if(Input::has('username'))
         {
@@ -33,7 +33,7 @@ class UserPanelController extends BaseController {
             if($selectedUser == null)
                 return Redirect::route('user-privileges')->with('global', 'User doesn\'t exists, try again!');
             $selected = true;
-            return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_with_permissions'=>$users_with_permissions));
+            return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_privileges'=>$users_privileges));
         }
         else
             return Redirect::route('user-privileges');
@@ -41,7 +41,7 @@ class UserPanelController extends BaseController {
 
     public function getPrivilegesWithEmail() {
         $profile = User::find(Auth::user()->getId());
-        $users_with_permissions = User::where('type','<>', 'normal')->get();
+        $users_privileges = User::all();
 
         if(Input::has('email'))
         {
@@ -50,7 +50,7 @@ class UserPanelController extends BaseController {
             if($selectedUser == null)
                 return Redirect::route('user-privileges')->with('global', 'User doesn\'t exists, try again!');
             $selected = true;
-            return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_with_permissions'=>$users_with_permissions));
+            return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_privileges'=>$users_privileges));
         }
         else
             return Redirect::route('user-privileges');

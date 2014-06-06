@@ -46,6 +46,7 @@ return array(
         "managers"       => "MANAGERS",
         "department"     => "DEPARTMENT",
         "name"           => "USERNAME",
+        "type"           => "TYPE",
         "location"       => "LOCATION",
         "member_since"   => "MEMBER SINCE",
         "add"            => "ADD",
