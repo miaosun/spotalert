@@ -47,7 +47,11 @@
                     @if(sort($publication['affected_countries']))
                     @endif
                         <tr>
-                            <td>{{{$publication['title']}}}</td>
+                            @if($publication['type'] == 'alert')
+                            <td><a href="/publication/edit-alert/{{{$publication['id']}}}">{{{$publication['title']}}}</a></td>
+                            @elseif($publication['type'] == 'guideline')
+                            <td><a href="/publication/edit-guideline/{{{$publication['id']}}}">{{{$publication['title']}}}</a></td>
+                            @endif
                             <td>{{{$publication['author']}}}</td>
                             <td>{{{implode(",",$publication['affected_countries'])}}}</td>
                             <td>{{{$publication['initial_date']}}}</td>
