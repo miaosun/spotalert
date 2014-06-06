@@ -48,8 +48,8 @@ class UserPanelController extends BaseController {
         if(Input::has('del_username'))
         {
             $username = Input::get('del_username');
-            var_dump($username);
-            if($profile->type == 'admin')
+
+            if($profile->type == 'admin' || $profile->type == 'manager')
             {
                 User::where('username', '=', $username)->delete();
                 return Redirect::route('user-privileges')->with('global', 'Selected user deleted successfully!');
