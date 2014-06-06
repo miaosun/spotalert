@@ -252,7 +252,7 @@ Route::group(array('before' => 'auth'), function() {
     ));
 
     // Delete User
-    Route::get('/user/privileges/delete/{username}', array(
+    Route::post('/user/privileges/delete/user', array(
        'as' => 'privileges-delete',
         'uses' => 'UserPanelController@deleteUser'
     ));

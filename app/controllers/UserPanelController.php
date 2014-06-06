@@ -16,14 +16,20 @@ class UserPanelController extends BaseController {
     /* Privileges Page */
     public function getPrivileges() {
         $profile = User::find(Auth::user()->getId());
-        $users_privileges = User::all();
+        if($profile['type'] == "admin")
+            $users_privileges = User::where('id', '<>', Auth::user()->getId())->get();
+        if($profile['type'] == "manager")
+            $users_privileges = User::where('type', '<>', 'admin')->where('type', '<>', 'manager')->get();
         $selected = false;
         return View::make('user.privileges' ,array('selected'=>$selected, 'user' => $profile,  'users_privileges'=>$users_privileges));
     }
 
     public function getPrivilegesWithUser() {
         $profile = User::find(Auth::user()->getId());
-        $users_privileges = User::all();
+        if($profile['type'] == "admin")
+            $users_privileges = User::where('id', '<>', Auth::user()->getId())->get();
+        if($profile['type'] == "manager")
+            $users_privileges = User::where('type', '<>', 'admin')->where('type', '<>', 'manager')->get();
 
         if(Input::has('username'))
         {
@@ -41,7 +47,10 @@ class UserPanelController extends BaseController {
 
     public function getPrivilegesWithEmail() {
         $profile = User::find(Auth::user()->getId());
-        $users_privileges = User::all();
+        if($profile['type'] == "admin")
+            $users_privileges = User::where('id', '<>', Auth::user()->getId())->get();
+        if($profile['type'] == "manager")
+            $users_privileges = User::where('type', '<>', 'admin')->where('type', '<>', 'manager')->get();
 
         if(Input::has('email'))
         {
@@ -62,20 +71,34 @@ class UserPanelController extends BaseController {
         if($profile->username == $username)
             return Redirect::route('user-privileges')->with('global', 'Change failed! Select a user first!');
 
-        if(Input::has('department'))
+        if(Input::has('department') && Input::has('permissions'))
             DB::update('update users set organization=?, type = ? where username = ?', array(Input::get('department'), Input::get('permissions'), $username));
-        else
+        else if(Input::has('department'))
+            DB::update('update users set organization=? where username = ?', array(Input::get('department'), $username));
+        else if(Input::has('permissions'))
             DB::update('update users set type = ? where username = ?', array(Input::get('permissions'), $username));
+
+        else
+            Redirect::route('user-privileges')->with('global', 'Can not make changes!');
 
         return Redirect::route('user-privileges')->with('global', 'Changes made with success!');
     }
 
-    public function deleteUser($username) {
+    public function deleteUser() {
         $profile = User::find(Auth::user()->getId());
-        if($profile->type == 'admin')
+        if(Input::has('del_username'))
         {
-            User::where('username', '=', $username)->delete();
-            return Redirect::route('user-privileges')->with('global', 'Selected user deleted successfully!');
+            $username = Input::get('del_username');
+            var_dump($username);
+            if($profile->type == 'admin')
+            {
+                User::where('username', '=', $username)->delete();
+                return Redirect::route('user-privileges')->with('global', 'Selected user deleted successfully!');
+            }
+        }
+        else
+        {
+            return Redirect::route('user-privileges')->with('global', 'User not found!');
         }
     }
 
