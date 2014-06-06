@@ -1,4 +1,8 @@
 /bootstrap/compiled.php
+/public/assets/images/user/*
+/public/assets/images/publications/*
+/public/assets/images/comments/*
+/public/assets/images/eyewitnesses*
 /vendor
 composer.phar
 composer.lock

@@ -21,11 +21,15 @@
 
         @if(Auth::check())
         <div class="col-md-1 col-sm-1 signout">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{ Auth::user()->username }}<b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><div id="username_length">{{ Auth::user()->username }}</div><b class="caret"></b></a>
 
             <div class="dropdown-menu">
                 <li><a href="{{ URL::route('control-panel')}}">{{Lang::get('home.menu.profile')}}</a></li>
-                @if(Auth::user()->type == 'admin')
+                @if(Auth::user()->type != 'normal')
+                <li><a href="{{ URL::route('publication-create-alert')}}">{{"Create Alert"}}</a></li>
+                <li><a href="{{ URL::route('publication-create-guideline')}}">{{"Create Guideline"}}</a></li>
+                @endif
+                @if(Auth::user()->type == 'admin' || Auth::user()->type == 'manager')
                 <li><a href="https://www.google.com/analytics/web/" target="_blank">Google Analytics</a></li>
                 @endif
                 <li><a href="{{ URL::route('account-sign-out') }}">{{Lang::get('home.menu.signout')}}</a></li>

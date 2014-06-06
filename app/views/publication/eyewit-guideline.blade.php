@@ -57,9 +57,9 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.title')}} <span>{{Lang::get('create-alert.fields.max_size')}}</span></h5>
-                                {{ Form::textarea('guideline-title', '', array('id'=>'title', 'placeholder'=>Lang::get('create-alert.placeholders.title'))) }}
+                                {{ Form::textarea('guideline-title', $eyewitness->title, array('id'=>'title', 'placeholder'=>Lang::get('create-alert.placeholders.title'))) }}
                                 @if($errors->has('title'))
-                                    <br><span class="error_msg">{{ $errors->first('title') }}</span>
+                                <br><span class="error_msg">{{ $errors->first('title') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -67,17 +67,37 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.description')}}</h5>
-                                {{ Form::textarea('guideline-description', '', array('placeholder'=>Lang::get('create-alert.placeholders.description'))) }}
+                                {{ Form::textarea('guideline-description', $eyewitness->description, array('placeholder'=>Lang::get('create-alert.placeholders.description'))) }}
                                 @if($errors->has('content'))
-                                    <br><span class="error_msg">{{ $errors->first('content') }}</span>
+                                <br><span class="error_msg">{{ $errors->first('content') }}</span>
                                 @endif
                             </div>
                         </div>
+                        
+                        @if(!empty($imagesupl))
+                        <div id="uploaded" class="row eye">
+                            <div class="col-md-12 col-sm-12">
+                                <h5>{{Lang::get('create-alert.fields.already_uploaded')}}</h5>
+                                <ul id="gallery">
+                                    @foreach($imagesupl as $image)
+                                    <li>
+                                        <?php
+$info = new SplFileInfo($image);
+$imagename = $info->getFilename();
+?>
+                                        <a href="{{"../../assets/images/eyewitnesses".$eyewitness->id."/".$imagename}}" target="_blank">{{HTML::image("assets/images/eyewitnesses".$eyewitness->id."/".$imagename, null, array('class' => $eyewitness->id))}}</a>
+                                        <span class="imgremove glyphicon glyphicon-remove"></span>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        @endif
 
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.images')}}</h5>
-                                {{ Form::file('guideline-images[]',array('multiple', 'class' => 'multi')) }}
+                                {{ Form::file('guideline-images[]',array('multiple')) }}
                                 @if($errors->has('file'))
                                 <br><span class="error_msg">{{ $errors->first('file') }}</span>
                                 @endif
@@ -90,7 +110,7 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.affected_countries')}}</h5>
-                                {{ Form::select('guideline-countries[]', $country_options, null,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.countries')))}}
+                                {{ Form::select('guideline-countries[]', $country_options, $countries,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.countries')))}}
                             </div>
                         </div>
 
@@ -135,9 +155,10 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.alerts')}}</h5>
-                                {{ Form::select('guideline-alerts[]', $alert_options, null,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.alerts')))}}
+                                {{ Form::select('guideline-alerts[]', $guideline_options, null,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.alerts')))}}
                             </div>
                         </div>
+                        <input type="hidden" name="eyewitness-previous" display="none" value="{{$eyewitness->id}}">
                         <input type="hidden" name="alert-languages" display="none">
                         <div class="row last-row">
                             <div class="col-md-4" id="mand_field">
@@ -161,7 +182,6 @@
 {{ HTML::script('assets/js/chosen.jquery.min.js'); }}
 {{ HTML::script('assets/js/bootstrap-datepicker.js'); }}
 {{ HTML::style('assets/css/datepicker.css'); }}
-{{ HTML::script('assets/js/jquery.MultiFile.js') }}
 <script type="text/javascript">
     var config = {
         '.chosen-select'           : {no_results_text:'Oops, nothing found!'},

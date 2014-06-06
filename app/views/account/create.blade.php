@@ -17,10 +17,12 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 terms-service">
                             <p>{{Lang::get('register.terms.do_you_accept')}}</p>
-                            {{Lang::get('register.terms.yes')}} {{ Form::radio('accept', 'yes') }}
-                            {{Lang::get('register.terms.no')}} {{ Form::radio('accept', 'no') }}
+                            {{ Form::radio('accept', 'yes', '', array('id'=>'yes', 'style' => 'display:none;')) }}
+                            {{ Form::radio('accept', 'no', '',array('id'=>'no', 'style' => 'display:none;')) }}
+                            <div class="col-md-5 col-sm-5 radiobutton"><div class="col-md-9 option">{{Lang::get('register.terms.yes')}}</div><div class="col-md-3 glyphicon yes"></div></div>
+                            <div class="col-md-5 col-sm-5 col-md-offset-1 radiobutton"><div class="col-md-9 option">{{Lang::get('register.terms.no')}}</div><div class="col-md-3 glyphicon no"></div></div>
                             @if($errors->has('accept'))
-                            <br><span>{{ $errors->first('accept') }}</span>
+                            <br><span class="col-md-12 error_msg">{{ $errors->first('accept') }}</span>
                             @endif
                         </div>
                     </div>
@@ -36,7 +38,7 @@
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('username', Input::old('username'), array('placeholder'=>Lang::get('register.placeholder.username'))) }}
                             @if($errors->has('username'))
-                            <br><span>{{ $errors->first('username') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('username') }}</span>
                             @endif
                         </div>
                     </div>
@@ -47,11 +49,11 @@
                         <div class="col-md-7 col-sm-7 col-md-offset-0">
                             {{ Form::password('password', array('placeholder'=>Lang::get('register.placeholder.password'))) }}
                             @if($errors->has('password'))
-                            <br><span>{{ $errors->first('password') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('password') }}</span>
                             @endif
                             {{ Form::password('password_again', array('placeholder'=>Lang::get('register.placeholder.confirmpassword'))) }}
                             @if($errors->has('password_again'))
-                            <br><span>{{ $errors->first('password_again') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('password_again') }}</span>
                             @endif
                         </div>
                     </div>
@@ -62,7 +64,7 @@
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('firstname', Input::old('firstname') , array('placeholder'=>Lang::get('register.placeholder.first_name') )) }}
                             @if($errors->has('firstname'))
-                            <br><span>{{ $errors->first('firstname') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('firstname') }}</span>
                             @endif
                         </div>
                     </div>
@@ -82,9 +84,9 @@
                             {{ Form::label(Lang::get('register.field.age_range').'*', null, array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0 range-age">
-                            {{ Form::select('agerange', $age_options, Input::old('agerange')) }}
+                            {{ Form::select('agerange', $age_options, Input::old('agerange'), array('class'=>'styled')) }}
                             @if($errors->has('agerange'))
-                            <br><span>{{ $errors->first('agerange') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('agerange') }}</span>
                             @endif
                         </div>
                     </div>
@@ -95,7 +97,7 @@
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('email', Input::old('email'), array('placeholder'=>Lang::get('register.placeholder.email_address') )) }}
                             @if($errors->has('email'))
-                            <br><span>{{ $errors->first('email') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('email') }}</span>
                             @endif
                         </div>
                     </div>
@@ -106,7 +108,7 @@
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('phonenumber', null, array('placeholder'=>Lang::get('register.placeholder.phone_number') )) }}
                             @if($errors->has('phonenumber'))
-                            <br><span>{{ $errors->first('phonenumber') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('phonenumber') }}</span>
                             @endif
                         </div>
                     </div>
@@ -117,15 +119,15 @@
                         <div class="col-md-7 col-md-offset-0">
                             {{ Form::text('address', null, array('placeholder'=>Lang::get('register.placeholder.address'))) }}
                             @if($errors->has('address'))
-                            <br><span>{{ $errors->first('address') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('address') }}</span>
                             @endif
                             {{ Form::text('city', null, array('placeholder'=>Lang::get('register.placeholder.city') )) }}
                             @if($errors->has('city'))
-                            <br><span>{{ $errors->first('city') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('city') }}</span>
                             @endif
                             {{ Form::text('postalCode', null, array('placeholder'=>Lang::get('register.placeholder.postalcode') )) }}
                             @if($errors->has('postalCode'))
-                            <br><span>{{ $errors->first('postalCode') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('postalCode') }}</span>
                             @endif
                         </div>
                     </div>
@@ -134,9 +136,9 @@
                             {{ Form::label(Lang::get('register.field.residence') . '*', null, array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0 resid-drop">
-                            {{ Form::select('residence', $country_options , Input::old('residence')) }}
+                            {{ Form::select('residence', $country_options , Input::old('residence'), array('class'=>'styled')) }}
                             @if($errors->has('residence'))
-                            <br><span>{{ $errors->first('residence') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('residence') }}</span>
                             @endif
                         </div>
                     </div>
@@ -145,9 +147,9 @@
                             {{ Form::label(Lang::get('register.field.nationality') . '*', null, array('class' => 'label')) }}
                         </div>
                         <div class="col-md-7 col-md-offset-0 country-drop">
-                            {{ Form::select('nationality', $country_options , Input::old('nationality')) }}
+                            {{ Form::select('nationality', $country_options , Input::old('nationality'), array('class'=>'styled')) }}
                             @if($errors->has('nationality'))
-                            <br><span>{{ $errors->first('nationality') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('nationality') }}</span>
                             @endif
                         </div>
                     </div>

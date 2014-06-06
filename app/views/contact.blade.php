@@ -16,7 +16,7 @@
 	                <div class="col-md-7 col-md-offset-0">
 	                    {{ Form::text('name', '', array('placeholder'=>Lang::get('home.contact.name-placeholder'))) }}
 	                    @if($errors->has('name'))
-                            <br><span>{{ $errors->first('name') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('name') }}</span>
                         @endif
 	                </div>
 	            </div>
@@ -27,7 +27,7 @@
 	                <div class="col-md-7 col-md-offset-0">
 	                    {{ Form::text('email', '', array('placeholder'=>Lang::get('home.contact.email-placeholder'))) }}
 	                    @if($errors->has('email'))
-                            <br><span>{{ $errors->first('email') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('email') }}</span>
                         @endif
 	                </div>
 	            </div>
@@ -40,7 +40,7 @@
 	            	<div class="col-md-12">
 	            		{{ Form::textarea('content', '', array('placeholder'=>Lang::get('home.contact.msg-placeholder'))) }}
 	            		@if($errors->has('content'))
-                            <br><span>{{ $errors->first('content') }}</span>
+                            <br><span class="error_msg">{{ $errors->first('content') }}</span>
                         @endif
 	            	</div>
 	            </div>

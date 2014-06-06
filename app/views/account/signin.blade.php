@@ -37,16 +37,18 @@
 			</label>
 		</div>
 
-		<button type="submit" class="btn btn btn-primary pull-right">{{Lang::get('home.signin.signin')}}</button><br>
+		<button type="submit" class="btn btn btn-primary pull-right">{{Lang::get('home.signin.signin')}}</button>
         {{ Form::token() }}
-        <br>
+        <!--<br>
         <hr width="90%">
 
         <div class="login_fb_gl">
             <a href="#" class="btn btn-primary btn-block">{{Lang::get('home.signin.login_facebook')}}</a><br>
             <a href="#" class="btn btn-danger btn-block">{{Lang::get('home.signin.login_google')}}</a>
-        </div>
+        </div>-->
 
+        <br>
+        <br>
         <hr width="90%">
 
         <div class="register-block">

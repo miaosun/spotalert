@@ -3,18 +3,17 @@
 @section('content')
 
 <div class="container-fluid">
-    <div id="controlpanel" class="col-md-8 col-md-offset-2">
+    <div id="controlpanel" class="col-md-10 col-md-offset-1">
         <div class="row" id="notifications">
             <ul>
                 <li id="before"><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
                 <li id="active">{{ Lang::get('controlpanel.menu.notification') }}</li>
                 @if($user->type != 'normal')
+                <li><a href="{{ URL::route('user-eyewitnesses') }}">{{ Lang::get('controlpanel.menu.eyewitnesses') }}</a></li>
                 <li><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
                 <li><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
                 @if($user->type == 'admin' || $user->type == 'manager')
                 <li><a href="{{ URL::route('user-privileges') }}">{{ Lang::get('controlpanel.menu.privileges') }}</a></li>
-                @else
-                <li></li>
                 @endif
                 @endif
 
@@ -28,15 +27,15 @@
                         <h3>{{ Lang::get('controlpanel.notifications.select') }}</h3>
                     </div>
                     <div class="col-md-3 col-md-offset-0 resid-drop">
-                        {{ Form::select('country', $country_options , Input::old('country')) }}
+                        {{ Form::select('country', $country_options , Input::old('country'), array('class' => 'styled')) }}
                         @if($errors->has('country'))
-                        <br><span>{{ $errors->first('region') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('region') }}</span>
                         @endif
                     </div>
                     <div class="col-md-3 col-md-offset-0 resid-drop">
-                        {{ Form::select('minimum_risk', array('placeholder' => Lang::get('controlpanel.notifications.minimum_risk'), '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5'), 'placeholder') }}
+                        {{ Form::select('minimum_risk', array('placeholder' => Lang::get('controlpanel.notifications.minimum_risk'), '1' => '1', '2' => '2', '3' => '3', '4' => '4', '5' => '5'), null, array('class' => 'styled')) }}
                         @if($errors->has('region'))
-                        <br><span>{{ $errors->first('region') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('region') }}</span>
                         @endif
                     </div>
                     <div class="col-md-2 col-md-offset-0">
@@ -65,9 +64,9 @@
                 <div class="col-md-12 col-md-offset-0">
                     <div class="col-md-2"></div>
                     <div class="col-md-3 col-md-offset-0 resid-drop">
-                        {{ Form::select('publication', $publication_options , Input::old('publication')) }}
+                        {{ Form::select('publication', $publication_options , Input::old('publication'), array('class' => 'styled')) }}
                         @if($errors->has('publication'))
-                        <br><span>{{ $errors->first('publication') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('publication') }}</span>
                         @endif
                     </div>
                     <div class="col-md-3 col-md-offset-0"></div>
@@ -81,7 +80,7 @@
             @foreach ($user_publications as $user_publication)
             <div class="col-md-12 country_risk">
                 <div class="col-md-7 col-md-offset-2">
-                    {{ $user_publication->title }}
+                    {{ $user_publication->contents->first()->title }}
                 </div>
                 <div class="col-md-3" id="delete">
                     <a href="{{ URL::route('publication-delete', $user_publication->id)}}">X</a>
@@ -91,5 +90,15 @@
         </div>
     </div>
 </div>
+
+<style>
+#controlpanel li {
+@if($user->type == 'normal')
+    width: 49%;
+@elseif($user->type == 'publisher')
+    width: 19%;
+@endif
+}
+</style>
 
 @stop

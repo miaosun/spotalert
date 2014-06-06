@@ -1,15 +1,15 @@
 @extends('layouts.default')
 
 @section('content')
-{{ isset($errors) ? $errors : "sem_erros <br>" }}
 
 <div class="container-fluid">
-	<div id="controlpanel" class="col-md-8 col-md-offset-2"> 
+	<div id="controlpanel" class="col-md-10 col-md-offset-1"> 
 		<div class="row">
 			<ul>
 				<li id="active"> {{ Lang::get('controlpanel.menu.profile') }} </li>
 				<li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
 				@if($user->type != 'normal')
+				<li><a href="{{ URL::route('user-eyewitnesses') }}">{{ Lang::get('controlpanel.menu.eyewitnesses') }}</a></li>
                 <li><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
 				<li><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
                 @if($user->type == 'admin' || $user->type == 'manager')
@@ -18,18 +18,23 @@
                 @endif
 			</ul>
 			<h1>{{ Lang::get('controlpanel.profile.title') }}</h1>
-			{{ Form::open(array('route' => 'update-profile', 'file' => 'true')) }}
+			{{ Form::open(array('route' => 'update-profile', 'files' => 'true')) }}
 			<div class="col-md-4 col-md-offset-1">
-				<div class="row">
-                    
-					{{ /* FIXME FROM HARCODED */ HTML::image('assets/images/user/2.jpg', $alt="Lang::get('controlpanel.profile.altpic')", $attributes = array('width' => '200px', 'height' => '200px')) }}
-					<div class="col-md-10 custom-upload">
-                        {{ Form::file('uploadfile',array('class' => 'upload')) }}
-                        <div class="fake-file dotline">
-                            {{ Form::text('displayfile',Lang::get('controlpanel.profile.addpic'),array('id'=>'displayfile','disabled' => 'disabled')) }} 
-                            <span>&#43;</span>
-                        </div>
-                    </div>
+				<div class="row">                    
+                    <div class="col-md-12">
+						<div class="col-md-10 custom-upload">
+							@if($pic) 
+		                        {{HTML::image('assets/images/user/'.$user->id.'.jpg', $alt="Lang::get('controlpanel.profile.altpic')", $attributes = array('width' => '200px', 'height' => '200px')) }}
+		                    @else  
+		                        {{HTML::image('assets/images/user/default.jpg', $alt="Lang::get('controlpanel.profile.altpic')", $attributes = array('width' => '200px', 'height' => '200px')) }}
+		                    @endif
+	                        <div class="fake-file dotline">
+	                        	{{ Form::file('uploadfile',array('class' => 'upload')) }}
+	                            {{ Form::text('displayfile',Lang::get('controlpanel.profile.addpic'),array('id'=>'displayfile','disabled' => 'disabled')) }} 
+	                            <span>&#43;</span>
+	                        </div>
+	                    </div>
+	                </div>
 				</div>
 				<div class="row">
 					<div class="col-md-12">
@@ -38,13 +43,13 @@
 						{{ Form::label('newpassword',Lang::get('controlpanel.profile.password.new'), array('class' => 'label')) }}
 						{{ Form::password('newpassword') }}
                         @if($errors->has('newpassword'))
-                        <br><span>{{ $errors->first('newpassword') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('newpassword') }}</span>
                         @endif
 
 						{{ Form::label('newmpassword_confirmation',Lang::get('controlpanel.profile.password.confirm'), array('class' => 'label')) }}
 						{{ Form::password('newpassword_confirmation') }}
                         @if($errors->has('newpassword_confirmation'))
-                        <br><span>{{ $errors->first('newpassword_confirmation') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('newpassword_confirmation') }}</span>
                         @endif
 						{{ Form::submit(Lang::get('controlpanel.profile.okbutton')) }}
 					</div>
@@ -61,7 +66,7 @@
 					       <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('username'))
-                        <br><span>{{ $errors->first('username') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('username') }}</span>
                         @endif
                     </div>
 				</div>	
@@ -75,14 +80,14 @@
 						  <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('firstname'))
-                        <br><span>{{ $errors->first('firstname') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('firstname') }}</span>
                         @endif
                         <div class="dotline" id="lastname">
                             {{ Form::text('lastname',$user->lastname,array('disabled' => 'disabled','placeholder'=>'Insert secondname')) }}
 					       <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('lastname'))
-                        <br><span>{{ $errors->first('lastname') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('lastname') }}</span>
                         @endif
                     </div>
 				</div>
@@ -96,7 +101,7 @@
                             <span class="glyphicon glyphicon-edit editbutton"></span>
 					   </div>
                         @if($errors->has('residence'))
-                        <br><span>{{ $errors->first('residence') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('residence') }}</span>
                         @endif
                     </div>
 				</div>
@@ -110,7 +115,7 @@
                             <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('nationality'))
-                        <br><span>{{ $errors->first('nationality') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('nationality') }}</span>
                         @endif
 					</div>
 				</div>
@@ -124,7 +129,7 @@
                             <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('agerange'))
-                        <br><span>{{ $errors->first('agerange') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('agerange') }}</span>
                         @endif
 					</div>
 				</div>
@@ -138,7 +143,7 @@
 					       <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('email'))
-                        <br><span>{{ $errors->first('email') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('email') }}</span>
                         @endif
                     </div>
 				</div>
@@ -152,7 +157,7 @@
                             <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('phonenumber'))
-                        <br><span>{{ $errors->first('phonenumber') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('phonenumber') }}</span>
                         @endif
                     </div>
 				</div>
@@ -166,21 +171,21 @@
                             <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('address'))
-                        <br><span>{{ $errors->first('address') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('address') }}</span>
                         @endif
                         <div class="dotline" id="city">
 						  {{ Form::text('city',$user->city,array('disabled' => 'disabled','placeholder'=>'Insert city')) }}
                             <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('city'))
-                        <br><span>{{ $errors->first('city') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('city') }}</span>
                         @endif
                         <div class="dotline" id="postalcode">
 						  {{ Form::text('postalCode',$user->postalCode,array('disabled' => 'disabled','placeholder'=>'Insert postalCode')) }}
                             <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
                         @if($errors->has('postalCode'))
-                        <br><span>{{ $errors->first('postalCode') }}</span>
+                        <br><span class="error_msg">{{ $errors->first('postalCode') }}</span>
                         @endif
 					</div>
 				</div>
@@ -190,8 +195,7 @@
 					</div>
 					<div class="col-md-7 col-md-offset-1">
 						<div class="dotline" id="date">
-                            {{ Form::text('date',$user->date,array('disabled' => 'disabled')) }}
-                            <span class="glyphicon glyphicon-edit editbutton"></span>
+                            {{ Form::text('date',$user->created_at->format('Y/m/d'),array('disabled' => 'disabled')) }}
                         </div>
 					</div>
 				</div>
@@ -202,14 +206,25 @@
 					<div class="col-md-7 col-md-offset-1">
                         <div class="dotline" id="organization">
                             {{ Form::text('organization',$user->organization,array('disabled' => 'disabled')) }}
-                            <span class="glyphicon glyphicon-edit editbutton"></span>
                         </div>
 					</div>
 				</div>
 			</div>
 		</div>
+        {{ Form::token() }}
 		{{ Form::close() }}
 	</div>
 </div>
-{{ HTML::script('scripts/controlpanel.js') }}
+
+<style>
+#controlpanel li {
+@if($user->type == 'normal')
+    width: 49%;
+@elseif($user->type == 'publisher')
+	width: 19%;
+@endif
+}
+</style>
+
+{{ HTML::script('assets/js/controlpanel.js') }}
 @stop

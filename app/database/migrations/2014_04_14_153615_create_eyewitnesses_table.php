@@ -16,7 +16,7 @@ class CreateEyewitnessesTable extends Migration
 		{
 			$table->increments('id');
 			$table->string('title');
-			$table->string('description', 2000);
+			$table->text('description');
 			$table->date('created_at');
 			$table->integer('user_id')->unsigned();
 			$table->integer('language_id')->unsigned();

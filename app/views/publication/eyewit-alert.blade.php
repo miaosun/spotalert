@@ -3,7 +3,7 @@
 @section('content')
 <div class="container-fluid">
     <div id="create-alert" class="col-md-8 col-sm-8 col-md-offset-2 general_panel">
-        {{ Form::open(['url'=>'/publication/createguideline','files'=>'true']) }}
+        {{ Form::open(['url'=>'/publication/createalert','files'=>'true']) }}
         <div id="alert-tabs">
             <div id="languages_tabs">
                 <ul class="nav nav-tabs">
@@ -52,14 +52,14 @@
 
             <div class="row tab-content" >
                 <div class="tab-pane fade in active" id="alert_english">
-                    <h1>{{Lang::get('create-alert.create_guideline')}}</h1>
+                    <h1>{{Lang::get('create-alert.create_alert')}}</h1>
                     <div class="col-md-5 col-sm-5 col-md-offset-0" id="moveright">
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.title')}} <span>{{Lang::get('create-alert.fields.max_size')}}</span></h5>
-                                {{ Form::textarea('guideline-title', '', array('id'=>'title', 'placeholder'=>Lang::get('create-alert.placeholders.title'))) }}
+                                {{ Form::textarea('alert-title', $eyewitness->title, array('id'=>'title', 'placeholder'=>Lang::get('create-alert.placeholders.title'))) }}
                                 @if($errors->has('title'))
-                                    <br><span class="error_msg">{{ $errors->first('title') }}</span>
+                                <br><span class="error_msg">{{ $errors->first('title') }}</span>
                                 @endif
                             </div>
                         </div>
@@ -67,17 +67,37 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.description')}}</h5>
-                                {{ Form::textarea('guideline-description', '', array('placeholder'=>Lang::get('create-alert.placeholders.description'))) }}
+                                {{ Form::textarea('alert-description', $eyewitness->description, array('placeholder'=>Lang::get('create-alert.placeholders.description'))) }}
                                 @if($errors->has('content'))
-                                    <br><span class="error_msg">{{ $errors->first('content') }}</span>
+                                <br><span class="error_msg">{{ $errors->first('content') }}</span>
                                 @endif
                             </div>
                         </div>
+                        
+                        @if(!empty($imagesupl))
+                        <div id="uploaded" class="row eye">
+                            <div class="col-md-12 col-sm-12">
+                                <h5>{{Lang::get('create-alert.fields.already_uploaded')}}</h5>
+                                <ul id="gallery">
+                                    @foreach($imagesupl as $image)
+                                    <li>
+                                        <?php
+$info = new SplFileInfo($image);
+$imagename = $info->getFilename();
+?>
+                                        <a href="{{"../../assets/images/eyewitnesses".$eyewitness->id."/".$imagename}}" target="_blank">{{HTML::image("assets/images/eyewitnesses".$eyewitness->id."/".$imagename, null, array('class' => $eyewitness->id))}}</a>
+                                        <span class="imgremove glyphicon glyphicon-remove"></span>
+                                    </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                        @endif
 
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.images')}}</h5>
-                                {{ Form::file('guideline-images[]',array('multiple', 'class' => 'multi')) }}
+                                {{ Form::file('alert-images[]',array('multiple', 'class' => 'multi')) }}
                                 @if($errors->has('file'))
                                 <br><span class="error_msg">{{ $errors->first('file') }}</span>
                                 @endif
@@ -90,18 +110,18 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.affected_countries')}}</h5>
-                                {{ Form::select('guideline-countries[]', $country_options, null,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.countries')))}}
+                                {{ Form::select('alert-countries[]', $country_options, $countries,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.countries')))}}
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-12 col-sm-12">
+                            <div class="col-md-12 col-sm-12" id="duration">
                                 <h5>{{Lang::get('create-alert.fields.duration')}}</h5>
                                 <div class="inrow">
                                     <span>{{Lang::get('create-alert.labels.from')}}</span>
-                                    {{Form::input('text', 'guideline-durationfrom', null, array('class'=>'datepicker'))}} 
+                                    {{Form::input('text', 'alert-durationfrom', null, array('class'=>'datepicker'))}} 
                                     <span>{{Lang::get('create-alert.labels.to')}}</span>
-                                    {{Form::input('text', 'guideline-durationto', null, array('class'=>'datepicker'))}}
+                                    {{Form::input('text', 'alert-durationto', null, array('class'=>'datepicker'))}}
                                 </div>
                             </div>
                         </div>
@@ -109,23 +129,23 @@
                         <div class="row">
                             <div class="col-md-12 col-sm-12 inrow">
                                 <h5 style="float: left">{{Lang::get('create-alert.fields.eventrisk')}}</h5>
-                                <span>{{ Form::selectRange('guideline-risk', 1, 5);}}</span>
+                                <span>{{ Form::selectRange('alert-risk', 1, 5)}}</span>
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
                                 <h5>{{Lang::get('create-alert.fields.eventtype')}}</h5>
-                                {{ Form::select('guideline-types[]', $event_type_options, null,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.types')))}}
+                                {{ Form::select('alert-types[]', $event_type_options, null,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.types')))}}
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
-                                <h5>{{Lang::get('create-alert.fields.visibility')}}</h5>
+                                <h5>VISIBILITY</h5>
                                 <div class="inrow visibility">
-                                    {{ Form::radio('guideline-visibility', 1, false, array('id'=>'public-o', 'style' => 'display:none;')) }}
-                                    {{ Form::radio('guideline-visibility', 0, true, array('id'=>'hidden-o', 'style' => 'display:none;')) }}
+                                    {{ Form::radio('alert-visibility', 1, false, array('id'=>'public-o', 'style' => 'display:none;')) }}
+                                    {{ Form::radio('alert-visibility', 0, true, array('id'=>'hidden-o', 'style' => 'display:none;')) }}
                                     <div class="col-md-5 col-sm-5 radiobutton"><div class="col-md-9 option">{{Lang::get('create-alert.labels.public')}}</div><div class="col-md-3 glyphicon public-o"></div></div>
                                     <div class="col-md-5 col-sm-5 col-md-offset-1 radiobutton"><div class="col-md-9 option">{{Lang::get('create-alert.labels.hidden')}}</div><div class="col-md-3 glyphicon hidden-o glyphicon-remove"></div></div>
                                 </div>
@@ -134,10 +154,11 @@
 
                         <div class="row">
                             <div class="col-md-12 col-sm-12">
-                                <h5>{{Lang::get('create-alert.fields.alerts')}}</h5>
-                                {{ Form::select('guideline-alerts[]', $alert_options, null,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.alerts')))}}
+                                <h5>{{Lang::get('create-alert.fields.guidelines')}}</h5>
+                                {{ Form::select('alert-guidelines[]', $guideline_options, null,  array('class' => 'chosen-select', 'multiple', 'data-placeholder' => Lang::get('create-alert.placeholders.guidelines')))}}
                             </div>
                         </div>
+                        <input type="hidden" name="eyewitness-previous" display="none" value="{{$eyewitness->id}}">
                         <input type="hidden" name="alert-languages" display="none">
                         <div class="row last-row">
                             <div class="col-md-4" id="mand_field">

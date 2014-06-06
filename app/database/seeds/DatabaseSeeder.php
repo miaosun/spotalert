@@ -36,6 +36,21 @@ class PublicationsSeeder extends Seeder
 			'name'	=> 'Português',
 			'code'	=> 'PT'
 		));
+        
+        $langES = Language::create(array(
+            'name'	=> 'Español',
+            'code'	=> 'ES'
+        ));
+        
+        $langFR = Language::create(array(
+            'name'	=> 'Français',
+            'code'	=> 'FR'
+        ));
+        
+        $langDE = Language::create(array(
+            'name'	=> 'Deutsch',
+            'code'	=> 'DE'
+        ));
 
 		// ######################################################################
 		// European Countries
@@ -44,6 +59,7 @@ class PublicationsSeeder extends Seeder
         Country::create(array('name' => 'Austria',				'code' => 'AT'));
         Country::create(array('name' => 'Belarus',				'code' => 'BY'));
         Country::create(array('name' => 'Belgium',				'code' => 'BE'));
+        $bosnia   = Country::create(array('name' => 'Bosnia-Herzegovina','code' => 'BA'));
         Country::create(array('name' => 'Bulgaria',				'code' => 'BG'));
         Country::create(array('name' => 'Croatia',				'code' => 'HR'));
         Country::create(array('name' => 'Cyprus',				'code' => 'CY'));
@@ -52,13 +68,16 @@ class PublicationsSeeder extends Seeder
         Country::create(array('name' => 'Estonia',				'code' => 'EE'));
         Country::create(array('name' => 'Faroe Islands',		'code' => 'FO'));
         Country::create(array('name' => 'Finland',				'code' => 'FI'));
+        $france   = Country::create(array('name' => 'France',            'code' => 'FR'));
         Country::create(array('name' => 'Germany',				'code' => 'DE'));
         Country::create(array('name' => 'Gibraltar',			'code' => 'GI'));
         Country::create(array('name' => 'Greece',				'code' => 'GR'));
         Country::create(array('name' => 'Hungary',				'code' => 'HU'));
         Country::create(array('name' => 'Iceland',				'code' => 'IS'));
         Country::create(array('name' => 'Ireland',				'code' => 'IE'));
+        Country::create(array('name' => 'Isle of Man',			'code' => 'IM'));
         Country::create(array('name' => 'Italy',				'code' => 'IT'));
+        Country::create(array('name' => 'Kosovo',				'code' => 'RS'));
         Country::create(array('name' => 'Latvia',				'code' => 'LV'));
         Country::create(array('name' => 'Liechtenstein',		'code' => 'LI'));
         Country::create(array('name' => 'Lithuania',			'code' => 'LT'));
@@ -67,30 +86,25 @@ class PublicationsSeeder extends Seeder
         Country::create(array('name' => 'Malta',				'code' => 'MT'));
         Country::create(array('name' => 'Moldova',				'code' => 'MD'));
         Country::create(array('name' => 'Monaco',				'code' => 'MC'));
+        Country::create(array('name' => 'Montenegro',			'code' => 'ME'));
         Country::create(array('name' => 'Netherlands',			'code' => 'NL'));
         Country::create(array('name' => 'Norway',				'code' => 'NO'));
         Country::create(array('name' => 'Poland',				'code' => 'PL'));
+        $portugal = Country::create(array('name' => 'Portugal',          'code' => 'PT'));
         Country::create(array('name' => 'Romania',				'code' => 'RO'));
+        $russia   = Country::create(array('name' => 'Russia',            'code' => 'RU'));
         Country::create(array('name' => 'San Marino',			'code' => 'SM'));
         Country::create(array('name' => 'Serbia',				'code' => 'RS'));
         Country::create(array('name' => 'Slovakia',				'code' => 'SK'));
         Country::create(array('name' => 'Slovenia',				'code' => 'SI'));
+        $spain    = Country::create(array('name' => 'Spain',             'code' => 'ES'));
         Country::create(array('name' => 'Sweden',				'code' => 'SE'));
         Country::create(array('name' => 'Switzerland',			'code' => 'CH'));
         Country::create(array('name' => 'Ukraine',				'code' => 'UA'));
+        Country::create(array('name' => 'United Kingdom',		'code' => 'UK'));
         Country::create(array('name' => 'Vatican city',			'code' => 'VA'));
         Country::create(array('name' => 'Yugoslavia',			'code' => 'RS'));
-        Country::create(array('name' => 'Isle of Man',			'code' => 'IM'));
-        Country::create(array('name' => 'Kosovo',				'code' => 'RS'));
-        Country::create(array('name' => 'Montenegro',			'code' => 'ME'));
-        Country::create(array('name' => 'United Kingdom',		'code' => 'UK'));
 
-        // Countries necessary for publications down in this code
-		$portugal = Country::create(array('name' => 'Portugal',          'code' => 'PT'));
-		$spain    = Country::create(array('name' => 'Spain',             'code' => 'ES'));
-		$bosnia   = Country::create(array('name' => 'Bosnia-Herzegovina','code' => 'BA'));
-		$france   = Country::create(array('name' => 'France',            'code' => 'FR'));
-		$russia   = Country::create(array('name' => 'Russia',            'code' => 'RU'));
 
         // ######################################################################
         // Ages
@@ -109,11 +123,10 @@ class PublicationsSeeder extends Seeder
 
         // Users
 
-        $admin = User::create(array('username' => 'admin1',       'firstname' => 'Admin',    'lastname' => 'Silva', 'email' => 'admin@spotalert.com',  'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 915283154, 'address' => 'Address 1', 'postalCode' => '4200-000', 'city' => 'Porto', 'activated' => 'true',  'type' => 'admin',       'age_id' =>$age20->id, 'residence_country_id' => $portugal->id, 'nationality_country_id' => $portugal->id, 'organization'=>'Department Admin' ));
-        $manager = User::create(array('username' => 'manager1',    'firstname' => 'Manager',   'lastname' => 'Silva', 'email' => 'manager@spotalert.com', 'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 912345678, 'address' => 'Address 2', 'postalCode' => '4900-000', 'city' => 'Lisboa', 'activated' => 'true', 'type' => 'manager',    'age_id' =>$age30->id, 'residence_country_id' => $portugal->id, 'nationality_country_id' =>  $portugal->id, 'organization'=>'Department Manager' ));
-        $publisher = User::create(array('username' => 'publisher1',  'firstname' => 'Publisher', 'lastname' => 'Silva', 'email' => 'publisher@spotalert.com', 'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 918765432, 'address' => 'Address 3', 'postalCode' => '4100-000', 'city' => 'Aveiro', 'activated' => 'true', 'type' => 'publisher',  'age_id' =>$age20->id, 'residence_country_id' => $spain->id, 'nationality_country_id' => $spain->id, 'organization'=>'Department Publisher' ));
-        User::create(array('username' => 'normal1',     'firstname' => 'Normal',    'lastname' => 'Silva', 'email' => 'normal@spotalert.com', 'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => 915821654, 'address' => 'Address 4', 'postalCode' => '4500-000', 'city' => 'Coimbra',  'activated' => 'true','type' => 'normal',    'age_id' =>$age30->id, 'residence_country_id' => $france->id, 'nationality_country_id' => $spain->id, 'organization'=>'' ));
-
+        $admin = User::create(array('username' => 'admin1',         'firstname' => 'Admin',     'lastname' => 'Silva', 'email' => 'admin@spotalert.com',     'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => '+351915283154', 'address' => 'Address 1', 'postalCode' => '4200-000', 'city' => 'Porto',   'activated' => 'true', 'type' => 'admin',     'age_id' =>$age20->id, 'residence_country_id' => $portugal->id, 'nationality_country_id' => $portugal->id, 'organization'=>'Department Admin' ));
+        $manager = User::create(array('username' => 'manager1',     'firstname' => 'Manager',   'lastname' => 'Silva', 'email' => 'manager@spotalert.com',   'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => '+351912345678', 'address' => 'Address 2', 'postalCode' => '4900-000', 'city' => 'Lisboa',  'activated' => 'true', 'type' => 'manager',   'age_id' =>$age30->id, 'residence_country_id' => $portugal->id, 'nationality_country_id' => $portugal->id, 'organization'=>'Department Manager' ));
+        $publisher = User::create(array('username' => 'publisher1', 'firstname' => 'Publisher', 'lastname' => 'Silva', 'email' => 'publisher@spotalert.com', 'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => '+351918765432', 'address' => 'Address 3', 'postalCode' => '4100-000', 'city' => 'Aveiro',  'activated' => 'true', 'type' => 'publisher', 'age_id' =>$age20->id, 'residence_country_id' => $spain->id,    'nationality_country_id' => $spain->id,    'organization'=>'Department Publisher' ));
+        $normal = User::create(array('username' => 'normal1',       'firstname' => 'Normal',    'lastname' => 'Silva', 'email' => 'normal@spotalert.com',    'password' => Hash::make('111111'), 'password_temp' => '', 'code' => '', 'created_at' => '2014-05-15', 'phonenumber' => '+351915821654', 'address' => 'Address 4', 'postalCode' => '4500-000', 'city' => 'Coimbra', 'activated' => 'true', 'type' => 'normal',    'age_id' =>$age30->id, 'residence_country_id' => $france->id,   'nationality_country_id' => $spain->id ));
 
         $publisher->supervisor_id = $admin->id;
         $publisher->save();
@@ -142,7 +155,7 @@ class PublicationsSeeder extends Seeder
 		));
 
 		$content1EN = PublicationContent::create(array(
-			'title'			=> 'Hurricane in Portugal',
+			'title'			=> 'Hurricane in Spain',
 			'content'		=> 'Be careful about this Hurricane, stay at home!',
 			'publication_id'=> $publication1->id,
 			'language_id'	=> $langEN->id
@@ -302,7 +315,7 @@ class PublicationsSeeder extends Seeder
 		));
 
 		$content8EN = PublicationContent::create(array(
-			'title'			=> 'Hurricane in Portugal',
+			'title'			=> 'Hurricane in Somewhere',
 			'content'		=> 'Be careful about this Hurricane, stay at home!',
 			'publication_id'=> $publication8->id,
 			'language_id'	=> $langEN->id
@@ -721,6 +734,50 @@ class PublicationsSeeder extends Seeder
 		
 		// Linking publications
 		$publication1->guidelines()->attach($publication2->id);
+        $publication1->guidelines()->attach($publication3->id);
+        $publication2->alerts()->attach($publication4->id);
+        $publication2->alerts()->attach($publication6->id);
+        $publication7->alerts()->attach($publication5->id);
+        $publication7->alerts()->attach($publication6->id);
+        
+        // Comments
+        $comment1 = Comment::create(array(
+			'content'	=> 'Meu deus que grande susto!.',
+			'created_at' => date("Y-m-d H:i:s"),
+			'approved'=> "true",
+            'user_id' => $admin->id,
+            'publication_id' => $publication2->id
+		));
+         $comment2 = Comment::create(array(
+			'content' => 'Isto provocou um transito tremendo na rua das amoras.',
+			'created_at' => date("Y-m-d H:i:s"),
+			'approved'=> "true",
+            'user_id' => $admin->id,
+            'publication_id' => $publication2->id
+		));
+         $comment3 = Comment::create(array(
+			'content' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in tortor pretium, pellentesque magna nec, posuere libero. Vestibulum condimentum felis et neque volutpat cursus. Aliquam in tellus mi. Vivamus consectetur.',
+			'created_at' => date("Y-m-d H:i:s"),
+			'approved'=> "false",
+            'user_id' => $publisher->id,
+            'publication_id' => $publication2->id
+		));
+         $comment4 = Comment::create(array(
+			'content'	=> 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in tortor pretium, pellentesque magna nec, posuere libero. Vestibulum condimentum felis et neque volutpat cursus.',
+			'created_at' => date("Y-m-d H:i:s"),
+			'approved'=> "true",
+            'user_id' => $manager->id,
+            'publication_id' => $publication4->id
+		));
+         $comment5 = Comment::create(array(
+			'content'	=> 'Consectetur adipiscing elit. Curabitur in tortor pretium, pellentesque magna nec, posuere libero. Vestibulum condimentum felis et neque volutpat cursus.',
+			'created_at' => date("Y-m-d H:i:s"),
+			'approved'=> "false",
+            'user_id' => $normal->id,
+            'publication_id' => $publication8->id
+		));
+
+        
 	}
 
 	public function clearDatabase()

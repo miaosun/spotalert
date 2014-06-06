@@ -1,24 +1,9 @@
 $('document').ready(function() 
 {
-	// Just to activate the custom scrolling using the jScrollPane jQuery plugin
-	$('.scrollable').jScrollPane({ hideFocus : true, autoReinitialise : true, contentWidth : '218px' });
-
 	// If clicking anywhere in the dropdown menu, it doesn't close
 	$('.dropdown-menu').click(function(e) {
         e.stopPropagation();
     });
-
-
-    /*FB.Event.subscribe('edge.create', function(targetUrl) {
-        ga('send', {
-          'hitType': 'social',
-          'socialNetwork': 'facebook',
-          'socialAction': 'share',
-          'socialTarget': 'http://spotalert.fe.up.pt',
-          'page': '/publication/'+id
-            });
-        alert('enviou hit sobre o share no facebook para o id:'+id);
-    });*/
 
     // Everything for filtering to work
     filtering();
@@ -34,6 +19,15 @@ $('document').ready(function()
     {
     	nextSelector: 'a.jscroll-next:last'
     });
+    
+    // setting up expand buttons for publication
+    setupBtnPublication();
+
+    // Style the form's selects
+    $('.styled').customSelect();
+
+    // For the radioboxes in the register page
+    setRegisterRadioBoxes();
 });
 
 
@@ -98,7 +92,7 @@ function filtering()
 			countries = addText('#filt .filter-country.selected');
 
 		// Let's retrieve the publications
-		$.get('/publications/filter', 
+		$.get('/publications/filter',
 			  { 'risks': risks, 'event_types': eventTypes, 'affected_countries': countries},
 			  function() { $('#main').html('<div class="ajax-loading"></div>' + loading_message);})
 			.done(function( data ) 
@@ -107,12 +101,13 @@ function filtering()
 					$('#main').html(nothing_returned_message);
 				else
 			    	$('#main').html(data);
-			    
 			    // Infinite scrolling
 			    $('.scroll').jscroll(
 			    {
 			    	nextSelector: 'a.jscroll-next:last'
 			    });
+                // reload click on btns
+                //setupBtnPublication();
 			})
 			.fail(function() 
 			{
@@ -196,11 +191,14 @@ function searching()
 						$('#main').html(nothing_returned_message);
 					else
 				    	$('#main').html(data);
+
 				    // Infinite scrolling
 				    $('.scroll').jscroll(
 				    {
 				    	nextSelector: 'a.jscroll-next:last'
 				    });
+
+                    //setupBtnPublication();
 				})
 				.fail(function() 
 				{
@@ -211,37 +209,230 @@ function searching()
 	});
 }
 
+function setRegisterRadioBoxes()
+{
+	$('#create .radiobutton').click(function()
+	{
+		$(this).children('.glyphicon').addClass('glyphicon-remove');
+		$(this).siblings('.radiobutton').children('.glyphicon').removeClass('glyphicon-remove');
+
+		if($(this).children('.glyphicon').hasClass('yes'))
+			$('#create .terms-service input#yes').prop('checked', true);
+		else
+			$('#create .terms-service input#no').prop('checked', true);
+	});
+
+	$('#create-alert .radiobutton').click(function()
+	{
+		$(this).children('.glyphicon').addClass('glyphicon-remove');
+		$(this).siblings('.radiobutton').children('.glyphicon').removeClass('glyphicon-remove');
+
+		if($(this).children('.glyphicon').hasClass('public-o'))
+			$('#create-alert .visibility input#public-o').prop('checked', true);
+		else
+			$('#create-alert .visibility input#hidden-o').prop('checked', true);
+	});
+}
+
+/**
+* Get publication content by ajax
+**/
+function getPublicationContent(id)
+{
+	var btn = $('#publ-'+id+' .publ-expand');
+	if(btn.hasClass('publ-ajax-loaded'))
+		togglePubBtn(id);
+	else
+	{
+	    jQuery.getJSON("/publications/content/"+id,function(data){
+	        // fill description
+	        $('#publ-'+id+' .publ-content p').html(data.content);
+            // fill images
+            var imgHTML ="";
+            for(var i = 0; i < data.images.length ; i++){
+                imgHTML = imgHTML + "<a href='"+data.images[i].url+"'><img src='"+data.images[i].url+"'alt='"+data.images[i].alt+"'/></a>";
+            }
+            $('#publ-'+id+' .pub-content-imgs').html(imgHTML);
+	        // fill linked publications
+	        if(data.pubLinked.length == 0)
+	            $('#publ-'+id+' .publ-linked').remove();
+	        else
+	        {
+                $('#publ-'+id+' .publ-content span.number-linked').html(data.pubLinked.length);
+	            var links = "";
+	            for(var i = 0; i < data.pubLinked.length ; i++){
+	                links = links + "<p><a href='"+data.pubLinked[i].id+"'>"+data.pubLinked[i].title+"</a>";
+	            }
+	            $('#publ-'+id+' .publ-content .publ-linked-toggle').html(links);
+	        }
+	        // fill comments 
+	        if(data.comments.length == 0){
+	            $('#publ-'+id+' .publ-comments-toggle-btn').hide();
+            }
+	        else
+	        {
+	            //insert number of comments
+                $('#publ-'+id+' .publ-content .publ-comments span.number-comments').html(data.comments.length);
+	            var links = "";
+	            for(var i = 0; i < data.comments.length ; i++)
+                {
+	                if(i != 0)
+	                    links = links +"<hr>";
+                   
+                    links = links +"<div class='comments'>";
+                    //if exist photo
+	                if(data.comments[i].img.length != 0)
+                    {
+                        links = links +"<div class='comments-imgs'><a href=\""+data.comments[i].img.url+"\">\
+                                        <img src='"+data.comments[i].img.url+"'alt='"+data.comments[i].img.alt+"'/>\
+                                        </a></div>"
+                    }
+                    links = links +"<p class='comments-content'>"+data.comments[i].content+"</p>\
+                                    <p class='comments-info'>"+data.comments[i].user+" - "+data.comments[i].date.date
+	                                ;
+                    if(data.comments[i].delete != 0)
+                    {
+                        links= links + "<span class='comments-delete'>\
+                                        <a href='"+data.comments[i].delete.url+"'>"+data.comments[i].delete.text+"</a></span>";
+                    }
+                    links= links +"</p></div>";
+                    
+	            }
+	            //alert(links);
+	            $('#publ-'+id+' .publ-content .publ-comments-area').html(links);
+	        }
+	        // change btn to toggle only
+	        btn.addClass('publ-ajax-loaded');
+	        // show content
+	        togglePubBtn(id);
+	    });
+	}
+}
+// toggle expansion btn
+function togglePubBtn(id)
+{
+    var btn = $('#publ-'+id+' .publ-expand');
+    btn.toggleClass("glyphicon-chevron-down");
+    btn.toggleClass("glyphicon-chevron-up");
+    $('#publ-'+id+' .publ-colapse').toggle();
+}
+// toggle linked div and arrow
+function toggleLinkedBtn(id)
+{
+    var btn = $('#publ-'+id+' .publ-linked-toggle-btn');
+    btn.toggleClass("glyphicon-chevron-right");
+    btn.toggleClass("glyphicon-chevron-down");
+    $('#publ-'+id+' .publ-linked-toggle').toggle();
+    
+}
+// add comments if login
+function showAddCommentBtn(id){
+    $('#publ-'+id+' .publ-comments-addcomment').show();
+    
+    var btn = $('#publ-'+id+' .publ-addcomment-btn');
+    btn.toggleClass("glyphicon-chevron-right");
+    btn.toggleClass("glyphicon-chevron-down");
+    $('#publ-'+id+' .publ-comments-toggle').show();
+}
+// toggle comments div and arrow
+function toggleCommentsBtn(id)
+{
+    var btn = $('#publ-'+id+' .publ-comments-toggle-btn');
+    btn.toggleClass("glyphicon-chevron-right");
+    btn.toggleClass("glyphicon-chevron-down");
+    $('#publ-'+id+' .publ-comments-toggle').toggle();
+    
+}
+// setup btn to expand and load updated data missing
+function setupBtnPublication(){
+    $('div#main').on('click', '.publ-expand', function(){
+        var id = $(this).attr('publicationid');
+        getPublicationContent(id);
+    });
+    $('div#main').on('click', '.publ-linked-toggle-btn', function(){
+        var id = $(this).attr('publicationid');
+        toggleLinkedBtn(id);
+    });
+    $('div#main').on('click', '.publ-comments-toggle-btn', function(){
+        var id = $(this).attr('publicationid');
+        toggleCommentsBtn(id);
+    });
+    $('div#main').on('click', 'span.addcomment-btn', function(){
+        var id = $(this).attr('publicationid');
+        showAddCommentBtn(id);
+    });
+    $('div#main').on('click', '.submit-comment-btn ', function(){
+    var id = $(this).attr('publicationid');
+    
+    submitCommentBtn(id);
+    });
+}
+
+function submitCommentBtn(id){
+    data = new FormData();
+    data.append('text',$('#publ-'+id+' .publ-comments-addcomment .submit-comment-textarea').val())
+    data.append('img',$('#publ-'+id+' .publ-comments-addcomment .submit-comment-file')[0].files[0]);
+
+    $.ajax({
+        url : "/user/comments/submit/"+id,
+        type: "POST",
+        data : data,
+        processData: false,
+        contentType: false,
+        datatype: JSON,
+        success: function(data, textStatus, jqXHR)
+        {
+            alert(data.msg);
+            $('#publ-'+id+' .publ-comments-addcomment .submit-comment-textarea').val("");
+            $('#publ-'+id+' .publ-comments-addcomment .submit-comment-file').val("");
+            $('#publ-'+id+' .publ-comments-addcomment').hide();
+            
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert(textStatus);
+        }
+    });
+}
+
+
 /**
 * Share links code
 **/
 // Send hit to google analytics for a facebook share
-function shareFacebook(id){
+function shareFacebook(id,title){
     ga('send', {
-  'hitType': 'social',
-  'socialNetwork': 'facebook',
-  'socialAction': 'share',
-  'socialTarget': 'http://spotalert.fe.up.pt',
-  'page': '/publication/'+id
+      'hitType': 'social',
+      'socialNetwork': 'Facebook',
+      'socialAction': 'FacebookShare',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
     });
-    alert('enviou hit sobre o share no facebook para o id:'+id);
 }
 // Send hit to google analytics for a Twitter tweet
-function shareTwitter(id){
+function shareTwitter(id,title){
     ga('send', {
-  'hitType': 'social',
-  'socialNetwork': 'twitter',
-  'socialAction': 'tweet',
-  'socialTarget': 'http://spotalert.fe.up.pt/publication/'+id
+      'hitType': 'social',
+      'socialNetwork': 'Twitter',
+      'socialAction': 'Tweet',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
     });
-    alert('enviou hit sobre o share no twitter para o id:'+id);
 }
 // Send hit to google analytics for a google share 
-function shareGoogle(id){
-    var a = ga('send','social','google','shareplus','http://spotalert.fe.up.pt','/publication/'+id);
-     alert('enviou hit sobre o share no google para o id:'+id);
+function shareGoogle(id,title){
+    ga('send', {
+      'hitType': 'social',
+      'socialNetwork': 'GooglePlus',
+      'socialAction': 'GooglePlusShare',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
+    });
 }
 // Send hit to google analytics for a linkdIn share
-function shareGoogle(id){
-    var a = ga('send','social','google','shareplus','http://spotalert.fe.up.pt','/publication/'+id);
-     alert('enviou hit sobre o share no google para o id:'+id);
+function shareLinkdIn(id,title){
+     ga('send', {
+      'hitType': 'social',
+      'socialNetwork': 'LinkdIN',
+      'socialAction': 'LinkdINShare',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
+     });
 }
+        

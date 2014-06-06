@@ -4,9 +4,16 @@ class UserPanelController extends BaseController {
 	/* show the usercontrol panel */
 	public function show() {
 		$profile = User::find(Auth::user()->getId());
-        return View::make('user.controlpanel',array('user'=>$profile));
+        $srcPath = public_path().'/assets/images/user/'.Auth::user()->getId().'.jpg';
+        $pic=FALSE;
+        if(File::exists($srcPath))
+        {
+            $pic=TRUE;
+        }
+        return View::make('user.controlpanel',array('user'=>$profile))->with('pic',$pic);
 	}
 
+    /* Privileges Page */
     public function getPrivileges() {
         $profile = User::find(Auth::user()->getId());
         $users_with_permissions = User::where('type','<>', 'normal')->get();
@@ -18,14 +25,30 @@ class UserPanelController extends BaseController {
         $profile = User::find(Auth::user()->getId());
         $users_with_permissions = User::where('type','<>', 'normal')->get();
 
-        if(Input::has('username') || Input::has('email'))
+        if(Input::has('username'))
         {
             if(Input::has('username'))
                 $selectedUser = User::where('username', '=', Input::get("username"))->first();
+
+            if($selectedUser == null)
+                return Redirect::route('user-privileges')->with('global', 'User doesn\'t exists, try again!');
+            $selected = true;
+            return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_with_permissions'=>$users_with_permissions));
+        }
+        else
+            return Redirect::route('user-privileges');
+    }
+
+    public function getPrivilegesWithEmail() {
+        $profile = User::find(Auth::user()->getId());
+        $users_with_permissions = User::where('type','<>', 'normal')->get();
+
+        if(Input::has('email'))
+        {
             if(Input::has('email'))
                 $selectedUser = User::where('email', '=', Input::get("email"))->first();
             if($selectedUser == null)
-                return Redirect::route('user-privileges')->with('global', 'User not exists, try again!');
+                return Redirect::route('user-privileges')->with('global', 'User doesn\'t exists, try again!');
             $selected = true;
             return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_with_permissions'=>$users_with_permissions));
         }
@@ -39,9 +62,21 @@ class UserPanelController extends BaseController {
         if($profile->username == $username)
             return Redirect::route('user-privileges')->with('global', 'Change failed! Select a user first!');
 
-        DB::update('update users set type = ? where username = ?', array(Input::get('permissions'), $username));
+        if(Input::has('department'))
+            DB::update('update users set organization=?, type = ? where username = ?', array(Input::get('department'), Input::get('permissions'), $username));
+        else
+            DB::update('update users set type = ? where username = ?', array(Input::get('permissions'), $username));
 
         return Redirect::route('user-privileges')->with('global', 'Changes made with success!');
+    }
+
+    public function deleteUser($username) {
+        $profile = User::find(Auth::user()->getId());
+        if($profile->type == 'admin')
+        {
+            User::where('username', '=', $username)->delete();
+            return Redirect::route('user-privileges')->with('global', 'Selected user deleted successfully!');
+        }
     }
 
     // Notifications Page
@@ -54,11 +89,14 @@ class UserPanelController extends BaseController {
         }
         $country_options = array('' => Lang::get('controlpanel.notifications.country_option')) + Country::lists('name', 'id');
         $publication_options = array('' => Lang::get('controlpanel.notifications.publication')) + $temp;
-        $notification_settings = NotificationSetting::all();
-        $user_publications = DB::table('publications')
-                                ->join('users_publications', 'users_publications.publication_id', '=', 'publications.id')
-                                ->join('publicationContents', 'publicationContents.publication_id', '=', 'publications.id')
-                                ->get(array('publications.id', 'title'));
+        $notification_settings = NotificationSetting::where('user_id', '=', Auth::user()->getId())->get();
+
+        $user_publications = Publication::with(array('usersNotified', 'contents'))
+                                        ->whereHas('usersNotified', function($query)
+                                        {
+                                            $query->where('user_id', '=', Auth::user()->getId());
+                                        })
+                                        ->get();
 
         return View::make('user.notifications')->with('country_options', $country_options)->with('publication_options', $publication_options)->with('notification_settings', $notification_settings)->with('user_publications', $user_publications)->with('user', $profile);
     }
@@ -66,14 +104,14 @@ class UserPanelController extends BaseController {
     public function deleteNotification($id)
     {
         NotificationSetting::find($id)->delete();
-        return Redirect::route('user-notifications')->with('global', 'Notification Setting deleted successfully!');
+        return Redirect::route('user-notifications');
     }
 
     public function deletePublication($id)
     {
         $user = User::find(Auth::user()->getId());
         $user->publicationNotifications()->detach($id);
-        return Redirect::route('user-notifications')->with('global', 'Notification for selected Publication deleted successfully!');
+        return Redirect::route('user-notifications');
     }
 
     public function addCountryRisk() {
@@ -92,16 +130,21 @@ class UserPanelController extends BaseController {
         {
             $country_id = Input::get('country');
             $risk_level = Input::get('minimum_risk');
-            $notificationSetting = NotificationSetting::create(array(
-                'country_id'    => $country_id,
-                'risk'          => $risk_level,
-                'user_id'       => Auth::user()->getId()
-            ));
+            $notificationSetting = NotificationSetting::where('country_id','=',$country_id)->where('risk','=',$risk_level)->where('user_id','=',Auth::user()->getId())->first();
+            if($notificationSetting == null)
+            {
+                $notificationSetting = NotificationSetting::create(array(
+                    'country_id'    => $country_id,
+                    'risk'          => $risk_level,
+                    'user_id'       => Auth::user()->getId()
+                ));
 
-            if($notificationSetting) {
-                return Redirect::route('user-notifications')
-                    -> with('global', 'Notofication for Country and Minimum Risk Level added successfully!');
+                if($notificationSetting) {
+                    return Redirect::route('user-notifications');
+                }
             }
+            else
+                return Redirect::route('user-notifications');
         }
 
     }
@@ -123,11 +166,13 @@ class UserPanelController extends BaseController {
             $publication_id = Input::get('publication');
 
             $user = User::find(Auth::user()->getId());
+            if($user->publicationNotifications->contains($publication_id))
+                return Redirect::route('user-notifications')->with('global', 'Selected Publication already in the list!');
+
             $user->publicationNotifications()->attach($publication_id);
 
             if($user) {
-                return Redirect::route('user-notifications')
-                    -> with('global', 'Notofication for selected Publication added successfully!');
+                return Redirect::route('user-notifications');
             }
         }
     }
@@ -135,15 +180,117 @@ class UserPanelController extends BaseController {
     // Comments Page
     public function getComments()  {
         $profile = User::find(Auth::user()->getId());
-        //$publications = PublicationController::getPublicationsForUserPanel();
 
-        $publications = DB::table('publications')
-            ->join('publicationContents', 'publicationContents.publication_id', '=', 'publications.id')
-            ->leftJoin('comments', 'comments.publication_id', '=', 'publications.id')
-            ->leftJoin('users', 'comments.user_id', '=', 'users.id')
-            ->get(array('publications.id', 'publicationContents.title', 'comments.content', 'users.username',  'publications.initial_date', 'publications.risk'));
+        $comments = Comment::with(array('author', 'publication', 'publication.contents'))->where('approved', '=', false)->get();
 
-        return View::make('user.comments')->with('user', $profile)->with('publications', $publications);
+        $answer = array();
+
+        foreach($comments as $comment)
+        {
+            if(!$comment->approved)
+            {
+                $commentData = array('img'=>array());
+
+                $srcPath = public_path().'/assets/images/comments/'.$comment->id;
+                if(File::exists($srcPath))
+                {
+                    $imagesUrl = File::allFiles($srcPath);
+                    foreach($imagesUrl as $imgUrl)
+                    {
+                        $commentData['img'] = array('url'=>$url = asset('assets/images/comments/'.$comment->id.'/'.$imgUrl->getRelativePathName()),'alt'=>$comment->publication->contents->first()->title);
+                    }
+                }
+
+                $answer[$comment->id] = $commentData;
+            }
+        }
+
+        return View::make('user.comments')->with('user', $profile)->with('comments', $comments)->with('images', $answer);
+    }
+
+    public function approveComment($id) {
+        DB::update('update comments set approved = ? where id = ?', array('true', $id));
+
+        return Redirect::route('user-comments');
+    }
+
+    public function deleteComment($id) 
+    {
+       if(Auth::check() && Auth::user()->type != 'normal')
+       { 
+        Comment::destroy($id);
+        //Comment::where('id', '=', $id)->delete();
+        return Redirect::route('user-comments');
+       }
+        else
+            return 'No Autorization';
+    }    
+    /*  Submit new comments API  */
+    public function submitComment($id) {
+        
+        if(Auth::check() && Input::has("text"))
+        {
+            //'content', 'created_at', 'approved', 'user_id', 'publication_id'
+            $comment = new Comment;
+            $comment->content = Input::get("text");
+            $comment->created_at = date("Y-m-d H:i:s");
+            $comment->approved = false;
+            $comment->user_id = Auth::user()->id;
+            $comment->publication_id = $id;
+            
+            if(Input::hasFile("img"))
+            {
+                // Validating the files that must be images
+		        $img = Input::file('img');
+                $input = array(
+                    'img' => $img
+                );
+
+                $rules = array(
+                    'img' => 'image|max:2048'
+                );
+                $validation = Validator::make($input, $rules);
+
+                if($validation->passes()) 
+                {
+                    if($comment->save())
+                    {
+                        $destinationPath = public_path().'/assets/images/comments/'.$comment->id;
+                        if(!File::exists($destinationPath))
+                            File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
+                        $extension = $img->guessExtension();
+                        $img->move($destinationPath, $comment->id . '.' . $extension);
+                        if(File::exists($destinationPath.'/'.$comment->id . '.' . $extension))
+                            $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.success'),"id"=>$id,"status"=>"ok");
+                        else
+                        {
+                            
+                            $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.fail_img'),"id"=>$id,"status"=>"Image not saved");
+                            $comment->delete();
+                        }
+                    }
+                    else
+                    {
+                        $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.fail'),"id"=>$id,"status"=>"DataBase Error: can't saved");
+                    }
+                }
+                else
+                {
+                   $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.fail_img'),"id"=>$id,"status"=>"Image not valid");
+                }
+            }
+            else
+            {
+                if($comment->save())
+                    $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.success'),"id"=>$id,"status"=>"ok");
+                else
+                    $answer = array("msg" => Lang::get('controlpanel.comments.submit_msg.fail'),"id"=>$id,"status"=>"DataBase Error: can't saved");
+            }
+        }
+        else
+            $answer = array("msg"=>Lang::get('controlpanel.comments.submit_msg.bad_format'),"id"=>$id); 
+        
+        return Response::json($answer);
     }
 
     /*  APIs  */
@@ -167,12 +314,12 @@ class UserPanelController extends BaseController {
             $temp = User::where('type', '<>', 'admin')->get();
         if($profile['type'] == 'manager')
             $temp = User::where('type', '<>', 'admin')->where('type', '<>', 'manager')->get();
-        $usernames_array = array();
+        $useremails_array = array();
         foreach($temp as $tem)
         {
-            $usernames_array[] = $tem['email'];
+            $useremails_array[] = $tem['email'];
         }
-        return Response::json($usernames_array);
+        return Response::json($useremails_array);
     }
 
     public function getAges() {
@@ -188,7 +335,6 @@ class UserPanelController extends BaseController {
 	/* update user profile data  */
 	public function updateprofile() 
 	{
-		// TODO fix to auth:user
 		$profile = User::find(Auth::user()->getId());
 
 		if(Input::has('newpassword'))
@@ -203,8 +349,8 @@ class UserPanelController extends BaseController {
 		{	
 			if(Input::has('newpassword'))
 			{
-				//$profile->password = Hash::make(Input::get('newpassword'));
-				$profile->password = Input::get('newpassword');
+				$profile->password = Hash::make(Input::get('newpassword'));
+				//$profile->password = Input::get('newpassword');
 			}
 			if(Input::has('username'))
 			{
@@ -233,23 +379,26 @@ class UserPanelController extends BaseController {
 			if(Input::hasFile('uploadfile'))
 			{
 				$filename = $profile->username;
+                $destinationPath = public_path().'/assets/images/user';
 				//$extension = Input::file('photo')->getClientOriginalExtension();
-				//Input::file('uploadbtn')->move('/public/assets/images/user', $filename.$extension);
-                //FIXME - change hardcode 3.jpg to login userid
-				$uploadSuccess = Input::file('uploadfile')->move('/public/assets/images/user', Auth::user()->getId().'.jpg');
+                //FIXME - Not force to be jpg maybe? Photos have to be .jpg still..
+				Input::file('uploadfile')->move($destinationPath, Auth::user()->getId().'.jpg');
+                $uploadSuccess = File::exists($destinationPath.Auth::user()->getId().'.jpg');
+                
 			}
             else
             {
                 $uploadSuccess = true;
             }
-			//TODO rest of inputs
+            //return Response::json(array("teste"=>$uploadSuccess));
+			//TODO verificar porque nao está a fazer upload do uploadfile <----
 			if($profile->save() && $uploadSuccess)
-                return Redirect::route('control-panel')->with('global','Teste: update with success!')->withErrors($valid);
+                return Redirect::route('control-panel')->withErrors($valid);
 			else
-                return Redirect::route('control-panel')->with('global',"Teste: update without sucess! Can't save model!")->withErrors($valid);
+                return Redirect::route('control-panel')->with('global',"Update without sucess! Can't save model!")->withErrors($valid);
 		}
 		else
-            return Redirect::route('control-panel')->with('global',"Teste: update failed! Input not validated!")->withErrors($valid);
+            return Redirect::route('control-panel')->withErrors($valid);
 	}
 
     public function getPublications() 
@@ -261,7 +410,6 @@ class UserPanelController extends BaseController {
     
 	private function validate() 
 	{
-		//FIX and complete with more rules
         return Validator::make(Input::all(),
             array(
                 'email'          => 'max:50|email|unique:users',
@@ -283,10 +431,10 @@ class UserPanelController extends BaseController {
     {
         return Validator::make(Input::all(),
             array(
-                'newpassword'=>'Required|AlphaNum|min:4|Confirmed',
+                'newpassword'=>'Required|AlphaNum|min:6|Confirmed',
                 'newpassword_confirmation'=>'Required|AlphaNum|min:4',
-                'email'          => 'required|max:50|email|unique:users',
-                'username'       => 'required|max:20|min:3|unique:users',
+                'email'          => 'max:50|email|unique:users',
+                'username'       => 'max:20|min:3|unique:users',
                 'firstname'      => 'max:20',
                 'lastname'       => 'max:20',
                 'phonenumber'    => 'max:20',

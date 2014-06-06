@@ -15,6 +15,13 @@ Route::get('/', array(
     'as' => 'home',
     'uses' => 'HomeController@showWelcome'
 ));
+// single publication
+Route::get('/{id}', array(
+		'as'	=> 'publication-solo',
+        'uses' =>'PublicationController@getPublication'
+	))
+    ->where('id', '[0-9]+');
+/*TODO filter by publ title also */
 
 Route::get('/contact', array(
     'as' => 'contact',
@@ -70,24 +77,61 @@ Route::group(array('prefix' => 'publications'), function()
         'as'   => 'next-page',
         'uses' => 'PublicationController@getNextPage'
     ));
+    
+    // Load publication content
+    Route::get('/content/{publ_id}', array(
+		'as'	=> 'publications-content',
+		'uses'	=> 'PublicationController@getPublicationExpandableContentByID'
+	))
+    ->where('publ_id', '[0-9]+');
+    
+	// For searching publications
+	Route::get('/search/{search_query}', array(
+		'as'	=> 'publications-route',
+		function($search_query)
+		{
+			$publications = PublicationController::getSearchedPublications($search_query);
+      		return View::make('includes.publications')->with('publications', $publications);
+		}
+	))
+    ->where('publ_id', '[0-9]+');
 });
-/*
-Route::get('/user/{username}', array(
-    'as' => 'profile-user',
-    'uses' => 'ProfileController@user'
-));
-*/
 
-//Create Alert (POST)
-Route::post('/publication/createalert', array(
-    'as' => 'publication-createalert',
-    'uses' => 'PublicationController@createAlert'
+        
+// show create alert (GET)
+Route::get('/publication/create-alert', array(
+    'as' => 'publication-create-alert',
+    'uses' => 'PublicationController@showCreateAlert'
 ));
-            
-//Create Alert (POST)
-Route::post('/publication/createguideline', array(
-    'as' => 'publication-createguideline',
-    'uses' => 'PublicationController@createGuideline'
+
+// show create guideline (GET)
+Route::get('/publication/create-guideline', array(
+    'as' => 'publication-create-guideline',
+    'uses' => 'PublicationController@showCreateGuideline'
+));
+
+// show edit alert (GET)
+Route::get('/publication/edit-alert/{id}', array(
+    'as' => 'publication-edit-alert',
+    'uses' => 'PublicationController@showEditAlert'
+)); 
+
+// show edit guideline (GET)
+Route::get('/publication/edit-guideline/{id}', array(
+    'as' => 'publication-edit-guideline',
+    'uses' => 'PublicationController@showEditGuideline'
+));
+
+// show create alert from eyewitness (GET)
+Route::post('/publication/eyewit-alert/{id}', array(
+    'as' => 'publication-eyewit-alert',
+    'uses' => 'PublicationController@showEyewitToAlert'
+));
+
+// show create guideline from eyewitness (GET)
+Route::post('/publication/eyewit-guideline/{id}', array(
+    'as' => 'publication-eyewit-guideline',
+    'uses' => 'PublicationController@showEyewitToGuideline'
 ));
 
 /*
@@ -132,6 +176,39 @@ Route::group(array('before' => 'auth'), function() {
             'as' => 'create-eyewitness',
             'uses' => 'EyewitnessController@createEyewitness'
         ));
+
+        // Delete Eyewitness
+        Route::post('/delete-eyewitness/{eyewit_id}', array(
+            'as' => 'delete-eyewitness',
+            'before' => 'auth.not_normal',
+            'uses' => 'EyewitnessController@deleteEyewitness'
+        ))
+        ->where('eyewit_id', '[0-9]+');
+        
+        //Create Alert (POST)
+        Route::post('/publication/createalert', array(
+            'as' => 'publication-createalert',
+            'uses' => 'PublicationController@createAlert'
+        ));
+        
+        //Create Guideline (POST)
+        Route::post('/publication/createguideline', array(
+            'as' => 'publication-createguideline',
+            'uses' => 'PublicationController@createGuideline'
+        ));
+        
+        //Edit Alert (POST)
+        Route::post('/publication/editalert', array(
+            'as' => 'publication-editalert',
+            'uses' => 'PublicationController@updateAlert'
+        ));
+        
+        //Edit Guideline (POST)
+        Route::post('/publication/editguideline', array(
+            'as' => 'publication-editguideline',
+            'uses' => 'PublicationController@updateGuideline'
+        ));
+        
     });
 
     // change password (GET)
@@ -164,9 +241,20 @@ Route::group(array('before' => 'auth'), function() {
         'uses' => 'UserPanelController@getPrivilegesWithUser'
     ));
 
+    Route::post('/user/privileges/selected/email', array(
+        'as' => 'selectedEmail-privileges',
+        'uses' => 'UserPanelController@getPrivilegesWithEmail'
+    ));
+
     Route::post('/user/privileges/{username}', array(
         'as' => 'update-privileges',
         'uses' => 'UserPanelController@updatePrivileges'
+    ));
+
+    // Delete User
+    Route::get('/user/privileges/delete/{username}', array(
+       'as' => 'privileges-delete',
+        'uses' => 'UserPanelController@deleteUser'
     ));
 
     //Notifications
@@ -201,6 +289,27 @@ Route::group(array('before' => 'auth'), function() {
         'uses' => 'UserPanelController@getComments'
     ));
 
+    Route::get('/user/comments/approve/{id}', array(
+        'as' => 'comment-approved',
+        'uses' => 'UserPanelController@approveComment'
+    ));
+
+    Route::get('/user/comments/delete/{id}', array(
+        'as' => 'comment-deleted',
+        'uses' => 'UserPanelController@deleteComment'
+    ));
+    Route::post('/user/comments/submit/{id}',array(
+        'as' => 'insert-comment',
+        'uses' => 'UserPanelController@submitComment'
+    ))->where('id', '[0-9]+');;
+
+    // Eyewitness Management
+    Route::get('/user/eyewitnesses', array(
+       'before' => 'auth.not_normal',
+       'as' => 'user-eyewitnesses',
+       'uses' => 'EyewitnessController@getEyewitnesses'
+    ));
+
     // Publications listing
     Route::get('/user/publications', array(
        'before' => 'auth.not_normal',
@@ -208,7 +317,7 @@ Route::group(array('before' => 'auth'), function() {
        'uses' => 'UserPanelController@getPublications'
     ));
 
-// update profile form route
+    // update profile form route
     Route::post('/user/updateprofile', array(
         'as' => 'update-profile',
         'uses' => 'UserPanelController@updateprofile'
@@ -216,6 +325,20 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('/user/updatepassword', array(
         'as' => 'update-user-password',
         'uses' => 'UserPanelController@updatepassword'
+    ));
+    
+    Route::post('/deleteimage/{pub}/{img}', array(
+        'as' => 'deleteimage',
+        function($pub,$img)
+        {                File::delete(public_path()."/assets/images/publications/".$pub."/".$img);
+        }
+    ));
+    
+    Route::post('/deleteimagew/{eye}/{img}', array(
+        'as' => 'deleteimagew',
+        function($eye,$img)
+        {                       File::delete(public_path()."/assets/images/eyewitnesses".$eye."/".$img);
+        }
     ));
 });
 
@@ -276,18 +399,6 @@ Route::group(array('before' => 'guest'), function() {
     Route::get('/account/activate/{code}', array(
         'as' => 'account-activate',
         'uses' => 'AccountController@getActivate'
-    ));
-    
-    // show create alert (GET)
-    Route::get('/publication/create-alert', array(
-        'as' => 'publication-create-alert',
-        'uses' => 'PublicationController@showCreateAlert'
-    ));
-    
-    // show create alert (GET)
-    Route::get('/publication/create-guideline', array(
-        'as' => 'publication-create-alert',
-        'uses' => 'PublicationController@showCreateGuideline'
     ));
 
 });

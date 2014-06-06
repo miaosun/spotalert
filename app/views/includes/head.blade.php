@@ -2,6 +2,12 @@
 <meta name="description" content="">
 <meta name="author" content="Spot Alert Team">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+@if (isset($publicationAlone) && isset($publications[0]))
+<meta property="og:title" content="{{$publications[0]['title']}}" />
+<meta property="og:site_name" content="Spotalert"/>
+<meta property="og:url" content="{{ URL::route('publication-solo',array($publications[0]['id'])) }}" />
+<meta property="og:description" content="{{$publications[0]['content']}}" />
+@endif
 
 <title>Spot Alert</title>
 
@@ -9,7 +15,6 @@
 {{ HTML::style('assets/css/normalize.css'); }}
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-{{ HTML::style('assets/css/chosen.min.css'); }}
 {{ HTML::style('assets/css/spotalert.css'); }}
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 
@@ -20,10 +25,8 @@
 <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <!-- the mousewheel plugin - optional to provide mousewheel support -->
 {{ HTML::script('assets/js/jquery.mousewheel.js') }}
-<!-- the jScrollPane script -->
-{{ HTML::script('assets/js/jquery.jscrollpane.min.js') }}
 {{ HTML::script('assets/js/jquery.jscroll.min.js') }}
-{{ HTML::script('scripts/controlpanel.js') }}
+{{ HTML::script('assets/js/jquery.customSelect.min.js') }}
 {{ HTML::script('assets/js/script.js') }}
 
 <script>

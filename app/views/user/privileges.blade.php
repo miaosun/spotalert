@@ -1,14 +1,34 @@
 @extends('layouts.default')
 
 @section('content')
-{{ isset($errors) ? $errors : "sem_erros <br>" }}
 
+@if($selected)
+<div class="modal fade delete-account" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="mySmallModalLabel">Are you sure?</h4>
+            </div>
+            <div class="modal-body">
+                <p>{{ Lang::get('controlpanel.privileges.warning') }}</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ Lang::get('controlpanel.privileges.cancel') }}</button>
+                <a href="{{ URL::route('privileges-delete', $selectedUser->username)}}" class="btn btn-danger btn-primary">{{ Lang::get('controlpanel.privileges.confirm') }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+@endif
 <div class="container-fluid">
-    <div id="controlpanel" class="col-md-8 col-md-offset-2">
+    <div id="controlpanel" class="col-md-10 col-md-offset-1">
         <div class="row" id="privileges">
             <ul>
                 <li><a href="{{ URL::route('control-panel') }}">{{ Lang::get('controlpanel.menu.profile') }}</a></li>
                 <li><a href="{{ URL::route('user-notifications') }}">{{ Lang::get('controlpanel.menu.notification') }}</a></li>
+                <li><a href="{{ URL::route('user-eyewitnesses') }}">{{ Lang::get('controlpanel.menu.eyewitnesses') }}</a></li>
                 <li><a href="{{ URL::route('user-publications') }}">{{ Lang::get('controlpanel.menu.publications') }}</a></li>
                 @if($user->type == 'admin' || $user->type == 'manager')
                     <li id="before"><a href="{{ URL::route('user-comments') }}">{{ Lang::get('controlpanel.menu.comments') }}</a></li>
@@ -34,12 +54,15 @@
                         {{ Form::text('username',null, array('id'=>'username', 'placeholder'=>Lang::get('controlpanel.privileges.name'))) }}
                         @endif
                         <button type="submit" class="glyphicon glyphicon-search" id="username"></button>
+                        {{ Form::close() }}
+
+                        {{ Form::open(array('route' => 'selectedEmail-privileges')) }}
                         @if($selected)
                         {{ Form::text('email', $selectedUser->email, array('id'=>'email','placeholder'=>Lang::get('controlpanel.privileges.email'))) }}
                         @else
                         {{ Form::text('email', null, array('id'=>'email','placeholder'=>Lang::get('controlpanel.privileges.email'))) }}
                         @endif
-                        <button type="submit" class="glyphicon glyphicon-search" id="username"></button>
+                        <button type="submit" class="glyphicon glyphicon-search" id="email"></button>
                     </div>
                     {{ Form::close() }}
                     @if($selected)
@@ -50,23 +73,27 @@
                     <div class="col-md-4" id='department'>
                         @if($selected)
                         {{ Form::text('department', $selectedUser->organization, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
-                        <span class="glyphicon glyphicon-edit edit_button"></span>
+                        <span class="glyphicon glyphicon-edit edit_button edit-btn-priv"></span><br>
                             @if($user->type == 'admin')
-                            {{ Form::select('permissions', array('normal' => 'Normal', 'publisher' => 'Publisher', 'manager' => 'Manager'), $selectedUser->type) }}
+                            {{ Form::select('permissions', array('normal' => 'Normal', 'publisher' => 'Publisher', 'manager' => 'Manager'), $selectedUser->type, array('class'=>'styled')) }}
                             @elseif($user->type == 'manager')
-                            {{ Form::select('permissions', array( 'normal' => 'Normal', 'publisher' => 'Publisher'), $selectedUser->type) }}
+                            {{ Form::select('permissions', array( 'normal' => 'Normal', 'publisher' => 'Publisher'), $selectedUser->type, array('class'=>'styled')) }}
                             @endif
-                        @else
-                        {{ Form::text('department', null, array( 'disabled'=>'disabled', 'placeholder'=>Lang::get('controlpanel.privileges.department'))) }}
-                        <span class="glyphicon glyphicon-edit"></span>
-                        {{ Form::text('permissions', null, array('disabled'=>'disabled','placeholder'=>Lang::get('controlpanel.privileges.permissions'))) }}
-                        <span class="caret"></span>
                         @endif
                     </div>
                 </div>
-                <div class="col-md-2 col-md-offset-8">
+                @if($selected)
+                <div class="col-md-2 col-md-offset-7">
                     {{ Form::submit(Lang::get('controlpanel.privileges.add')) }}
                 </div>
+                @endif
+                @if($selected && $user->type == 'admin')
+                <div class="col-md-2 col-md-offset-0" id="delete">
+                    <button type="button" class="btn btn-warning btn-danger button-delete" data-toggle="modal" data-target=".delete-account">
+                        {{ Lang::get('controlpanel.privileges.deleteuser') }}
+                    </button>
+                </div>
+                @endif
                 {{ Form::close() }}
             </div>
             <div class="table-wrapper">
@@ -80,22 +107,13 @@
                         </tr>
                     </thead>
 
-                    <tfoot>
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                        </tr>
-                    </tfoot>
-
                     <tbody>
                     @foreach ($users_with_permissions as $user_with_permission)
                     <tr>
                         <td>{{$user_with_permission['organization']}}</td>
                         <td>{{$user_with_permission['firstname']}} {{$user_with_permission['lastname']}}</td>
                         <td>{{$user_with_permission['city']}}</td>
-                        <td>{{$user_with_permission['created_at']}}</td>
+                        <td>{{$user_with_permission['created_at']->format('Y/m/d')}}</td>
                     </tr>
                     @endforeach
                     </tbody>
@@ -107,6 +125,7 @@
 </div>
 
 {{ HTML::script('assets/js/jquery.dataTables.js') }}
+{{ HTML::script('assets/js/controlpanel.js') }}
 
 <script>
     $('document').ready(function()
@@ -117,6 +136,22 @@
             "info":     false,
             "searching": false
         });
+
+        if("{{$selected}}" == 0)
+        {
+            $.getJSON( "api/usernames", function( data ) {
+                $( "#username" ).autocomplete({
+                    source: data
+                });
+            });
+
+            $.getJSON( "api/emails", function( data ) {
+                $( "#email" ).autocomplete({
+                    source: data
+                });
+            });
+        }
+
     });
 </script>
 
