@@ -24,47 +24,6 @@ class UserPanelController extends BaseController {
         return View::make('user.privileges' ,array('selected'=>$selected, 'user' => $profile,  'users_privileges'=>$users_privileges));
     }
 
-    public function getPrivilegesWithUser() {
-        $profile = User::find(Auth::user()->getId());
-        if($profile['type'] == "admin")
-            $users_privileges = User::where('id', '<>', Auth::user()->getId())->get();
-        if($profile['type'] == "manager")
-            $users_privileges = User::where('type', '<>', 'admin')->where('type', '<>', 'manager')->get();
-
-        if(Input::has('username'))
-        {
-            if(Input::has('username'))
-                $selectedUser = User::where('username', '=', Input::get("username"))->first();
-
-            if($selectedUser == null)
-                return Redirect::route('user-privileges')->with('global', 'User doesn\'t exists, try again!');
-            $selected = true;
-            return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_privileges'=>$users_privileges));
-        }
-        else
-            return Redirect::route('user-privileges');
-    }
-
-    public function getPrivilegesWithEmail() {
-        $profile = User::find(Auth::user()->getId());
-        if($profile['type'] == "admin")
-            $users_privileges = User::where('id', '<>', Auth::user()->getId())->get();
-        if($profile['type'] == "manager")
-            $users_privileges = User::where('type', '<>', 'admin')->where('type', '<>', 'manager')->get();
-
-        if(Input::has('email'))
-        {
-            if(Input::has('email'))
-                $selectedUser = User::where('email', '=', Input::get("email"))->first();
-            if($selectedUser == null)
-                return Redirect::route('user-privileges')->with('global', 'User doesn\'t exists, try again!');
-            $selected = true;
-            return View::make('user.privileges', array('selected'=>$selected, 'user' => $profile, 'selectedUser' => $selectedUser, 'users_privileges'=>$users_privileges));
-        }
-        else
-            return Redirect::route('user-privileges');
-    }
-
     public function updatePrivileges($username) {
         //Have to select a user (click search button, go to route('selectedUser->privileges') first
         $profile = User::find(Auth::user()->getId());
