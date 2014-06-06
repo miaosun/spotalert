@@ -102,18 +102,20 @@
                         <tr>
                             <th>{{ Lang::get('controlpanel.privileges.department') }}<span></span></th>
                             <th>{{ Lang::get('controlpanel.privileges.name') }}<span></span></th>
+                            <th>{{ Lang::get('controlpanel.privileges.type') }}<span></span></th>
                             <th>{{ Lang::get('controlpanel.privileges.location') }}<span></span></th>
                             <th>{{ Lang::get('controlpanel.privileges.member_since') }}<span></span></th>
                         </tr>
                     </thead>
 
                     <tbody>
-                    @foreach ($users_with_permissions as $user_with_permission)
+                    @foreach ($users_privileges as $user_privileges)
                     <tr>
-                        <td>{{$user_with_permission['organization']}}</td>
-                        <td>{{$user_with_permission['firstname']}} {{$user_with_permission['lastname']}}</td>
-                        <td>{{$user_with_permission['city']}}</td>
-                        <td>{{$user_with_permission['created_at']->format('Y/m/d')}}</td>
+                        <td>{{$user_privileges['organization']}}</td>
+                        <td>{{$user_privileges['firstname']}} {{$user_privileges['lastname']}}</td>
+                        <td>{{$user_privileges['type']}}</td>
+                        <td>{{$user_privileges['city']}}</td>
+                        <td>{{$user_privileges['created_at']->format('Y/m/d')}}</td>
                     </tr>
                     @endforeach
                     </tbody>
@@ -132,7 +134,7 @@
     {
         $('#privileges-list').dataTable( {
             "paging":   false,
-            "order": [[ 3, "desc" ]],
+            "order": [[ 4, "desc" ]],
             "info":     false,
             "searching": false
         });
