@@ -65,7 +65,7 @@
                             <span class="glyphicon glyphicon-edit edit_department""></span><br>
                         </td>
                         <td>{{$user_privileges['firstname']}} {{$user_privileges['lastname']}}</td>
-                        <td id="user_type">
+                        <td id="user_type" style="padding: 0 15px">
                             <p style="display:none;">{{$user_privileges['type']}}</p>
                             @if($user->type == 'admin')
                             {{ Form::select('permissions', array('normal' => 'Normal', 'publisher' => 'Publisher', 'manager' => 'Manager'), $user_privileges['type'], array('class'=>'styled')) }}
@@ -127,9 +127,9 @@
             "searching": false,
             "bAutoWidth": false,
             "aoColumns" : [
-                { sWidth: '25%' },
+                { sWidth: '23%' },
                 { sWidth: '20%' },
-                { sWidth: '15%' },
+                { sWidth: '17%' },
                 { sWidth: '15%' },
                 { sWidth: '15%' },
                 { sWidth: '10%' }
