@@ -1354,8 +1354,7 @@ span.error_msg {
     max-height: 50px;
 }
 #eyewitness h1{
-	font-weight:bold;
-	font-size:18px;
+	font-size:1.1em;
 }
 
 #eyewitness.general_panel .chosen-container {
@@ -1428,8 +1427,7 @@ span.error_msg {
     max-height: 50px;
 }
 #create-alert h1{
-    font-weight:bold;
-    font-size:18px;
+    font-size:1.1em;
 }
 
 #create-alert.general_panel .chosen-container {
@@ -1639,8 +1637,7 @@ label {
 }
 #contact h1{
 	text-transform:uppercase;
-	font-weight:bold;
-	font-size:18px; 
+	font-size:1.1em; 
 }
 
 /*****-- Eyewitnesses details */
