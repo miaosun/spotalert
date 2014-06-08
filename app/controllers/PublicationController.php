@@ -638,20 +638,6 @@ class PublicationController extends BaseController
                 //cycle through multiple languages
                 
                 //Storing images
-                if(Input::hasFile('alert-images'))
-                {   
-                    $destinationPath = public_path().'/assets/images/publications/' . $publication->id . '/';
-                    if(!File::exists($destinationPath))
-                        File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
-                    $images = Input::file('alert-images');
-                    for ($i=0; $i < count($images); $i++)
-                    {
-                        $image = $images[$i];
-                        $extension = $image->guessExtension();
-                        $image->move($destinationPath, $i . '.' . $extension );
-                    }
-                }
-                
                 if(Input::has('eyewitness-previous'))
                 {
                     $images_directory = public_path()."/assets/images/eyewitnesses".Input::get('eyewitness-previous');
@@ -666,6 +652,46 @@ class PublicationController extends BaseController
                     }
                     
                     Eyewitness::find(Input::get('eyewitness-previous'))->delete();
+                }
+                
+                if(Input::hasFile('alert-images'))
+                {   
+                    $destinationPath = public_path().'/assets/images/publications/' . $publication->id . '/';
+                    if(!File::exists($destinationPath)){
+                        File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
+                    }
+                    $imagesnames = array();
+                    $k = 0;
+                    $files= @scandir(public_path().'/assets/images/publications/' . $publication->id);
+                    $images = Input::file('alert-images');
+                    if(count($files) > 2)
+                    {
+                        $images_directory = public_path()."/assets/images/publications/".$publication->id;
+
+                        foreach(glob($images_directory.'/*.*') as $file) {
+                            $fn = pathinfo($file);
+                            array_push($imagesnames,$fn['filename']);
+                        }
+                        $k = max($imagesnames);
+
+                        for ($i=0; $i < count($images); $i++)
+                        {
+                            $k++;
+                            $image = $images[$i];
+                            $extension = $image->guessExtension();
+                            $image->move($destinationPath, $k . '.' . $extension );
+                        }
+
+                    }
+                    else {
+                        for ($i=0; $i < count($images); $i++)
+                        {
+
+                            $image = $images[$i];
+                            $extension = $image->guessExtension();
+                            $image->move($destinationPath, $i . '.' . $extension );
+                        }
+                    }
                 }
                 
                 $publication_content1->publication_id = $publication->id;
@@ -780,20 +806,6 @@ class PublicationController extends BaseController
                 //cycle through multiple languages
                 
                 //Storing images
-                if(Input::hasFile('guideline-images'))
-                {   
-                    $destinationPath = public_path().'/assets/images/publications/' . $publication->id . '/';
-                    if(!File::exists($destinationPath))
-                        File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
-                    $images = Input::file('guideline-images');
-                    for ($i=0; $i < count($images); $i++)
-                    {
-                        $image = $images[$i];
-                        $extension = $image->guessExtension();
-                        $image->move($destinationPath, $i . '.' . $extension );
-                    }
-                }
-                
                 if(Input::has('eyewitness-previous'))
                 {
                     $images_directory = public_path()."/assets/images/eyewitnesses".Input::get('eyewitness-previous');
@@ -808,6 +820,46 @@ class PublicationController extends BaseController
                     }
 
                     Eyewitness::find(Input::get('eyewitness-previous'))->delete();
+                }
+
+                if(Input::hasFile('guideline-images'))
+                {   
+                    $destinationPath = public_path().'/assets/images/publications/' . $publication->id . '/';
+                    if(!File::exists($destinationPath)){
+                        File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
+                    }
+                    $imagesnames = array();
+                    $k = 0;
+                    $files= @scandir(public_path().'/assets/images/publications/' . $publication->id);
+                    $images = Input::file('guideline-images');
+                    if(count($files) > 2)
+                    {
+                        $images_directory = public_path()."/assets/images/publications/".$publication->id;
+
+                        foreach(glob($images_directory.'/*.*') as $file) {
+                            $fn = pathinfo($file);
+                            array_push($imagesnames,$fn['filename']);
+                        }
+                        $k = max($imagesnames);
+
+                        for ($i=0; $i < count($images); $i++)
+                        {
+                            $k++;
+                            $image = $images[$i];
+                            $extension = $image->guessExtension();
+                            $image->move($destinationPath, $k . '.' . $extension );
+                        }
+
+                    }
+                    else {
+                        for ($i=0; $i < count($images); $i++)
+                        {
+
+                            $image = $images[$i];
+                            $extension = $image->guessExtension();
+                            $image->move($destinationPath, $i . '.' . $extension );
+                        }
+                    }
                 }
                 
                 $publication_content1->publication_id = $publication->id;
@@ -949,8 +1001,47 @@ class PublicationController extends BaseController
         
         $publication->save();
         //cycle through multiple languages
-        //var_dump($publication_content1);
-        //die();
+        
+        if(Input::hasFile('alert-images'))
+        {   
+            $destinationPath = public_path().'/assets/images/publications/' . $publication->id . '/';
+            if(!File::exists($destinationPath)){
+                File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
+            }
+            $imagesnames = array();
+            $k = 0;
+            $files= @scandir(public_path().'/assets/images/publications/' . $publication->id);
+            $images = Input::file('alert-images');
+            if(count($files) > 2)
+            {
+                $images_directory = public_path()."/assets/images/publications/".$id;
+
+                foreach(glob($images_directory.'/*.*') as $file) {
+                    $fn = pathinfo($file);
+                    array_push($imagesnames,$fn['filename']);
+                }
+                $k = max($imagesnames);
+                
+                for ($i=0; $i < count($images); $i++)
+                {
+                    $k++;
+                    $image = $images[$i];
+                    $extension = $image->guessExtension();
+                    $image->move($destinationPath, $k . '.' . $extension );
+                }
+                
+            }
+            else {
+                for ($i=0; $i < count($images); $i++)
+                {
+                    
+                    $image = $images[$i];
+                    $extension = $image->guessExtension();
+                    $image->move($destinationPath, $i . '.' . $extension );
+                }
+            }
+        }
+        
         $publication_content1->publication_id = $publication->id;
         $publication_content1->save();
         
@@ -1042,9 +1133,48 @@ class PublicationController extends BaseController
         }
 
         $publication->save();
+        
+        if(Input::hasFile('guideline-images'))
+        {   
+            $destinationPath = public_path().'/assets/images/publications/' . $publication->id . '/';
+            if(!File::exists($destinationPath)){
+                File::makeDirectory($destinationPath,  $mode = 0777, $recursive = true);
+            }
+            $imagesnames = array();
+            $k = 0;
+            $files= @scandir(public_path().'/assets/images/publications/' . $publication->id);
+            $images = Input::file('guideline-images');
+            if(count($files) > 2)
+            {
+                $images_directory = public_path()."/assets/images/publications/".$id;
+
+                foreach(glob($images_directory.'/*.*') as $file) {
+                    $fn = pathinfo($file);
+                    array_push($imagesnames,$fn['filename']);
+                }
+                $k = max($imagesnames);
+
+                for ($i=0; $i < count($images); $i++)
+                {
+                    $k++;
+                    $image = $images[$i];
+                    $extension = $image->guessExtension();
+                    $image->move($destinationPath, $k . '.' . $extension );
+                }
+
+            }
+            else {
+                for ($i=0; $i < count($images); $i++)
+                {
+
+                    $image = $images[$i];
+                    $extension = $image->guessExtension();
+                    $image->move($destinationPath, $i . '.' . $extension );
+                }
+            }
+        }
+        
         //cycle through multiple languages
-        //var_dump($publication_content1);
-        //die();
         $publication_content1->publication_id = $publication->id;
         $publication_content1->save();
 

@@ -108,8 +108,8 @@
                             
                             <div class="row">
                                 <div class="col-md-12 col-sm-12 inrow">
-                                    <h5 style="float: left">{{Lang::get('create-alert.fields.eventrisk')}}</h5>
-                                    <span>{{ Form::selectRange('alert-risk', 1, 5)}}</span>
+                                    <h5>{{Lang::get('create-alert.fields.eventrisk')}}</h5>
+                                    {{ Form::select('alert-risk',array( "1"=>"1","2"=>"2","3"=>"3","4"=>"4","5"=>"5"), null, array("class"=>"styled"));}}
                                 </div>
                             </div>
 
