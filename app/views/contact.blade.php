@@ -40,7 +40,7 @@
 	            	<div class="col-md-12">
 	            		{{ Form::textarea('content', '', array('placeholder'=>Lang::get('home.contact.msg-placeholder'))) }}
 	            		@if($errors->has('content'))
-                            <br><span class="error_msg">{{ $errors->first('content') }}</span>
+                            <br><span class="error_msg contact_error">{{ $errors->first('content') }}</span>
                         @endif
 	            	</div>
 	            </div>

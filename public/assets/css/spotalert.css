@@ -1133,12 +1133,12 @@ input[name=accept] {
     clear: left;
 }
 #controlpanel .dropdownlist
-{
-    width: 240px;
-    height: 34px;
-    overflow: hidden;
 
-    border: 1px solid #ccc;
+{
+    width: 187px;
+    height: 23px;
+    overflow: hidden;
+    border:none;
 }
 .custom-upload
 {
@@ -1366,10 +1366,15 @@ input[disabled=disabled] {
 .general_panel span {
     font-size:12px;
     color:gray;
+
 }
 
 span.error_msg {
     color: red !important;
+
+}
+span.contact_error{
+	margin-left:3%;
 }
 
 #alert-tabs .tab-content h1{
