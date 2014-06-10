@@ -85,7 +85,9 @@ class UserPanelController extends BaseController {
 
     public function deleteNotification($id)
     {
-        NotificationSetting::find($id)->delete();
+        $notification = NotificationSetting::find($id);
+        if($notification != null)
+            $notification->delete();
         return Redirect::route('user-notifications');
     }
 
@@ -100,7 +102,7 @@ class UserPanelController extends BaseController {
         $validator = Validator::make(Input::all(),
             array(
                 'country'        => 'required',
-                'minimum_risk'  => 'required',
+                'minimum_risk'  => 'required|numeric',
             )
         );
 
