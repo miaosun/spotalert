@@ -368,6 +368,10 @@ class UserPanelController extends BaseController {
             {
                 $profile->age_id = Input::get('agerange');
             }
+            if(Input::has('email'))
+            {
+                $profile->email = Input::get('email');
+            }
             if(Input::has('residence'))
             {
                 $profile->residence_country_id = Input::get('residence');
