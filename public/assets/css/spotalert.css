@@ -1017,7 +1017,7 @@ input[name=accept] {
     border-top-right-radius: 25px;
 }
 #controlpanel li {
-    width: 16%;
+    width: 16.3%;
     margin: 0px;
     display:inline-block;
     text-transform: uppercase;
@@ -1037,10 +1037,21 @@ input[name=accept] {
     border-top-left-radius: 25px;
     border-left: 3px solid #BF2333;
 }
-#controlpanel #active:not(:first-child) {
+#controlpanel #active:last-child{
+    -webkit-border-top-right-radius: 25px;
+    -moz-border-right-topright: 25px;
+    border-top-right-radius: 25px;
+}
+#controlpanel #active{
     background-color: white;
 }
 
+#controlpanel #active:first-child{
+    background-color: white;
+     -webkit-border-top-left-radius: 25px;
+    -moz-border-left-topright: 25px;
+    border-top-left-radius: 25px;
+}
 #controlpanel #before{
     border-right: 0px;
 }
@@ -1215,6 +1226,27 @@ input[disabled=disabled] {
 	font-size:1.1em;
 }
 
+#privileges button.aprove{
+	background-color: #BF2333;
+    color: white;
+    font-style:2em;
+    padding-left:7px;
+    padding-right:7px;
+    padding-bottom:2px;
+    padding-top:2px;
+    -webkit-border-radius: 25px;
+    -moz--topright: 25px;
+    border-radius: 25px;
+    margin-right:10px;
+    margin-left: 10px;
+}
+#privileges button.close-button{
+	color:#BF2333;
+	font-size:1.1em;
+	margin-left:5px;
+}
+
+
 #controlpanel a {
     text-decoration: none;
     color: inherit;
@@ -1354,8 +1386,7 @@ span.error_msg {
     max-height: 50px;
 }
 #eyewitness h1{
-	font-weight:bold;
-	font-size:18px;
+	font-size:1.1em;
 }
 
 #eyewitness.general_panel .chosen-container {
@@ -1400,7 +1431,7 @@ span.error_msg {
 #comments-list a.aprove{
 	background-color: #BF2333;
     color: white;
-    font-style:2em;
+    font-size:1.1em;
     padding-left:7px;
     padding-right:7px;
     padding-bottom:2px;
@@ -1409,11 +1440,13 @@ span.error_msg {
     -moz--topright: 25px;
     border-radius: 25px;
     margin-right:10px;
+    margin-left:10px;
 }
 
 #comments-list a.close-button{
 	color:#BF2333;
-	font-style:2em;
+	font-size:1.1em;
+	margin-left:5px;
 }
 
 #comments-list_wrapper .comment-readmore +a{
@@ -1428,8 +1461,7 @@ span.error_msg {
     max-height: 50px;
 }
 #create-alert h1{
-    font-weight:bold;
-    font-size:18px;
+    font-size:1.1em;
 }
 
 #create-alert.general_panel .chosen-container {
@@ -1639,8 +1671,7 @@ label {
 }
 #contact h1{
 	text-transform:uppercase;
-	font-weight:bold;
-	font-size:18px; 
+	font-size:1.1em; 
 }
 
 /*****-- Eyewitnesses details */
