@@ -25,8 +25,12 @@ class PublicationController extends BaseController
 
 		$publications = $stmt->orderBy('risk', 'desc')->get();
 
-		return self::makeSimpleAnswer($publications);
+		$all_publications = self::makeSimpleAnswer($publications);
+        //return Response::json($all_publications, 200, array(), JSON_PRETTY_PRINT);
+        $contents = View::make('rss')->with('all_publications',$all_publications);
+        return Response::make($contents)->header('Content-Type', 'application/xml');
 	}
+
     public static function getPublication($id)
     {
        $stmt = Publication::with(array(
