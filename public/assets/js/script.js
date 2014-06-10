@@ -250,7 +250,7 @@ function getPublicationContent(id)
             // fill images
             var imgHTML ="";
             for(var i = 0; i < data.images.length ; i++){
-                imgHTML = imgHTML + "<a href='"+data.images[i].url+"'><img src='"+data.images[i].url+"'alt='"+data.images[i].alt+"'/></a>";
+                imgHTML = imgHTML + "<a href='"+data.images[i].url+"' target='_blank'><img src='"+data.images[i].url+"'alt='"+data.images[i].alt+"'/></a>";
             }
             $('#publ-'+id+' .pub-content-imgs').html(imgHTML);
 	        // fill linked publications
@@ -283,7 +283,7 @@ function getPublicationContent(id)
                     //if exist photo
 	                if(data.comments[i].img.length != 0)
                     {
-                        links = links +"<div class='comments-imgs'><a href=\""+data.comments[i].img.url+"\">\
+                        links = links +"<div class='comments-imgs'><a href=\""+data.comments[i].img.url+"\" target='_blank'>\
                                         <img src='"+data.comments[i].img.url+"'alt='"+data.comments[i].img.alt+"'/>\
                                         </a></div>"
                     }
