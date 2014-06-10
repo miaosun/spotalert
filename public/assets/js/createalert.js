@@ -24,7 +24,7 @@ $(document).ready(function () {
         $("<li class='active'><a id='alert_tab_" + language_id + "' href='#alert_" + language_id + "' data-toggle='tab'>" + language_text + "<span id='rm-language' class='glyphicon glyphicon-remove' style='padding-left: 5px'></span></a></li>").insertBefore(".nav-tabs li:last");
         $(".nav-tabs").find(".active").removeClass("active");
         $(".tab-content").find(".active").removeClass("active");
-        $(".tab-content").append('<div class="tab-pane fade in active" id="alert_' + language_id + '"><h1>Create alert</h1><div class="col-md-5 col-sm-5 col-md-offset-0" id="moveright"><div class="row"><div class="col-md-12 col-sm-12"><h5>Title* <span>(maximum of 50 characters)</span></h5><textarea placeholder="Write your title here" name="alert-title' + language_id + '"></textarea></div><div class="col-md-12 col-sm-12"><h5>Description*</h5><textarea placeholder="Write your title here" name="alert-description' + language_id + '" cols="50" rows="10"></textarea></div></div></div></div>');
+        $(".tab-content").append('<div class="tab-pane fade in active" id="alert_' + language_id + '"><h1>NEW LANGUAGE</h1><div class="col-md-5 col-sm-5 col-md-offset-0" id="moveright"><div class="row"><div class="col-md-12 col-sm-12"><h5>TITLE* <span>(maximum of 50 characters)</span></h5><textarea placeholder="Write your title here" name="alert-title' + language_id + '"  cols="50"></textarea></div><div class="col-md-12 col-sm-12"><h5>DESCRIPTION*</h5><textarea placeholder="Write your description here" name="alert-description' + language_id + '" cols="50" rows="10"></textarea></div></div></div></div>');
         
         $('#languages_tabs a:nth-last-child(2)').tab('show');
         
@@ -79,7 +79,8 @@ $(document).ready(function () {
     } 
 
     today = yyyy+'-'+mm+'-'+dd;
-    var yesterday = yyyy+'-'+mm+'-'+(dd-1);
+    yyyy--;
+    var yesterday = yyyy+'-'+mm+'-'+dd;
     
     $("#activate_publication").click(function(e){
         e.preventDefault();
@@ -113,8 +114,7 @@ $(document).ready(function () {
     
     $(document).on("click", '.eye .imgremove',function(){
         var $image = $(this).parent();
-        var image = $(this).prev().attr('href');
-        console.log(image);
+        var image = $(this).prev().children().attr('href');
         var filename = image.replace(/^.*[\\\/]/, '');
         console.log(filename);
         var eye = $(this).prev().children('img').attr('class');
@@ -129,10 +129,10 @@ $(document).ready(function () {
     });
     
     $(document).on("click", '.pub .imgremove',function(){
-        var $image = $(this).prev();
-        var image = $(this).prev().attr('src');
+        var $image = $(this).parent();
+        var image = $(this).prev().children().attr('src');
         var filename = image.replace(/^.*[\\\/]/, '')
-        var pub = $(this).prev().attr('class');
+        var pub = $(this).prev().children('img').attr('class');
         $.post("/deleteimage/"+pub+"/"+filename ).done(function(){
             $image.remove();
             if($("#gallery").children().length == 0)

@@ -139,8 +139,8 @@
 
                         <div class="row">
                             <div class="col-md-12 col-sm-12 inrow">
-                                <h5 style="float: left">{{Lang::get('create-alert.fields.eventrisk')}}</h5>
-                                <span>{{ Form::selectRange('alert-risk', 1, 5, $publication->risk);}}</span>
+                                <h5>{{Lang::get('create-alert.fields.eventrisk')}}</h5>
+                                {{ Form::select('alert-risk',array( "1"=>"1","2"=>"2","3"=>"3","4"=>"4","5"=>"5"), $publication->risk, array("class"=>"styled"));}}
                             </div>
                         </div>
 
@@ -157,8 +157,8 @@
                                 <div class="inrow visibility">
                                     {{ Form::radio('alert-visibility', 1, false, array('id'=>'public-o', 'style' => 'display:none;')) }}
                                     {{ Form::radio('alert-visibility', 0, true, array('id'=>'hidden-o', 'style' => 'display:none;')) }}
-                                    <div class="col-md-5 col-sm-5 radiobutton"><div class="col-md-9 option">{{Lang::get('create-alert.labels.public')}}</div><div class="col-md-3 glyphicon public-o"></div></div>
-                                    <div class="col-md-5 col-sm-5 col-md-offset-1 radiobutton"><div class="col-md-9 option">{{Lang::get('create-alert.labels.hidden')}}</div><div class="col-md-3 glyphicon hidden-o glyphicon-remove"></div></div>
+                                    <div class="col-md-5 col-sm-5 radiobutton"><div class="col-md-8 option">{{Lang::get('create-alert.labels.public')}}</div><div class="col-md-3 glyphicon public-o"></div></div>
+                                    <div class="col-md-5 col-sm-5 col-md-offset-1 radiobutton"><div class="col-md-8 option">{{Lang::get('create-alert.labels.hidden')}}</div><div class="col-md-3 glyphicon hidden-o glyphicon-remove"></div></div>
                                 </div>
                             </div>
                         </div>
@@ -190,11 +190,11 @@
                     <div class="col-md-5 col-sm-5 col-md-offset-0" id="moveright"><div class="row">
                         <div class="col-md-12 col-sm-12">
                             <h5>Title* <span>(maximum of 50 characters)</span></h5>
-                            <textarea placeholder="Write your title here" name="alert-title{{$content['language_id']}}">{{$content['title']}}</textarea>
+                            <textarea placeholder="Write your title here" name="alert-title{{$content['language_id']}}" cols="50">{{$content['title']}}</textarea>
                         </div>
                         <div class="col-md-12 col-sm-12">
                             <h5>Description*</h5>
-                            <textarea placeholder="Write your title here" name="alert-description{{$content['language_id']}}" cols="50" rows="10">{{$content['content']}}</textarea>
+                            <textarea placeholder="Write your description here" name="alert-description{{$content['language_id']}}" cols="50" rows="10">{{$content['content']}}</textarea>
                         </div>
                         </div>
                     </div>
