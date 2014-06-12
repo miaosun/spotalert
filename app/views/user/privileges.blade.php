@@ -62,7 +62,7 @@
                         <td id="department">
                             <p style="display:none;">{{$user_privileges['organization']}}</p>
                             {{ Form::text('department', $user_privileges['organization'], array( 'disabled'=>'disabled', 'placeholder'=>'NO ' . Lang::get('controlpanel.privileges.department'))) }}
-                            <span class="glyphicon glyphicon-edit edit_department""></span><br>
+                            <span class="glyphicon glyphicon-edit edit_department"></span><br>
                         </td>
                         <td>{{$user_privileges['firstname']}} {{$user_privileges['lastname']}}</td>
                         <td id="user_type" style="padding: 0 15px">
@@ -75,8 +75,8 @@
                         <td>{{$user_privileges['city']}}</td>
                         <td>{{$user_privileges['created_at']->format('Y/m/d')}}</td>
                         <td>
-                            <button type="submit" class="glyphicon glyphicon-ok aprove""></button>
-                            <button type="button" class="glyphicon glyphicon-remove close-button" data-id="{{$user_privileges['username']}}" data-toggle="modal" data-target=".delete-account" }}"></button>
+                            <button type="submit" class="glyphicon glyphicon-ok aprove"></button>
+                            <button type="button" class="glyphicon glyphicon-remove close-button" data-id="{{$user_privileges['username']}}" data-toggle="modal" data-target=".delete-account"></button>
                         </td>
                         {{ Form::close() }}
                     </tr>

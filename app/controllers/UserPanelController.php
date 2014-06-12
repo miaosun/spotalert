@@ -206,7 +206,19 @@ class UserPanelController extends BaseController {
        }
         else
             return 'No Autorization';
-    }    
+    }
+
+    public function deleteCommentFromHome($id) 
+    {
+       if(Auth::check() && Auth::user()->type != 'normal')
+       { 
+        Comment::destroy($id);
+        //Comment::where('id', '=', $id)->delete();
+        return Redirect::route('home');
+       }
+        else
+            return 'No Autorization';
+    } 
     /*  Submit new comments API  */
     public function submitComment($id) {
         

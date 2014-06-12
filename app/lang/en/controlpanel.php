@@ -37,7 +37,8 @@ return array(
 		"address"      => "ADDRESS",
 		"date"         => "MEMBER SINCE",
 		"organization" => "ORGANIZATION",
-		"okbutton"     => "OK"
+		"okbutton"     => "OK",
+        "type"         => "USER TYPE"
 	),
 
     "privileges" => array(
@@ -45,7 +46,7 @@ return array(
         "add_publishers" => "ADD PUBLISHERS",
         "managers"       => "MANAGERS",
         "department"     => "DEPARTMENT",
-        "name"           => "USERNAME",
+        "name"           => "NAME",
         "type"           => "TYPE",
         "location"       => "LOCATION",
         "member_since"   => "MEMBER SINCE",
@@ -54,7 +55,7 @@ return array(
         "permissions"    => "PERMISSIONS",
         "remove"         => "REMOVE",
         "deleteuser"     => "DELETE USER",
-        "warning"        => "Every information such as publications and comments of that user will be deleted as well!!!",
+        "warning"        => "Every information such as publications and comments of that user will be deleted as well!",
         "cancel"         => "Cancel",
         "confirm"        => "Yes I am"
     ),

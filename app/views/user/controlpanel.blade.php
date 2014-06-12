@@ -199,6 +199,7 @@
                         </div>
 					</div>
 				</div>
+				@if($user->type != 'normal')
 				<div class="row">
 					<div class="col-md-4">
 						{{ Form::label('organization',Lang::get('controlpanel.profile.organization'), array('class' => 'label')) }}
@@ -209,6 +210,17 @@
                         </div>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-4">
+						{{ Form::label('type',Lang::get('controlpanel.profile.type'), array('class' => 'label')) }}
+					</div>
+					<div class="col-md-7 col-md-offset-1">
+                        <div class="dotline" id="organization">
+                            {{ Form::text('type',$user->type,array('disabled' => 'disabled')) }}
+                        </div>
+					</div>
+				</div>
+				@endif
 			</div>
 		</div>
         {{ Form::token() }}

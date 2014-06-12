@@ -17,7 +17,8 @@ return array(
 		"signout"    => "Sign out",
 		"login"      => "Log in",
 		"search"     => "SEARCH",
-        "profile"    => "My Profile"
+        "profile"    => "My Profile",
+        "statistics" => "Statistics"
 	),
 	"filter" => array(
 		"loading_msg"     => "Loading publications...",

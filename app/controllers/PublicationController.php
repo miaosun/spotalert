@@ -25,8 +25,10 @@ class PublicationController extends BaseController
 
 		$publications = $stmt->orderBy('risk', 'desc')->get();
 
-		return self::makeSimpleAnswer($publications);
+		//return self::makeSimpleAnswer($publications);
+        return Response::json(self::makeSimpleAnswer($publications), 200, array(), JSON_PRETTY_PRINT);
 	}
+
     public static function getPublication($id)
     {
        $stmt = Publication::with(array(
@@ -125,7 +127,7 @@ class PublicationController extends BaseController
                     }
                    if(Auth::check() && !(Auth::user()->type == 'normal'))
                     {
-                        $commentData['delete'] = array('url' => route('comment-deleted', $comment->id),'text' => Lang::get('controlpanel.comments.delete'));
+                        $commentData['delete'] = array('url' => route('comment-deleted-home', $comment->id),'text' => Lang::get('controlpanel.comments.delete'));
                     }
                     $answer['comments'][] = $commentData;
                 }
@@ -368,7 +370,7 @@ class PublicationController extends BaseController
 		$publications = $stmt->orderBy('risk', 'desc')->get();
 
 		$publications_ini = self::makeSimpleAnswer($publications);
-		$offset           = self::$initial_publications + ($next_page-1)*self::$scroll_step;
+		$offset           = self::$initial_publications + ($next_page-2)*self::$scroll_step;
 		$publications     = array_slice($publications_ini, $offset, self::$scroll_step);
 
 		if(count($publications_ini) >= $offset + self::$scroll_step) //More publications to see
@@ -415,7 +417,7 @@ class PublicationController extends BaseController
 
 
 		$publications_ini = self::makeSimpleAnswer($publications);
-		$offset           = self::$initial_publications + ($next_page-1)*self::$scroll_step;
+		$offset           = self::$initial_publications + ($next_page-2)*self::$scroll_step;
 		
 		if($next_page > 1)
 			$publications = array_slice($publications_ini, $offset, self::$scroll_step);
@@ -540,7 +542,7 @@ class PublicationController extends BaseController
 			//$l = DB::getQueryLog();
 			//return end($l);
 			$publications_ini = self::makeSimpleAnswer($publications);
-			$offset           = self::$initial_publications + ($next_page-1)*self::$scroll_step;
+			$offset           = self::$initial_publications + ($next_page-2)*self::$scroll_step;
 			
 			if($next_page > 1)
 				$publications = array_slice($publications_ini, $offset, self::$scroll_step);

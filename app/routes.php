@@ -288,6 +288,10 @@ Route::group(array('before' => 'auth'), function() {
         'as' => 'comment-deleted',
         'uses' => 'UserPanelController@deleteComment'
     ));
+    Route::get('/user/comments/deleteFromHome/{id}', array(
+        'as' => 'comment-deleted-home',
+        'uses' => 'UserPanelController@deleteCommentFromHome'
+    ));
     Route::post('/user/comments/submit/{id}',array(
         'as' => 'insert-comment',
         'uses' => 'UserPanelController@submitComment'
