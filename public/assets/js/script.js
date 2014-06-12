@@ -134,7 +134,7 @@ function addText(selector)
 
 function deletePublication()
 {
-	$('.button_edit .glyphicon-remove').on('click', function()
+	$('div#main').on('click', '.button_edit .glyphicon-remove', function()
 	{
 		var publ_id = $(this).parent().attr('id');
 		$('#myModal .modal-publ-id').remove();
@@ -142,7 +142,7 @@ function deletePublication()
 		$('#myModal').modal();
 	});
 
-	$('#myModal .btn-success').on('click', function()
+	$('div#main').on('click', '#myModal .btn-success', function()
 	{
 		$('#myModal').modal('hide');
 		var id_publ = $('#myModal .modal-publ-id').attr('id');

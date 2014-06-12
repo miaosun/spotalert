@@ -157,8 +157,8 @@
                                 <div class="inrow visibility">
                                     {{ Form::radio('alert-visibility', 1, ($publication->is_public == 1 ? true : false) , array('id'=>'public-o', 'style' => 'display:none;')) }}
                                     {{ Form::radio('alert-visibility', 0, ($publication->is_public == 1 ?  false : true) , array('id'=>'hidden-o', 'style' => 'display:none;')) }}
-                                    <div class="col-md-5 col-sm-5 radiobutton"><div class="col-md-8 option">{{Lang::get('create-alert.labels.public')}}</div><div class="col-md-3 glyphicon public-o {{-- */ echo ($publication->is_public == 1 ? 'glyphicon-remove' : '') /* --}}"></div></div>
-                                    <div class="col-md-5 col-sm-5 col-md-offset-1 radiobutton"><div class="col-md-8 option">{{Lang::get('create-alert.labels.hidden')}}</div><div class="col-md-3 glyphicon hidden-o {{-- */ echo ($publication->is_public == 1 ? '' : 'glyphicon-remove') /* --}}"></div></div>
+                                    <div class="col-md-5 col-sm-5 radiobutton"><div class="col-md-9 option">{{Lang::get('create-alert.labels.public')}}</div><div class="col-md-3 glyphicon public-o {{-- */ echo ($publication->is_public == 1 ? 'glyphicon-remove' : '') /* --}}"></div></div>
+                                    <div class="col-md-5 col-sm-5 col-md-offset-1 radiobutton"><div class="col-md-9 option">{{Lang::get('create-alert.labels.hidden')}}</div><div class="col-md-3 glyphicon hidden-o {{-- */ echo ($publication->is_public == 1 ? '' : 'glyphicon-remove') /* --}}"></div></div>
                                 </div>
                             </div>
                         </div>
