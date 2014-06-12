@@ -52,7 +52,12 @@ Route::group(array('prefix' => 'publications'), function()
     // For the RSS feed, it returns a JSON object
     Route::get('/rss', array(
         'as'    => 'publications-rss',
-        'uses'  => 'PublicationController@getAllPublications'
+        function() 
+        {
+            $publications = PublicationController::getAllPublications();
+            $contents = View::make('rss')->with('all_publications',$publications);
+            return Response::make($contents)->header('Content-Type', 'application/xml');
+        }
     ));
 
     // For searching publications, it returns the the view
