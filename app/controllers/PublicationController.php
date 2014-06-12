@@ -25,8 +25,10 @@ class PublicationController extends BaseController
 
 		$publications = $stmt->orderBy('risk', 'desc')->get();
 
-		//return self::makeSimpleAnswer($publications);
-        return Response::json(self::makeSimpleAnswer($publications), 200, array(), JSON_PRETTY_PRINT);
+		$all_publications = self::makeSimpleAnswer($publications);
+        //return Response::json($all_publications, 200, array(), JSON_PRETTY_PRINT);
+        $contents = View::make('rss')->with('all_publications',$all_publications);
+        return Response::make($contents)->header('Content-Type', 'application/xml');
 	}
 
     public static function getPublication($id)
@@ -196,26 +198,31 @@ class PublicationController extends BaseController
     public function showEditAlert($id)
     {
         if(Auth::check() && Auth::user()->type != 'normal') {
-        
-            $country_options = Country::lists('name', 'id');
-            $event_type_options = EventType::lists('name', 'id');
-            $guideline_options = DB::table('publications AS p')->join('publicationContents AS pc','pc.publication_id','=','p.id')->where('p.type','=','guideline')->lists('title','publication_id');
-            $language_options = Language::lists('name', 'id');
+            
+            if(Publication::find($id)->type == "alert"){
 
-            $publication = Publication::find($id);
-            $types = Publication::find($id)->eventTypes->lists('id');
-            $countries = Publication::find($id)->affectedCountries->lists('id');
-            $guidelines = Publication::find($id)->guidelines->lists('id');
-            $contents = Publication::find($id)->contents->toArray();
+                $country_options = Country::lists('name', 'id');
+                $event_type_options = EventType::lists('name', 'id');
+                $guideline_options = DB::table('publications AS p')->join('publicationContents AS pc','pc.publication_id','=','p.id')->where('p.type','=','guideline')->lists('title','publication_id');
+                $language_options = Language::lists('name', 'id');
 
-            $images_directory = public_path()."/assets/images/publications/".$id;
-            $images = array();
-            foreach(glob($images_directory.'/*.*') as $file) {
-                array_push($images,$file);
+                $publication = Publication::find($id);
+                $types = Publication::find($id)->eventTypes->lists('id');
+                $countries = Publication::find($id)->affectedCountries->lists('id');
+                $guidelines = Publication::find($id)->guidelines->lists('id');
+                $contents = Publication::find($id)->contents->toArray();
+
+                $images_directory = public_path()."/assets/images/publications/".$id;
+                $images = array();
+                foreach(glob($images_directory.'/*.*') as $file) {
+                    array_push($images,$file);
+                }
+
+
+                return View::make('publication.edit-alert')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options)->with('publication',$publication)->with('types',$types)->with('countries',$countries)->with('guidelines',$guidelines)->with('contents',$contents)->with('imagesupl',$images);
             }
-
-
-            return View::make('publication.edit-alert')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options)->with('publication',$publication)->with('types',$types)->with('countries',$countries)->with('guidelines',$guidelines)->with('contents',$contents)->with('imagesupl',$images);
+            else 
+                return Redirect::route('publication-edit-guideline', $id);
         }
         else
             return Redirect::route('home')->with('global', "You're either not registered or you do not have enough privileges.");           
@@ -225,26 +232,31 @@ class PublicationController extends BaseController
     public function showEditGuideline($id)
     {
         if(Auth::check() && Auth::user()->type != 'normal') {
+            
+            if(Publication::find($id)->type == "guideline"){
 
-            $country_options = Country::lists('name', 'id');
-            $event_type_options = EventType::lists('name', 'id');
-            $guideline_options = DB::table('publications AS p')->join('publicationContents AS pc','pc.publication_id','=','p.id')->where('p.type','=','guideline')->lists('title','publication_id');
-            $language_options = Language::lists('name', 'id');
+                $country_options = Country::lists('name', 'id');
+                $event_type_options = EventType::lists('name', 'id');
+                $guideline_options = DB::table('publications AS p')->join('publicationContents AS pc','pc.publication_id','=','p.id')->where('p.type','=','guideline')->lists('title','publication_id');
+                $language_options = Language::lists('name', 'id');
 
-            $publication = Publication::find($id);
-            $types = Publication::find($id)->eventTypes->lists('id');
-            $countries = Publication::find($id)->affectedCountries->lists('id');
-            $alerts = Publication::find($id)->alerts->lists('id');
-            $contents = Publication::find($id)->contents->toArray();
+                $publication = Publication::find($id);
+                $types = Publication::find($id)->eventTypes->lists('id');
+                $countries = Publication::find($id)->affectedCountries->lists('id');
+                $alerts = Publication::find($id)->alerts->lists('id');
+                $contents = Publication::find($id)->contents->toArray();
 
-            $images_directory = public_path()."/assets/images/publications/".$id;
-            $images = array();
-            foreach(glob($images_directory.'/*.*') as $file) {
-                array_push($images,$file);
+                $images_directory = public_path()."/assets/images/publications/".$id;
+                $images = array();
+                foreach(glob($images_directory.'/*.*') as $file) {
+                    array_push($images,$file);
+                }
+
+
+                return View::make('publication.edit-guideline')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options)->with('publication',$publication)->with('types',$types)->with('countries',$countries)->with('alerts',$alerts)->with('contents',$contents)->with('imagesupl',$images);
             }
-
-
-            return View::make('publication.edit-guideline')->with('country_options',$country_options)->with('event_type_options',$event_type_options)->with('guideline_options',$guideline_options)->with('language_options',$language_options)->with('publication',$publication)->with('types',$types)->with('countries',$countries)->with('alerts',$alerts)->with('contents',$contents)->with('imagesupl',$images);
+            else 
+                return Redirect::route('publication-edit-alert', $id);
         }
         else
             return Redirect::route('home')->with('global', "You're either not registered or you do not have enough privileges.");           

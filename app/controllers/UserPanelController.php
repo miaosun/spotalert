@@ -85,7 +85,9 @@ class UserPanelController extends BaseController {
 
     public function deleteNotification($id)
     {
-        NotificationSetting::find($id)->delete();
+        $notification = NotificationSetting::find($id);
+        if($notification != null)
+            $notification->delete();
         return Redirect::route('user-notifications');
     }
 
@@ -100,7 +102,7 @@ class UserPanelController extends BaseController {
         $validator = Validator::make(Input::all(),
             array(
                 'country'        => 'required',
-                'minimum_risk'  => 'required',
+                'minimum_risk'  => 'required|numeric',
             )
         );
 
@@ -344,7 +346,6 @@ class UserPanelController extends BaseController {
 			if(Input::has('newpassword'))
 			{
 				$profile->password = Hash::make(Input::get('newpassword'));
-				//$profile->password = Input::get('newpassword');
 			}
 			if(Input::has('username'))
 			{
@@ -358,6 +359,14 @@ class UserPanelController extends BaseController {
 			{
 				$profile->lastname = Input::get('lastname');
 			}
+            if(Input::has('residence'))
+            {
+                $profile->residence_country_id = Input::get('residence');
+            }
+            if(Input::has('nationality'))
+            {
+                $profile->nationality_country_id = Input::get('nationality');
+            }
             if(Input::has('agerange'))
             {
                 $profile->age_id = Input::get('agerange');
@@ -366,13 +375,21 @@ class UserPanelController extends BaseController {
             {
                 $profile->email = Input::get('email');
             }
-            if(Input::has('residence'))
+            if(Input::has('phonenumber'))
             {
-                $profile->residence_country_id = Input::get('residence');
+                $profile->phonenumber = Input::get('phonenumber');
             }
-            if(Input::has('nationality'))
+            if(Input::has('address'))
             {
-                $profile->nationality_country_id = Input::get('nationality');
+                $profile->address = Input::get('address');
+            }
+            if(Input::has('city'))
+            {
+                $profile->city = Input::get('city');
+            }
+            if(Input::has('postalCode'))
+            {
+                $profile->postalCode = Input::get('postalCode');
             }
 			if(Input::hasFile('uploadfile'))
 			{
