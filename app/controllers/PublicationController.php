@@ -921,7 +921,7 @@ class PublicationController extends BaseController
           return;
 
 	    	// Get the notifications
-	    	$notifications = NotificationSetting::where('risk', '>=', $publication->risk)
+	    	$notifications = NotificationSetting::where('risk', '<=', $publication->risk)
 	    		->whereIn('country_id', $countries)->get();
 
 	    	$already_sent = array();
@@ -936,7 +936,7 @@ class PublicationController extends BaseController
 		    		$email       = $notification->user->email;
 		    		$username    = $notification->user->username; 
 		    		$email_spotA = Config::get('mail.username');
-					  $name_spotA  = Config::get('mail.from.name');
+					$name_spotA  = Config::get('mail.from.name');
 
 		    		Mail::send('emails.notification_create', 
 					array('username' => $username, 'publ_name' => $publication->contents()->first()->title, 'publ_risk' => $publication->risk), 
