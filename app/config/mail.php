@@ -54,7 +54,7 @@ return array(
 	|
 	*/
 
-	'from' => array('address' => 'spotalert.lgp@gmail.com', 'name' => 'Spot Alert'),
+	'from' => array('address' => 'spotalert.lgp@gmail.com', 'name' => 'SpotAlert'),
 
 	/*
 	|--------------------------------------------------------------------------

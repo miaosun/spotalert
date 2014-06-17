@@ -944,7 +944,7 @@ class PublicationController extends BaseController
 					{
 							$message->from($email_spotA, $name_spotA)
 								->to($email, $username)
-								->subject('[Spot Alert] You have received a notification!')
+								->subject('[SpotAlert] You have received a notification!')
 								->replyTo($email_spotA, $name_spotA);
 					});
 	    		}
@@ -1237,7 +1237,7 @@ class PublicationController extends BaseController
 				{
 						$message->from($email_spotA, $name_spotA)
 							->to($email, $username)
-							->subject('[Spot Alert] You have received a notification!')
+							->subject('[SpotAlert] You have received a notification!')
 							->replyTo($email_spotA, $name_spotA);
 				});
             }
