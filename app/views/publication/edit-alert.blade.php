@@ -230,7 +230,7 @@
         $js_languages = json_encode($language_options);
         $js_contents = [];
         foreach($contents as $content){
-            array_push($js_contents,$content['id']);
+            array_push($js_contents,$content['language_id']);
         }
         $js_contents = json_encode($js_contents);
         echo "var language_options = ". $js_languages . ";\n";

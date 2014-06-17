@@ -209,6 +209,19 @@ class PublicationController extends BaseController
                 $guidelines = Publication::find($id)->guidelines->lists('id');
                 $contents = Publication::find($id)->contents->toArray();
 
+                // Putting english in the first position of the array
+                $lang_en = Language::where('name', '=', 'English')->first();
+                $temp = null;
+                foreach ($contents as $key => $content) 
+                {
+                    if($content['language_id'] == $lang_en->id)
+                    {
+                        $temp = $content;
+                        unset($contents[$key]);
+                    }
+                }
+                array_unshift($contents, $temp);
+
                 $images_directory = public_path()."/assets/images/publications/".$id;
                 $images = array();
                 foreach(glob($images_directory.'/*.*') as $file) {
@@ -242,6 +255,19 @@ class PublicationController extends BaseController
                 $countries = Publication::find($id)->affectedCountries->lists('id');
                 $alerts = Publication::find($id)->alerts->lists('id');
                 $contents = Publication::find($id)->contents->toArray();
+
+                // Putting english in the first position of the array
+                $lang_en = Language::where('name', '=', 'English')->first();
+                $temp = null;
+                foreach ($contents as $key => $content) 
+                {
+                    if($content['language_id'] == $lang_en->id)
+                    {
+                        $temp = $content;
+                        unset($contents[$key]);
+                    }
+                }
+                array_unshift($contents, $temp);
 
                 $images_directory = public_path()."/assets/images/publications/".$id;
                 $images = array();
@@ -990,11 +1016,10 @@ class PublicationController extends BaseController
         $publication_content1->language_id = $en_id; //language id
         $publication_content1->publication_id = null; //defined at insertion in db*
 
-        
         if($languages)
         {
           foreach($languages as $key => $lang) {
-              
+
               $publication_content = PublicationContent::whereRaw('publication_id = ? and language_id = ?',[$id,$lang])->first();
               
               if($publication_content){
@@ -1006,6 +1031,15 @@ class PublicationController extends BaseController
                   
                   
                   $languages_toarray[$key] = $publication_content;
+              }
+              else // New language
+              {
+                PublicationContent::create(array(
+                    'title'          => Input::get("alert-title".$lang),
+                    'content'        => Input::get("alert-description".$lang),
+                    'language_id'    => $lang, //language id
+                    'publication_id' => $publication->id,
+                ));
               }
           }
         }
@@ -1112,7 +1146,7 @@ class PublicationController extends BaseController
         $guideline_types = Input::get('guideline-types');
 
 
-        $languages = json_decode(Input::get('guideline-languages'), true);
+        $languages = json_decode(Input::get('alert-languages'), true);
         $languages_toarray = [];
 
         $en_id = Language::where('name','=','English')->first()->id;
@@ -1132,13 +1166,22 @@ class PublicationController extends BaseController
 
               if($publication_content){
                   //create the publication content
-                  $publication_content->title = Input::get("guideline-title".$lang);
-                  $publication_content->content = Input::get("guideline-description".$lang);
+                  $publication_content->title = Input::get("alert-title".$lang);
+                  $publication_content->content = Input::get("alert-description".$lang);
                   $publication_content->language_id = $lang; //language id
                   $publication_content->publication_id = $id; //defined at insertion in db*
 
 
                   $languages_toarray[$key] = $publication_content;
+              }
+              else // New language
+              {
+                PublicationContent::create(array(
+                    'title'          => Input::get("alert-title".$lang),
+                    'content'        => Input::get("alert-description".$lang),
+                    'language_id'    => $lang, //language id
+                    'publication_id' => $publication->id,
+                ));
               }
           }
         }
