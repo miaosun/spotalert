@@ -2,7 +2,7 @@
 
 class Publication extends Eloquent 
 {
-	protected $fillable   = array('initial_date', 'final_date', 'is_public', 'periodic_notification', 'risk', 'type', 'user_id');
+	protected $fillable   = array('initial_date', 'final_date', 'is_public', 'risk', 'type', 'user_id');
 	protected $guarded    = array('id');
 	protected $table      = 'publications';
 	public    $timestamps = false;
