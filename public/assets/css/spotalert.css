@@ -657,7 +657,13 @@ button#search-glass {
 .publ-content .social-linkdin{
 	background-position:-82px 0px;
 }
-
+.publ-content .social-vk{
+    background-position:-112px 0px;
+}
+.publ-content .social-nk{
+    background-position:-142px 0px;
+    width: 24px;
+}
 
 /******************************************************
 ********************** FILTERING **********************

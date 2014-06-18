@@ -22,4 +22,16 @@
     target="_blank" title="Share on LinkdIn">
         <span class="sprite-social social-linkdin" alt="Share on LinkdIn"></span>
     </a>
+    <!-- V Kontakle -->
+    <a href="http://vkontakte.ru/share.php?url={{{url($publication['id'])}}}"
+    onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');shareVK({{{$publication['id']}}},'{{{$publication['title']}}}');return false;"
+    target="_blank" title="Share on VKontakle">
+        <span class="sprite-social social-vk" alt="Share on VKontakle"></span>
+    </a>
+    <!-- Nasza-Klasa -->
+    <a href="http://nk.pl/sledzik?shout={{{url($publication['id'])}}}"
+    onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600');shareNK({{{$publication['id']}}},'{{{$publication['title']}}}');return false;"
+    target="_blank" title="Share on Nasza-Klasa">
+        <span class="sprite-social social-nk" alt="Share on Nasza-Klasa"></span>
+    </a>
 </div>

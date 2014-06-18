@@ -435,4 +435,23 @@ function shareLinkdIn(id,title){
       'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
      });
 }
+// Send hit to google analytics for a VK share
+function shareVK(id,title){
+     ga('send', {
+      'hitType': 'social',
+      'socialNetwork': 'VKontakle',
+      'socialAction': 'VKontakleShare',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
+     });
+}
+// Send hit to google analytics for a VK share
+function shareNK(id,title){
+     ga('send', {
+      'hitType': 'social',
+      'socialNetwork': 'Nasza-Klasa',
+      'socialAction': 'Nasza-KlasaShare',
+      'socialTarget': window.location.protocol + "//" + window.location.hostname+'/'+id+" Title: "+title
+     });
+}
+        
         
